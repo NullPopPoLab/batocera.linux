@@ -1,6 +1,7 @@
 # NullPopPo-Custom
 [詳細](https://github.com/NullPopPoLab/batocera.linux/blob/master/!NullPopPo-Custom.md)
 
+以下、fork元
 ---
 [![Activity](https://img.shields.io/github/commit-activity/m/batocera-linux/batocera.linux)](https://github.com/batocera-linux/batocera.linux)
 [![PR](https://img.shields.io/github/issues-pr-closed/batocera-linux/batocera.linux)](https://github.com/batocera-linux/batocera.linux)

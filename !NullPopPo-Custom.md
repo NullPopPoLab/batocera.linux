@@ -23,3 +23,8 @@
   - これもディスクセット定義要るよね
 - easyrpg
   - 日本語ファイル名でリソースロード失敗する問題に対処したい
+
+## ソース覗いてみた
+
+ざっと見た感じ、先にEmulationStationのハックが要りそう。
+というわけで一旦[こっち](https://github.com/NullPopPoLab/EmulationStation)

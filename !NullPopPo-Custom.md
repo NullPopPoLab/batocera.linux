@@ -40,5 +40,6 @@ batocera本体では書き換えたリポジトリのバージョンを差し替
 
 [EmulationStation](https://github.com/NullPopPoLab/EmulationStation)
 
-以下予定
+- 以下予定
+
 [RetroArch](https://github.com/NullPopPoLab/RetroArch)

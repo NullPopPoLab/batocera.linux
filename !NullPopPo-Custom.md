@@ -24,7 +24,21 @@
 - easyrpg
   - 日本語ファイル名でリソースロード失敗する問題に対処したい
 
-## ソース覗いてみた
+## ブランチ説明
 
-ざっと見た感じ、先にEmulationStationのハックが要りそう。
-というわけで一旦[こっち](https://github.com/NullPopPoLab/EmulationStation)
+master: 公式ソース追跡用
+Official32: 公式バージョン32相当品
+MyCutom: カスタム版
+
+## 変更箇所 
+
+膨大な量のパッケージが外部リポジトリになってて、書き換え要る箇所はほとんどあっちゃ側。
+で、書き換え対象の外部リポジトリをforkしてきて個別対応。
+batocera本体では書き換えたリポジトリのバージョンを差し替える形。
+
+### 対象パッケージ 
+
+[EmulationStation](https://github.com/NullPopPoLab/EmulationStation)
+
+以下予定
+[RetroArch](https://github.com/NullPopPoLab/RetroArch)

@@ -1,11 +1,13 @@
---- a/src/common/CMakeLists.txt	2020-07-14 23:49:07.000000000 +0200
-+++ b/src/common/CMakeLists.txt	2020-07-16 14:37:24.692432126 +0200
-@@ -189,7 +189,7 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 123a3082ae..da2321ac76 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -201,7 +201,7 @@ macro(yuzu_find_packages)
+ endmacro()
+ 
+ if (NOT YUZU_USE_BUNDLED_BOOST)
+-    find_package(Boost 1.73.0 CONFIG COMPONENTS context headers QUIET)
++    find_package(Boost 1.75.0 COMPONENTS context REQUIRED)
  endif()
- 
- create_target_directory_groups(common)
--find_package(Boost 1.71 COMPONENTS context headers REQUIRED)
-+find_package(Boost 1.71 COMPONENTS context REQUIRED)
- 
- target_link_libraries(common PUBLIC ${Boost_LIBRARIES} fmt::fmt microprofile)
- target_link_libraries(common PRIVATE lz4::lz4 zstd::zstd xbyak)
+ if (Boost_FOUND)
+     set(Boost_LIBRARIES Boost::boost)

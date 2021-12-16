@@ -3,8 +3,8 @@
 # VECX
 #
 ################################################################################
-# Version.: Commits on Aug 15, 2021
-LIBRETRO_VECX_VERSION = 68164b2cb604ead327944fa3d0653dda035da37b
+# Version.: Commits on Nov 02, 2021
+LIBRETRO_VECX_VERSION = 28d6efc8972313903d0802a736ff8c3bc115e78f
 LIBRETRO_VECX_SITE = $(call github,libretro,libretro-vecx,$(LIBRETRO_VECX_VERSION))
 LIBRETRO_VECX_LICENSE = GPLv2|LGPLv2.1
 
@@ -22,14 +22,14 @@ endif
 
 LIBRETRO_VECX_PLATFORM = $(LIBRETRO_PLATFORM)
 
-ifeq ($(BR2_aarch64),y)
-LIBRETRO_VECX_PLATFORM = unix
-
-else ifeq ($(BR2_PACKAGE_BATOCERA_RPI_VCORE),y)
+ifeq ($(BR2_PACKAGE_BATOCERA_RPI_VCORE),y)
 LIBRETRO_VECX_PLATFORM = rpi
 
 else ifeq ($(BR2_PACKAGE_BATOCERA_RPI_MESA3D),y)
 LIBRETRO_VECX_PLATFORM = rpi-mesa
+
+else ifeq ($(BR2_aarch64),y)
+LIBRETRO_VECX_PLATFORM = unix
 
 else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_S812),y)
 LIBRETRO_VECX_PLATFORM = armv
@@ -38,10 +38,9 @@ else ifeq ($(BR2_PACKAGE_HAS_LIBMALI),y)
 LIBRETRO_VECX_PLATFORM = unix
 endif
 
-LIBRETRO_VECX_MAKE_OPTS += platform="$(LIBRETRO_VECX_PLATFORM)"
-
 define LIBRETRO_VECX_BUILD_CMDS
-	$(TARGET_CONFIGURE_OPTS) $(MAKE) CXX="$(TARGET_CXX)" CC="$(TARGET_CC)" -C $(@D)/ -f Makefile.libretro $(LIBRETRO_VECX_MAKE_OPTS)
+	$(TARGET_CONFIGURE_OPTS) $(MAKE) CXX="$(TARGET_CXX)" CC="$(TARGET_CC)" -C $(@D)/ -f Makefile.libretro  platform="$(LIBRETRO_VECX_PLATFORM)" $(LIBRETRO_VECX_MAKE_OPTS) \
+        GIT_VERSION="-$(shell echo $(LIBRETRO_VECX_VERSION) | cut -c 1-7)"
 endef
 
 define LIBRETRO_VECX_INSTALL_TARGET_CMDS

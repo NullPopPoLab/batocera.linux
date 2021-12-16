@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-PLAY_VERSION = 06b4753d6d2b1f2bfb25096eecb3dd7bdb6d81b9
+PLAY_VERSION = cd4da52ada0aebc892031cb1479a9e524e56a6ab
 PLAY_SITE = https://github.com/jpd002/Play-.git
 PLAY_LICENSE = BSD
 PLAY_DEPENDENCIES = qt5base qt5x11extras xserver_xorg-server libglew vulkan-headers vulkan-loader
@@ -25,7 +25,7 @@ define PLAY_INSTALL_TARGET_CMDS
 	mkdir -p $(TARGET_DIR)/usr/lib
 
 	$(INSTALL) -D $(@D)/Source/ui_qt/Play \
-		$(TARGET_DIR)/usr/bin/play
+		$(TARGET_DIR)/usr/bin/play-emu
 	$(INSTALL) -D $(@D)/Source/ui_qt/Source/libchdr/libchdr.so \
 		$(TARGET_DIR)/usr/lib/libchdr.so
 	$(INSTALL) -D $(@D)/Source/ui_qt/Source/libchdr/libchdr.so.0.1 \
@@ -49,7 +49,7 @@ define PLAY_INSTALL_TARGET_CMDS
 
 	# evmap config
 	mkdir -p $(TARGET_DIR)/usr/share/evmapy
-	cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulators/play/play.keys $(TARGET_DIR)/usr/share/evmapy
+	cp $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulators/play/ps2.play.keys $(TARGET_DIR)/usr/share/evmapy
 endef
 
 $(eval $(cmake-package))

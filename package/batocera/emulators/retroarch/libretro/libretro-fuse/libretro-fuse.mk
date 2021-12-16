@@ -3,8 +3,8 @@
 # FUSE
 #
 ################################################################################
-# Last check: Aug 3, 2021
-LIBRETRO_FUSE_VERSION = 5f331e9772d305ba5209db0910b1963b9d0974c0
+# Last check: Oct 15, 2021
+LIBRETRO_FUSE_VERSION = 23f7db522e1b9ad22a142e828d7c3631eb653142
 LIBRETRO_FUSE_SITE = $(call github,libretro,fuse-libretro,$(LIBRETRO_FUSE_VERSION))
 LIBRETRO_FUSE_LICENSE = GPLv3
 
@@ -16,8 +16,12 @@ LIBRETRO_FUSE_PLATFORM = rpi1
 else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI2),y)
 LIBRETRO_FUSE_PLATFORM = rpi2
 
-else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI3),y)
-LIBRETRO_FUSE_PLATFORM = rpi3_64
+else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI3)$(BR2_PACKAGE_BATOCERA_TARGET_RPIZERO2),y)
+    ifeq ($(BR2_arm),y)
+        LIBRETRO_FUSE_PLATFORM = rpi3
+    else
+        LIBRETRO_FUSE_PLATFORM = rpi3_64
+    endif
 
 else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI4),y)
 LIBRETRO_FUSE_PLATFORM = rpi4_64

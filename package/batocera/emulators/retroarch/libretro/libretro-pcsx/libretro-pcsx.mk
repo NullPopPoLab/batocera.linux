@@ -3,8 +3,8 @@
 # PCSXREARMED
 #
 ################################################################################
-# Version.: Commits on Oct 03, 2021
-LIBRETRO_PCSX_VERSION = f5b7bb83abb50a2028cd8fb16ebf75bd3df8cba2
+# Version.: Commits on Nov 10, 2021
+LIBRETRO_PCSX_VERSION = 589bd99ba31de8216624dbf0cbbc016f0663ce3d
 LIBRETRO_PCSX_SITE = $(call github,libretro,pcsx_rearmed,$(LIBRETRO_PCSX_VERSION))
 LIBRETRO_PCSX_LICENSE = GPLv2
 
@@ -18,6 +18,13 @@ LIBRETRO_PCSX_PLATFORM = rpi1
 
 else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI2),y)
 LIBRETRO_PCSX_PLATFORM = rpi2
+
+else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI3),y)
+    ifeq ($(BR2_arm),y)
+        LIBRETRO_PCSX_PLATFORM = rpi3
+    else
+        LIBRETRO_PCSX_PLATFORM = rpi3_64
+    endif
 
 else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI4),y)
 LIBRETRO_PCSX_PLATFORM = rpi4_64
@@ -39,7 +46,8 @@ LIBRETRO_PCSX_PLATFORM = rpi2
 endif
 
 define LIBRETRO_PCSX_BUILD_CMDS
-	$(TARGET_CONFIGURE_OPTS) $(MAKE) CXX="$(TARGET_CXX)" CC="$(TARGET_CC)" -C $(@D) -f Makefile.libretro platform="$(LIBRETRO_PCSX_PLATFORM)"
+	$(TARGET_CONFIGURE_OPTS) $(MAKE) CXX="$(TARGET_CXX)" CC="$(TARGET_CC)" -C $(@D) -f Makefile.libretro platform="$(LIBRETRO_PCSX_PLATFORM)" \
+        GIT_VERSION="-$(shell echo $(LIBRETRO_PCSX_VERSION) | cut -c 1-7)"
 endef
 
 define LIBRETRO_PCSX_INSTALL_TARGET_CMDS

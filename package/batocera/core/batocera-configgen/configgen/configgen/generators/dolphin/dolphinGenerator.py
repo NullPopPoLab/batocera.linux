@@ -75,17 +75,17 @@ class DolphinGenerator(Generator):
         else:
             dolphinSettings.set("Core", "EnableCheats", '"False"')
 
-        # Speed up disc transfert rate
+        # Speed up disc transfer rate
         if system.isOptSet("enable_fastdisc") and system.getOptBoolean("enable_fastdisc"):
             dolphinSettings.set("Core", "FastDiscSpeed", '"True"')
         else:
             dolphinSettings.set("Core", "FastDiscSpeed", '"False"')
 
         # Dual Core
-        if system.isOptSet("dual_core") and not system.getOptBoolean("dual_core"):
-            dolphinSettings.set("Core", "CPUThread", '"False"')
-        else:
+        if system.isOptSet("dual_core") and system.getOptBoolean("dual_core"):
             dolphinSettings.set("Core", "CPUThread", '"True"')
+        else:
+            dolphinSettings.set("Core", "CPUThread", '"False"')
 
         # Gpu Sync
         if system.isOptSet("gpu_sync") and system.getOptBoolean("gpu_sync"):
@@ -114,9 +114,9 @@ class DolphinGenerator(Generator):
 
         # Gamecube pads forced as standard pad
         dolphinSettings.set("Core", "SIDevice0", '"6"')
-        dolphinSettings.set("Core", "SIDevice1", '"6"')
-        dolphinSettings.set("Core", "SIDevice2", '"6"')
-        dolphinSettings.set("Core", "SIDevice3", '"6"')
+
+        # Change discs automatically
+        dolphinSettings.set("Core", "AutoDiscChange", '"True"')
 
         # Save dolphin.ini
         with open(batoceraFiles.dolphinIni, 'w') as configfile:
@@ -139,8 +139,13 @@ class DolphinGenerator(Generator):
         if not dolphinGFXSettings.has_section("Hardware"):
             dolphinGFXSettings.add_section("Hardware")  
             
-        dolphinGFXSettings.set("Settings", "AspectRatio", str(getGfxRatioFromConfig(system.config, gameResolution)))
-
+        # Graphics setting Aspect Ratio
+        if system.isOptSet('dolphin_aspect_ratio'):
+            dolphinGFXSettings.set("Settings", "AspectRatio", system.config["dolphin_aspect_ratio"])
+        else:
+            # set to zero, which is 'Auto' in Dolphin & Batocera
+            dolphinGFXSettings.set("Settings", "AspectRatio", '"0"')
+        
         # Show fps
         if system.isOptSet("showFPS") and system.getOptBoolean("showFPS"):
             dolphinGFXSettings.set("Settings", "ShowFPS", '"True"')
@@ -148,12 +153,12 @@ class DolphinGenerator(Generator):
             dolphinGFXSettings.set("Settings", "ShowFPS", '"False"')
 
         # HiResTextures
-        if system.isOptSet('hires_textures') and not system.getOptBoolean('hires_textures'):
-            dolphinGFXSettings.set("Settings", "HiresTextures",      '"False"')
-            dolphinGFXSettings.set("Settings", "CacheHiresTextures", '"False"')
-        else:
+        if system.isOptSet('hires_textures') and system.getOptBoolean('hires_textures'):
             dolphinGFXSettings.set("Settings", "HiresTextures",      '"True"')
             dolphinGFXSettings.set("Settings", "CacheHiresTextures", '"True"')
+        else:
+            dolphinGFXSettings.set("Settings", "HiresTextures",      '"False"')
+            dolphinGFXSettings.set("Settings", "CacheHiresTextures", '"False"')
 
         # Widescreen Hack
         if system.isOptSet('widescreen_hack') and system.getOptBoolean('widescreen_hack'):
@@ -164,6 +169,23 @@ class DolphinGenerator(Generator):
                 dolphinGFXSettings.set("Settings", "wideScreenHack", '"True"')
         else:
             dolphinGFXSettings.set("Settings", "wideScreenHack", '"False"')
+
+        # Ubershaders (synchronous_ubershader by default)
+        if system.isOptSet('ubershaders') and system.config["ubershaders"] != "no_ubershader":
+            if system.config["ubershaders"] == "exclusive_ubershader":
+                dolphinGFXSettings.set("Settings", "ShaderCompilationMode", '"1"')
+            elif system.config["ubershaders"] == "hybrid_ubershader":
+                dolphinGFXSettings.set("Settings", "ShaderCompilationMode", '"2"')
+            elif system.config["ubershaders"] == "skip_draw":
+                dolphinGFXSettings.set("Settings", "ShaderCompilationMode", '"3"')
+        else:
+            dolphinGFXSettings.set("Settings", "ShaderCompilationMode", '"0"')
+
+        # Shader pre-caching
+        if system.isOptSet('wait_for_shaders') and system.getOptBoolean('wait_for_shaders'):
+            dolphinGFXSettings.set("Settings", "WaitForShadersBeforeStarting", '"True"')
+        else:
+            dolphinGFXSettings.set("Settings", "WaitForShadersBeforeStarting", '"False"')
 
         # Various performance hacks - Default Off
         if system.isOptSet('perf_hacks') and system.getOptBoolean('perf_hacks'):
@@ -217,6 +239,12 @@ class DolphinGenerator(Generator):
         else:
             dolphinGFXSettings.set("Settings", "MSAA", '"0"')
 
+        # Anti aliasing mode
+        if system.isOptSet('use_ssaa') and system.getOptBoolean('use_ssaa'):
+            dolphinGFXSettings.set("Settings", "SSAA", '"True"')
+        else:
+            dolphinGFXSettings.set("Settings", "SSAA", '"False"')
+
         # Save gfx.ini
         with open(batoceraFiles.dolphinGfxIni, 'w') as configfile:
             dolphinGFXSettings.write(configfile)
@@ -233,18 +261,6 @@ class DolphinGenerator(Generator):
 
         return Command.Command(array=commandArray, env={"XDG_CONFIG_HOME":batoceraFiles.CONF, "XDG_DATA_HOME":batoceraFiles.SAVES, "QT_QPA_PLATFORM":"xcb"})
 
-# Ratio
-def getGfxRatioFromConfig(config, gameResolution):
-    # 3: stretch ; 2: 4:3 ; 1: 16:9  ; 0: auto
-    if "ratio" in config:
-        if config["ratio"] == "4/3":
-            return 2
-        if config["ratio"] == "16/9":
-            return 1
-        if config["ratio"] == "full":
-            return 3
-    return 0
-
 # Seem to be only for the gamecube. However, while this is not in a gamecube section
 # It may be used for something else, so set it anyway
 def getGameCubeLangFromEnvironment():
@@ -254,3 +270,17 @@ def getGameCubeLangFromEnvironment():
         return availableLanguages[lang]
     else:
         return availableLanguages["en_US"]
+
+def getInGameRatio(self, config, gameResolution):
+    if config["ratio"] == "16/9":
+        return 16/9
+
+    if config["ratio"] == "full":
+        return gameResolution["width"] / gameResolution["height"]
+
+    if system.isOptSet('widescreen_hack') and system.getOptBoolean('widescreen_hack'):
+        # Prefer Cheats than Hack
+        if not (system.isOptSet('enable_cheats') and system.getOptBoolean('enable_cheats')):
+            return gameResolution["width"] / gameResolution["height"]
+
+    return 4/3

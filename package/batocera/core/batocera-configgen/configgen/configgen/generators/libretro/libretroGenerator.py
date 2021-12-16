@@ -15,6 +15,9 @@ eslog = get_logger(__name__)
 
 class LibretroGenerator(Generator):
 
+    def supportsInternalBezels(self):
+        return True
+
     # Main entry of the module
     # Configure retroarch and return a command
     def generate(self, system, rom, playersControllers, gameResolution):
@@ -154,8 +157,17 @@ class LibretroGenerator(Generator):
                 commandArray = [batoceraFiles.batoceraBins[system.config['emulator']], "-L", retroarchCore, "--config", system.config['configfile'], os.path.join(rom, romDOSName + ".bat")]
             else:
                 commandArray = [batoceraFiles.batoceraBins[system.config['emulator']], "-L", retroarchCore, "--config", system.config['configfile']]
+        # Pico-8 multi-carts (might work only with official Lexaloffe engine right now)
+        elif system.name == 'pico8':
+            romext = os.path.splitext(romName)[1]
+            if (romext.lower() == ".m3u"):
+                with open (rom, "r") as fpin:
+                    lines = fpin.readlines()
+                rom = os.path.dirname(os.path.abspath(rom)) + '/' + lines[0].strip()
+            commandArray = [batoceraFiles.batoceraBins[system.config['emulator']], "-L", retroarchCore, "--config", system.config['configfile']]
         else:
             commandArray = [batoceraFiles.batoceraBins[system.config['emulator']], "-L", retroarchCore, "--config", system.config['configfile']]
+
 
         configToAppend = []
 
@@ -215,10 +227,6 @@ class LibretroGenerator(Generator):
             romName = os.path.splitext(os.path.basename(rom))[0]
             rom = batoceraFiles.daphneDatadir + '/roms/' + romName +'.zip'
 
-        # The libretro core for EasyRPG requires to launch the RPG_RT.ldb file inside the .easyrpg folder
-        if system.name == 'easyrpg' and system.config['core'] == "easyrpg":
-            rom = rom + '/RPG_RT.ldb'
-        
         if system.name == 'scummvm':
             rom = os.path.dirname(rom) + '/' + romName[0:-8]
         

@@ -3,8 +3,8 @@
 # Hypseus + Singe (a fork of Daphne)
 #
 ################################################################################
-# Version.: Commits on Oct 05, 2021
-DAPHNE_VERSION = v2.6.16
+# Version.: Commits on Dec 05, 2021
+DAPHNE_VERSION = v2.6.20
 DAPHNE_SITE = https://github.com/DirtBagXon/hypseus-singe
 DAPHNE_SITE_METHOD=git
 DAPHNE_LICENSE = GPLv3
@@ -28,6 +28,7 @@ define DAPHNE_INSTALL_TARGET_CMDS
 		$(TARGET_DIR)/usr/share/daphne
 
 	ln -fs /userdata/system/configs/daphne/hypinput.ini $(TARGET_DIR)/usr/share/daphne/hypinput.ini
+	ln -fsn /userdata/roms/daphne/roms $(TARGET_DIR)/usr/share/daphne/singe
 endef
 
 $(eval $(cmake-package))

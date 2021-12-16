@@ -3,8 +3,8 @@
 # retroarch
 #
 ################################################################################
-# Version.: Release on Sept 18, 2021
-RETROARCH_VERSION = v1.9.10
+# Version.: Release on Dec 05, 2021
+RETROARCH_VERSION = v1.9.14
 RETROARCH_SITE = $(call github,libretro,RetroArch,$(RETROARCH_VERSION))
 RETROARCH_LICENSE = GPLv3+
 RETROARCH_DEPENDENCIES = host-pkgconf dejavu retroarch-assets flac
@@ -105,9 +105,9 @@ else
 	RETROARCH_CONF_OPTS += --disable-freetype
 endif
 
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RK3326_ANY),y)
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RK3326),y)
 	RETROARCH_CONF_OPTS += --enable-odroidgo2
-	RETROARCH_DEPENDENCIES += librga
+	RETROARCH_DEPENDENCIES += rockchip-rga
 endif
 
 ifeq ($(BR2_PACKAGE_HAS_LIBGL),y)
@@ -167,55 +167,45 @@ $(eval $(generic-package))
 LIBRETRO_PLATFORM = unix
 
 ifeq ($(BR2_arm),y)
-	ifeq ($(BR2_cortex_a7),y)
+    ifeq ($(BR2_cortex_a7),y)
+		LIBRETRO_PLATFORM += armv7
+    else ifeq ($(BR2_cortex_a9),y)
+		LIBRETRO_PLATFORM += armv7
+	else ifeq ($(BR2_cortex_a15),y)
+		LIBRETRO_PLATFORM += armv7
+	else ifeq ($(BR2_cortex_a17),y)
+		LIBRETRO_PLATFORM += armv7
+	else ifeq ($(BR2_cortex_a53),y)
+		LIBRETRO_PLATFORM += armv7
+    else ifeq ($(BR2_cortex_a15_a7),y)
 		LIBRETRO_PLATFORM += armv7
 	endif
-
-	ifeq ($(BR2_cortex_a9),y)
-		LIBRETRO_PLATFORM += armv7
-	endif
-
-	ifeq ($(BR2_cortex_a15),y)
-		LIBRETRO_PLATFORM += armv7
-	endif
-
-	ifeq ($(BR2_cortex_a17),y)
-		LIBRETRO_PLATFORM += armv7
-	endif
-
-	ifeq ($(BR2_cortex_a72_a53),y)
-		LIBRETRO_PLATFORM += armv7
-	endif
-
-	ifeq ($(BR2_cortex_a72),y)
-		LIBRETRO_PLATFORM += armv7
-	endif
-endif
-
-ifeq ($(BR2_ARM_CPU_HAS_NEON),y)
-    LIBRETRO_PLATFORM += neon
-endif
-
-ifeq ($(BR2_PACKAGE_RPI_USERLAND),y)
-	LIBRETRO_PLATFORM += rpi armv
-endif
-
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI2),y)
-	LIBRETRO_PLATFORM += rpi2
-endif
-
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI3),y)
-	LIBRETRO_PLATFORM += rpi3
-endif
-
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI4),y)
-	LIBRETRO_PLATFORM += rpi4
 endif
 
 ifeq ($(BR2_aarch64),y)
 LIBRETRO_PLATFORM += arm64
 endif
 
-ifeq ($(BR2_cortex_a35)$(BR2_arm),yy)
-LIBRETRO_PLATFORM += classic_armv8_a35
+ifeq ($(BR2_ARM_CPU_HAS_NEON),y)
+LIBRETRO_PLATFORM += neon
+endif
+
+ifeq ($(BR2_PACKAGE_RPI_USERLAND),y)
+LIBRETRO_PLATFORM += rpi armv
+endif
+
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI2),y)
+LIBRETRO_PLATFORM += rpi2
+endif
+
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI3),y)
+LIBRETRO_PLATFORM += rpi3_64
+endif
+
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI4),y)
+LIBRETRO_PLATFORM += rpi4_64
+endif
+
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPIZERO2),y)
+LIBRETRO_PLATFORM += rpi3
 endif

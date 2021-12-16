@@ -21,20 +21,52 @@ class DaphneGenerator(Generator):
         romName = os.path.splitext(os.path.basename(rom))[0]
         frameFile = rom + "/" + romName + ".txt"
         commandsFile = rom + "/" + romName + ".commands"
-        
-        if system.config["ratio"] == "16/9":
+        singeFile = rom + "/" + romName + ".singe"
+
+        if os.path.isfile(singeFile):
             commandArray = [batoceraFiles.batoceraBins[system.config['emulator']],
-                            romName, "vldp", "-framefile", frameFile, "-useoverlaysb", "2", "-ignore_aspect_ratio",
-                            "-x", str(gameResolution["width"]), "-y", str(gameResolution["height"]), "-fullscreen",
-                            "-fastboot", "-datadir", batoceraFiles.daphneDatadir, "-homedir", batoceraFiles.daphneHomedir]
+                            "singe", "vldp", "-retropath", "-framefile", frameFile, "-script", singeFile, "-fullscreen",
+                            "-manymouse", "-datadir", batoceraFiles.daphneDatadir, "-homedir", batoceraFiles.daphneDatadir]
         else:
             commandArray = [batoceraFiles.batoceraBins[system.config['emulator']],
                             romName, "vldp", "-framefile", frameFile, "-useoverlaysb", "2", "-fullscreen",
                             "-fastboot", "-datadir", batoceraFiles.daphneDatadir, "-homedir", batoceraFiles.daphneHomedir]
 
+        # Aspect ratio
+        if system.config["ratio"] == "4/3":
+            commandArray.append("-force_aspect_ratio")
+
+        # Invert required when screen is rotated
+        if gameResolution["width"] < gameResolution["height"]:
+            commandArray.extend(["-x", str(gameResolution["height"]), "-y", str(gameResolution["width"])])
+        else:
+            commandArray.extend(["-x", str(gameResolution["width"]), "-y", str(gameResolution["height"])])
+
+        # Backend - Default OpenGL
+        if system.isOptSet("gfxbackend") and system.config["gfxbackend"] == 'Vulkan':
+            commandArray.append("-vulkan")
+        else:
+            commandArray.append("-opengl")
+
+        # Disable Bilinear Filtering
+        if system.isOptSet('bilinear_filter') and system.getOptBoolean("bilinear_filter"):
+            commandArray.append("-nolinear_scale")
+
+        # Blend Sprites (Singe)
+        if system.isOptSet('blend_sprites') and system.getOptBoolean("blend_sprites"):
+            commandArray.append("-blend_sprites")
+
+        # Oversize Overlay (Singe) for HD lightgun games
+        if system.isOptSet('lightgun_hd') and system.getOptBoolean("lightgun_hd"):
+            commandArray.append("-oversize_overlay")
+
+        # Invert Axis
+        if system.isOptSet('invert_axis') and system.getOptBoolean("invert_axis"):
+            commandArray.append("-tiphat")
+
         # The folder may have a file with the game name and .commands with extra arguments to run the game.
         if os.path.isfile(commandsFile):
             commandArray.extend(open(commandsFile,'r').read().split())
-        
+
         return Command.Command(array=commandArray)
- 
+

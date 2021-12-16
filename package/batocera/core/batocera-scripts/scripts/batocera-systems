@@ -157,16 +157,20 @@ systems = {
                                             { "md5": "b406d05922dac2eaf3c2e68157b1b468", "file": "bios/ROM2.BIN" 	  } ] },
 
     # https://www.playstation.com/en-us/support/system-updates/ps3/
-    "ps3": { "name": "PS3", "biosFiles": [  { "md5": "03373a581934f0d2b796156d2fb28b39", "file": "bios/PS3UPDAT.PUP" } ] },
+    "ps3": { "name": "PS3", "biosFiles": [  { "md5": "a0b63a3e4ae92ed176d6b9a67ce447f0", "file": "bios/PS3UPDAT.PUP" } ] },
 
     # ---------- Nintendo ---------- #
     # https://docs.libretro.com/library/fceumm/#bios
     "fds":         { "name": "Nintendo Family Computer Disk System", "biosFiles": [ { "md5": "ca30b50f880eb660a320674ed365ef7a", "file": "bios/disksys.rom" } ] },
 
     # https://docs.libretro.com/library/melonds/#bios
-    "nds": { "name": "Nintendo DS", "biosFiles": [  { "md5": "145eaef5bd3037cbc247c213bb3da1b3", "file": "bios/firmware.bin" },
-                                            { "md5": "df692a80a5b1bc90728bc3dfc76cd948", "file": "bios/bios7.bin" },
-                                            { "md5": "a392174eb3e572fed6447e956bde4b25", "file": "bios/bios9.bin" } ] },
+    "nds": { "name": "Nintendo DS", "biosFiles": [  { "md5": "94bc5094607c5e6598d50472c52f27f2", "file": "bios/dsfirmware.bin" },
+                                            { "md5": "df692a80a5b1bc90728bc3dfc76cd948", "file": "bios/biosnds7.bin" },
+                                            { "md5": "a392174eb3e572fed6447e956bde4b25", "file": "bios/biosnds9.bin" },
+                                            { "md5": "87b665fce118f76251271c3732532777", "file": "bios/biosdsi9.bin" },
+                                            { "md5": "559dae4ea78eb9d67702c56c1d791e81", "file": "bios/biosdsi7.bin" },
+                                            { "md5": "74f23348012d7b3e1cc216c47192ffeb", "file": "bios/dsifirmware.bin" },
+                                            { "md5": "d71edf897ddd06bf335feeb68edeb272", "file": "bios/dsinand.bin" }, ] },
 
     # https://docs.libretro.com/library/mgba/#bios
     "gba": { "name": "Nintendo Gameboy Advance", "biosFiles": [  { "md5": "a860e8c0b6d573d191e4ec7db1b1e4f6", "file": "bios/gba_bios.bin" },
@@ -262,6 +266,10 @@ systems = {
 
     # ---------- Apple 2 GS ---------- #
     "gsplus":   { "name": "Apple 2 GS", "biosFiles":  [ { "md5": "20a0334c447cb069a040ae5be1d938df", "file": "bios/ROM1"  } ] },
+
+    # ---------- Zelda Classic ---------- #
+    "zc210":   { "name": "Zelda Classic", "biosFiles":  [ { "md5": "033d7392985841027909c4c32b9f2076", "file": "bios/zcdata.data"  },
+                                                  { "md5": "e0ba7a8634b12cfee4b6760a6f89051a", "file": "bios/zcsf.sf2" } ] },
 }
 
 class BiosStatus:

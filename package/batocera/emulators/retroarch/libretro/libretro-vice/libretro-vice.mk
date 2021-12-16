@@ -3,15 +3,28 @@
 # LIBRETRO-VICE
 #
 ################################################################################
-# Last commit: Sep 12, 2021
-LIBRETRO_VICE_VERSION = 50e30a48f261b592af5c63ef0e0a93edcad2a9c7
+# Version.: Commits on Dec 8, 2021
+LIBRETRO_VICE_VERSION = 9a0ca16706fccc87f2b7cce074867e7b184be0c9
 LIBRETRO_VICE_SITE = $(call github,libretro,vice-libretro,$(LIBRETRO_VICE_VERSION))
 LIBRETRO_VICE_LICENSE = GPLv2
 
 LIBRETRO_VICE_PLATFORM = $(LIBRETRO_PLATFORM)
 
 ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI1),y)
-LIBRETRO_VICE_PLATFORM = armv
+LIBRETRO_VICE_PLATFORM = rpi1
+
+else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI2),y)
+LIBRETRO_VICE_PLATFORM = rpi2
+
+else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI3)$(BR2_PACKAGE_BATOCERA_TARGET_RPIZERO2),y)
+    ifeq ($(BR2_arm),y)
+        LIBRETRO_VICE_PLATFORM = rpi3
+    else
+        LIBRETRO_VICE_PLATFORM = rpi3_64
+    endif
+
+else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI4),y)
+LIBRETRO_VICE_PLATFORM = rpi4_64
 
 else ifeq ($(BR2_arm),y)
 LIBRETRO_VICE_PLATFORM = armv neon

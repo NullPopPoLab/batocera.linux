@@ -7,11 +7,12 @@ snes:
   group:      snes
   emulators:
     libretro:
-      pocketsnes:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_POCKETSNES] }
+      pocketsnes:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_POCKETSNES]  }
       snes9x_next: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_SNES9X_NEXT] }
-      snes9x:      { requireAnyOf: [BR2_PACKAGE_LIBRETRO_SNES9X] }
-      bsnes:       { requireAnyOf: [BR2_PACKAGE_LIBRETRO_BSNES] }
-      bsnes_hd:    { requireAnyOf: [BR2_PACKAGE_LIBRETRO_BSNES_HD] }
+      snes9x:      { requireAnyOf: [BR2_PACKAGE_LIBRETRO_SNES9X]      }
+      bsnes:       { requireAnyOf: [BR2_PACKAGE_LIBRETRO_BSNES]       }
+      bsnes_hd:    { requireAnyOf: [BR2_PACKAGE_LIBRETRO_BSNES_HD]    }
+      mesen-s:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MESENS]      }
   comment_en: |
     For more info: https://wiki.batocera.org/systems:snes
   comment_fr: |
@@ -23,6 +24,7 @@ snes-msu1:
   release: 1991
   hardware: console
   extensions: [smc, sfc]
+  group:      snes
   emulators:
     libretro:
       pocketsnes:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_POCKETSNES]}
@@ -136,7 +138,7 @@ amiga1200:
   comment_en: |
     For more info: https://wiki.batocera.org/systems:amiga500
   comment_fr: |
-    Trouvez la documentation ici: https://wiki.batocera.org/systems:snes
+    Trouvez la documentation ici: https://wiki.batocera.org/systems:amiga500
 
 amigacd32:
   name:       Amiga CD32
@@ -242,7 +244,7 @@ gbc:
       gambatte: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_GAMBATTE] }
       mgba:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MGBA] }
       vba-m:    { requireAnyOf: [BR2_PACKAGE_LIBRETRO_VBA_M] }
-      mesens:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MESENS] }
+      mesen-s:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MESENS] }
   comment_en: |
     For more info: https://wiki.batocera.org/systems:gbc
   comment_fr: |
@@ -259,7 +261,7 @@ gb:
       gambatte: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_GAMBATTE] }
       mgba:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MGBA] }
       vba-m:    { requireAnyOf: [BR2_PACKAGE_LIBRETRO_VBA_M] }
-      mesens:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MESENS] }
+      mesen-s:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MESENS] }
   comment_en: |
     For more info: https://wiki.batocera.org/systems:gb
   comment_fr: |
@@ -344,15 +346,31 @@ virtualboy:
     libretro:
       vb: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_BEETLE_VB] }
 
+lcdgames:
+  name:       LCD Games
+  manufacturer: Various
+  release: 1979
+  hardware: portable
+  extensions: [mgw, zip, 7z]
+  group:      lcdgames
+  emulators:
+    libretro:
+      gw:   { requireAnyOf: [BR2_PACKAGE_LIBRETRO_GW]                                   }
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME], incompatible_extensions: [mgw]          }
+
 gameandwatch:
   name:       Game and Watch
   manufacturer: Nintendo
   release: 1980
   hardware: portable
   extensions: [mgw, zip, 7z]
+  group:      lcdgames
   emulators:
     libretro:
-      gw: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_GW] }
+      gw:   { requireAnyOf: [BR2_PACKAGE_LIBRETRO_GW]                                   }
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME], incompatible_extensions: [mgw]          }
 
 dreamcast:
   name:       Sega Dreamcast
@@ -459,6 +477,7 @@ gamegear:
   emulators:
     libretro:
       genesisplusgx: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_GENESISPLUSGX] }
+      picodrive:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_PICODRIVE] }
 
 sg1000:
   name:       Sega SG1000
@@ -555,7 +574,7 @@ scummvm:
   manufacturer: LucasArts
   release: 1987
   hardware: computer
-  extensions: [scummvm]
+  extensions: [scummvm, squashfs]
   platform:   pc
   emulators:
     scummvm:
@@ -586,7 +605,7 @@ dos:
   manufacturer: Microsoft
   release: 1981
   hardware: computer
-  extensions: [pc, dos, zip]
+  extensions: [pc, dos, zip, squashfs, dosz]
   theme:      pc
   platform:   pc
   emulators:
@@ -652,11 +671,17 @@ devilutionx:
   comment_en: |
     Diablo 1.
 
-    Place diabdat.mpq (all lowercase) from your CD or GoG installation into:
+    Place diabdat.mpq from your CD or GoG installation into:
 
         /userdata/roms/devilution/
 
     For Hellfire, also copy hellfire.mpq, hfmonk.mpq, hfmusic.mpq, and hfvoice.mpq.
+
+    For Chinese, Japanese, and Korean text support copy:
+    https://github.com/diasurgical/devilutionx-assets/releases/download/v1/fonts.mpq
+
+    For the Polish voice pack copy:
+    https://github.com/diasurgical/devilutionx-assets/releases/download/v1/pl.mpq
 
 fbneo:
   name:       Final Burn Neo
@@ -669,6 +694,8 @@ fbneo:
     libretro:
       fbalpha:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_FBALPHA]  }
       fbneo:    { requireAnyOf: [BR2_PACKAGE_LIBRETRO_FBNEO]    }
+    fba2x:
+      fba2x:    { requireAnyOf: [BR2_PACKAGE_PIFBA] }
   comment_en: |
     ROMs must come from the FBNeo romset version 1.0.0.0
 
@@ -738,6 +765,8 @@ neogeo:
       mame:         { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MAME]           }
     mame:
       mame:         { requireAnyOf: [BR2_PACKAGE_MAME]                    }
+    fba2x:
+      fba2x:        { requireAnyOf: [BR2_PACKAGE_PIFBA]                   }
 
 neogeocd:
   name:       Neo-Geo CD
@@ -969,7 +998,7 @@ pico8:
   manufacturer: Fantasy
   release: 2015
   hardware: console
-  extensions: [p8, png]
+  extensions: [p8, png, m3u]
   emulators:
     libretro:
       retro8: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_RETRO8] }
@@ -1464,7 +1493,7 @@ gamecube:
   manufacturer: Nintendo
   release: 2001
   hardware: console
-  extensions: [gcm, iso, gcz, ciso, wbfs, rvz, elf, dol]
+  extensions: [gcm, iso, gcz, ciso, wbfs, rvz, elf, dol, m3u]
   platform:   gc
   theme:      gc
   emulators:
@@ -1482,7 +1511,7 @@ wii:
   manufacturer: Nintendo
   release: 2006
   hardware: console
-  extensions: [gcm, iso, gcz, ciso, wbfs, wad, rvz, elf, dol]
+  extensions: [gcm, iso, gcz, ciso, wbfs, wad, rvz, elf, dol, m3u]
   emulators:
     dolphin:
       dolphin:  { requireAnyOf: [BR2_PACKAGE_DOLPHIN_EMU]       }
@@ -1529,7 +1558,7 @@ ps3:
   manufacturer: Sony
   release: 2006
   hardware: console
-  extensions: [ps3, psn]
+  extensions: [ps3, psn, squashfs]
   emulators:
     rpcs3:
       rpcs3: { requireAnyOf: [BR2_PACKAGE_RPCS3] }
@@ -1627,7 +1656,7 @@ satellaview:
     libretro:
       pocketsnes:   { requireAnyOf: [BR2_PACKAGE_LIBRETRO_POCKETSNES] }
       snes9x:       { requireAnyOf: [BR2_PACKAGE_LIBRETRO_SNES9X]     }
-      mesens:       { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MESENS]     }
+      mesen-s:      { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MESENS]     }
 
 sufami:
   name:       SuFami Turbo
@@ -1665,7 +1694,7 @@ daphne:
   manufacturer: Arcade
   release: 1983
   hardware: arcade
-  extensions: [daphne]
+  extensions: [daphne, squashfs]
   platform:   daphne, arcade
   emulators:
     daphne:
@@ -1708,8 +1737,8 @@ pc98:
       np2kai:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_PC98] }
 
 fmtowns:
-  name:       Fujistu FM-TOWNS
-  manufacturer: Fujistu
+  name:       Fujitsu FM-TOWNS
+  manufacturer: Fujitsu
   release: 1987
   hardware: computer
   extensions: [bin, m3u, cue, d88, d77, xdf, iso]
@@ -1729,9 +1758,15 @@ ports:
   command:    "/bin/sh %ROM% %CONTROLLERSCONFIG%"
   force:      True
   comment_en: |
-          Third party Linux games and apps that can be run from a .sh script.
+    ## SYSTEM PORTS ##
+    -------------------------------------------------------------------------------
+    Here you can find Linux games and apps, launched by shell scripts ending in
+    ".sh". Only the ".sh" scripts appear in EmulationStation.
   comment_fr: |
-          Jeux et applications Linux additionnels qui peuvent etre lancés depuis un script .sh.
+    ## SYSTEM PORTS ##
+    -------------------------------------------------------------------------------
+    Vous trouverez ici des jeux et applications Linux, qui sont lancés par des scripts
+    shell en ".sh". Seuls les scripts en ".sh" apparaissent dans EmulationStation.
 
 amiga:
   name:       Amiga
@@ -1815,7 +1850,7 @@ wiiu:
   manufacturer: Nintendo
   release: 2012
   hardware: console
-  extensions: [wup, wud, wux, rpx]
+  extensions: [wup, wud, wux, rpx, squashfs]
   platform:   wiiu
   theme:      wiiu
   emulators:
@@ -1841,7 +1876,7 @@ easyrpg:
   manufacturer: EasyRPG Team
   release: 2000
   hardware: port
-  extensions: [easyrpg]
+  extensions: [easyrpg, squashfs, zip]
   emulators:
     easyrpg:
       easyrpg: { requireAnyOf: [BR2_PACKAGE_EASYRPG_PLAYER] }
@@ -1906,13 +1941,60 @@ model3:
   emulators:
     supermodel:
       supermodel: { requireAnyOf: [BR2_PACKAGE_SUPERMODEL] }
+  comment_en: |
+    ## SEGA MODEL 3 IMPORTANT INFO ##
+
+    Put your model3 roms in this directory.
+
+    Rom files must have a ".zip" extension from romset mame 0.220.
+
+    This allows the Supermodel emulator to use compressed roms.
+    Files inside the .zip must match the board rom & CRC info expected of the emulator or they will not work.
+    Each .zip file must contain only one compressed rom and be named correctly for compatibility.
+
+    Game Compatibility:
+    -------------------
+
+    Game compatibility can be found here - https://www.supermodel3.com/About.html
+
+    The Configuration File:
+    -----------------------
+
+    The configuration file, Supermodel.ini, located in the Config folder (/system/configs/supermodel/), which stores input settings as well as most of what can be set on the command line.
+
+    Audio:
+    ------
+
+    Sound and music volume can be adjusted during run-time using the F9-F12 keys.
+    Volume settings can be specified in the configuration file as well, globally for all games or tailored on a game-by-game basis.
+
+    Save States And Non-Volatile Memory:
+    ------------------------------------
+
+    Save states are fully supported. Up to 10 different slots can be selected with keyboard - F6. To save and restore states, press F5 and F7.
+    State files are saved in the Saves folder (/saves/supermodel/), which must exist in order for save operations to succeed.
+    Non-volatile memory (NVRAM) consists of battery-backed backup RAM (typically used for high score data) and an EEPROM (machine settings).
+    It is saved to the NVRAM folder (/system/configs/supermodel/NVRAM/) each time Supermodel exits and is re-loaded at start-up.
+    Save states will also save and overwrite NVRAM data.
+    If you alter any machine settings, loading an earlier state will return them to their former configuration.
+    Be sure to save these files for future use.
+
+    Emulation Exit
+    --------------
+
+    Configuration is set as Select & Start controller buttons.
+
+    Troubleshooting:
+    ----------------
+
+    See the Supermodel FAQ here - https://www.supermodel3.com/FAQ.html
 
 mugen:
   name:       MUGEN
   manufacturer: Elecbyte
   release: 1999
   hardware: port
-  extensions: [pc]
+  extensions: [pc, squashfs]
   emulators:
     mugen:
       lutris:  { requireAnyOf: [BR2_PACKAGE_WINE_LUTRIS] }
@@ -1949,7 +2031,7 @@ xbox:
   manufacturer: Microsoft
   release: 2003
   hardware: console
-  extensions: [iso]
+  extensions: [iso, squashfs]
   emulators:
     xemu:
       xemu: { requireAnyOf: [BR2_PACKAGE_XEMU] }
@@ -2003,12 +2085,27 @@ supervision:
     libretro:
       potator: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_WATARA] }
 
+gong:
+  name:       Pong
+  manufacturer: Ports
+  release: 1972
+  hardware: console
+  extensions: [game]
+  group: ports
+  emulators:
+    libretro:
+      gong: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_GONG] }
+  comment_en: |
+    This system is a standalone libretro game. No rom required.
+  comment_fr: |
+    Ce système est le premier jeu de libretro autonome. Aucune rom n'est requise.
+
 ecwolf:
   name:       ECWolf
   manufacturer: Ports
   release: 2013
   hardware: port
-  extensions: [ecwolf, pk3]
+  extensions: [ecwolf, pk3, squashfs]
   group: ports
   emulators:
     ecwolf:
@@ -2026,6 +2123,30 @@ sonicretro:
       sonic2013: { requireAnyOf: [BR2_PACKAGE_SONIC2013] }
     soniccd:
       soniccd: { requireAnyOf: [BR2_PACKAGE_SONICCD] }
+  comment_en: |
+    ---------------------
+    Data File Setup
+    ---------------------
+
+    This port requires the .rsdk files from the Android or iOS versions of Sonic 1 & 2.
+
+    The Android APKs can be opened in 7zip, extract the file /assets/Data.rsdk.xmf, rename to Data.rsdk, and place in
+    a folder named [Game Name].son - ie "Sonic 1.son"
+
+    For Sonic CD, you can use the files from the Android, iOS, or Steam versions, as well as the video files from the Steam version.
+
+    The APK can be extracted the same way. If you're using the Steam version, the Data.rsdk is in the game's folder.
+    The rsdk and videos folder should be in a folder named [Game Name].scd - ie "Sonic CD.scd"
+
+    ---------------------
+    Options and Emulators
+    ---------------------
+
+    Batocera will auto-select the port to use based on the folder's extension - sonic2013/rsdk4 for .son folders, soniccd/rsdk3 for
+    .scd folders. Selecting the wrong emulator will be ignored as the two versions are not compatible. The options are slightly
+    different between the two, so you may need to manually select the emulator to change them.
+
+    The dev menu option is needed to run mods.
 
 model2:
   name:       Sega Model 2
@@ -2037,6 +2158,65 @@ model2:
   emulators:
     model2emu:
       model2emu: { requireAnyOf: [BR2_PACKAGE_MODEL2EMU] }
+  comment_en: |
+    ---------------------------------
+    ## SEGA MODEL 2 IMPORTANT INFO ##
+    ---------------------------------
+
+    You need to run a ROM at least once AND be connected to the internet.
+    This creates the directory structure & installs the associated Windows DirectX libraries for Wine.
+
+    Note: It may take some time before the game starts with the first use, this is NORMAL!
+    *** Please be patient as it can take up to 10 minutes depending on your internet connection speed ***
+
+    ------------------------
+    Controller configuration
+    ------------------------
+
+    Note: A keyboard & mouse is required in addition to your controller(s).
+
+    A set on input files is provided however you may want to map your controls per game ROM you intend to run.
+    We recommend you do this using the Emulation Station 'F1' menu option and then choose the model2 config app.
+    *** The ROM must be loaded before you can configure the controls. ***
+
+    Press Esc on your keyboard to go back to 'windowed' mode to then set the controller options if the app goes fullscreen.
+    Once the controls are set, they're saved for future use in Batocera through the normal menu options.
+
+    ------------
+    Service Menu
+    ------------
+
+    Note: Keyboard required.
+
+    Appropriate NVDATA files have been provided to ensure all games should work straight away.
+    If you receive the error 'Network Board Not Present' when starting a game.
+    Go to the Service Menu using F2 and then use F1 to navigate to 'Games System' & press F2.
+    Under 'Games System', choose 'Link ID' using F1 & then use F2 to change this option to 'Single'.
+    Use F1 to navigate to 'Exit', hit F2 again.
+    Do this one more time to exit the Service Menu.
+
+    The Service Menu configuration will be saved and the error will not occur again in future usage.
+
+    -----------------
+    Batocera Upgrades
+    -----------------
+
+    In some instances when you upgrade Batocera to a new version, when trying to run the Sega Model 2 emulator it may crash.
+    When you look at your /userdata/system/logs/es_launch_stderr.log file you may see a Wine mismatch error.
+    This is due to the wine bottle being out of date and not aligning to the version installed with the latest Batocera.
+    If you do, you should backup your /userdata/saves/model2/model2emu/CFG & userdata/saves/model2/model2emu/NVDATA folders.
+    When browsing using the network share you won't see the userdata directory, browse to saves.
+    Backing these folders up will retain your high scores, rom & controller configurations.
+
+    It's recommended to remove your /userdata/saves/model2/ directory via ssh only!
+    When logged in via ssh:
+    cd /userdata/saves
+    rm -rf model2
+
+    Once done, re-launch a game when connected to the internet & it will re-create the wine bottle for you.
+    Afterwards you can restore your CFG & NVDATA directories.
+
+    *** Enjoy the Sega Model 2 emulator running under Linux !!! ***
 
 scv:
   name:       Super Cassette Vision
@@ -2067,3 +2247,388 @@ uzebox:
   emulators:
     libretro:
       uzem: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_UZEM] }
+
+cdi:
+  name:       CD-i
+  manufacturer: Philips
+  release: 1990
+  hardware: console
+  extensions: [chd, cue, toc, nrg, gdi, iso, cdr]
+  emulators:
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME] }
+  comment_en: |
+          Requires MAME BIOS file cdimono1.zip or .7z in either cdi or BIOS folder.
+
+advision:
+  name:       Adventure Vision
+  manufacturer: Entex
+  release: 1982
+  hardware: console
+  extensions: [bin, zip, 7z]
+  emulators:
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME] }
+  comment_en: |
+          Requires MAME BIOS file advision.zip or .7z in either advision or BIOS folder.
+
+tvgames:
+  name:       TV Games
+  manufacturer: Various
+  release: 2002
+  hardware: console
+  extensions: [zip, 7z]
+  emulators:
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME] }
+
+megaduck:
+  name:       Mega Duck
+  manufacturer: Welback Holdings
+  release: 1993
+  hardware: portable
+  extensions:  [bin, zip, 7z]
+  emulators:
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME] }
+
+pv1000:
+  name:       PV-1000
+  manufacturer: Casio
+  release: 1983
+  hardware: console
+  extensions: [bin, zip, 7z]
+  emulators:
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME] }
+
+gamate:
+  name:       Gamate
+  manufacturer: Bitcorp
+  release: 1990
+  hardware: portable
+  extensions: [bin, zip, 7z]
+  emulators:
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME] }
+  comment_en: |
+          Requires MAME BIOS file gamate.zip or .7z in either gamate or BIOS folder.
+
+crvision:
+  name:       CreatiVision
+  manufacturer: VTech
+  release: 1982
+  hardware: console
+  extensions: [bin, rom, zip, 7z]
+  emulators:
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME] }
+  comment_en: |
+          Requires MAME BIOS file crvision.zip or .7z in either crvision or BIOS folder.
+
+gamecom:
+  name:       Game.com
+  manufacturer: Tiger Electronics
+  release: 1997
+  hardware: portable
+  extensions: [bin, tgc, zip, 7z]
+  emulators:
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME] }
+  comment_en: |
+          Requires MAME BIOS file gamecom.zip or .7z in either gamecom or BIOS folder.
+
+gamepock:
+  name:       Game Pocket Computer
+  manufacturer: Epoch
+  release: 1984
+  hardware: portable
+  extensions: [bin, zip, 7z]
+  emulators:
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME] }
+  comment_en: |
+          Requires MAME BIOS file gamepock.zip or .7z in either gamepock or BIOS folder.
+
+fm7:
+  name:       FM-7
+  manufacturer: Fujitsu
+  release: 1982
+  hardware: computer
+  extensions: [wav, t77, mfi, dfi, hfe, mfm, td0, imd, d77, d88, 1dd, cqm, cqi, dsk, zip, 7z]
+  emulators:
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME] }
+  comment_en: |
+          Requires MAME BIOS file fm7.zip or .7z in either fm7 or BIOS folder.
+          Optionally fm77av.zip or .7z for FM-77AV support.
+
+apfm1000:
+  name:       APF M-1000
+  manufacturer: APF Electronics
+  release: 1978
+  hardware: console
+  extensions: [bin, zip, 7z]
+  emulators:
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME] }
+  comment_en: |
+          Requires MAME BIOS file apfm1000.zip or .7z in either apfm or BIOS folder.
+
+bbc:
+  name:       BBC Micro
+  manufacturer: Acorn
+  release: 1981
+  hardware: computer
+  extensions: [mfi, dfi, hfe, mfm, td0, imd, d77, d88, 1dd, cqm, cqi, dsk, ima, img, ufi, 360, ipf, ssd, bbc, dsd, adf, ads, adm, adl, fsd, wav, tap, bin, zip, 7z]
+  emulators:
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME] }
+  comment_en: |
+          Requires MAME BIOS files bbcb, bbc_acorn8271, & saa5050.zip or .7z in either bbc or BIOS folder.
+          Also sample pack bbc.zip or .7z in BIOS/mame/samples
+
+adam:
+  name:       Coleco ADAM
+  manufacturer: Coleco
+  release: 1983
+  hardware: computer
+  extensions: [wav, ddp, mfi, dfi, hfe, mfm, td0, imd, d77, d88, 1dd, cqm, cqi, dsk, rom, col, bin, zip, 7z]
+  emulators:
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME] }
+  comment_en: |
+          Requires the following MAME BIOS files as zip or 7z in the adam or BIOS folder:
+          adam, adam_ddp, adam_fdc, adam_kb, & adam_prn
+
+arcadia:
+  name:       Arcadia 2001
+  manufacturer: Emerson
+  release: 1982
+  hardware: console
+  extensions: [bin, zip, 7z]
+  emulators:
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME] }
+
+gmaster:
+  name:       Game Master
+  manufacturer: Hartung
+  release: 1990
+  hardware: portable
+  extensions: [bin, zip, 7z]
+  emulators:
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME] }
+  comment_en: |
+          Requires MAME BIOS file gmaster.zip or .7z in either gmaster or BIOS folder.
+
+astrocde:
+  name:       Astrocade
+  manufacturer: Bally
+  release: 1978
+  hardware: console
+  extensions: [bin, zip, 7z]
+  emulators:
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME] }
+  comment_en: |
+          Requires MAME BIOS file astrocde.zip or .7z in either astrocde or BIOS folder.
+
+ti99:
+  name:       TI-99
+  manufacturer: Texas Instruments
+  release: 1981
+  hardware: computer
+  extensions: [rpk, wav, zip, 7z]
+  emulators:
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME] }
+  comment_en: |
+          Requires MAME BIOS file ti99_4a.zip or .7z in either ti99 or BIOS folder.
+          Cartridges need to be in .rpk format and unzipped - the MAME software list files (.bin) will not run properly.
+
+tutor:
+  name:       Tomy Tutor
+  manufacturer: Tomy
+  release: 1983
+  hardware: computer
+  extensions: [bin, wav, zip, 7z]
+  emulators:
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME] }
+  comment_en: |
+          Requires MAME BIOS file tutor.zip or .7z in either tutor or BIOS folder.
+          To get through the loading menu, R1 will move down and A/East will select.
+
+coco:
+  name:       Color Computer
+  manufacturer: Tandy Radio Shack
+  release: 1980
+  hardware: computer
+  extensions: [wav, cas, ccc, rom, zip, 7z]
+  emulators:
+    mame:
+      mame: { requireAnyOf: [BR2_PACKAGE_MAME] }
+  comment_en: |
+          Requires MAME BIOS file coco.zip or .7z in either coco or BIOS folder.
+
+switch:
+  name:       Switch
+  manufacturer: Nintendo
+  release: 2017
+  hardware: console
+  platform:   switch
+  theme:      switch
+  extensions: [xci, nsp]
+  emulators:
+    yuzu:
+      yuzu: { requireAnyOf: [BR2_PACKAGE_YUZU] }
+
+vitaquake2:
+  name:       Quake II
+  manufacturer: Ports
+  release: 1997
+  hardware: port
+  extensions: [pak, zip, 7zip]
+  group: ports
+  emulators:
+    libretro:
+      vitaquake2: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_VITAQUAKE2] }
+
+j2me:
+  name:       Java 2 MicroEdition
+  manufacturer: Sun
+  release: 2001
+  hardware: portable
+  extensions: [jar]
+  emulators:
+    libretro:
+      squirreljme:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_SQUIRRELJME] }
+      freej2me:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_FREEJ2ME] }
+
+zc210:
+  name:       Zelda Classic
+  manufacturer: Ports
+  release: 1999
+  hardware: console
+  extensions: [qst]
+  emulators:
+    libretro:
+      zc210:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_ZC210] }
+
+vemulator:
+  name:       SEGA Dreamcast VMU
+  manufacturer: Sega
+  release: 1998
+  hardware: console
+  extensions: [vms, dci, bin]
+  emulators:
+    libretro:
+      vemulator:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_VEMULATOR] }
+
+sameduck:
+  name:       Mega Duck / Cougar Boy
+  manufacturer: Welback Holdings
+  release: 1993
+  hardware: portable
+  extensions: [bin]
+  emulators:
+    libretro:
+      sameduck:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_SAMEDUCK] }
+
+openjazz:
+  name:       Jazz Jackrabbit
+  manufacturer: Ports
+  release: 1994
+  hardware: port
+  extensions: [game]
+  group: ports
+  emulators:
+    openjazz:
+      openjazz: { requireAnyOf: [BR2_PACKAGE_OPENJAZZ] }
+
+hurrican:
+  name:       Hurrican
+  manufacturer: Ports
+  release: 1990
+  hardware: port
+  extensions: [game]
+  group: ports
+  emulators:
+    hurrican:
+      hurrican: { requireAnyOf: [BR2_PACKAGE_HURRICAN] }
+  comment_en: |
+    This system is a standalone  game. No rom required.
+  comment_fr: |
+    Ce système est le premier jeu de autonome. Aucune rom n'est requise.
+
+hcl:
+  name:       Hydra Castle Labyrinth
+  manufacturer: Ports
+  release: 2011
+  hardware: port
+  extensions: [game]
+  group: ports
+  emulators:
+    hcl:
+      hcl: { requireAnyOf: [BR2_PACKAGE_HCL] }
+  comment_en: |
+    This system is a standalone  game. No rom required.
+  comment_fr: |
+    Ce système est le premier jeu de autonome. Aucune rom n'est requise.
+
+samcoupe:
+  name:       SAM Coupé
+  manufacturer: Miles Gordon Technology
+  release: 1989
+  hardware: computer
+  extensions: [cpm, dsk, sad, mgt, sdf, td0, sbt]
+  emulators:
+    samcoupe:
+      samcoupe:  { requireAnyOf: [BR2_PACKAGE_SIMCOUPE] }
+
+abuse:
+  name:       Abuse
+  manufacturer: Ports
+  release: 1996
+  hardware: port
+  extensions: [game]
+  group: ports
+  emulators:
+    abuse:
+      abuse: { requireAnyOf: [BR2_PACKAGE_ABUSE] }
+  comment_en: |
+    This system is a standalone  game. No rom required.
+  comment_fr: |
+    Ce système est le premier jeu de autonome. Aucune rom n'est requise.
+
+cdogs:
+  name:       C-Dogs SDL
+  manufacturer: Ports
+  release: 1997
+  hardware: port
+  extensions: [game]
+  group: ports
+  emulators:
+    cdogs:
+      cdogs: { requireAnyOf: [BR2_PACKAGE_CDOGS] }
+  comment_en: |
+    This system is a standalone  game. No rom required.
+  comment_fr: |
+    Ce système est le premier jeu de autonome. Aucune rom n'est requise.
+
+xrick:
+  name:       xrick
+  manufacturer: Ports
+  release:
+  hardware: port
+  extensions: [zip]
+  group: ports
+  emulators:
+    libretro:
+      xrick: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_XRICK] }
+  comment_en: |
+    Put the data.zip in this directory.
+  comment_fr: |
+    Placez ici vos fichiers data.zip pour xrick.

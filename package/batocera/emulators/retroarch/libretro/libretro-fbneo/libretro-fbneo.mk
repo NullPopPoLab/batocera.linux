@@ -3,8 +3,8 @@
 # FBNEO
 #
 ################################################################################
-# Version.: Commits on Oct 05, 2021
-LIBRETRO_FBNEO_VERSION = cbdb79b2c2e0f69f8c3bfec200a9ab7db2588c28
+# Version.: Commits on Dec 10, 2021
+LIBRETRO_FBNEO_VERSION = 7e4511e1526e381ae8a94f4cd83cfbcd0077202d
 LIBRETRO_FBNEO_SITE = $(call github,libretro,FBNeo,$(LIBRETRO_FBNEO_VERSION))
 LIBRETRO_FBNEO_LICENSE = Non-commercial
 
@@ -17,8 +17,12 @@ LIBRETRO_FBNEO_PLATFORM = unix-rpi1
 else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI2),y)
 LIBRETRO_FBNEO_PLATFORM = unix-rpi2
 
-else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI3),y)
-LIBRETRO_FBNEO_PLATFORM = unix-rpi3_64
+else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI3)$(BR2_PACKAGE_BATOCERA_TARGET_RPIZERO2),y)
+    ifeq ($(BR2_arm),y)
+        LIBRETRO_FBNEO_PLATFORM = unix-rpi3
+    else
+        LIBRETRO_FBNEO_PLATFORM = unix-rpi3_64
+    endif
 
 else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI4),y)
 LIBRETRO_FBNEO_PLATFORM = unix-rpi4_64
@@ -46,7 +50,7 @@ endif
 
 define LIBRETRO_FBNEO_BUILD_CMDS
 	$(TARGET_CONFIGURE_OPTS) $(MAKE) CXX="$(TARGET_CXX)" CC="$(TARGET_CC)" -C $(@D)/src/burner/libretro -f Makefile platform="$(LIBRETRO_FBNEO_PLATFORM)" $(LIBRETRO_FBNEO_EXTRA_ARGS) \
-        GIT_VERSION=" $(shell echo $(LIBRETRO_FBNEO_VERSION) | cut -c 1-10)"
+        GIT_VERSION="$(shell echo $(LIBRETRO_FBNEO_VERSION) | cut -c 1-7)"
 endef
 
 define LIBRETRO_FBNEO_INSTALL_TARGET_CMDS

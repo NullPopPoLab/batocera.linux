@@ -4,9 +4,8 @@
 #
 ################################################################################
 # Version.: Release on Dec 05, 2021
-RETROARCH_VERSION = 15e282fc4a84d94b05b6db3f71d62a1defcfc009
+RETROARCH_VERSION = 06a23670081d46466198704ea5a3a8809a05291f
 RETROARCH_SITE = https://github.com/NullPopPoLab/RetroArch.git
-RETROARCH_SITE_METHOD = git
 RETROARCH_LICENSE = GPLv3+
 RETROARCH_DEPENDENCIES = host-pkgconf dejavu retroarch-assets flac
 # install in staging for debugging (gdb)

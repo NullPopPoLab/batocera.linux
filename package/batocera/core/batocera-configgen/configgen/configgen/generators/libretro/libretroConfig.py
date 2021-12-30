@@ -140,7 +140,7 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution):
 
     # Input configuration
     retroarchConfig['input_joypad_driver'] = 'udev'
-    retroarchConfig['input_max_users'] = "16"                   # Allow up to 16 players
+    retroarchConfig['input_max_users'] = "6"                   # Allow up to 16 players
 
     retroarchConfig['input_libretro_device_p1'] = '1'           # Default devices choices
     retroarchConfig['input_libretro_device_p2'] = '1'

@@ -85,9 +85,9 @@ def writeControllerConfig(retroconfig, controller, playerIndex, system, retroarc
 # Create a configuration for a given controller
 def generateControllerConfig(controller, retroarchspecials, system):
 # Map an emulationstation button name to the corresponding retroarch name
-    retroarchbtns = {'a': 'a', 'b': 'b', 'x': 'x', 'y': 'y', \
+    retroarchbtns = {'a': 'a', 'b': 'b', 'c': 'c', 'x': 'x', 'y': 'y', 'z': 'z', \
                      'pageup': 'l', 'pagedown': 'r', 'l2': 'l2', 'r2': 'r2', \
-                     'l3': 'l3', 'r3': 'r3', \
+                     'l3': 'l3', 'r3': 'r3', 'menu': 'menu', \
                      'start': 'start', 'select': 'select'}
     retroarchGunbtns = {'a': 'aux_a', 'b': 'aux_b', 'y': 'aux_c', \
                         'pageup': 'offscreen_shot', 'pagedown': 'trigger', \

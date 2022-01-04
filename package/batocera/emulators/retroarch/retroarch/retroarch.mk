@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Release on Dec 05, 2021
-RETROARCH_VERSION = 657cb072456ec238b52a6f412dcc4fa339d28f13
+RETROARCH_VERSION = 9b3023b17e1869740bd3349ad66b495a7bb15540
 RETROARCH_SITE = https://github.com/NullPopPoLab/RetroArch
 RETROARCH_SITE_METHOD = git
 RETROARCH_LICENSE = GPLv3+

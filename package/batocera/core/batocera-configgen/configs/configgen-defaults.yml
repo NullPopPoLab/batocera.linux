@@ -7,7 +7,7 @@ default:
     video_threaded: false
     smooth:         true
     rewind:         false
-    bezel:          none
+    bezel:          default
     forceNoBezel:   false
 
 # 0-C

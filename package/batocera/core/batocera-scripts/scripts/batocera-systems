@@ -125,9 +125,9 @@ systems = {
 
     "atomiswave":   { "name": "Atomiswave", "biosFiles":  [ { "md5": "0ec5ae5b5a5c4959fa8b43fcf8687f7c", "file": "bios/awbios.zip"  } ] },
 
-    "segacd":       { "name": "Sega CD", "biosFiles":     [ { "md5": "e66fa1dc5820d254611fdcdba0662372", "file": "bios/bios_CD_E.bin"   },
-                                                            { "md5": "854b9150240a198070150e4566ae1290", "file": "bios/bios_CD_U.bin" 	},
-                                                            { "md5": "278a9397d192149e84e820ac621a8edd", "file": "bios/bios_CD_J.bin" 	} ] },
+    "segacd":       { "name": "Sega CD", "biosFiles":     [ { "md5": "e66fa1dc5820d254611fdcdba0662372", "file": "bios/segacd/bios_CD_E.bin"   },
+                                                            { "md5": "854b9150240a198070150e4566ae1290", "file": "bios/segacd/bios_CD_U.bin" 	},
+                                                            { "md5": "278a9397d192149e84e820ac621a8edd", "file": "bios/segacd/bios_CD_J.bin" 	} ] },
 
     # https://docs.libretro.com/library/beetle_saturn/#bios
     # https://github.com/libretro/libretro-super/blob/master/dist/info/yabasanshiro_libretro.info

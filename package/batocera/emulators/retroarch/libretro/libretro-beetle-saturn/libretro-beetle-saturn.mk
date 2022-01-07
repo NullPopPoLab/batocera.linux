@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Dec 05, 2021
-LIBRETRO_BEETLE_SATURN_VERSION = 23d9cd8eb8ae29c055c06d4538f90ea07a47ab9b
+LIBRETRO_BEETLE_SATURN_VERSION = b742168f8334b0fdb1cc19c514872a97f17b0f00
 LIBRETRO_BEETLE_SATURN_SITE = https://github.com/NullPopPoLab/beetle-saturn-libretro
 LIBRETRO_BEETLE_SATURN_SITE_METHOD=git
 LIBRETRO_BEETLE_SATURN_LICENSE = GPLv2

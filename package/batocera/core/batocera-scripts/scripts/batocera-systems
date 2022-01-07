@@ -125,17 +125,17 @@ systems = {
 
     "atomiswave":   { "name": "Atomiswave", "biosFiles":  [ { "md5": "0ec5ae5b5a5c4959fa8b43fcf8687f7c", "file": "bios/awbios.zip"  } ] },
 
-    "segacd":       { "name": "Sega CD", "biosFiles":     [ { "md5": "e66fa1dc5820d254611fdcdba0662372", "file": "bios/bios_CD_E.bin"   },
-                                                            { "md5": "854b9150240a198070150e4566ae1290", "file": "bios/bios_CD_U.bin" 	},
-                                                            { "md5": "278a9397d192149e84e820ac621a8edd", "file": "bios/bios_CD_J.bin" 	} ] },
+    "segacd":       { "name": "Sega CD", "biosFiles":     [ { "md5": "e66fa1dc5820d254611fdcdba0662372", "file": "bios/segacd/bios_CD_E.bin"   },
+                                                            { "md5": "854b9150240a198070150e4566ae1290", "file": "bios/segacd/bios_CD_U.bin" 	},
+                                                            { "md5": "278a9397d192149e84e820ac621a8edd", "file": "bios/segacd/bios_CD_J.bin" 	} ] },
 
     # https://docs.libretro.com/library/beetle_saturn/#bios
     # https://github.com/libretro/libretro-super/blob/master/dist/info/yabasanshiro_libretro.info
-    "saturn":       { "name": "Sega Saturn", "biosFiles": [ { "md5": "85ec9ca47d8f6807718151cbcca8b964", "file": "bios/sega_101.bin"	 },
-                                                            { "md5": "3240872c70984b6cbfda1586cab68dbe", "file": "bios/mpr-17933.bin"	 },
-                                                            { "md5": "255113ba943c92a54facd25a10fd780c", "file": "bios/mpr-18811-mx.ic1" },
-                                                            { "md5": "1cd19988d1d72a3e7caa0b73234c96b4", "file": "bios/mpr-19367-mx.ic1" },
-                                                            { "md5": "af5828fdff51384f99b3c4926be27762", "file": "bios/saturn_bios.bin" } ] },
+    "saturn":       { "name": "Sega Saturn", "biosFiles": [ { "md5": "85ec9ca47d8f6807718151cbcca8b964", "file": "bios/saturn/sega_101.bin"	 },
+                                                            { "md5": "3240872c70984b6cbfda1586cab68dbe", "file": "bios/saturn/mpr-17933.bin" },
+                                                            { "md5": "255113ba943c92a54facd25a10fd780c", "file": "bios/saturn/mpr-18811-mx.ic1" },
+                                                            { "md5": "1cd19988d1d72a3e7caa0b73234c96b4", "file": "bios/saturn/mpr-19367-mx.ic1" },
+                                                            { "md5": "af5828fdff51384f99b3c4926be27762", "file": "bios/saturn/saturn_bios.bin" } ] },
 
     # ---------- Sony Computer Entertainment ---------- #
     # https://docs.libretro.com/library/pcsx_rearmed/#bios

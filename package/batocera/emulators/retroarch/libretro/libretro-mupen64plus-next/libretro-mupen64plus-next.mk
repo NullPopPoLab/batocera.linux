@@ -5,7 +5,7 @@
 ################################################################################
 # Version.: Commits on Oct 11, 2021
 LIBRETRO_MUPEN64PLUS_NEXT_VERSION = bd0129b2126618644f8b02ab74c1a594c75672d5
-LIBRETRO_MUPEN64PLUS_NEXT_SITE = https://github.com/NullPopPoLab/parallel-n64
+LIBRETRO_MUPEN64PLUS_NEXT_SITE = https://github.com/NullPopPoLab/mupen64plus-libretro-nx
 LIBRETRO_MUPEN64PLUS_NEXT_SITE_METHOD=git
 LIBRETRO_MUPEN64PLUS_NEXT_LICENSE = GPLv2
 LIBRETRO_MUPEN64PLUS_NEXT_DEPENDENCIES = host-nasm retroarch

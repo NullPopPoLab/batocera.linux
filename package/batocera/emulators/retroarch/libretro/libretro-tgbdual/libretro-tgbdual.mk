@@ -5,7 +5,8 @@
 ################################################################################
 # Version.: Commits on Jun 06, 2021
 LIBRETRO_TGBDUAL_VERSION = 1e0c4f931d8c5e859e6d3255d67247d7a2987434
-LIBRETRO_TGBDUAL_SITE = $(call github,libretro,tgbdual-libretro,$(LIBRETRO_TGBDUAL_VERSION))
+LIBRETRO_TGBDUAL_SITE = https://github.com/NullPopPoLab/tgbdual-libretro.git
+LIBRETRO_TGBDUAL_SITE_METHOD=git
 LIBRETRO_TGBDUAL_LICENSE = GPLv2
 
 define LIBRETRO_TGBDUAL_BUILD_CMDS

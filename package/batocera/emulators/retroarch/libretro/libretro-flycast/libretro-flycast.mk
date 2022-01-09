@@ -4,8 +4,9 @@
 #
 ################################################################################
 # version.: Commits on Dec 10, 2021
-LIBRETRO_FLYCAST_VERSION = e9bc945f21da552b65a68aed71547d7c2a127b06
-LIBRETRO_FLYCAST_SITE = $(call github,libretro,flycast,$(LIBRETRO_FLYCAST_VERSION))
+LIBRETRO_FLYCAST_VERSION = 7aba4f0e6703ccd2f574a42a96a69ca3f7866a57
+LIBRETRO_FLYCAST_SITE = https://github.com/NullPopPoLab/reicast-emulator
+LIBRETRO_FLYCAST_SITE_METHOD=git
 LIBRETRO_FLYCAST_LICENSE = GPLv2
 LIBRETRO_FLYCAST_DEPENDENCIES = retroarch
 

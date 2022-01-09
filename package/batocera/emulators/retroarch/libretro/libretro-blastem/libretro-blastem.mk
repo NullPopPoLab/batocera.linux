@@ -4,9 +4,9 @@
 #
 ################################################################################
 # Version.: Commits on Apr xx, 2020
-LIBRETRO_BLASTEM_VERSION = a61b47d5489e
-LIBRETRO_BLASTEM_SOURCE = $(LIBRETRO_BLASTEM_VERSION).tar.gz
-LIBRETRO_BLASTEM_SITE = https://www.retrodev.com/repos/blastem/archive
+LIBRETRO_BLASTEM_VERSION = e8f8158daa5bee3715459937410a0cadde0de37a
+LIBRETRO_BLASTEM = https://github.com/NullPopPoLab/blastem
+LIBRETRO_BLASTEM_METHOD=git
 LIBRETRO_BLASTEM_LICENSE = Non-commercial
 
 LIBRETRO_BLASTEM_EXTRAOPTS=""

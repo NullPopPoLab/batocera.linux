@@ -117,13 +117,13 @@ systems = {
 
     # ---------- Sega ---------- #
     # https://docs.libretro.com/library/flycast/#bios
-    "dreamcast":    { "name": "Dreamcast", "biosFiles":   [ { "md5": "e10c53c2f8b90bab96ead2d368858623", "file": "bios/dc_boot.bin"  },
-                                                            { "md5": "0a93f7940c455905bea6e392dfde92a4", "file": "bios/dc_flash.bin" } ] },
+    "dreamcast":    { "name": "Dreamcast", "biosFiles":   [ { "md5": "e10c53c2f8b90bab96ead2d368858623", "file": "bios/dreamcast/dc_boot.bin"  },
+                                                            { "md5": "0a93f7940c455905bea6e392dfde92a4", "file": "bios/dreamcast/dc_flash.bin" } ] },
 
     # https://github.com/libretro/libretro-super/blob/master/dist/info/flycast_libretro.info
-    "naomi":        { "name": "Naomi", "biosFiles":       [ { "md5": "eb4099aeb42ef089cfe94f8fe95e51f6", "file": "bios/naomi.zip"   } ] },
+    "naomi":        { "name": "Naomi", "biosFiles":       [ { "md5": "eb4099aeb42ef089cfe94f8fe95e51f6", "file": "bios/dreamcast/naomi.zip"   } ] },
 
-    "atomiswave":   { "name": "Atomiswave", "biosFiles":  [ { "md5": "0ec5ae5b5a5c4959fa8b43fcf8687f7c", "file": "bios/awbios.zip"  } ] },
+    "atomiswave":   { "name": "Atomiswave", "biosFiles":  [ { "md5": "0ec5ae5b5a5c4959fa8b43fcf8687f7c", "file": "bios/dreamcast/awbios.zip"  } ] },
 
     "segacd":       { "name": "Sega CD", "biosFiles":     [ { "md5": "e66fa1dc5820d254611fdcdba0662372", "file": "bios/segacd/bios_CD_E.bin"   },
                                                             { "md5": "854b9150240a198070150e4566ae1290", "file": "bios/segacd/bios_CD_U.bin" 	},
@@ -164,13 +164,13 @@ systems = {
     "fds":         { "name": "Nintendo Family Computer Disk System", "biosFiles": [ { "md5": "ca30b50f880eb660a320674ed365ef7a", "file": "bios/disksys.rom" } ] },
 
     # https://docs.libretro.com/library/melonds/#bios
-    "nds": { "name": "Nintendo DS", "biosFiles": [  { "md5": "94bc5094607c5e6598d50472c52f27f2", "file": "bios/dsfirmware.bin" },
-                                            { "md5": "df692a80a5b1bc90728bc3dfc76cd948", "file": "bios/biosnds7.bin" },
-                                            { "md5": "a392174eb3e572fed6447e956bde4b25", "file": "bios/biosnds9.bin" },
-                                            { "md5": "87b665fce118f76251271c3732532777", "file": "bios/biosdsi9.bin" },
-                                            { "md5": "559dae4ea78eb9d67702c56c1d791e81", "file": "bios/biosdsi7.bin" },
-                                            { "md5": "74f23348012d7b3e1cc216c47192ffeb", "file": "bios/dsifirmware.bin" },
-                                            { "md5": "d71edf897ddd06bf335feeb68edeb272", "file": "bios/dsinand.bin" }, ] },
+    "nds": { "name": "Nintendo DS", "biosFiles": [  { "md5": "94bc5094607c5e6598d50472c52f27f2", "file": "bios/nds/firmware.bin" },
+                                            { "md5": "df692a80a5b1bc90728bc3dfc76cd948", "file": "bios/nds/bios7.bin" },
+                                            { "md5": "a392174eb3e572fed6447e956bde4b25", "file": "bios/nds/bios9.bin" },
+                                            { "md5": "87b665fce118f76251271c3732532777", "file": "bios/nds/dsi_bios9.bin" },
+                                            { "md5": "559dae4ea78eb9d67702c56c1d791e81", "file": "bios/nds/dsi_bios7.bin" },
+                                            { "md5": "74f23348012d7b3e1cc216c47192ffeb", "file": "bios/nds/dsi_firmware.bin" },
+                                            { "md5": "d71edf897ddd06bf335feeb68edeb272", "file": "bios/nds/dsi_nand.bin" }, ] },
 
     # https://docs.libretro.com/library/mgba/#bios
     "gba": { "name": "Nintendo Gameboy Advance", "biosFiles": [  { "md5": "a860e8c0b6d573d191e4ec7db1b1e4f6", "file": "bios/gba_bios.bin" },

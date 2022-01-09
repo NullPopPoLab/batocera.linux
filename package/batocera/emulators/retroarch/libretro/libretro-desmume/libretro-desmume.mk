@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version.: Commits on Aug 16, 2021
-LIBRETRO_DESMUME_VERSION = 7ea0fc96804fcd9c8d33e8f76cf64b1be50cc5ea
-LIBRETRO_DESMUME_SITE = $(call github,libretro,desmume,$(LIBRETRO_DESMUME_VERSION))
+LIBRETRO_DESMUME_VERSION = 116bdf083042e2d2bfc5c3f7911b58a1a406d018
+LIBRETRO_DESMUME_SITE = https://github.com/NullPopPoLab/desmume
+LIBRETRO_DESMUME_SITE_METHOD=git
 LIBRETRO_DESMUME_LICENSE = GPLv2
 LIBRETRO_DESMUME_DEPENDENCIES = libpcap
 

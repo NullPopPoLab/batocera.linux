@@ -92,13 +92,13 @@ systems = {
 
     # ---------- NEC ---------- #
     # https://docs.libretro.com/library/beetle_pce_fast/#bios
-    "pcengine":   { "name": "PC Engine", "biosFiles":  [ { "md5": "38179df8f4ac870017db21ebcbf53114", "file": "bios/syscard3.pce" } ] },
+    "pcengine":   { "name": "PC Engine", "biosFiles":  [ { "md5": "38179df8f4ac870017db21ebcbf53114", "file": "bios/pcengine/syscard3.pce" } ] },
 
     # https://docs.libretro.com/library/beetle_pc_fx/#bios
     "pcfx":       { "name": "PC-FX", "biosFiles":      [ { "md5": "08e36edbea28a017f79f8d4f7ff9b6d7", "file": "bios/pcfx.rom"     } ] },
 
     # https://docs.libretro.com/library/beetle_pce_fast/#bios
-    "supergrafx": { "name": "Supergrafx", "biosFiles": [ { "md5": "38179df8f4ac870017db21ebcbf53114", "file": "bios/syscard3.pce" } ] },
+    "supergrafx": { "name": "Supergrafx", "biosFiles": [ { "md5": "38179df8f4ac870017db21ebcbf53114", "file": "bios/pcengine/syscard3.pce" } ] },
 
     # ---------- SNK ----------#
     "neogeo":   { "name": "NeoGeo", "biosFiles":    [  { "md5": "dffb72f116d36d025068b23970a4f6df", "file": "bios/neogeo.zip" } ] },
@@ -111,9 +111,9 @@ systems = {
 
     # ---------- Panasonic, Sanyo and Goldstar ---------- #
     # https://github.com/libretro/libretro-super/blob/master/dist/info/opera_libretro.info
-    "3do":	{ "name": "3DO", "biosFiles": [ { "md5": "f47264dd47fe30f73ab3c010015c155b", "file": "bios/panafz1.bin"	},
-                                            { "md5": "51f2f43ae2f3508a14d9f56597e2d3ce", "file": "bios/panafz10.bin"},
-                                            { "md5": "8639fd5e549bd6238cfee79e3e749114", "file": "bios/goldstar.bin"} ] },
+    "3do":	{ "name": "3DO", "biosFiles": [ { "md5": "f47264dd47fe30f73ab3c010015c155b", "file": "bios/3do/panafz1.bin"	},
+                                            { "md5": "51f2f43ae2f3508a14d9f56597e2d3ce", "file": "bios/3do/panafz10.bin"},
+                                            { "md5": "8639fd5e549bd6238cfee79e3e749114", "file": "bios/3do/goldstar.bin"} ] },
 
     # ---------- Sega ---------- #
     # https://docs.libretro.com/library/flycast/#bios

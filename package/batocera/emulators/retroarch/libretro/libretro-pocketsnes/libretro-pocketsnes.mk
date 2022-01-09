@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version.: Commits on Oct 10, 2021
-LIBRETRO_POCKETSNES_VERSION = e16cb16efa00765b1bc3b8fee195680efb1542c7
-LIBRETRO_POCKETSNES_SITE = $(call github,libretro,snes9x2002,$(LIBRETRO_POCKETSNES_VERSION))
+LIBRETRO_POCKETSNES_VERSION = 23b7373e205e5e4f7ffb6d887af1b43658613468
+LIBRETRO_POCKETSNES_SITE = https://github.com/NullPopPoLab/snes9x2002.git
+LIBRETRO_POCKETSNES_SITE_METHOD=git
 LIBRETRO_POCKETSNES_LICENSE = Non-commercial
 
 LIBRETRO_POCKETSNES_PLATFORM = $(LIBRETRO_PLATFORM)

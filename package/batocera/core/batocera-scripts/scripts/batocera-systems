@@ -161,7 +161,7 @@ systems = {
 
     # ---------- Nintendo ---------- #
     # https://docs.libretro.com/library/fceumm/#bios
-    "fds":         { "name": "Nintendo Family Computer Disk System", "biosFiles": [ { "md5": "ca30b50f880eb660a320674ed365ef7a", "file": "bios/disksys.rom" } ] },
+    "fds":         { "name": "Nintendo Family Computer Disk System", "biosFiles": [ { "md5": "ca30b50f880eb660a320674ed365ef7a", "file": "bios/nes/disksys.rom" } ] },
 
     # https://docs.libretro.com/library/melonds/#bios
     "nds": { "name": "Nintendo DS", "biosFiles": [  { "md5": "94bc5094607c5e6598d50472c52f27f2", "file": "bios/nds/firmware.bin" },
@@ -173,20 +173,20 @@ systems = {
                                             { "md5": "d71edf897ddd06bf335feeb68edeb272", "file": "bios/nds/dsi_nand.bin" }, ] },
 
     # https://docs.libretro.com/library/mgba/#bios
-    "gba": { "name": "Nintendo Gameboy Advance", "biosFiles": [  { "md5": "a860e8c0b6d573d191e4ec7db1b1e4f6", "file": "bios/gba_bios.bin" },
-                                            { "md5": "32fbbd84168d3482956eb3c5051637f5", "file": "bios/gb_bios.bin" }, # Optional
-                                            { "md5": "dbfce9db9deaa2567f6a84fde55f9680", "file": "bios/gbc_bios.bin" }, # Optional
-                                            { "md5": "d574d4f9c12f305074798f54c091a8b4", "file": "bios/sgb_bios.bin" } ] }, # Optional
+    "gba": { "name": "Nintendo Gameboy Advance", "biosFiles": [  { "md5": "a860e8c0b6d573d191e4ec7db1b1e4f6", "file": "bios/gbx/gba_bios.bin" },
+                                            { "md5": "32fbbd84168d3482956eb3c5051637f5", "file": "bios/gbx/gb_bios.bin" }, # Optional
+                                            { "md5": "dbfce9db9deaa2567f6a84fde55f9680", "file": "bios/gbx/gbc_bios.bin" }, # Optional
+                                            { "md5": "d574d4f9c12f305074798f54c091a8b4", "file": "bios/gbx/sgb_bios.bin" } ] }, # Optional
 
     # https://docs.libretro.com/library/snes9x/#bios
-    "satellaview": { "name": "Satellaview", "biosFiles": [ { "md5": "96cf17bf589fcbfa6f8de2dc84f19fa2", "file": "bios/BS-X.bin"   } ] },
-    "sufami":      { "name": "Sufami", "biosFiles":      [ { "md5": "d3a44ba7d42a74d3ac58cb9c14c6a5ca", "file": "bios/STBIOS.bin" } ] },
+    "satellaview": { "name": "Satellaview", "biosFiles": [ { "md5": "96cf17bf589fcbfa6f8de2dc84f19fa2", "file": "bios/snes/BS-X.bin"   } ] },
+    "sufami":      { "name": "Sufami", "biosFiles":      [ { "md5": "d3a44ba7d42a74d3ac58cb9c14c6a5ca", "file": "bios/snes/STBIOS.bin" } ] },
 
     # https://docs.libretro.com/library/mesen-s/#bios
-    "sgb": { "name": "Super Game Boy", "biosFiles": [ { "md5": "d574d4f9c12f305074798f54c091a8b4", "file": "bios/sgb_boot.bin" },
-                                            { "md5": "e0430bca9925fb9882148fd2dc2418c1", "file": "bios/sgb2_boot.bin" },
-                                            { "md5": "b15ddb15721c657d82c5bab6db982ee9", "file": "bios/SGB1.sfc" },
-                                            { "md5": "8ecd73eb4edf7ed7e81aef1be80031d5", "file": "bios/SGB2.sfc" } ] },
+    "sgb": { "name": "Super Game Boy", "biosFiles": [ { "md5": "d574d4f9c12f305074798f54c091a8b4", "file": "bios/gbx/sgb_boot.bin" },
+                                            { "md5": "e0430bca9925fb9882148fd2dc2418c1", "file": "bios/gbx/sgb2_boot.bin" },
+                                            { "md5": "b15ddb15721c657d82c5bab6db982ee9", "file": "bios/gbx/SGB1.sfc" },
+                                            { "md5": "8ecd73eb4edf7ed7e81aef1be80031d5", "file": "bios/gbx/SGB2.sfc" } ] },
     # ---------- Microsoft ---------- #
     # https://docs.libretro.com/library/fmsx/#bios
     "msx": { "name": "MSX", "biosFiles": [  { "md5": "364a1a579fe5cb8dba54519bcfcdac0d", "file": "bios/MSX.ROM"      },

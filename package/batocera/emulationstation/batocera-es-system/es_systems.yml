@@ -7,12 +7,12 @@ snes:
   group:      snes
   emulators:
     libretro:
+      pocketsnes:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_POCKETSNES]  }
       snes9x_next: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_SNES9X_NEXT] }
       snes9x:      { requireAnyOf: [BR2_PACKAGE_LIBRETRO_SNES9X]      }
       bsnes:       { requireAnyOf: [BR2_PACKAGE_LIBRETRO_BSNES]       }
       bsnes_hd:    { requireAnyOf: [BR2_PACKAGE_LIBRETRO_BSNES_HD]    }
       mesen-s:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MESENS]      }
-      pocketsnes:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_POCKETSNES]  }
   comment_en: |
     For more info: https://wiki.batocera.org/systems:snes
   comment_fr: |
@@ -27,10 +27,10 @@ snes-msu1:
   group:      snes
   emulators:
     libretro:
+      pocketsnes:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_POCKETSNES]}
       snes9x:      { requireAnyOf: [BR2_PACKAGE_LIBRETRO_SNES9X]    }
       bsnes:       { requireAnyOf: [BR2_PACKAGE_LIBRETRO_BSNES]     }
       bsnes_hd:    { requireAnyOf: [BR2_PACKAGE_LIBRETRO_BSNES_HD]  }
-      pocketsnes:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_POCKETSNES]}
 
 c64:
   name:       Commodore 64
@@ -189,13 +189,13 @@ n64:
   hardware: console
   extensions: [z64, n64, v64, zip, 7z]
   emulators:
-    libretro:
-      mupen64plus-next: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MUPEN64PLUS_NEXT] }
-      parallel_n64:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_PARALLEL_N64] }
     mupen64plus:
       gliden64:   { requireAnyOf: [BR2_PACKAGE_MUPEN64PLUS_GLIDEN64] }
       glide64mk2: { requireAnyOf: [BR2_PACKAGE_MUPEN64PLUS_VIDEO_GLIDE64MK2]  }
       rice:       { requireAnyOf: [BR2_PACKAGE_MUPEN64PLUS_VIDEO_RICE]        }
+    libretro:
+      mupen64plus-next: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MUPEN64PLUS_NEXT] }
+      parallel_n64:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_PARALLEL_N64] }
   comment_en: |
     If Mupen64Plus standalone cannot load your zipped ROMs (black screen, then return to menu), try unzipping your ROMs.
     For more info: https://wiki.batocera.org/systems:n64
@@ -209,13 +209,13 @@ n64dd:
   hardware: console
   extensions: [z64, n64, zip, 7z] # ndd, d64 : Not supported yet
   emulators:
-    libretro:
-      mupen64plus-next: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MUPEN64PLUS_NEXT] }
-      parallel_n64:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_PARALLEL_N64] }
     mupen64plus:
       gliden64:   { requireAnyOf: [BR2_PACKAGE_MUPEN64PLUS_GLIDEN64] }
       glide64mk2: { requireAnyOf: [BR2_PACKAGE_MUPEN64PLUS_VIDEO_GLIDE64MK2]  }
       rice:       { requireAnyOf: [BR2_PACKAGE_MUPEN64PLUS_VIDEO_RICE]        }
+    libretro:
+      mupen64plus-next: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MUPEN64PLUS_NEXT] }
+      parallel_n64:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_PARALLEL_N64] }
 
 gba:
   name:       Game Boy Advance
@@ -517,6 +517,7 @@ psx:
     libretro:
       pcsx_rearmed: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_PCSX] }
       swanstation:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_SWANSTATION] }
+      duckstation:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_DUCKSTATION] }
       mednafen_psx: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_BEETLE_PSX] }
     duckstation:
       duckstation: { requireAnyOf: [BR2_PACKAGE_DUCKSTATION]  }

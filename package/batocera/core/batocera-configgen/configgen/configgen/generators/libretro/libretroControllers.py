@@ -29,17 +29,16 @@ systemToSwapDisable = {'amigacd32', 'amigacdtv', 'naomi', 'atomiswave', 'megadri
 # Warning, function used by amiberry because it reads the same retroarch formatting
 def writeControllersConfig(retroconfig, system, controllers):
     # Map buttons to the corresponding retroarch specials keys
-    retroarchspecials = {'x': 'load_state', 'y': 'save_state', 'a': 'reset', 'start': 'exit_emulator', \
-                         'up': 'state_slot_increase', 'down': 'state_slot_decrease', 'left': 'rewind', 'right': 'hold_fast_forward', \
-                         'pageup': 'screenshot', 'pagedown': 'ai_service', 'l2': 'shader_prev', 'r2': 'shader_next'}
+    retroarchspecials = {'x': 'load_state', 'y': 'save_state', 'b': 'pause', 'a': 'frame_advance', 'z':'grab_mouse', 'menu': 'reset', 'start': 'exit_emulator', \
+                         'up': 'state_slot_increase', 'down': 'state_slot_decrease', 'left': 'rewind', 'right': 'hold_fast_forward'}
     retroarchspecials["b"] = "menu_toggle"
 
     # Some input adaptations for some systems with swap Disc/CD
     if (system.config['core'] in coreWithSwapSupport) and (system.name not in systemToSwapDisable):
         retroarchspecials["pageup"] = "disk_eject_toggle"
+        # todo # retroarchspecials["pagedown"] = "disk_eject2_toggle"
         retroarchspecials["l2"] =     "disk_prev"
         retroarchspecials["r2"] =     "disk_next"
-        retroarchspecials["l3"] =     "screenshot"
 
     # Full special features list to disable
     retroarchFullSpecial = {'1':  'state_slot_increase', '2':  'load_state',        '3': 'save_state', \

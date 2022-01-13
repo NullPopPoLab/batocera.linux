@@ -29,9 +29,9 @@ systemToSwapDisable = {'amigacd32', 'amigacdtv', 'naomi', 'atomiswave', 'megadri
 # Warning, function used by amiberry because it reads the same retroarch formatting
 def writeControllersConfig(retroconfig, system, controllers, lightgun):
     # Map buttons to the corresponding retroarch specials keys
-    retroarchspecials = {'x': 'load_state', 'y': 'save_state', 'b': 'pause', 'c': 'frame_advance', 'z':'grab_mouse', 'menu': 'reset', 'start': 'exit_emulator', \
+    retroarchspecials = {'x': 'load_state', 'y': 'save_state', 'b': 'pause_toggle', 'c': 'frame_advance', 'z':'grab_mouse_toggle', 'menu': 'reset', 'start': 'exit_emulator', \
                          'up': 'state_slot_increase', 'down': 'state_slot_decrease', 'left': 'rewind', 'right': 'hold_fast_forward', \
-                         'l3':'screenshot', 'r3':'recording'}
+                         'l3':'recording_toggle', 'r3':'screenshot'}
     retroarchspecials["a"] = "menu_toggle"
 
     # Some input adaptations for some systems with swap Disc/CD

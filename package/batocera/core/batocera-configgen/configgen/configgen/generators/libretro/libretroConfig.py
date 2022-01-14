@@ -7,9 +7,11 @@ from Emulator import Emulator
 import settings
 from settings.unixSettings import UnixSettings
 import json
+import subprocess
 from utils.logger import get_logger
 from PIL import Image, ImageOps
 import utils.bezels as bezelsUtil
+import utils.videoMode as videoMode
 
 eslog = get_logger(__name__)
 sys.path.append(
@@ -56,11 +58,11 @@ systemNetplayModes = {'host', 'client', 'spectator'}
 # Cores that require .slang shaders (even on OpenGL, not only Vulkan)
 coreForceSlangShaders = { 'mupen64plus-next' }
 
-def writeLibretroConfig(retroconfig, system, controllers, rom, bezel, gameResolution):
-    writeLibretroConfigToFile(retroconfig, createLibretroConfig(system, controllers, rom, bezel, gameResolution))
+def writeLibretroConfig(retroconfig, system, controllers, rom, bezel, gameResolution, gfxBackend):
+    writeLibretroConfigToFile(retroconfig, createLibretroConfig(system, controllers, rom, bezel, gameResolution, gfxBackend))
 
 # Take a system, and returns a dict of retroarch.cfg compatible parameters
-def createLibretroConfig(system, controllers, rom, bezel, gameResolution):
+def createLibretroConfig(system, controllers, rom, bezel, gameResolution, gfxBackend):
 
     # retroarch-core-options.cfg
     retroarchCore = batoceraFiles.retroarchCoreCustom
@@ -89,8 +91,10 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution):
     # Basic configuration
     retroarchConfig['quit_press_twice'] = 'false'               # not aligned behavior on other emus
     retroarchConfig['menu_show_restart_retroarch'] = 'false'    # this option messes everything up on Batocera if ever clicked
-    retroarchConfig['video_driver'] = '"gl"'                    # needed for the ozone menu
-    retroarchConfig['audio_latency'] = '64'                     #best balance with audio perf
+
+    retroarchConfig['video_driver'] = '"' + gfxBackend + '"'  # needed for the ozone menu
+
+    retroarchConfig['audio_latency'] = '64'                     # best balance with audio perf
     if (system.isOptSet("audio_latency")):
         retroarchConfig['audio_latency'] = system.config['audio_latency']
 
@@ -110,13 +114,21 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution):
     else:
         retroarchConfig['video_rotation'] = '0'
 
-    if system.isOptSet("gfxbackend") and system.config["gfxbackend"] == "vulkan":
-        retroarchConfig['video_driver'] = '"vulkan"'
-
     if system.isOptSet('video_threaded') and system.getOptBoolean('video_threaded') == True:
         retroarchConfig['video_threaded'] = 'true'
     else:
         retroarchConfig['video_threaded'] = 'false'
+
+    if system.isOptSet('video_allow_rotate') and system.getOptBoolean('video_allow_rotate') == False:
+        retroarchConfig['video_allow_rotate'] = 'false'
+    else:
+        retroarchConfig['video_allow_rotate'] = 'true'    
+
+    # variable refresh rate
+    if system.isOptSet("vrr_runloop_enable") and system.getOptBoolean("vrr_runloop_enable") == False:
+        retroarchConfig['vrr_runloop_enable'] = 'false'
+    else:
+        retroarchConfig['vrr_runloop_enable'] = 'true'
 
     # required at least for vulkan (to get the correct resolution)
     retroarchConfig['video_fullscreen_x'] = gameResolution["width"]
@@ -152,6 +164,9 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution):
 
     # force notification messages
     retroarchConfig['video_font_enable'] = '"true"'
+
+    # prevent displaying "QUICK MENU" with "No Items" after DOSBox Pure, TyrQuake and PrBoom games exit
+    retroarchConfig['load_dummy_on_core_shutdown'] = '"false"'
 
     ## Specific choices
     if(system.config['core'] in coreToP1Device):
@@ -364,6 +379,21 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution):
         else:
             retroarchConfig['input_libretro_device_p1'] = '1'
 
+    ## ZX Spectrum
+    if (system.config['core'] == 'fuse'):
+        if system.isOptSet('controller1_zxspec'):
+            retroarchConfig['input_libretro_device_p1'] = system.config['controller1_zxspec']
+        else:
+            retroarchConfig['input_libretro_device_p1'] = '769'                               #Sinclair 1 controller - most used on games
+        if system.isOptSet('controller2_zxspec'):
+            retroarchConfig['input_libretro_device_p2'] = system.config['controller2_zxspec']
+        else:
+            retroarchConfig['input_libretro_device_p2'] = '1025'                              #Sinclair 2 controller 
+        if system.isOptSet('controller3_zxspec'):
+            retroarchConfig['input_libretro_device_p3'] = system.config['controller3_zxspec']
+        else:
+            retroarchConfig['input_libretro_device_p3'] = '0'
+
     # Smooth option
     if system.isOptSet('smooth') and system.getOptBoolean('smooth') == True:
         retroarchConfig['video_smooth'] = 'true'
@@ -387,7 +417,7 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution):
             retroarchConfig['video_aspect_ratio_auto'] = 'false'
         else:
             retroarchConfig['video_aspect_ratio_auto'] = 'true'
-            retroarchConfig['aspect_ratio_index'] = ''
+            retroarchConfig['aspect_ratio_index'] = '22'
 
     # Rewind option
     retroarchConfig['rewind_enable'] = 'false'
@@ -564,6 +594,7 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution):
         retroarchConfig['menu_widget_scale_factor_windowed'] = '2.0000'
     else:
         retroarchConfig['video_font_size'] = '32'
+        retroarchConfig['menu_widget_scale_auto'] = 'true'
         # don't force any so that the user can choose
         #retroarchConfig['menu_driver'] = 'ozone'
         # force the assets directory while it was wrong in some beta versions
@@ -709,16 +740,8 @@ def writeBezelConfig(bezel, retroarchConfig, rom, gameResolution, system):
             output_png_file = "/tmp/bezel_game_adapted.png"
             create_new_bezel_file = True
         else:
-            create_new_bezel_file = False
+            # The logic to cache system bezels is not true anymore now that we have tattoos
             output_png_file = "/tmp/" + os.path.splitext(os.path.basename(overlay_png_file))[0] + "_adapted.png"
-            if os.path.exists(output_png_file) is False:
-                create_new_bezel_file = True
-            else:
-                if os.path.getmtime(output_png_file) < os.path.getmtime(overlay_png_file):
-                    create_new_bezel_file = True
-        # fast way of checking the size of a png
-        oldwidth, oldheight = bezelsUtil.fast_image_size(output_png_file)
-        if (oldwidth != gameResolution["width"] or oldheight != gameResolution["height"]):
             create_new_bezel_file = True
 
         if bezel_stretch:
@@ -744,7 +767,8 @@ def writeBezelConfig(bezel, retroarchConfig, rom, gameResolution, system):
             eslog.debug("Generating a new adapted bezel file {}".format(output_png_file))
             try:
                 bezelsUtil.padImage(overlay_png_file, output_png_file, gameResolution["width"], gameResolution["height"], infos["width"], infos["height"])
-            except:
+            except Exception as e:
+                eslog.debug("Failed to create the adapated image: {}".format(e))
                 return
         overlay_png_file = output_png_file # replace by the new file (recreated or cached in /tmp)
         if system.isOptSet('bezel.tattoo') and system.config['bezel.tattoo'] != "0":

@@ -333,7 +333,7 @@ def start_rom(args, maxnbplayers, rom, romConfiguration):
 
             if system.isOptSet('hud_support') and system.getOptBoolean('hud_support') == True:
                 hud_bezel = getHudBezel(system, rom, gameResolution)
-                if (system.isOptSet('hud') and system.config["hud"] != "") or hud_bezel is not None:
+                if (system.isOptSet('hud') and system.config["hud"] != "" and system.config["hud"] != "none") or hud_bezel is not None:
                     gameinfos = extractGameInfosFromXml(args.gameinfoxml)
                     cmd.env["MANGOHUD_DLSYM"] = "1"
                     hudconfig = getHudConfig(system, args.systemname, system.config['emulator'], effectiveCore, rom, gameinfos, hud_bezel)
@@ -369,7 +369,7 @@ def start_rom(args, maxnbplayers, rom, romConfiguration):
     return exitCode
 
 def getHudBezel(system, rom, gameResolution):
-    if 'bezel' not in system.config or system.config['bezel'] == "":
+    if 'bezel' not in system.config or system.config['bezel'] == "" or system.config['bezel'] == "none":
         return None
 
     eslog.debug("hud enabled. trying to apply the bezel {}".format(system.config['bezel']))
@@ -430,7 +430,7 @@ def getHudBezel(system, rom, gameResolution):
     # if there is no information about top/bottom, assume default is 0
 
     ## the bezel left and right cover must be maximum
-    ingame_ratio = generators[system.config['emulator']].getInGameRatio(system.config, gameResolution)
+    ingame_ratio = generators[system.config['emulator']].getInGameRatio(system.config, gameResolution, rom)
     img_height = bezel_height
     img_width  = img_height * ingame_ratio
 
@@ -513,7 +513,7 @@ def hudConfig_protectStr(str):
 def getHudConfig(system, systemName, emulator, core, rom, gameinfos, bezel):
     configstr = ""
 
-    if bezel != "":
+    if bezel != "" and bezel is not None:
         configstr = "background_image={}\nlegacy_layout=false\n".format(hudConfig_protectStr(bezel))
 
     if not system.isOptSet('hud'):

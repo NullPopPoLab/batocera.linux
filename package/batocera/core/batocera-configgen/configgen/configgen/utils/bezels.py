@@ -2,6 +2,8 @@ import os
 import batoceraFiles
 import struct
 from PIL import Image, ImageOps
+from .logger import get_logger
+eslog = get_logger(__name__)
 
 def getBezelInfos(rom, bezel, systemName):
     # by order choose :
@@ -47,6 +49,7 @@ def getBezelInfos(rom, bezel, systemName):
                                 bezel_game = True
                                 if not os.path.exists(overlay_png_file):
                                     return None
+    eslog.debug("Original bezel file used: {}".format(overlay_png_file))
     return { "png": overlay_png_file, "info": overlay_info_file, "specific_to_game": bezel_game }
 
 # Much faster than PIL Image.size
@@ -66,10 +69,11 @@ def fast_image_size(image_file):
 
 def resizeImage(input_png, output_png, screen_width, screen_height):
     imgin = Image.open(input_png)
+    eslog.debug("Resizing bezel: image mode {}".format(imgin.mode))
     if imgin.mode != "RGBA":
-        alphaPaste(input_png, output_png, imgin, fillcolor)
+        alphaPaste(input_png, output_png, imgin, fillcolor, (screen_width, screen_height))
     else:
-        imgout = imgin.resize((screen_width, screen_height), Image.ANTIALIAS)
+        imgout = imgin.resize((screen_width, screen_height), Image.BICUBIC)
         imgout.save(output_png, mode="RGBA", format="PNG")
 
 def padImage(input_png, output_png, screen_width, screen_height, bezel_width, bezel_height):
@@ -89,9 +93,9 @@ def padImage(input_png, output_png, screen_width, screen_height, bezel_width, be
       borderh = yoffset // 2
   imgin = Image.open(input_png)
   if imgin.mode != "RGBA":
-      alphaPaste(input_png, output_png, imgin, fillcolor)
+      alphaPaste(input_png, output_png, imgin, fillcolor, (screen_width, screen_height))
   else:
-      imgout = ImageOps.expand(imgin, border=(borderw, borderh, xoffset-borderw, yoffset-borderh), fill=fillcolor)
+      imgout = ImageOps.pad(imgin, (screen_width, screen_height), color=fillcolor, centering=(0.5,0.5))
       imgout.save(output_png, mode="RGBA", format="PNG")
 
 def tatooImage(input_png, output_png, system):
@@ -102,19 +106,19 @@ def tatooImage(input_png, output_png, system):
               tattoo_file = '/usr/share/batocera/controller-overlays/generic.png'
           tattoo = Image.open(tattoo_file)
       except:
-          eslog.error("Error opening controller overlay: {}".format('tattoo_file'))
+          eslog.error("Error opening controller overlay: {}".format(tattoo_file))
   elif system.config['bezel.tattoo'] == 'custom' and os.path.exists(system.config['bezel.tattoo_file']):
       try:
           tattoo_file = system.config['bezel.tattoo_file']
           tattoo = Image.open(tattoo_file)
       except:
-          eslog.error("Error opening custom file: {}".format('tattoo_file'))
+          eslog.error("Error opening custom file: {}".format(tattoo_file))
   else:
       try:
           tattoo_file = '/usr/share/batocera/controller-overlays/generic.png'
           tattoo = Image.open(tattoo_file)
       except:
-          eslog.error("Error opening custom file: {}".format('tattoo_file'))
+          eslog.error("Error opening custom file: {}".format(tattoo_file))
   # Open the existing bezel...
   back = Image.open(input_png)
   # Convert it otherwise it implodes later on...
@@ -123,45 +127,46 @@ def tatooImage(input_png, output_png, system):
   # Quickly grab the sizes.
   w,h = fast_image_size(input_png)
   tw,th = fast_image_size(tattoo_file)
-  if system.isOptSet('bezel.resize_tattoo') and system.getOptBoolean('bezel.resize_tattoo') == False:
+  if system.config['bezel.resize_tattoo'] == 0:
       # Maintain the image's original size.
       # Failsafe for if the image is too large.
       if tw > w or th > h:
           # Limit width to that of the bezel and crop the rest.
           pcent = float(w / tw)
-          tatheight = int(float(th) * pcent)
+          th = int(float(th) * pcent)
           # Resize the tattoo to the calculated size.
-          tattoo = tattoo.resize((w,tatheight), Image.ANTIALIAS)
+          tattoo = tattoo.resize((w,th), Image.BICUBIC)
   else:
       # Resize to be slightly smaller than the bezel's column.
-      tatwidth = int(225/1920 * w)
-      pcent = float(tatwidth / tw)
-      tatheight = int(float(th) * pcent)
-      tattoo = tattoo.resize((tatwidth,tatheight), Image.ANTIALIAS)
-  # Grab the alpha masks for use later.
-  alpha = back.split()[-1]
-  alphatat = tattoo.split()[-1]
+      twtemp = int((225/1920) * w)
+      pcent = float(twtemp / tw)
+      th = int(float(th) * pcent)
+      tattoo = tattoo.resize((twtemp,th), Image.BICUBIC)
+      tw = twtemp
   # Create a new blank canvas that is the same size as the bezel for later compositing (they are required to be the same size).
   tattooCanvas = Image.new("RGBA", back.size)
+  # Margin for the tattoo
+  margin = int((20 / 1080) * h)
   if system.isOptSet('bezel.tattoo_corner'):
       corner = system.config['bezel.tattoo_corner']
   else:
       corner = 'NW'
   if (corner.upper() == 'NE'):
-      tattooCanvas.paste(tattoo, (w-tatwidth,20), alphatat) # 20 pixels vertical margins (on 1080p)
+      tattooCanvas.paste(tattoo, (w-tw,margin)) # 20 pixels vertical margins (on 1080p)
   elif (corner.upper() == 'SE'):
-      tattooCanvas.paste(tattoo, (w-tatwidth,h-tatheight-20), alphatat)
+      tattooCanvas.paste(tattoo, (w-tw,h-th-margin))
   elif (corner.upper() == 'SW'):
-      tattooCanvas.paste(tattoo, (0,h-tatheight-20), alphatat)
+      tattooCanvas.paste(tattoo, (0,h-th-margin))
   else: # default = NW
-      tattooCanvas.paste(tattoo, (0,20), alphatat)
+      tattooCanvas.paste(tattoo, (0,margin))
   back = Image.alpha_composite(back, tattooCanvas)
 
   imgnew = Image.new("RGBA", (w,h), (0,0,0,255))
   imgnew.paste(back, (0,0,w,h))
   imgnew.save(output_png, mode="RGBA", format="PNG")
 
-def alphaPaste(input_png, output_png, imgin, fillcolor):
+def alphaPaste(input_png, output_png, imgin, fillcolor, screensize):
+  # screensize=(screen_width, screen_height)
   imgin = Image.open(input_png)
   # TheBezelProject have Palette + alpha, not RGBA. PIL can't convert from P+A to RGBA.
   # Even if it can load P+A, it can't save P+A as PNG. So we have to recreate a new image to adapt it.
@@ -171,5 +176,5 @@ def alphaPaste(input_png, output_png, imgin, fillcolor):
   ix,iy = fast_image_size(input_png)
   imgnew = Image.new("RGBA", (ix,iy), (0,0,0,255))
   imgnew.paste(alpha, (0,0,ix,iy))
-  imgout = ImageOps.expand(imgnew, border=(borderw, borderh, xoffset-borderw, yoffset-borderh), fill=fillcolor)
+  imgout = ImageOps.pad(imgnew, screensize, color=fillcolor, centering=(0.5,0.5))
   imgout.save(output_png, mode="RGBA", format="PNG")

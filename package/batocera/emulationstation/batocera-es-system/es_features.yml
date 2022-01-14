@@ -12,20 +12,51 @@ shared:
         "Game": game
         "Performances": perf
         "Custom": custom
+    runahead:
+      submenu:     LATENCY REDUCTION
+      prompt:      RUN-AHEAD FRAMES
+      description: Use run-ahead frames
+      choices:
+        "None": 0
+        "1": 1
+        "2": 2
+        "3": 3
+        "4": 4
+        "5": 5
+        "6": 6
+    secondinstance:
+      submenu:     LATENCY REDUCTION
+      prompt:      RUN-AHEAD USE SECOND INSTANCE
+      choices:
+        "On": 1
+        "Off": 0
+    video_frame_delay_auto:
+      submenu:     LATENCY REDUCTION
+      prompt:      AUTOMATIC FRAME DELAY
+      description: Automatically decrease frame delay temporarily to prevent frame drops.
+      choices:
+        "On": 1
+        "Off": 0
+    integerscale:
+      prompt:      INTEGER SCALING (PIXEL PERFECT)
+      choices:
+        "On": 1
+        "Off": 0
 
 global:
-  shared: [hud]
+  shared: [hud, runahead, secondinstance, video_frame_delay_auto, integerscale]
 
 libretro:
-  features: [ratio, smooth, shaders, pixel_perfect, decoration, game_translation]
-  shared: [hud]
+  features: [ratio, smooth, shaders, decoration, runahead, secondinstance, video_frame_delay_auto, game_translation]
+  shared: [hud, integerscale]
   cfeatures:
     gfxbackend:
-      archs_include: [x86, x86_64, rpi4, rk3326, gameforce]
+      archs_include: [x86, x86_64, rpi4, rk3326]
       prompt:      GRAPHICS API
       description: Choose which graphics API library to use. Vulkan is better, when supported.
       choices:
         "OpenGL": opengl
+        "GLCore": glcore
         "Vulkan": vulkan
     audio_latency:
       prompt:      AUDIO LATENCY
@@ -44,10 +75,21 @@ libretro:
         choices:
             "On":   "true"
             "Off":  "false"
-
+    video_allow_rotate:
+        prompt:      ALLOW ROTATION
+        description: Allow cores to set rotation.
+        choices:
+              "On":   "true"
+              "Off":  "false"
+    lightgun_map:
+        prompt:      CONTROLLER TO LIGHTGUN
+        description: Map controller inputs to lightgun inputs
+        choices:
+            "On":   "true"
+            "Off":  "false"
   cores:
     '81':
-      features: [netplay, rewind, autosave, latency_reduction, padtokeyboard]
+      features: [netplay, rewind, autosave, padtokeyboard]
       cfeatures:
             81_chroma_81:
                 prompt:      COLORIZATION
@@ -64,7 +106,7 @@ libretro:
                     "Off":         none
                     "On (forced)": WRX
     atari800:
-      features: [latency_reduction, padtokeyboard]
+      features: [padtokeyboard]
       systems:
             atari800:
                 cfeatures:
@@ -113,11 +155,11 @@ libretro:
                             "Off":     disabled
                             "On":      enabled
     beetle-saturn:
-      features: [netplay, autosave, latency_reduction, cheevos]
+      features: [netplay, autosave, cheevos]
     fmsx:
-       features: [netplay, rewind, autosave, latency_reduction]
+       features: [netplay, rewind, autosave]
     bluemsx:
-      features: [rewind, autosave, latency_reduction, padtokeyboard, cheevos]
+      features: [rewind, autosave, padtokeyboard, cheevos]
       cfeatures:
             bluemsx_nospritelimits:
                 prompt:      REDUCE SPRITE FLICKERING
@@ -126,11 +168,11 @@ libretro:
                     "Off": OFF
                     "On":  ON
     bsnes:
-      features: [netplay, rewind, autosave, latency_reduction, cheevos]
+      features: [netplay, rewind, autosave, cheevos]
     bsnes_hd:
-      features: [netplay, rewind, autosave, latency_reduction, cheevos]
+      features: [netplay, rewind, autosave, cheevos]
     cap32:
-      features: [netplay, rewind, autosave, latency_reduction, padtokeyboard]
+      features: [netplay, rewind, autosave, padtokeyboard]
       cfeatures:
             cap32_model:
                 prompt:      CPC MODEL
@@ -147,7 +189,7 @@ libretro:
                     "512KB":   512
                     "576+KB":  576
     mesen-s:
-      features: [netplay, rewind, autosave, latency_reduction, padtokeyboard]
+      features: [netplay, rewind, autosave, padtokeyboard]
       cfeatures:
             mesen-s_ntsc_filter:
                 prompt:      BLARGG NTSC FILTER
@@ -209,11 +251,11 @@ libretro:
                     "500%":  500%
                     "1000%": 1000%
     citra:
-      features: [rewind, autosave, latency_reduction]
+      features: [rewind, autosave]
     daphne:
-      features: [latency_reduction, padtokeyboard]
+      features: [padtokeyboard]
     desmume:
-      features: [netplay, rewind, autosave, latency_reduction, cheevos]
+      features: [netplay, rewind, autosave, cheevos]
       cfeatures:
             internal_resolution_desmume:
                 prompt:      RENDERING RESOLUTION
@@ -280,7 +322,7 @@ libretro:
                     "8":   8
                     "9":   9
     melonds:
-      features: [autosave, latency_reduction, cheevos]
+      features: [autosave, cheevos]
       cfeatures:
             melonds_boot_directly:
                 prompt:      SKIP DS SYSTEM MENU
@@ -305,7 +347,7 @@ libretro:
     dolphin:
       features: []
     dosbox:
-      features: [latency_reduction, padtokeyboard]
+      features: [padtokeyboard]
       cfeatures:
             core_timing:
                 prompt:      CPU TIMING MODE (FPS)
@@ -350,7 +392,7 @@ libretro:
                     "Keyboard + Mouse":             3
                     "Joystick (Analog, 2 Buttons)": 517
     dosbox_pure:
-      features: [latency_reduction, padtokeyboard]
+      features: [padtokeyboard]
       cfeatures:
             pure_cpu_type:
                 prompt:      CPU TYPE
@@ -499,7 +541,7 @@ libretro:
                     "Both Joysticks (4 Axes, 4 Btns)":                      2049
                     "Custom Keyboard Binds (best for Pad2Key)":             3
     swanstation:
-      features: [autosave, latency_reduction, cheevos]
+      features: [autosave, cheevos]
       cfeatures:
             duckstation_PatchFastBoot:
                 prompt:      SHOW BIOS BOOTLOGO
@@ -583,7 +625,7 @@ libretro:
                     "PlayStation Mouse":             PlayStationMouse
                     "NeGcon":                        NeGcon
     duckstation:
-      features: [autosave, latency_reduction, cheevos]
+      features: [autosave, cheevos]
       cfeatures:
             duckstation_PatchFastBoot:
                 prompt:      SHOW BIOS BOOTLOGO
@@ -671,7 +713,7 @@ libretro:
     easyrpg:
       features: []
     fbneo:
-      features: [netplay, rewind, autosave, latency_reduction, cheevos]
+      features: [netplay, rewind, autosave, cheevos]
       cfeatures:
             fbneo-cpu-speed-adjust:
                 prompt:      CPU CLOCK
@@ -729,7 +771,7 @@ libretro:
                             "Shared":                             shared
                             "Per-game":                           per-game
     fceumm:
-      features: [netplay, rewind, autosave, latency_reduction, cheevos]
+      features: [netplay, rewind, autosave, cheevos]
       cfeatures:
             fceumm_nospritelimit:
                 prompt:      REDUCE SPRITE FLICKERING
@@ -940,11 +982,11 @@ libretro:
                             "Horizontal": horizontal
                             "Vertical":   vertical
     freeintv:
-      features: [latency_reduction, padtokeyboard, autosave, cheevos]
+      features: [padtokeyboard, autosave, cheevos]
     freechaf:
       features: [rewind]
     fuse:
-      features: [autosave, latency_reduction, padtokeyboard]
+      features: [autosave, padtokeyboard]
       cfeatures:
             fuse_hide_border:
                 prompt:      ZOOM (HIDE BORDERS)
@@ -952,8 +994,40 @@ libretro:
                 choices:
                     "Off":  disabled
                     "On":   enabled
+            controller1_zxspec:
+                prompt:      CONTROLLER TYPE 1
+                description: Sinclair 1 controller set to AUTO.
+                choices:
+                    "None":                    0
+                    "Retropad":                1
+                    "Cursor Joystick":         257
+                    "Kempston Joystick":       513
+                    "Sinclair 1 Joystick":     769
+                    "Sinclair 2 Joystick":     1025
+                    "Timex 1 Joystick":        1281
+                    "Timex 2 Joystick":        1537
+                    "Fuller Joystick":         1793
+            controller2_zxspec:
+                prompt:      CONTROLLER TYPE 2
+                description: Sinclair 2 controller set to AUTO.
+                choices:
+                    "None":                    0
+                    "Retropad":                1
+                    "Cursor Joystick":         257
+                    "Kempston Joystick":       513
+                    "Sinclair 1 Joystick":     769
+                    "Sinclair 2 Joystick":     1025
+                    "Timex 1 Joystick":        1281
+                    "Timex 2 Joystick":        1537
+                    "Fuller Joystick":         1793
+            controller3_zxspec:
+                prompt:      KEYBOARD SUPPORT
+                description: Set controller 1 and 2 to None to use it standalone.
+                choices:
+                    "Off":                     0
+                    "On":                      259
     gambatte:
-      features: [rewind, autosave, latency_reduction, cheevos]
+      features: [rewind, autosave, cheevos]
       cfeatures:
             gb_bootloader:
                 prompt:      SHOW BIOS BOOTLOGO
@@ -965,8 +1039,7 @@ libretro:
                 description: Required for certain visual effects.
                 choices:
                     "Off":                     disabled
-                    "Simple (Accurate)":       mix
-                    "Simple (Fast)":           mix_fast
+                    "Simple":                  mix
                     "LCD Ghosting (Accurate)": lcd_ghosting
                     "LCD Ghosting (Fast)":     lcd_ghosting_fast
       systems:
@@ -1041,9 +1114,9 @@ libretro:
                             "TWB64 - Pack 1":                   TWB75 - WonderSwan
                             "TWB64 - Pack 2":                   TWB76 - Yellow Banana
     genesisplusgx-wide:
-      features: [netplay, rewind, autosave, latency_reduction, cheevos]
+      features: [netplay, rewind, autosave, cheevos]
     genesisplusgx:
-      features: [netplay, rewind, autosave, latency_reduction, cheevos]
+      features: [netplay, rewind, autosave, cheevos]
       cfeatures:
             gpgx_no_sprite_limit:
                 prompt:      REDUCE SPRITE FLICKERING
@@ -1157,21 +1230,19 @@ libretro:
                             "Off":       disabled
                             "On":        enabled
     gpsp:
-      features: [rewind, autosave, latency_reduction, cheevos]
-    gw:
-      features: [latency_reduction]
+      features: [rewind, autosave, cheevos]
     handy:
-      features: [netplay, rewind, autosave, latency_reduction, cheevos]
+      features: [netplay, rewind, autosave, cheevos]
     hatari:
-      features: [autosave, latency_reduction, padtokeyboard]
+      features: [autosave, padtokeyboard]
     imame4all:
-      features: [netplay, rewind, autosave, latency_reduction]
+      features: [netplay, rewind, autosave]
     kronos:
       features: [autosave]
     lutro:
       features: []
     mame:
-      features: [netplay, autosave, latency_reduction]
+      features: [netplay, autosave]
       cfeatures:
             mame_cpu_overclock:
                 prompt:      OVERCLOCK (UNSTABLE)
@@ -1217,7 +1288,7 @@ libretro:
                     "2560x1440":      2560x1440
                     "3840x2160":      3840x2160
     mame078plus:
-      features: [netplay, rewind, autosave, latency_reduction]
+      features: [netplay, rewind, autosave]
       cfeatures:
             mame2003-plus_analog:
                 prompt:      CONTROL MAPPING
@@ -1257,11 +1328,11 @@ libretro:
                     "Arcade Universe BIOS 4.0 (Cheats)":   unibios40
                     "Arcade Universe BIOS 3.3 (Cheats)":   unibios33
     mednafen_lynx:
-      features: [netplay, rewind, autosave, latency_reduction, cheevos]
+      features: [netplay, rewind, autosave, cheevos]
     mednafen_ngp:
-      features: [netplay, rewind, autosave, latency_reduction, cheevos]
+      features: [netplay, rewind, autosave, cheevos]
     mednafen_psx:
-      features: [autosave, latency_reduction, cheevos]
+      features: [autosave, cheevos]
       cfeatures:
             beetle_psx_skip_bios:
                 prompt:      SHOW BIOS BOOTLOGO
@@ -1369,7 +1440,7 @@ libretro:
                     #"Justifier":                     516
                     "PlayStation Mouse":             258
     mednafen_supergrafx:
-      features: [netplay, rewind, autosave, latency_reduction, cheevos]
+      features: [netplay, rewind, autosave, cheevos]
       cfeatures:
             sgx_nospritelimit:
                 prompt:      REDUCE SPRITE FLICKERING
@@ -1378,9 +1449,9 @@ libretro:
                     "Off":        disabled
                     "On":         enabled
     mednafen_wswan:
-      features: [netplay, rewind, autosave, latency_reduction, cheevos]
+      features: [netplay, rewind, autosave, cheevos]
     mgba:
-      features: [rewind, autosave, latency_reduction, cheevos]
+      features: [rewind, autosave, cheevos]
       cfeatures:
             skip_bios_mgba:
                 prompt:      SHOW BIOS BOOTLOGO
@@ -1450,7 +1521,7 @@ libretro:
                             "9":  9
                             "10": 10
     mrboom:
-      features: [netplay, rewind, autosave, latency_reduction]
+      features: [netplay, rewind, autosave]
       cfeatures:
             mrboom-aspect:
                 prompt:      TEAM COLOR MODE
@@ -1596,7 +1667,7 @@ libretro:
                     "Off":          Off
                     "On":           On
     nestopia:
-      features: [netplay, rewind, autosave, latency_reduction]
+      features: [netplay, rewind, autosave]
       cfeatures:
             nestopia_nospritelimit:
                 prompt:      REDUCE SPRITE FLICKERING
@@ -1774,10 +1845,8 @@ libretro:
                     "Keypad 3button":               Keypad 3button
                     "Manual keyboard":              Manual Keyboard
                     "Atari Joypad":                 Atari Joypad
-    nxengine:
-      features: [latency_reduction]
     o2em:
-      features: [rewind, autosave, latency_reduction, cheevos]
+      features: [rewind, autosave, cheevos]
       cfeatures:
             o2em_bios:
                 prompt:      EMULATED SYSTEM
@@ -1829,7 +1898,7 @@ libretro:
                     "80%":                         80
                     "90%":                         90
     opera:
-      features: [netplay, rewind, autosave, latency_reduction, cheevos]
+      features: [netplay, rewind, autosave, cheevos]
       cfeatures:
             high_resolution:
                 prompt:      RENDERING RESOLUTION
@@ -1934,7 +2003,7 @@ libretro:
                     "Memory Pak":  memory
                     "Rumble Pak":  rumble
     pce:
-      features: [netplay, rewind, autosave, latency_reduction]
+      features: [netplay, rewind, autosave]
       cfeatures:
             pce_nospritelimit:
                 prompt:      REDUCE SPRITE FLICKERING
@@ -1948,7 +2017,7 @@ libretro:
                     "PCE Joypad": 1
                     "PCE Mouse":  2
     pce_fast:
-      features: [netplay, rewind, autosave, latency_reduction, cheevos]
+      features: [netplay, rewind, autosave, cheevos]
       cfeatures:
             pce_nospritelimit:
                 prompt:      REDUCE SPRITE FLICKERING
@@ -1962,7 +2031,7 @@ libretro:
                     "PCE Joypad": 1
                     "PCE Mouse":  2
     pcfx:
-      features: [netplay, rewind, autosave, latency_reduction, cheevos]
+      features: [netplay, rewind, autosave, cheevos]
       cfeatures:
             pcfx_nospritelimit:
                 prompt:      REDUCE SPRITE FLICKERING
@@ -1971,7 +2040,7 @@ libretro:
                     "Off":        disabled
                     "On":         enabled
     pcsx_rearmed:
-      features: [autosave, latency_reduction, cheevos]
+      features: [autosave, cheevos]
       cfeatures:
             show_bios_bootlogo:
                 prompt:      SHOW BIOS BOOTLOGO
@@ -2062,9 +2131,9 @@ libretro:
                     "Joypad 3 Button": 3 button pad
                     "Joypad 6 Button": 6 button pad
     pocketsnes:
-      features: [netplay, rewind, autosave, latency_reduction]
+      features: [netplay, rewind, autosave]
     pokemini:
-      features: [rewind, autosave, latency_reduction, cheevos]
+      features: [rewind, autosave, cheevos]
       cfeatures:
             pokemini_lcdfilter:
                 prompt:      LCD FILTER
@@ -2079,7 +2148,7 @@ libretro:
                     "Off":  3shades
                     "On":   analog
     potator:
-      features: [rewind, autosave, latency_reduction, cheevos]
+      features: [rewind, autosave, cheevos]
       cfeatures:
             watara_palette:
                 prompt:      COLOR PALETTE
@@ -2127,9 +2196,9 @@ libretro:
                     "7 Frames":                       7
                     "8 Frames":                       8
     ppsspp:
-      features: [rewind, autosave, latency_reduction, cheevos]
+      features: [rewind, autosave, cheevos]
     prboom:
-      features: [rewind, autosave, latency_reduction]
+      features: [rewind, autosave]
       cfeatures:
             prboom-resolution:
                 prompt:      RENDERING RESOLUTION
@@ -2150,7 +2219,7 @@ libretro:
                     "Gamepad Modern":     773
                     "Keyboard + Mouse":   3
     prosystem:
-      features: [rewind, autosave, latency_reduction, cheevos]
+      features: [rewind, autosave, cheevos]
     puae:
       features: [rewind, autosave, padtokeyboard]
       cfeatures:
@@ -2227,7 +2296,7 @@ libretro:
                 description: Hides borders on many games. Some games use the borders.
                 choices:
                     "Off":            none
-                    "Autofit screen": automatic
+                    "Auto zoom":      automatic
                     "minimum":        minimum
                     "smaller":        smaller
                     "small":          small
@@ -2253,6 +2322,12 @@ libretro:
                     "150%":       150
                     "170%":       170
                     "200%":       200
+            pad_options:
+                prompt:      JUMP ON B
+                description: Makes second fire button press up instead.
+                choices:
+                    "Off":    disabled
+                    "On":     jump
       systems:
             amiga500:
                 cfeatures:
@@ -2274,12 +2349,6 @@ libretro:
                         choices:
                             "Off":    disabled
                             "On":     config
-                    pad_options:
-                        prompt:      JUMP ON B
-                        description: Makes second fire button press up instead.
-                        choices:
-                            "Off":    disabled
-                            "On":     jump
                     disable_joystick:
                         prompt:      DISABLE EMULATOR JOYSTICK
                         description: Passes all physical keyboard events for Pad2Key.
@@ -2390,7 +2459,7 @@ libretro:
                             "On":     0
 
     px68k:
-      features: [latency_reduction, padtokeyboard]
+      features: [padtokeyboard]
       cfeatures:
             px68k_cpuspeed:
                 prompt:      CPU CLOCK
@@ -2442,7 +2511,7 @@ libretro:
                     "Megadrive (8 Buttons)":     CPSF-MD (8 Buttons)
                     "Super Famicom (8 Buttons)": CPSF-SFC (8 Buttons)
     quasi88:
-      features: [netplay, rewind, autosave, latency_reduction, padtokeyboard, cheevos]
+      features: [netplay, rewind, autosave, padtokeyboard, cheevos]
       cfeatures:
             q88_basic_mode:
                 prompt:      PC MODEL
@@ -2468,10 +2537,8 @@ libretro:
                 choices:
                     "Off":                  disabled
                     "On":                   enabled
-    retro8:
-      features: [latency_reduction]
     scummvm:
-      features: [latency_reduction, padtokeyboard]
+      features: [padtokeyboard]
       cfeatures:
             scummvm_analog_deadzone:
                 prompt:      ANALOG DEADZONE
@@ -2502,7 +2569,7 @@ libretro:
                     "Off":        disabled
                     "On":         enabled
     snes9x:
-      features: [netplay, rewind, autosave, latency_reduction, cheevos]
+      features: [netplay, rewind, autosave, cheevos]
       cfeatures:
             reduce_sprite_flicker:
                 prompt:      REDUCE SPRITE FLICKERING (UNSTABLE)
@@ -2565,7 +2632,7 @@ libretro:
                     "SNES Gamepad":          1
                     "Konami Justifier (P2)": 772
     snes9x_next:
-      features: [netplay, rewind, autosave, latency_reduction, cheevos]
+      features: [netplay, rewind, autosave, cheevos]
       cfeatures:
             2010_reduce_sprite_flicker:
                 prompt:      REDUCE SPRITE FLICKERING
@@ -2613,9 +2680,9 @@ libretro:
                     "Konami Justifier":       516
                     "Dual Konami Justifiers": 772
     stella:
-      features: [netplay, rewind, autosave, latency_reduction, cheevos]
+      features: [netplay, rewind, autosave, cheevos]
     tgbdual:
-      features: [netplay, rewind, autosave, latency_reduction]
+      features: [netplay, rewind, autosave]
       cfeatures:
             sync_saves:
                 prompt:      SYNC SAVE FILES
@@ -2624,11 +2691,11 @@ libretro:
                     "On":   1
                     "Off":  0
     theodore:
-      features: [netplay, rewind, autosave, latency_reduction, padtokeyboard]
+      features: [netplay, rewind, autosave, padtokeyboard]
     tic80:
-      features: [latency_reduction, padtokeyboard]
+      features: [padtokeyboard]
     tyrquake:
-      features: [rewind, autosave, latency_reduction, padtokeyboard]
+      features: [rewind, autosave, padtokeyboard]
       cfeatures:
             tyrquake_resolution:
                 prompt:      RENDERING RESOLUTION
@@ -2672,7 +2739,7 @@ libretro:
                     "Gamepad Modern":         773
                     "Keyboard + Mouse":       3
     vb:
-      features: [netplay, rewind, autosave, latency_reduction, cheevos]
+      features: [netplay, rewind, autosave, cheevos]
       cfeatures:
             2d_color_mode:
                 prompt:      COLOR PALETTE (2D)
@@ -2696,7 +2763,7 @@ libretro:
                     "green/magenta":       green & magenta
                     "yellow/blue":         yellow & blue
     vba-m:
-      features: [rewind, autosave, latency_reduction, cheevos]
+      features: [rewind, autosave, cheevos]
       systems:
             gb:
                 cfeatures:
@@ -2811,7 +2878,7 @@ libretro:
                             "115": 115
                             "120": 120
     vecx:
-      features: [rewind, autosave, latency_reduction, cheevos]
+      features: [rewind, autosave, cheevos]
       cfeatures:
             res_multi:
                 prompt:      RESOLUTION MULTIPLIER
@@ -2822,11 +2889,11 @@ libretro:
                     "3":    3
                     "4":    4
     vice_x64:
-      features: [rewind, autosave, latency_reduction, padtokeyboard]
+      features: [rewind, autosave, padtokeyboard]
       cfeatures:
             c64_model:
                 prompt:      MODEL TYPE
-                description: Automatically switches region per file path tags
+                description: Automatic switches region per file path tags
                 choices:
                     "C64 PAL Automatic":        C64 PAL auto
                     "C64 NTSC Automatic":       C64 NTSC auto
@@ -2842,7 +2909,7 @@ libretro:
                     #"Educator 64 NTSC":         PET64 NTSC
                     "C64 Games System PAL":     C64 GS PAL
                     "C64 Japanese NTSC":        C64 JAP NTSC
-            external_palette:
+            vice_external_palette:
                 prompt:      COLOR FILTER
                 description: Can be used to simulate colors of particular displays.
                 choices:
@@ -2863,20 +2930,28 @@ libretro:
                     "ptoing":                   ptoing
                     "rgb":                      rgb
                     "vice":                     vice
-            aspect_ratio:
+            vice_aspect_ratio:
                 prompt:      ASPECT RATIO
                 description: Change the output resolution ratio.
                 choices:
                     "PAL 576x312px":     pal
                     "NTSC 492x262px":    ntsc
-            zoom_mode_c64:
+            vice_zoom_mode:
                 prompt:      ZOOM (HIDE BORDERS)
                 description: Hides borders on many games. Some games used the borders.
                 choices:
-                    "Off":                      none
+                    "Auto-disable zoom":        auto_disable
+                    "Auto zoom":                automatic
+                    "Off":                      disabled
                     "small":                    small
                     "medium":                   medium
                     "maximum":                  maximum
+            vice_retropad_options:
+                prompt:      JUMP ON A
+                description: Makes second fire button press up instead.
+                choices:
+                    "Off":                      disabled
+                    "On":                       jump
             vice_joyport:
                 prompt:      CONTROLLER PORT
                 description: Most games use port 2, some use port 1.
@@ -2896,18 +2971,18 @@ libretro:
                     #"Mouse (SmartMouse)":       8
                     #"Mouse (Micromys)":         9
                     "Koalapad":                 10
-            keyboard_pass_through:
+            vice_keyboard_pass_through:
                 prompt:      KEYBOARD PASSTHROUGH
                 description: Keyboard shortcuts unavailable if passing through the keyboard.
                 choices:
                     "Off":                      disabled
                     "On":                       enabled
     vice_x64sc:
-      features: [rewind, autosave, latency_reduction, padtokeyboard]
+      features: [rewind, autosave, padtokeyboard]
       cfeatures:
             c64_model:
-                prompt:      COMPUTER MODEL
-                description: Automatic switches region per file path tags.
+                prompt:      MODEL TYPE
+                description: Automatic switches region per file path tags
                 choices:
                     "C64 PAL Automatic":        C64 PAL auto
                     "C64 NTSC Automatic":       C64 NTSC auto
@@ -2923,63 +2998,370 @@ libretro:
                     #"Educator 64 NTSC":         PET64 NTSC
                     "C64 Games System PAL":     C64 GS PAL
                     "C64 Japanese NTSC":        C64 JAP NTSC
-            external_palette:
+            vice_external_palette:
                 prompt:      COLOR FILTER
                 description: Can be used to simulate colors of particular displays.
                 choices:
-                    "default":          default
-                    "colodore":         colodore
-                    "pepto-pal":        pepto-pal
-                    "pepto-ntsc":       pepto-ntsc
-                    "pepto-ntsc-sony":  pepto-ntsc-sony
-                    "cjam":             cjam
-                    "c64hq":            c64hq
-                    "c64s":             c64s
-                    "ccs64":            ccs64
-                    "community-colors": community-colors
-                    "deekay":           deekay
-                    "frodo":            frodo
-                    "godot":            godot
-                    "pc64":             pc64
-                    "ptoing":           ptoing
-                    "rgb":              rgb
-                    "vice":             vice
-            aspect_ratio:
+                    "default":                  default
+                    "colodore":                 colodore
+                    "pepto-pal":                pepto-pal
+                    "pepto-ntsc":               pepto-ntsc
+                    "pepto-ntsc-sony":          pepto-ntsc-sony
+                    "cjam":                     cjam
+                    "c64hq":                    c64hq
+                    "c64s":                     c64s
+                    "ccs64":                    ccs64
+                    "community-colors":         community-colors
+                    "deekay":                   deekay
+                    "frodo":                    frodo
+                    "godot":                    godot
+                    "pc64":                     pc64
+                    "ptoing":                   ptoing
+                    "rgb":                      rgb
+                    "vice":                     vice
+            vice_aspect_ratio:
                 prompt:      ASPECT RATIO
                 description: Change the output resolution ratio.
                 choices:
                     "PAL 576x312px":     pal
                     "NTSC 492x262px":    ntsc
-            zoom_mode_c64:
+            vice_zoom_mode:
                 prompt:      ZOOM (HIDE BORDERS)
                 description: Hides borders on many games. Some games used the borders.
                 choices:
-                    "Off":              none
-                    "small":            small
-                    "medium":           medium
-                    "maximum":          maximum
-            JoyPort:
-                prompt:      JOYSTICK PORT
+                    "Auto-disable zoom":        auto_disable
+                    "Auto zoom":                automatic
+                    "Off":                      disabled
+                    "small":                    small
+                    "medium":                   medium
+                    "maximum":                  maximum
+            vice_retropad_options:
+                prompt:      JUMP ON A
+                description: Makes second fire button press up instead.
+                choices:
+                    "Off":                      disabled
+                    "On":                       jump
+            vice_joyport:
+                prompt:      CONTROLLER PORT
                 description: Most games use port 2, some use port 1.
                 choices:
-                    "Port 1":           Port 1
-                    "Port 2":           Port 2
-            keyboard_pass_through:
+                    "Port 1":                   1
+                    "Port 2":                   2
+            vice_joyport_type:
+                prompt:      CONTROLLER TYPE
+                choices:
+                    "Joystick":                 1
+                    "Paddles":                  2
+                    "Mouse (1351)":             3
+                    #"Mouse (NEOS)":             4
+                    #"Mouse (Amiga)":            5
+                    "Trackball (Atari CX-22)":  6
+                    #"Mouse (Atari ST)":         7
+                    #"Mouse (SmartMouse)":       8
+                    #"Mouse (Micromys)":         9
+                    "Koalapad":                 10
+            vice_keyboard_pass_through:
                 prompt:      KEYBOARD PASSTHROUGH
                 description: Keyboard shortcuts unavailable if passing through the keyboard.
                 choices:
-                    "Off":              disabled
-                    "On":               enabled
-    vice_xplus4:
-      features: [rewind, autosave, latency_reduction, padtokeyboard]
+                    "Off":                      disabled
+                    "On":                       enabled
     vice_x128:
-      features: [rewind, autosave, latency_reduction, padtokeyboard]
+      features: [rewind, autosave, padtokeyboard]
+      cfeatures:
+            c128_model:
+                prompt:      MODEL TYPE
+                choices:
+                    "C128 PAL":            C128 PAL
+                    "C128 NTSC":           C128 NTSC
+                    "C128 DCR PAL":        C128 DCR PAL
+                    "C128 DCR NTSC":       C128 DCR NTSC
+            vice_external_palette:
+                prompt:      COLOR FILTER
+                description: Can be used to simulate colors of particular displays.
+                choices:
+                    "default":                  default
+                    "colodore":                 colodore
+                    "pepto-pal":                pepto-pal
+                    "pepto-ntsc":               pepto-ntsc
+                    "pepto-ntsc-sony":          pepto-ntsc-sony
+                    "cjam":                     cjam
+                    "c64hq":                    c64hq
+                    "c64s":                     c64s
+                    "ccs64":                    ccs64
+                    "community-colors":         community-colors
+                    "deekay":                   deekay
+                    "frodo":                    frodo
+                    "godot":                    godot
+                    "pc64":                     pc64
+                    "ptoing":                   ptoing
+                    "rgb":                      rgb
+                    "vice":                     vice
+            vice_aspect_ratio:
+                prompt:      ASPECT RATIO
+                description: Change the output resolution ratio.
+                choices:
+                    "PAL 576x312px":     pal
+                    "NTSC 492x262px":    ntsc
+            vice_zoom_mode:
+                prompt:      ZOOM (HIDE BORDERS)
+                description: Hides borders on many games. Some games used the borders.
+                choices:
+                    "Auto-disable zoom":        auto_disable
+                    "Auto zoom":                automatic
+                    "Off":                      disabled
+                    "small":                    small
+                    "medium":                   medium
+                    "maximum":                  maximum
+            vice_retropad_options:
+                prompt:      Button Options
+                description: RetroPad Face Button Options.
+                choices:
+                    "B = Fire":                 disabled
+                    "B = Fire, A = Up":         jump
+                    "Y = Fire":                 rotate
+                    "Y = Fire, B = Up":         rotate_jump
+            vice_joyport:
+                prompt:      CONTROLLER PORT
+                description: Most games use port 2, some use port 1.
+                choices:
+                    "Port 1":                   1
+                    "Port 2":                   2
+            vice_joyport_type:
+                prompt:      CONTROLLER TYPE
+                choices:
+                    "Joystick":                 1
+                    "Paddles":                  2
+                    "Mouse (1351)":             3
+                    #"Mouse (NEOS)":             4
+                    #"Mouse (Amiga)":            5
+                    "Trackball (Atari CX-22)":  6
+                    #"Mouse (Atari ST)":         7
+                    #"Mouse (SmartMouse)":       8
+                    #"Mouse (Micromys)":         9
+                    "Koalapad":                 10
+            vice_keyboard_pass_through:
+                prompt:      KEYBOARD PASSTHROUGH
+                description: Keyboard shortcuts unavailable if passing through the keyboard.
+                choices:
+                    "Off":                      disabled
+                    "On":                       enabled
+    vice_xplus4:
+      features: [rewind, autosave, padtokeyboard]
+      cfeatures:
+            plus4_model:
+                prompt:      MODEL TYPE
+                choices:
+                    "PLUS4 PAL":            PLUS4 PAL
+                    "PLUS4 NTSC":           PLUS4 NTSC
+                    "C16 PAL":              C16 PAL
+                    "C16 NTSC":             C16 NTSC
+                    "V364 NTSC":            V364 NTSC
+                    "232 NTSC":             232 NTSC
+            vice_plus4_external_palette:
+                prompt:      COLOR FILTER
+                description: Can be used to simulate colors of particular displays.
+                choices:
+                    "default":                  default
+                    "colodore_ted":             colodore_ted
+                    "yape-pal":                 yape-pal
+                    "yape-ntsc":                yape-ntsc
+            vice_aspect_ratio:
+                prompt:      ASPECT RATIO
+                description: Change the output resolution ratio.
+                choices:
+                    "PAL 576x312px":     pal
+                    "NTSC 492x262px":    ntsc
+            vice_zoom_mode:
+                prompt:      ZOOM (HIDE BORDERS)
+                description: Hides borders on many games. Some games used the borders.
+                choices:
+                    "Auto-disable zoom":        auto_disable
+                    "Auto zoom":                automatic
+                    "Off":                      disabled
+                    "small":                    small
+                    "medium":                   medium
+                    "maximum":                  maximum
+            vice_retropad_options:
+                prompt:      Button Options
+                description: RetroPad Face Button Options.
+                choices:
+                    "B = Fire":                 disabled
+                    "B = Fire, A = Up":         jump
+                    "Y = Fire":                 rotate
+                    "Y = Fire, B = Up":         rotate_jump
+            vice_joyport:
+                prompt:      CONTROLLER PORT
+                description: Most games use port 2, some use port 1.
+                choices:
+                    "Port 1":                   1
+                    "Port 2":                   2
+            vice_joyport_type:
+                prompt:      CONTROLLER TYPE
+                choices:
+                    "Joystick":                 1
+                    "Paddles":                  2
+                    "Mouse (1351)":             3
+                    #"Mouse (NEOS)":             4
+                    #"Mouse (Amiga)":            5
+                    "Trackball (Atari CX-22)":  6
+                    #"Mouse (Atari ST)":         7
+                    #"Mouse (SmartMouse)":       8
+                    #"Mouse (Micromys)":         9
+                    "Koalapad":                 10
+            vice_keyboard_pass_through:
+                prompt:      KEYBOARD PASSTHROUGH
+                description: Keyboard shortcuts unavailable if passing through the keyboard.
+                choices:
+                    "Off":                      disabled
+                    "On":                       enabled
     vice_xvic:
-      features: [rewind, autosave, latency_reduction, padtokeyboard]
+      features: [rewind, autosave, padtokeyboard]
+      cfeatures:
+            vic20_model:
+                prompt:      MODEL TYPE
+                description: Automatic switches region per file path tags
+                choices:
+                    "VIC20 PAL Automatic":      VIC20 PAL auto
+                    "VIC20 NTSC Automatic":     VIC20 NTSC auto
+                    "VIC20 PAL":                VIC20 PAL
+                    "VIC20 NTSC":               VIC20 NTSC
+                    "Super VIC (+16K) NTSC":    VIC21
+            vice_vic20_external_palette:
+                prompt:      COLOR FILTER
+                description: Can be used to simulate colors of particular displays.
+                choices:
+                    "default":                  default
+                    "colodore_vic":             colodore_vic
+                    "mike-pal":                 mike-pal
+                    "mike-ntsc":                mike-ntsc
+                    "vice":                     vice
+            vice_aspect_ratio:
+                prompt:      ASPECT RATIO
+                description: Change the output resolution ratio.
+                choices:
+                    "PAL 576x312px":     pal
+                    "NTSC 492x262px":    ntsc
+            vice_zoom_mode:
+                prompt:      ZOOM (HIDE BORDERS)
+                description: Hides borders on many games. Some games used the borders.
+                choices:
+                    "Auto-disable zoom":        auto_disable
+                    "Auto zoom":                automatic
+                    "Off":                      disabled
+                    "small":                    small
+                    "medium":                   medium
+                    "maximum":                  maximum
+            vice_retropad_options:
+                prompt:      Button Options
+                description: RetroPad Face Button Options.
+                choices:
+                    "B = Fire":                 disabled
+                    "B = Fire, A = Up":         jump
+                    "Y = Fire":                 rotate
+                    "Y = Fire, B = Up":         rotate_jump
+            vice_joyport:
+                prompt:      CONTROLLER PORT
+                description: Most games use port 2, some use port 1.
+                choices:
+                    "Port 1":                   1
+                    "Port 2":                   2
+            vice_joyport_type:
+                prompt:      CONTROLLER TYPE
+                choices:
+                    "Joystick":                 1
+                    "Paddles":                  2
+                    "Mouse (1351)":             3
+                    #"Mouse (NEOS)":             4
+                    #"Mouse (Amiga)":            5
+                    "Trackball (Atari CX-22)":  6
+                    #"Mouse (Atari ST)":         7
+                    #"Mouse (SmartMouse)":       8
+                    #"Mouse (Micromys)":         9
+                    "Koalapad":                 10
+            vice_keyboard_pass_through:
+                prompt:      KEYBOARD PASSTHROUGH
+                description: Keyboard shortcuts unavailable if passing through the keyboard.
+                choices:
+                    "Off":                      disabled
+                    "On":                       enabled
     vice_xpet:
-      features: [rewind, autosave, latency_reduction, padtokeyboard]
+      features: [rewind, autosave, padtokeyboard]
+      cfeatures:
+            pet_model:
+                prompt:      MODEL TYPE
+                choices:
+                    "8032":      8032
+                    "2001":      2001
+                    "3008":      3008
+                    "3016":      3016
+                    "3032":      3032
+                    "3032B":     3032B
+                    "4016":      4016
+                    "4032":      4032
+                    "4032B":     4032B
+                    "8096":      8096
+                    "8296":      8296
+                    "SUPERPET":  SUPERPET
+            vice_pet_external_palette:
+                prompt:      COLOR FILTER
+                description: Can be used to simulate colors of particular displays.
+                choices:
+                    "default":       default
+                    "green":         green
+                    "amber":         amber
+                    "white":         white
+            vice_aspect_ratio:
+                prompt:      ASPECT RATIO
+                description: Change the output resolution ratio.
+                choices:
+                    "PAL 576x312px":     pal
+                    "NTSC 492x262px":    ntsc
+            vice_zoom_mode:
+                prompt:      ZOOM (HIDE BORDERS)
+                description: Hides borders on many games. Some games used the borders.
+                choices:
+                    "Auto-disable zoom":        auto_disable
+                    "Auto zoom":                automatic
+                    "Off":                      disabled
+                    "small":                    small
+                    "medium":                   medium
+                    "maximum":                  maximum
+            vice_retropad_options:
+                prompt:      Button Options
+                description: RetroPad Face Button Options.
+                choices:
+                    "B = Fire":                 disabled
+                    "B = Fire, A = Up":         jump
+                    "Y = Fire":                 rotate
+                    "Y = Fire, B = Up":         rotate_jump
+            vice_joyport:
+                prompt:      CONTROLLER PORT
+                description: Most games use port 2, some use port 1.
+                choices:
+                    "Port 1":                   1
+                    "Port 2":                   2
+            vice_joyport_type:
+                prompt:      CONTROLLER TYPE
+                choices:
+                    "Joystick":                 1
+                    "Paddles":                  2
+                    "Mouse (1351)":             3
+                    #"Mouse (NEOS)":             4
+                    #"Mouse (Amiga)":            5
+                    "Trackball (Atari CX-22)":  6
+                    #"Mouse (Atari ST)":         7
+                    #"Mouse (SmartMouse)":       8
+                    #"Mouse (Micromys)":         9
+                    "Koalapad":                 10
+            vice_keyboard_pass_through:
+                prompt:      KEYBOARD PASSTHROUGH
+                description: Keyboard shortcuts unavailable if passing through the keyboard.
+                choices:
+                    "Off":                      disabled
+                    "On":                       enabled
     virtualjaguar:
-      features: [autosave, latency_reduction, padtokeyboard, cheevos]
+      features: [autosave, padtokeyboard, cheevos]
       cfeatures:
             usefastblitter:
                 prompt:      FAST BLITTER (LESS COMPATIBLE)
@@ -3032,10 +3414,10 @@ libretro:
       features: []
 
     emuscv:
-      features: [rewind, autosave, latency_reduction]
+      features: [rewind, autosave]
 
     uzem:
-      features: [rewind, autosave, latency_reduction]
+      features: [rewind, autosave]
 
     play:
       features: []
@@ -3049,6 +3431,40 @@ libretro:
 amiberry:
   features: [ratio, padtokeyboard, decoration]
   shared: [hud]
+  cfeatures:
+        amiberry_linemode:
+            prompt:      LINE MODE
+            description: Adjust screen line draw mode.
+            choices:
+                "SINGLE":                      none
+                "DOUBLE":                      double
+                "SCANLINES":                   scanlines
+        amiberry_resolution:
+            prompt:      VIDEO RESOLUTION
+            description: Manually define which internal resolution to use. AUTO = High.
+            choices:
+                "Low":                         lores
+                "High":                        hires
+                "Super high":                  superhires
+        amiberry_scalingmethod:
+            prompt:      SCALING METHOD
+            description: Change pixel scaling and filtering method.
+            choices:
+                "Automatic":                   automatic
+                "Pixelated (Nearest)":         pixelated
+                "Smooth (Linear)":             smooth
+        amiberry_flickerfixer:
+            prompt:      REMOVE INTERLACE ARTIFACTS
+            description: Fix flickering in a static screen like Workbench.
+            choices:
+                "ON":                          true
+                "OFF":                         false
+        amiberry_auto_height:
+            prompt:      AUTO HEIGHT
+            description: Resize automatically screen height.
+            choices:
+                "ON":                          true
+                "OFF":                         false
 
 cannonball:
   features: [ratio, decoration]
@@ -3158,7 +3574,7 @@ daphne:
   shared: [hud]
   cfeatures:
         gfxbackend:
-            archs_include: [x86, x86_64, rpi4, rk3326, gameforce]
+            archs_include: [x86, x86_64, rpi4, rk3326]
             prompt:      GRAPHICS BACKEND
             description: Choose your graphics rendering
             choices:
@@ -3198,7 +3614,7 @@ dolphin:
   shared: [hud]
   cfeatures:
         gfxbackend:
-            archs_include: [x86, x86_64, rpi4, rk3326, gameforce]
+            archs_include: [x86, x86_64, rpi4, rk3326]
             prompt:      GRAPHICS API
             description: Choose which graphics API library to use. Vulkan is better, when supported.
             choices:
@@ -3392,7 +3808,7 @@ duckstation:
                 "Per 1s, 90s total (990MB|180MB)":    90
                 "Per 1s, 120s total (1320MB|240MB)":  120
         gfxbackend:
-            archs_include: [x86, x86_64, rpi4, rk3326, gameforce]
+            archs_include: [x86, x86_64, rpi4, rk3326]
             prompt:      GRAPHICS API
             description: Choose which graphics API library to use. Vulkan is better, when supported.
             choices:
@@ -3716,12 +4132,13 @@ pcsx2:
             choices:
                 "OpenGL":      12
                 "Software":    13
+                "Vulkan":      14
         fullboot:
             prompt:      SHOW BIOS BOOTLOGO
-            description: Off is safer, On for specific games.
+            description: Some games have issues when the animation is shown, others require it.
             choices:
-                "Show":         1
-                "Skip":         0
+                "Show (specific games)": 1
+                "Skip (safer)":          0
         internal_resolution:
             prompt:      RENDERING RESOLUTION
             description: Enhancement. Increase the rendering resolution. Makes 3D objects clearer.
@@ -3829,12 +4246,18 @@ ppsspp:
   shared: [hud]
   cfeatures:
         gfxbackend:
-            archs_include: [x86, x86_64, rpi4, rk3326, gameforce]
+            archs_include: [x86, x86_64, rpi4, rk3326]
             prompt:      GRAPHICS API
             description: Choose which graphics API library to use. Vulkan is better, when supported.
             choices:
                 "OpenGL":               0 (OPENGL)
                 "Vulkan":               3 (VULKAN)
+        rendering_mode:
+            prompt:      RENDERING MODE
+            description: Skip buffer disables auto frameskip and renders at display output resolution.
+            choices:
+                "Buffered rendering":   1
+                "Skip buffer effects":  0
         internal_resolution:
             prompt:      RENDERING RESOLUTION
             description: Enhancement. Increase the rendering resolution. Makes 3D objects clearer.
@@ -3855,12 +4278,17 @@ ppsspp:
             description: Skip frames to improve performance, at the cost of choppy motion.
             choices:
                 "Off":                  0
-                "Autodetect":           automatic
                 "1":                    1
                 "2":                    2
                 "3":                    3
                 "4":                    4
                 "5":                    5
+        autoframeskip:
+            prompt:      AUTO FRAMESKIP
+            description: Automatically reduce frameskip if the system has spare overhead.
+            choices:
+                "On":                   1
+                "Off":                  0
         vsyncinterval:
             prompt:      VSYNC INTERVAL
             description: Enable for more fluidity, disable if screen tearing.
@@ -4077,7 +4505,7 @@ mame:
                 "Accel":           accel
                 "OpenGL":          opengl
         bgfxbackend:
-            archs_include: [x86, x86_64, rpi4, rk3326, gameforce]
+            archs_include: [x86, x86_64, rpi4, rk3326]
             prompt:      BGFX GRAPHICS API
             description: Depends on video mode being set to BGFX. Vulkan is better, when supported.
             choices:
@@ -4117,12 +4545,18 @@ mame:
             choices:
                 "Off (Default)":    0
                 "DS3 Orientation":  1
-                "X360 Orientation": 2
+                "X360 Orientation": 2      
+        customcfg:
+            prompt:      CUSTOM MAME CONFIG
+            description: Set system-wide controls via MAME menu
+            choices:
+                "On":  1
+                "Off": 0
   systems:
        apfm1000:
             cfeatures:
                 pergamecfg:
-                    prompt:      CUSTOM CONFIG
+                    prompt:      CUSTOM GAME CONFIG
                     description: Enable per-game custom configuration via MAME menu.
                     choices:
                         "On":  1
@@ -4130,7 +4564,7 @@ mame:
        arcadia:
             cfeatures:
                 pergamecfg:
-                    prompt:      CUSTOM CONFIG
+                    prompt:      CUSTOM GAME CONFIG
                     description: Enable per-game custom configuration via MAME menu.
                     choices:
                         "On":  1
@@ -4138,7 +4572,7 @@ mame:
        astrocde:
             cfeatures:
                 pergamecfg:
-                    prompt:      CUSTOM CONFIG
+                    prompt:      CUSTOM GAME CONFIG
                     description: Enable per-game custom configuration via MAME menu.
                     choices:
                         "On":  1
@@ -4152,7 +4586,7 @@ mame:
                         "Cartridge":   cart
                         "Cassette":    cass
                 pergamecfg:
-                    prompt:      CUSTOM CONFIG
+                    prompt:      CUSTOM GAME CONFIG
                     description: Enable per-game custom configuration via MAME menu.
                     choices:
                         "On":  1
@@ -4173,12 +4607,12 @@ mame:
                         "Disk (Drive 2)": flop2
                 enableui:
                     prompt:      UI KEYS
-                    description: Open with hotkey + D-pad up or Scroll Lock in-game.
+                    description: Toggle with hotkey + D-pad up or Scroll Lock in-game.
                     choices:
                         "Off at Start": 0
                         "On at Start":  1
                 pergamecfg:
-                    prompt:      CUSTOM CONFIG
+                    prompt:      CUSTOM GAME CONFIG
                     description: Enable per-game custom configuration via MAME menu.
                     choices:
                         "On":  1
@@ -4198,7 +4632,7 @@ mame:
                         "Disk (Drive 2)": flop2
                 enableui:
                     prompt:      UI KEYS
-                    description: Open with hotkey + D-pad up or Scroll Lock in-game.
+                    description: Toggle with hotkey + D-pad up or Scroll Lock in-game.
                     choices:
                         "Off at Start": 0
                         "On at Start":  1
@@ -4224,12 +4658,12 @@ mame:
                         "Cartridge (Slot 4)": cart4
                 enableui:
                     prompt:      UI KEYS
-                    description: Open with hotkey + D-pad up or Scroll Lock in-game.
+                    description: Toggle with hotkey + D-pad up or Scroll Lock in-game.
                     choices:
                         "Off at Start": 0
                         "On at Start":  1
                 pergamecfg:
-                    prompt:      CUSTOM CONFIG
+                    prompt:      CUSTOM GAME CONFIG
                     description: Enable per-game custom configuration via MAME menu.
                     choices:
                         "On":  1
@@ -4245,12 +4679,12 @@ mame:
                         "Cartridge":   cart
                 enableui:
                     prompt:      UI KEYS
-                    description: Open with hotkey + D-pad up or Scroll Lock in-game.
+                    description: Toggle with hotkey + D-pad up or Scroll Lock in-game.
                     choices:
                         "Off at Start": 0
                         "On at Start":  1
                 pergamecfg:
-                    prompt:      CUSTOM CONFIG
+                    prompt:      CUSTOM GAME CONFIG
                     description: Enable per-game custom configuration via MAME menu.
                     choices:
                         "On":  1
@@ -4265,12 +4699,12 @@ mame:
                         "Cartridge":   cart
                 enableui:
                     prompt:      UI KEYS
-                    description: Open with hotkey + D-pad up or Scroll Lock in-game.
+                    description: Toggle with hotkey + D-pad up or Scroll Lock in-game.
                     choices:
                         "Off at Start": 0
                         "On at Start":  1
                 pergamecfg:
-                    prompt:      CUSTOM CONFIG
+                    prompt:      CUSTOM GAME CONFIG
                     description: Enable per-game custom configuration via MAME menu.
                     choices:
                         "On":  1
@@ -4285,16 +4719,44 @@ mame:
                         "Cartridge":   cart
                 enableui:
                     prompt:      UI KEYS
-                    description: Open with hotkey + D-pad up or Scroll Lock in-game.
+                    description: Toggle with hotkey + D-pad up or Scroll Lock in-game.
                     choices:
                         "Off at Start": 0
                         "On at Start":  1
                 pergamecfg:
-                    prompt:      CUSTOM CONFIG
+                    prompt:      CUSTOM GAME CONFIG
                     description: Enable per-game custom configuration via MAME menu.
                     choices:
                         "On":  1
                         "Off": 0
+       mame: 
+            cfeatures:
+                altlayout:
+                    prompt:      SPECIAL CONTROL LAYOUTS
+                    description: Controls for 5/6 button games and other unique controls
+                    choices:
+                        "Default Only":                 "default"
+                        "SNES Style":                   "snes"
+                        "Genesis/Megadrive Style":      "megadrive"
+                        "Modern Fightstick Style":      "fightstick"
+                        "Neo Geo Mini Pad":             "neomini"
+                        "Neo Geo CD Pad":               "neocd"
+                        "Twin Stick with Triggers":     "twinstick"
+                        "Rotated 4-Way Stick (Q*Bert)": "qbert"
+       neogeo: 
+            cfeatures:
+                altlayout:
+                    prompt:      SPECIAL CONTROL LAYOUTS
+                    description: Controls for 5/6 button games and other unique controls
+                    choices:
+                        "Default Only":                 "default"
+                        "SNES Style":                   "snes"
+                        "Genesis/Megadrive Style":      "megadrive"
+                        "Modern Fightstick Style":      "fightstick"
+                        "Neo Geo Mini Pad":             "neomini"
+                        "Neo Geo CD Pad":               "neocd"
+                        "Twin Stick with Triggers":     "twinstick"
+                        "Rotated 4-Way Stick (Q*Bert)": "qbert" 
 
 wine:
   features: [padtokeyboard, decoration]
@@ -4333,12 +4795,6 @@ wine:
         fsr:
             prompt:      FIDELITY FX SUPER RESOLUTION
             description: Renders game at a lower res then upscales to increase FPS.
-            choices:
-                "Off": 0
-                "On":  1
-        nvapi:
-            prompt:      NVAPI
-            description: NVAPI is NVIDIA's core software that allows direct access to NVIDIA GPU.
             choices:
                 "Off": 0
                 "On":  1

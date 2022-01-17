@@ -3,9 +3,10 @@
 # PCSXREARMED
 #
 ################################################################################
-# Version.: Commits on Dec 21, 2021
-LIBRETRO_PCSX_VERSION = 12fc12797064599dfca2d44043d5c02a949711ef
-LIBRETRO_PCSX_SITE = $(call github,libretro,pcsx_rearmed,$(LIBRETRO_PCSX_VERSION))
+# Version.: Commits on Nov 10, 2021
+LIBRETRO_PCSX_VERSION = ad90ad657f5bcf63741324191f74250783abf73a
+LIBRETRO_PCSX_SITE = https://github.com/NullPopPoLab/pcsx_rearmed
+LIBRETRO_PCSX_SITE_METHOD=git
 LIBRETRO_PCSX_LICENSE = GPLv2
 
 LIBRETRO_PCSX_PLATFORM = $(LIBRETRO_PLATFORM)

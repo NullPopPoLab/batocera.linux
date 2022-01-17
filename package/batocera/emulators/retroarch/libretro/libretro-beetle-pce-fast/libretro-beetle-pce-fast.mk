@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Dec 07, 2021
-LIBRETRO_BEETLE_PCE_FAST_VERSION = f1c7266f7acfd1a5ec7f7480a77c0c8b67f79810
+LIBRETRO_BEETLE_PCE_FAST_VERSION = f76b4aab4b12f874a9e989dc5c2b9b776ade5e06
 LIBRETRO_BEETLE_PCE_FAST_SITE = https://github.com/NullPopPoLab/beetle-pce-fast-libretro.git
 LIBRETRO_BEETLE_PCE_FAST_SITE_METHOD=git
 LIBRETRO_BEETLE_PCE_FAST_LICENSE = GPLv2

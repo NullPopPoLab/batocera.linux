@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version.: Commits on Dec 10, 2021
-LIBRETRO_NESTOPIA_VERSION = b4e4c8f5829d3e72ac084157ec4f68691a6849dc
-LIBRETRO_NESTOPIA_SITE = $(call github,libretro,nestopia,$(LIBRETRO_NESTOPIA_VERSION))
+LIBRETRO_NESTOPIA_VERSION = 4e60ec6c2413facfc327e50aabbddc258153d08e
+LIBRETRO_NESTOPIA_SITE = https://github.com/NullPopPoLab/nestopia
+LIBRETRO_NESTOPIA_SITE_METHOD=git
 LIBRETRO_NESTOPIA_LICENSE = GPLv2
 
 LIBRETRO_NESTOPIA_PLATFORM = $(LIBRETRO_PLATFORM)

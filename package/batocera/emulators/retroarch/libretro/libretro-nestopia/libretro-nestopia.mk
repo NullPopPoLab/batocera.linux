@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Dec 10, 2021
-LIBRETRO_NESTOPIA_VERSION = c448c8223f4d7102e7dca0cc36233dcb4e1d4580
+LIBRETRO_NESTOPIA_VERSION = bed421c3ddb8706db6238b49d90645ccd1fa9e12
 LIBRETRO_NESTOPIA_SITE = https://github.com/NullPopPoLab/nestopia
 LIBRETRO_NESTOPIA_SITE_METHOD=git
 LIBRETRO_NESTOPIA_LICENSE = GPLv2

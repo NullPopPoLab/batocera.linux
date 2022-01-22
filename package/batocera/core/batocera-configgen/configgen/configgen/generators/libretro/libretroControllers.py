@@ -22,8 +22,9 @@ hatstoname = {'1': 'up', '2': 'right', '4': 'down', '8': 'left'}
 
 # Systems to swap Disc/CD : Atari ST / Amstrad CPC / AMIGA 500 1200 / DOS / MSX / PC98 / X68000 / Commodore 64 128 Plus4 | Dreamcast / PSX / Saturn / SegaCD / 3DO
 # Systems with internal mapping : PC88 / FDS | No multi-disc support : opera / yabasanshiro | No m3u support : PicoDrive
-coreWithSwapSupport = {'hatari', 'cap32', 'bluemsx', 'dosbox_pure', 'flycast', 'np2kai', 'puae', 'px68k', 'vice_x64', 'vice_x64sc', 'vice_xplus4', 'vice_x128', 'pcsx_rearmed', 'duckstation', 'mednafen_psx', 'beetle-saturn', 'genesisplusgx'};
+coreWithSwapSupport = {'hatari', 'cap32', 'bluemsx', 'dosbox_pure', 'flycast', 'np2kai', 'puae', 'px68k', 'vice_x64', 'vice_x64sc', 'vice_xplus4', 'vice_x128', 'pcsx_rearmed', 'duckstation', 'mednafen_psx', 'beetle-saturn', 'genesisplusgx','quasi88'};
 systemToSwapDisable = {'amigacd32', 'amigacdtv', 'naomi', 'atomiswave', 'megadrive', 'mastersystem', 'gamegear'}
+secondDiskDriveSupport = {'quasi88','np2kai','px68k','xmil'}
 
 # Write a configuration for a specified controller
 # Warning, function used by amiberry because it reads the same retroarch formatting
@@ -40,6 +41,10 @@ def writeControllersConfig(retroconfig, system, controllers, lightgun):
         retroarchspecials["l2"] =     "disk_prev"
         retroarchspecials["r2"] =     "disk_next"
         retroarchspecials["l3"] =     "screenshot"
+
+    if (system.config['core'] in secondDiskDriveSupport) and (system.name not in systemToSwapDisable):
+        retroarchspecials["pagedown"] = "disk2_eject_toggle"
+        retroarchspecials["r3"] =     "ai_service"
 
     # Full special features list to disable
     retroarchFullSpecial = {'1':  'state_slot_increase', '2':  'load_state',        '3': 'save_state', \

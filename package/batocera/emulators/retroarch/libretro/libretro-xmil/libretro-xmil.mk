@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Mar 14, 2021
-LIBRETRO_XMIL_VERSION = 1380388bbc71092e96e05a7e90269450b4e6186e
+LIBRETRO_XMIL_VERSION = 7cab00b4fc485dceb260cc2ebd26016238a0e076
 LIBRETRO_XMIL_SITE_METHOD=git
 LIBRETRO_XMIL_SITE=https://github.com/NullPopPoLab/xmil-libretro
 LIBRETRO_XMIL_GIT_SUBMODULES=YES

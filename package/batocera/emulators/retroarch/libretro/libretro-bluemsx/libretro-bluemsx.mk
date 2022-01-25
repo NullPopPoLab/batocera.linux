@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version.: Commits on Oct 07, 2021
-LIBRETRO_BLUEMSX_VERSION = cfc1df4d026387883f21994bcce603c4a6be8730
-LIBRETRO_BLUEMSX_SITE = $(call github,libretro,blueMSX-libretro,$(LIBRETRO_BLUEMSX_VERSION))
+LIBRETRO_BLUEMSX_VERSION = 9ec960e63da7479e141ad69991fc5ea489459074
+LIBRETRO_BLUEMSX_SITE = https://github.com/NullPopPoLab/blueMSX-libretro
+LIBRETRO_BLUEMSX_SITE_METHOD = git
 LIBRETRO_BLUEMSX_LICENSE = GPLv2
 
 LIBRETRO_BLUEMSX_PLATFORM = $(LIBRETRO_PLATFORM)

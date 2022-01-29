@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Dec 10, 2021
-LIBRETRO_PC88_VERSION = fbbed23900b32e09e914100be700330ea5b763a1
+LIBRETRO_PC88_VERSION = b50501e6523eac6d9c0da24a05a5b35d472e8ac6
 LIBRETRO_PC88_SITE = https://github.com/NullPopPoLab/quasi88-libretro
 LIBRETRO_PC88_SITE_METHOD = git
 LIBRETRO_PC88_LICENSE = BSD 3-Clause

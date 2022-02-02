@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on May 10, 2020
-LIBRETRO_PC98_VERSION = 1646ce4a2b85339c69138387bd0a2059d8781175
+LIBRETRO_PC98_VERSION = ff4ec7f53cbe0ca7c157220582fc53f0deeef51f
 LIBRETRO_PC98_SITE = https://github.com/NullPopPoLab/NP2kai
 LIBRETRO_PC98_SITE_METHOD = git
 LIBRETRO_PC98_LICENSE = GPLv3

@@ -161,7 +161,7 @@ libretro:
     bluemsx:
       features: [rewind, autosave, padtokeyboard, cheevos]
       cfeatures:
-            region:
+            bluemsx_region:
                 prompt:      REGION
                 description: Auto select a localized machine.
                 choices:

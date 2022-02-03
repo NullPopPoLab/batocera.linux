@@ -776,13 +776,13 @@ def generateCoreSettings(coreSettings, system, rom):
         elif (system.name == 'msxturbor'):
             msxtype = 'MSXturboR'
         # Select a region
-        if system.isOptSet('region'):
-            if system.config['region'] == "":
+        if system.isOptSet('bluemsx_region'):
+            if system.config['bluemsx_region'] == "":
                 pass
-            elif system.config['region'] == "Default":
+            elif system.config['bluemsx_region'] == "Default":
                 pass
             else:
-                msxtype = msxtype+' - '+system.config['region']
+                msxtype = msxtype+' - '+system.config['bluemsx_region']
         coreSettings.save('bluemsx_msxtype', '"'+msxtype+'"')
         # Forces cropping of overscanned frames
         if system.name == 'colecovision' or system.name == 'msx1':

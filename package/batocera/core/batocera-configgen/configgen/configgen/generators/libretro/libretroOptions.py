@@ -764,16 +764,26 @@ def generateCoreSettings(coreSettings, system, rom):
     # Microsoft MSX and Colecovision
     if (system.config['core'] == 'bluemsx'):
         # Auto Select Core
+        msxtype = 'MSX'
         if (system.name == 'colecovision'):
-            coreSettings.save('bluemsx_msxtype', '"ColecoVision"')
+            msxtype = 'ColecoVision'
         elif (system.name == 'msx1'):
-            coreSettings.save('bluemsx_msxtype', '"MSX"')
+            msxtype = 'MSX'
         elif (system.name == 'msx2'):
-            coreSettings.save('bluemsx_msxtype', '"MSX2"')
+            msxtype = 'MSX2'
         elif (system.name == 'msx2+'):
-            coreSettings.save('bluemsx_msxtype', '"MSX2+"')
+            msxtype = 'MSX2+'
         elif (system.name == 'msxturbor'):
-            coreSettings.save('bluemsx_msxtype', '"MSXturboR"')
+            msxtype = 'MSXturboR'
+        # Select a region
+        if system.isOptSet('region'):
+            if system.config['region'] == "":
+                pass
+            elif system.config['region'] == "Default":
+                pass
+            else:
+                msxtype = msxtype+' - '+system.config['region']
+        coreSettings.save('bluemsx_msxtype', '"'+msxtype+'"')
         # Forces cropping of overscanned frames
         if system.name == 'colecovision' or system.name == 'msx1':
             coreSettings.save('bluemsx_overscan', '"enabled"')

@@ -24,7 +24,7 @@ hatstoname = {'1': 'up', '2': 'right', '4': 'down', '8': 'left'}
 # Systems with internal mapping : PC88 / FDS | No multi-disc support : opera / yabasanshiro | No m3u support : PicoDrive
 # (NullPopPoCustom) Additional swappable : PC88 / X1 / FDS (internal mapping is obsoleted)
 # (NullPopPoCustom) 2 disk drives support : PC88 / PC98 / X1 / X68000
-coreWithSwapSupport = {'hatari', 'cap32', 'bluemsx', 'dosbox_pure', 'flycast', 'np2kai', 'puae', 'px68k', 'vice_x64', 'vice_x64sc', 'vice_xplus4', 'vice_x128', 'pcsx_rearmed', 'duckstation', 'mednafen_psx', 'beetle-saturn', 'genesisplusgx','quasi88','x1', 'fceumm', 'nestopia', 'pce'};
+coreWithSwapSupport = {'hatari', 'cap32', 'bluemsx', 'dosbox_pure', 'flycast', 'np2kai', 'puae', 'px68k', 'vice_x64', 'vice_x64sc', 'vice_xplus4', 'vice_x128', 'pcsx_rearmed', 'duckstation', 'mednafen_psx', 'beetle-saturn', 'genesisplusgx','quasi88','x1', 'fceumm', 'nestopia', 'pce', 'pce_fast'};
 systemToSwapDisable = {'amigacd32', 'amigacdtv', 'naomi', 'atomiswave', 'megadrive', 'mastersystem', 'gamegear'}
 secondDiskDriveSupport = {'quasi88','np2kai','px68k','x1'}
 

@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Nov 24, 2021
-LIBRETRO_BEETLE_PCE_VERSION = 7f550c008045934db8fccc4c0c43f32d2cc0ed13
+LIBRETRO_BEETLE_PCE_VERSION = 0ee2ff4f293fb523c4865eda11b678bfba78471f
 LIBRETRO_BEETLE_PCE_SITE = https://github.com/NullPopPoLab/beetle-pce-libretro.git
 LIBRETRO_BEETLE_PCE_SITE_METHOD=git
 LIBRETRO_BEETLE_PCE_LICENSE = GPLv2

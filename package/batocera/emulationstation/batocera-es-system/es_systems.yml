@@ -551,7 +551,7 @@ pcenginecd:
   manufacturer: NEC
   release: 1988
   hardware: console
-  extensions: [pce, cue, ccd, iso, img, chd]
+  extensions: [pce, cue, ccd, iso, img, chd, m3u]
   theme:      pce-cd
   emulators:
     libretro:

@@ -1669,9 +1669,9 @@ def generateCoreSettings(coreSettings, system, rom):
 
     # Sharp X1
     if (system.config['core'] == 'x1'):
-        coreSettings.save('X1_RESOLUTE', '"HIGH"')
-        coreSettings.save('X1_ROMTYPE', '"TURBO"')
-        coreSettings.save('X1_CPU_CLOCK', '"4"')
+        coreSettings.save('x1_resolute', '"HIGH"')
+        coreSettings.save('x1_romtype', '"TURBO"')
+        coreSettings.save('x1_cpu_clock', '"4"')
 
     # Sharp X68000
     if (system.config['core'] == 'px68k'):

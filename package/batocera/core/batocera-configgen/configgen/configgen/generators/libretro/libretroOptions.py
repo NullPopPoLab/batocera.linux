@@ -1676,7 +1676,7 @@ def generateCoreSettings(coreSettings, system, rom):
         if system.isOptSet('x1_bootmedia'):
             coreSettings.save('x1_bootmedia', '"'+system.config['x1_bootmedia']+'"')
         else:
-            coreSettings.save('x1_bootmedia', '"2HD"')
+            coreSettings.save('x1_bootmedia', '"2D"')
         if system.isOptSet('x1_romtype'):
             coreSettings.save('x1_romtype', '"'+system.config['x1_romtype']+'"')
         else:

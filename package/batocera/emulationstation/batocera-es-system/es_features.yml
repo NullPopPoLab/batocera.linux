@@ -3394,15 +3394,18 @@ libretro:
                     "2HD":      2HD
             x1_romtype:
                 prompt: ROM type
+                choices:
                     "X1":       X1
                     "TURBO":    TURBO
                     "TURBOZ":   TURBOZ
             x1_fmboard:
                 prompt: FM Board
+                choices:
                     "OFF":      OFF
                     "ON":       ON
             x1_cpu_clock:
                 prompt: Cpu clock
+                choices:
                     "1 MHz":    1
                     "2 MHz":    2
                     "4 MHz":    4

@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Apr xx, 2020
-LIBRETRO_BLASTEM_VERSION = e8f8158daa5bee3715459937410a0cadde0de37a
+LIBRETRO_BLASTEM_VERSION = 2ee4fb9bc65c3bcc345ce773e37fc4a409a03447
 LIBRETRO_BLASTEM_SITE = https://github.com/NullPopPoLab/blastem
 LIBRETRO_BLASTEM_SITE_METHOD=git
 LIBRETRO_BLASTEM_LICENSE = Non-commercial

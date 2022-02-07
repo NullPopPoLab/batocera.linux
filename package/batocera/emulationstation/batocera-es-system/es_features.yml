@@ -358,6 +358,23 @@ libretro:
     melonds:
       features: [autosave, cheevos]
       cfeatures:
+            melonds_analog_stick_speed:
+                prompt:      ANALOG STICK SPEED
+                description: Customize analog stick speed for stylus.
+                choices:
+                    "0.1": 0.1
+                    "0.2": 0.2
+                    "0.3": 0.3
+                    "0.4": 0.4
+                    "0.5": 0.5
+                    "0.6": 0.6
+                    "0.7": 0.7
+                    "0.8": 0.8
+                    "0.9": 0.9
+                    "1.0": 1.0
+                    "1.2": 1.2
+                    "1.5": 1.5
+                    "2.0": 2.0
             melonds_boot_directly:
                 prompt:      SKIP DS SYSTEM MENU
                 description: Disable to access the system's settings, like time and language.

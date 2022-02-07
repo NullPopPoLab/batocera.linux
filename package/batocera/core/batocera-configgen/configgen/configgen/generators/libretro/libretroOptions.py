@@ -1071,6 +1071,11 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('desmume_screens_layout', '"top/bottom"')
 
     if (system.config['core'] == 'melonds'):
+        # Analog Stick Speed
+        if system.isOptSet('melonds_analog_stick_speed'):
+            coreSettings.save('melonds_analog_stick_speed', system.config['melonds_analog_stick_speed'])
+        else:
+            coreSettings.save('melonds_analog_stick_speed', '"0.5"')
         # Enable threaded rendering
         coreSettings.save('melonds_threaded_renderer', '"enabled"')
         # Emulate Stylus on Right Stick

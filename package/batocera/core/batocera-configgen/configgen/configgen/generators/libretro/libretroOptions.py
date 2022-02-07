@@ -1032,13 +1032,17 @@ def generateCoreSettings(coreSettings, system, rom):
 
     # Nintendo DS
     if (system.config['core'] == 'desmume'):
-        # Emulate Stylus on Right Stick
-        coreSettings.save('desmume_pointer_device_r', '"emulated"')
+        # Emulate Stylus on Analog Stick
+        coreSettings.save('desmume_pointer_mode', '"stick"')
         # Analog Stick Speed
-        if system.isOptSet('desmume_analog_stick_speed'):
-            coreSettings.save('desmume_analog_stick_speed', system.config['desmume_analog_stick_speed'])
+        if system.isOptSet('desmume_left_stick_speed'):
+            coreSettings.save('desmume_left_stick_speed', system.config['desmume_left_stick_speed'])
         else:
-            coreSettings.save('desmume_analog_stick_speed', '"0.5"')
+            coreSettings.save('desmume_left_stick_speed', '"0.5"')
+        if system.isOptSet('desmume_right_stick_speed'):
+            coreSettings.save('desmume_right_stick_speed', system.config['desmume_right_stick_speed'])
+        else:
+            coreSettings.save('desmume_right_stick_speed', '"0.2"')
         # Internal Resolution
         if system.isOptSet('internal_resolution_desmume'):
             coreSettings.save('desmume_internal_resolution', system.config['internal_resolution_desmume'])
@@ -1072,10 +1076,14 @@ def generateCoreSettings(coreSettings, system, rom):
 
     if (system.config['core'] == 'melonds'):
         # Analog Stick Speed
-        if system.isOptSet('melonds_analog_stick_speed'):
-            coreSettings.save('melonds_analog_stick_speed', system.config['melonds_analog_stick_speed'])
+        if system.isOptSet('melonds_left_stick_speed'):
+            coreSettings.save('melonds_left_stick_speed', system.config['melonds_left_stick_speed'])
         else:
-            coreSettings.save('melonds_analog_stick_speed', '"0.5"')
+            coreSettings.save('melonds_left_stick_speed', '"0.5"')
+        if system.isOptSet('melonds_right_stick_speed'):
+            coreSettings.save('melonds_right_stick_speed', system.config['melonds_right_stick_speed'])
+        else:
+            coreSettings.save('melonds_right_stick_speed', '"0.2"')
         # Enable threaded rendering
         coreSettings.save('melonds_threaded_renderer', '"enabled"')
         # Emulate Stylus on Right Stick

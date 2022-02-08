@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Aug 16, 2021
-LIBRETRO_DESMUME_VERSION = Merge branch '_DualAnalogControl' into NullPopPoCustom
+LIBRETRO_DESMUME_VERSION = 9921a6b9a7300cda0d01504ce3cf7f8134835470
 LIBRETRO_DESMUME_SITE = https://github.com/NullPopPoLab/desmume
 LIBRETRO_DESMUME_SITE_METHOD=git
 LIBRETRO_DESMUME_LICENSE = GPLv2

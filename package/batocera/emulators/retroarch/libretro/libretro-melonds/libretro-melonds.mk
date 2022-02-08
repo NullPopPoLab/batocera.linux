@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Oct 01, 2021
-LIBRETRO_MELONDS_VERSION = f6f4e8466e5c55cc91c93e237e6d2bf091ad8a72
+LIBRETRO_MELONDS_VERSION = 812611a48373681182beb96401ddb365f8e8436f
 LIBRETRO_MELONDS_SITE = https://github.com/NullPopPoLab/melonDS
 LIBRETRO_MELONDS_SITE_METHOD=git
 LIBRETRO_MELONDS_LICENSE = GPLv2

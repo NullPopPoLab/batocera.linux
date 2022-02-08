@@ -2,8 +2,9 @@ default:
   emulator:
   core:
   options:
+    shaderset: sharp-bilinear-simple
     hud_support: true
-    retroarch.video_frame_delay_auto: true
+    video_frame_delay_auto: true
 
 pcengine:
   emulator: libretro
@@ -35,10 +36,14 @@ advision:
 gamecube:
   options:
     ubershaders: asynchronous_ubershader
+    # causes issues on nvidia+dolphin
+    bezel: none
 wii:
   options:
     ubershaders: asynchronous_ubershader
-tvgames:
+    # causes issues on nvidia+dolphin
+    bezel: none
+plugnplay:
   emulator: mame
   core:     mame
 megaduck:
@@ -89,3 +94,12 @@ tutor:
 coco:
   emulator: mame
   core:     mame
+macintosh:
+  emulator: mame
+  core:     mame
+gaelco:
+  options:
+    videomode: max-640x480
+hikaru:
+  options:
+    videomode: max-640x480

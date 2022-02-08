@@ -61,10 +61,13 @@ from generators.sonicretro.sonicretroGenerator import SonicRetroGenerator
 from generators.gsplus.gsplusGenerator import GSplusGenerator
 from generators.fba2x.fba2xGenerator import Fba2xGenerator
 from generators.yuzu.yuzuGenerator import YuzuGenerator
+from generators.ryujinx.ryujinxGenerator import RyujinxGenerator
 from generators.samcoupe.samcoupeGenerator import SamcoupeGenerator
 from generators.abuse.abuseGenerator import AbuseGenerator
 from generators.cdogs.cdogsGenerator import CdogsGenerator
 from generators.hcl.hclGenerator import HclGenerator
+from generators.openmsx.openmsxGenerator import OpenmsxGenerator
+from generators.demul.demulGenerator import DemulGenerator
 #from generators.play.playGenerator import PlayGenerator
 
 import controllersConfig as controllers
@@ -132,10 +135,13 @@ generators = {
     'gsplus': GSplusGenerator(),
     'fba2x': Fba2xGenerator(),
     'yuzu': YuzuGenerator(),
+    'ryujinx': RyujinxGenerator(),
     'samcoupe': SamcoupeGenerator(),
     'abuse': AbuseGenerator(),
     'cdogs': CdogsGenerator(),
     'hcl': HclGenerator(),
+    'openmsx': OpenmsxGenerator(),
+    'demul': DemulGenerator(),
     #'play': PlayGenerator(),
 }
 

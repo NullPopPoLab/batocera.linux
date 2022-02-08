@@ -17,9 +17,12 @@ eslog = get_logger(__name__)
 class Pcsx2Generator(Generator):
 
     def getInGameRatio(self, config, gameResolution, rom):
-        if getGfxRatioFromConfig(config, gameResolution) == "16:9":
-            return 16/9
-        return 4/3
+        return 16/9
+
+        # ratio option seems broken with last pcsx2 version
+        #if getGfxRatioFromConfig(config, gameResolution) == "16:9":
+        #    return 16/9
+        #return 4/3
 
     def generate(self, system, rom, playersControllers, gameResolution):
         isAVX2 = checkAvx2()
@@ -251,9 +254,15 @@ def configureGFX(config_directory, system):
 
     # ShowFPS
     if system.isOptSet('showFPS') and system.getOptBoolean('showFPS'):
-        pcsx2GFXSettings.save("osd_monitor_enabled", 1)
+        pcsx2GFXSettings.save("OsdShowFPS", 1)
+        pcsx2GFXSettings.save("OsdShowGSStats", 1)
+        pcsx2GFXSettings.save("OsdShowCPU", 1)
+        pcsx2GFXSettings.save("OsdShowSpeed", 1)
     else:
-        pcsx2GFXSettings.save("osd_monitor_enabled", 0)
+        pcsx2GFXSettings.save("OsdShowFPS", 0)
+        pcsx2GFXSettings.save("OsdShowGSStats", 0)
+        pcsx2GFXSettings.save("OsdShowCPU", 0)
+        pcsx2GFXSettings.save("OsdShowSpeed", 0)
 
     # Graphical Backend
     if system.isOptSet('gfxbackend'):
@@ -326,6 +335,8 @@ def configureUI(config_directory, bios_directory, system_config, gameResolution)
             iniConfig.add_section(section)
     
     iniConfig.set("NO_SECTION","EnablePresets","disabled")
+    # manually allow speed hacks
+    iniConfig.set("NO_SECTION","EnableSpeedHacks","enabled")
     iniConfig.set("ProgramLog", "Visible",     "disabled")
     iniConfig.set("Filenames",  "BIOS",        biosFile)
     iniConfig.set("GSWindow",   "AspectRatio", resolution)

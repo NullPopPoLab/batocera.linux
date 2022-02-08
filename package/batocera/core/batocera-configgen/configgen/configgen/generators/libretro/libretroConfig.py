@@ -23,8 +23,8 @@ def defined(key, dict):
 
 
 # Warning the values in the array must be exactly at the same index than
-# https://github.com/libretro/RetroArch/blob/master/gfx/video_driver.c#L132
-ratioIndexes = ["4/3", "16/9", "16/10", "16/15", "21/9", "1/1", "2/1", "3/2", "3/4", "4/1", "4/4", "5/4", "6/5", "7/9", "8/3",
+# https://github.com/libretro/RetroArch/blob/master/gfx/video_driver.c#L188
+ratioIndexes = ["4/3", "16/9", "16/10", "16/15", "21/9", "1/1", "2/1", "3/2", "3/4", "4/1", "9/16", "5/4", "6/5", "7/9", "8/3",
                 "8/7", "19/12", "19/14", "30/17", "32/9", "config", "squarepixel", "core", "custom", "full"]
 
 # Define system emulated by bluemsx core
@@ -122,13 +122,13 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution, gfxBac
     if system.isOptSet('video_allow_rotate') and system.getOptBoolean('video_allow_rotate') == False:
         retroarchConfig['video_allow_rotate'] = 'false'
     else:
-        retroarchConfig['video_allow_rotate'] = 'true'    
+        retroarchConfig['video_allow_rotate'] = 'true'
 
     # variable refresh rate
-    if system.isOptSet("vrr_runloop_enable") and system.getOptBoolean("vrr_runloop_enable") == False:
-        retroarchConfig['vrr_runloop_enable'] = 'false'
-    else:
+    if system.isOptSet("vrr_runloop_enable") and system.getOptBoolean("vrr_runloop_enable") == True:
         retroarchConfig['vrr_runloop_enable'] = 'true'
+    else:
+        retroarchConfig['vrr_runloop_enable'] = 'false'
 
     # required at least for vulkan (to get the correct resolution)
     retroarchConfig['video_fullscreen_x'] = gameResolution["width"]
@@ -258,16 +258,6 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution, gfxBac
 
     ## Sega Dreamcast controller
     if system.config['core'] == 'flycast':
-        if system.name != 'dreamcast':
-            retroarchConfig['input_player1_analog_dpad_mode'] = '3'
-            retroarchConfig['input_player2_analog_dpad_mode'] = '3'
-            retroarchConfig['input_player3_analog_dpad_mode'] = '3'
-            retroarchConfig['input_player4_analog_dpad_mode'] = '3'
-        else:
-            retroarchConfig['input_player1_analog_dpad_mode'] = '1'
-            retroarchConfig['input_player2_analog_dpad_mode'] = '1'
-            retroarchConfig['input_player3_analog_dpad_mode'] = '1'
-            retroarchConfig['input_player4_analog_dpad_mode'] = '1'
         if system.isOptSet('controller1_dc'):
             retroarchConfig['input_libretro_device_p1'] = system.config['controller1_dc']
         else:
@@ -355,6 +345,19 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution, gfxBac
             else:
                 retroarchConfig['input_player2_analog_dpad_mode'] = '3'
 
+    ## Wonder Swan & Wonder Swan Color
+    if (system.config['core'] == "mednafen_wswan"):             # Beetle Wonderswan
+        # If set manually, proritize that.
+        # Otherwise, set to portrait for games listed as 90 degrees, manual (default) if not.
+        if not system.isOptSet('wswan_rotate_display'):
+            wswanGameRotation = videoMode.getGameSpecial(system.name, rom)
+            if wswanGameRotation == "90":
+                wswanOrientation = "portrait"
+            else:
+                wswanOrientation = "manual"
+        else:
+            wswanOrientation = system.config['wswan_rotate_display']
+        retroarchConfig['wswan_rotate_display'] = wswanOrientation
 
     ## PORTS
     ## Quake
@@ -388,7 +391,7 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution, gfxBac
         if system.isOptSet('controller2_zxspec'):
             retroarchConfig['input_libretro_device_p2'] = system.config['controller2_zxspec']
         else:
-            retroarchConfig['input_libretro_device_p2'] = '1025'                              #Sinclair 2 controller 
+            retroarchConfig['input_libretro_device_p2'] = '1025'                              #Sinclair 2 controller
         if system.isOptSet('controller3_zxspec'):
             retroarchConfig['input_libretro_device_p3'] = system.config['controller3_zxspec']
         else:
@@ -487,6 +490,7 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution, gfxBac
             retroarchConfig['cheevos_enable'] = 'true'
             retroarchConfig['cheevos_username'] = systemConfig.get('retroachievements.username', "")
             retroarchConfig['cheevos_password'] = systemConfig.get('retroachievements.password', "")
+            retroarchConfig['cheevos_token'] = "" # clear the token, otherwise, it may fail (possibly a ra bug)
             # retroachievements_hardcore_mode
             if system.isOptSet('retroachievements.hardcore') and system.getOptBoolean('retroachievements.hardcore') == True:
                 retroarchConfig['cheevos_hardcore_mode_enable'] = 'true'

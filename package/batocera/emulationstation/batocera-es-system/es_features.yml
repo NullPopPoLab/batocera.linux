@@ -278,12 +278,12 @@ libretro:
                 prompt:      POINTER MODE
                 description: Stylus control way.
                 choices:
-                    "Touch": 0
-                    "Mouse": 1
-                    "Stick": 2
+                    "Touch": touch
+                    "Mouse": mouse
+                    "Stick": stick
             desmume_left_stick_speed:
                 prompt:      LEFT STICK SPEED
-                description: Customize left stick speed for stylus.
+                description: Customize left stick speed for alternative control.
                 choices:
                     "0.1": 0.1
                     "0.2": 0.2
@@ -300,7 +300,7 @@ libretro:
                     "2.0": 2.0
             desmume_right_stick_speed:
                 prompt:      RIGHT STICK SPEED
-                description: Customize right stick speed for stylus.
+                description: Customize right stick speed for alternative control.
                 choices:
                     "0.1": 0.1
                     "0.2": 0.2
@@ -315,6 +315,23 @@ libretro:
                     "1.2": 1.2
                     "1.5": 1.5
                     "2.0": 2.0
+            desmume_stick_deadzone:
+                prompt:      STICK DEADZONE
+                description: Customize stick deadzone.
+                choices:
+                    "none": 0
+                    "1%": 1
+                    "2%": 2
+                    "5%": 5
+                    "10%": 10
+                    "15%": 15
+                    "20%": 20
+                    "25%": 25
+                    "30%": 30
+                    "35%": 35
+                    "40%": 40
+                    "45%": 45
+                    "50%": 50
             internal_resolution_desmume:
                 prompt:      RENDERING RESOLUTION
                 description: Enhancement. Increase the rendering resolution. Makes 3D objects clearer.

@@ -1033,7 +1033,10 @@ def generateCoreSettings(coreSettings, system, rom):
     # Nintendo DS
     if (system.config['core'] == 'desmume'):
         # Emulate Stylus on Analog Stick
-        coreSettings.save('desmume_pointer_mode', '"stick"')
+        if system.isOptSet('desmume_pointer_mode'):
+            coreSettings.save('desmume_pointer_mode', system.config['desmume_pointer_mode'])
+        else:
+            coreSettings.save('desmume_pointer_mode', '"stick"')
         # Analog Stick Speed
         if system.isOptSet('desmume_left_stick_speed'):
             coreSettings.save('desmume_left_stick_speed', system.config['desmume_left_stick_speed'])

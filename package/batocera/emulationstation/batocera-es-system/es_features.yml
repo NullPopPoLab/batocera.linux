@@ -274,8 +274,8 @@ libretro:
     desmume:
       features: [rewind, autosave, cheevos]
       cfeatures:
-            desmume_pointer_mode:
-                prompt:      POINTER MODE
+            desmume_pointer_type:
+                prompt:      POINTER TYPE
                 description: Stylus control way.
                 choices:
                     "Touch": touch
@@ -405,6 +405,13 @@ libretro:
     melonds:
       features: [autosave, cheevos]
       cfeatures:
+            melonds_touch_mode:
+                prompt:      TOUCH MODE
+                description: Stylus control way.
+                choices:
+                    "Touch": Touch
+                    "Mouse": Mouse
+                    "Stick": Joystick
             melonds_left_stick_speed:
                 prompt:      LEFT STICK SPEED
                 description: Customize left stick speed for stylus.
@@ -1872,6 +1879,21 @@ libretro:
     nestopia:
       features: [rewind, autosave]
       cfeatures:
+            nestopia_arkanoid_device:
+                prompt:      PADDLE DEVICE
+                description: Select a paddle control way.
+                choices:
+                    "mouse": Mouse
+                    "pointer": Pointer
+                    "stick": Analog stick
+            nestopia_zapper_device:
+                prompt:      ZAPPER DEVICE
+                description: Select a zapper control way.
+                choices:
+                    "lightgun": Light gun
+                    "mouse": Mouse
+                    "pointer": Pointert
+                    "stick": Analog stick
             nestopia_left_stick_speed:
                 prompt:      LEFT STICK SPEED
                 description: Customize left stick speed for stylus.

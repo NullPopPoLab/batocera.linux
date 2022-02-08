@@ -1046,6 +1046,10 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('desmume_right_stick_speed', system.config['desmume_right_stick_speed'])
         else:
             coreSettings.save('desmume_right_stick_speed', '"0.1"')
+        if system.isOptSet('desmume_stick_deadzone'):
+            coreSettings.save('desmume_stick_deadzone', system.config['desmume_stick_deadzone'])
+        else:
+            coreSettings.save('desmume_stick_deadzone', '"0.1"')
         # Internal Resolution
         if system.isOptSet('internal_resolution_desmume'):
             coreSettings.save('desmume_internal_resolution', system.config['internal_resolution_desmume'])
@@ -1082,14 +1086,18 @@ def generateCoreSettings(coreSettings, system, rom):
         if system.isOptSet('melonds_left_stick_speed'):
             coreSettings.save('melonds_left_stick_speed', system.config['melonds_left_stick_speed'])
         else:
-            coreSettings.save('melonds_left_stick_speed', '"0.5"')
+            coreSettings.save('melonds_left_stick_speed', '"0.8"')
         if system.isOptSet('melonds_right_stick_speed'):
             coreSettings.save('melonds_right_stick_speed', system.config['melonds_right_stick_speed'])
         else:
-            coreSettings.save('melonds_right_stick_speed', '"0.2"')
+            coreSettings.save('melonds_right_stick_speed', '"0.1"')
+        if system.isOptSet('melonds_stick_deadzone'):
+            coreSettings.save('melonds_stick_deadzone', system.config['melonds_stick_deadzone'])
+        else:
+            coreSettings.save('melonds_stick_deadzone', '"0.1"')
         # Enable threaded rendering
         coreSettings.save('melonds_threaded_renderer', '"enabled"')
-        # Emulate Stylus on Right Stick
+        # Emulate Stylus on Stick
         coreSettings.save('melonds_touch_mode',        '"Joystick"')
         # Boot game directly
         if system.isOptSet('melonds_boot_directly'):

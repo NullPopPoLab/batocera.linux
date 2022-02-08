@@ -1041,11 +1041,11 @@ def generateCoreSettings(coreSettings, system, rom):
         if system.isOptSet('desmume_left_stick_speed'):
             coreSettings.save('desmume_left_stick_speed', system.config['desmume_left_stick_speed'])
         else:
-            coreSettings.save('desmume_left_stick_speed', '"0.5"')
+            coreSettings.save('desmume_left_stick_speed', '"0.8"')
         if system.isOptSet('desmume_right_stick_speed'):
             coreSettings.save('desmume_right_stick_speed', system.config['desmume_right_stick_speed'])
         else:
-            coreSettings.save('desmume_right_stick_speed', '"0.2"')
+            coreSettings.save('desmume_right_stick_speed', '"0.1"')
         # Internal Resolution
         if system.isOptSet('internal_resolution_desmume'):
             coreSettings.save('desmume_internal_resolution', system.config['internal_resolution_desmume'])

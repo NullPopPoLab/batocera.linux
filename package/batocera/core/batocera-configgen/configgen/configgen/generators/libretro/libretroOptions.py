@@ -1045,7 +1045,7 @@ def generateCoreSettings(coreSettings, system, rom):
         if system.isOptSet('desmume_right_stick_speed'):
             coreSettings.save('desmume_right_stick_speed', system.config['desmume_right_stick_speed'])
         else:
-            coreSettings.save('desmume_right_stick_speed', '"0.1"')
+            coreSettings.save('desmume_right_stick_speed', '"0.2"')
         if system.isOptSet('desmume_stick_deadzone'):
             coreSettings.save('desmume_stick_deadzone', system.config['desmume_stick_deadzone'])
         else:
@@ -1090,7 +1090,7 @@ def generateCoreSettings(coreSettings, system, rom):
         if system.isOptSet('melonds_right_stick_speed'):
             coreSettings.save('melonds_right_stick_speed', system.config['melonds_right_stick_speed'])
         else:
-            coreSettings.save('melonds_right_stick_speed', '"0.1"')
+            coreSettings.save('melonds_right_stick_speed', '"0.2"')
         if system.isOptSet('melonds_stick_deadzone'):
             coreSettings.save('melonds_stick_deadzone', system.config['melonds_stick_deadzone'])
         else:
@@ -1276,7 +1276,23 @@ def generateCoreSettings(coreSettings, system, rom):
     # Nintendo NES / Famicom Disk System
     if (system.config['core'] == 'nestopia'):
         # Nestopia Mouse mode for Zapper
-        coreSettings.save('nestopia_zapper_device', '"mouse"')
+        if system.isOptSet('nestopia_zapper_device'):
+            coreSettings.save('nestopia_zapper_device', system.config['nestopia_zapper_device'])
+        else:
+            coreSettings.save('nestopia_zapper_device', '"stick"')
+        # Analog Stick Speed
+        if system.isOptSet('nestopia_left_stick_speed'):
+            coreSettings.save('nestopia_left_stick_speed', system.config['nestopia_left_stick_speed'])
+        else:
+            coreSettings.save('nestopia_left_stick_speed', '"0.8"')
+        if system.isOptSet('nestopia_right_stick_speed'):
+            coreSettings.save('nestopia_right_stick_speed', system.config['nestopia_right_stick_speed'])
+        else:
+            coreSettings.save('nestopia_right_stick_speed', '"0.2"')
+        if system.isOptSet('nestopia_stick_deadzone'):
+            coreSettings.save('nestopia_stick_deadzone', system.config['nestopia_stick_deadzone'])
+        else:
+            coreSettings.save('nestopia_stick_deadzone', '"0.1"')
         # Reduce Sprite Flickering
         if system.isOptSet('nestopia_nospritelimit') and system.config['nestopia_nospritelimit'] == "disabled":
             coreSettings.save('nestopia_nospritelimit', '"disabled"')
@@ -1318,7 +1334,23 @@ def generateCoreSettings(coreSettings, system, rom):
 
     if (system.config['core'] == 'fceumm'):
         # FCEumm Mouse mode for Zapper
-        coreSettings.save('fceumm_zapper_mode', '"mouse"')
+        if system.isOptSet('fceumm_zapper_mode'):
+            coreSettings.save('fceumm_zapper_mode', system.config['fceumm_zapper_mode'])
+        else:
+            coreSettings.save('fceumm_zapper_mode', '"stick"')
+        # Analog Stick Speed
+        if system.isOptSet('fceumm_left_stick_speed'):
+            coreSettings.save('fceumm_left_stick_speed', system.config['fceumm_left_stick_speed'])
+        else:
+            coreSettings.save('fceumm_left_stick_speed', '"0.8"')
+        if system.isOptSet('fceumm_right_stick_speed'):
+            coreSettings.save('fceumm_right_stick_speed', system.config['fceumm_right_stick_speed'])
+        else:
+            coreSettings.save('fceumm_right_stick_speed', '"0.2"')
+        if system.isOptSet('fceumm_stick_deadzone'):
+            coreSettings.save('fceumm_stick_deadzone', system.config['fceumm_stick_deadzone'])
+        else:
+            coreSettings.save('fceumm_stick_deadzone', '"0.1"')
         # Reduce Sprite Flickering
         if system.isOptSet('fceumm_nospritelimit') and system.config['fceumm_nospritelimit'] == "disabled":
             coreSettings.save('fceumm_nospritelimit', '"disabled"')

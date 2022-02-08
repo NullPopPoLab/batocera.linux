@@ -911,6 +911,71 @@ libretro:
     fceumm:
       features: [rewind, autosave, cheevos]
       cfeatures:
+            fceumm_zapper_mode:
+                prompt:      ZAPPER MODE
+                description: Select a zapper control way.
+                choices:
+                    "lightgun": Light gun
+                    "mouse": Mouse
+                    "touchscreen": Touch screen
+                    "stick": Analog stick
+            fceumm_left_stick_speed:
+                prompt:      LEFT STICK SPEED
+                description: Customize left stick speed for stylus.
+                choices:
+                    "0.03": 0.03
+                    "0.05": 0.05
+                    "0.07": 0.07
+                    "0.1": 0.1
+                    "0.2": 0.2
+                    "0.3": 0.3
+                    "0.4": 0.4
+                    "0.5": 0.5
+                    "0.6": 0.6
+                    "0.7": 0.7
+                    "0.8": 0.8
+                    "0.9": 0.9
+                    "1.0": 1.0
+                    "1.2": 1.2
+                    "1.5": 1.5
+                    "2.0": 2.0
+            fceumm_right_stick_speed:
+                prompt:      RIGHT STICK SPEED
+                description: Customize right stick speed for stylus.
+                choices:
+                    "0.03": 0.03
+                    "0.05": 0.05
+                    "0.07": 0.07
+                    "0.1": 0.1
+                    "0.2": 0.2
+                    "0.3": 0.3
+                    "0.4": 0.4
+                    "0.5": 0.5
+                    "0.6": 0.6
+                    "0.7": 0.7
+                    "0.8": 0.8
+                    "0.9": 0.9
+                    "1.0": 1.0
+                    "1.2": 1.2
+                    "1.5": 1.5
+                    "2.0": 2.0
+            fceumm_stick_deadzone:
+                prompt:      STICK DEADZONE
+                description: Customize stick deadzone.
+                choices:
+                    "none": 0
+                    "1%": 1
+                    "2%": 2
+                    "5%": 5
+                    "10%": 10
+                    "15%": 15
+                    "20%": 20
+                    "25%": 25
+                    "30%": 30
+                    "35%": 35
+                    "40%": 40
+                    "45%": 45
+                    "50%": 50
             fceumm_nospritelimit:
                 prompt:      REDUCE SPRITE FLICKERING
                 description: Enhancement. Remove the eight sprites per line limit.
@@ -1807,6 +1872,63 @@ libretro:
     nestopia:
       features: [rewind, autosave]
       cfeatures:
+            nestopia_left_stick_speed:
+                prompt:      LEFT STICK SPEED
+                description: Customize left stick speed for stylus.
+                choices:
+                    "0.03": 0.03
+                    "0.05": 0.05
+                    "0.07": 0.07
+                    "0.1": 0.1
+                    "0.2": 0.2
+                    "0.3": 0.3
+                    "0.4": 0.4
+                    "0.5": 0.5
+                    "0.6": 0.6
+                    "0.7": 0.7
+                    "0.8": 0.8
+                    "0.9": 0.9
+                    "1.0": 1.0
+                    "1.2": 1.2
+                    "1.5": 1.5
+                    "2.0": 2.0
+            nestopia_right_stick_speed:
+                prompt:      RIGHT STICK SPEED
+                description: Customize right stick speed for stylus.
+                choices:
+                    "0.03": 0.03
+                    "0.05": 0.05
+                    "0.07": 0.07
+                    "0.1": 0.1
+                    "0.2": 0.2
+                    "0.3": 0.3
+                    "0.4": 0.4
+                    "0.5": 0.5
+                    "0.6": 0.6
+                    "0.7": 0.7
+                    "0.8": 0.8
+                    "0.9": 0.9
+                    "1.0": 1.0
+                    "1.2": 1.2
+                    "1.5": 1.5
+                    "2.0": 2.0
+            nestopia_stick_deadzone:
+                prompt:      STICK DEADZONE
+                description: Customize stick deadzone.
+                choices:
+                    "none": 0
+                    "1%": 1
+                    "2%": 2
+                    "5%": 5
+                    "10%": 10
+                    "15%": 15
+                    "20%": 20
+                    "25%": 25
+                    "30%": 30
+                    "35%": 35
+                    "40%": 40
+                    "45%": 45
+                    "50%": 50
             nestopia_nospritelimit:
                 prompt:      REDUCE SPRITE FLICKERING
                 description: Enhancement. Remove the eight sprites per line limit.

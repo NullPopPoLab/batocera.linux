@@ -1278,7 +1278,15 @@ def generateCoreSettings(coreSettings, system, rom):
 
     # Nintendo NES / Famicom Disk System
     if (system.config['core'] == 'nestopia'):
+        if system.isOptSet('nestopia_main_device'):
+            coreSettings.save('nestopia_main_device', system.config['nestopia_main_device'])
+        else:
+            coreSettings.save('nestopia_main_device', '"gamepad"')
         # Nestopia Mouse mode for Zapper
+        if system.isOptSet('nestopia_arkanoid_device'):
+            coreSettings.save('nestopia_arkanoid_device', system.config['nestopia_arkanoid_device'])
+        else:
+            coreSettings.save('nestopia_arkanoid_device', '"stick"')
         if system.isOptSet('nestopia_zapper_device'):
             coreSettings.save('nestopia_zapper_device', system.config['nestopia_zapper_device'])
         else:
@@ -1336,6 +1344,10 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('nestopia_select_adapter', '"auto"')
 
     if (system.config['core'] == 'fceumm'):
+        if system.isOptSet('fceumm_main_device'):
+            coreSettings.save('fceumm_main_device', system.config['fceumm_main_device'])
+        else:
+            coreSettings.save('fceumm_main_device', '"gamepad"')
         # FCEumm Mouse mode for Zapper
         if system.isOptSet('fceumm_zapper_mode'):
             coreSettings.save('fceumm_zapper_mode', system.config['fceumm_zapper_mode'])

@@ -918,6 +918,13 @@ libretro:
     fceumm:
       features: [rewind, autosave, cheevos]
       cfeatures:
+            fceumm_main_device:
+                prompt:      MAIN CONTROL DEVICE
+                description: Controller type of port 1,2.
+                choices:
+                    "gamepad": Game pad
+                    "zapper": Zapper
+                    "paddle": Arkanoid
             fceumm_zapper_mode:
                 prompt:      ZAPPER MODE
                 description: Select a zapper control way.
@@ -1879,6 +1886,13 @@ libretro:
     nestopia:
       features: [rewind, autosave]
       cfeatures:
+            nestopia_main_device:
+                prompt:      MAIN CONTROL DEVICE
+                description: Controller type of port 1,2.
+                choices:
+                    "gamepad": Game pad
+                    "zapper": Zapper
+                    "paddle": Arkanoid
             nestopia_arkanoid_device:
                 prompt:      PADDLE DEVICE
                 description: Select a paddle control way.

@@ -922,17 +922,17 @@ libretro:
                 prompt:      MAIN CONTROL DEVICE
                 description: Controller type of port 1,2.
                 choices:
-                    "gamepad": Game pad
-                    "zapper": Zapper
-                    "paddle": Arkanoid
+                    "Game pad": gamepad
+                    "Zapper": zapper
+                    "Arkanoid": paddle
             fceumm_zapper_mode:
                 prompt:      ZAPPER MODE
                 description: Select a zapper control way.
                 choices:
-                    "lightgun": Light gun
-                    "mouse": Mouse
-                    "touchscreen": Touch screen
-                    "stick": Analog stick
+                    "Light gun": lightgun
+                    "Mouse": mouse
+                    "Touch screen": touchscreen
+                    "Analog stick": stick
             fceumm_left_stick_speed:
                 prompt:      LEFT STICK SPEED
                 description: Customize left stick speed for stylus.
@@ -1048,20 +1048,6 @@ libretro:
                     "disabled":             disabled
                     "2x-Postrender":        2x-Postrender
                     "2x-VBlank":            2x-VBlank
-            controller1_nes:
-                prompt:      CONTROLLER 1 TYPE
-                choices:
-                    "Autodetect":           1
-                    "NES Gamepad":          513
-                    "NES Zapper":           258
-            controller2_nes:
-                prompt:      CONTROLLER 2 TYPE
-                description: Paddle can only be used in port 2.
-                choices:
-                    "Autodetect":           1
-                    "NES Gamepad":          513
-                    "NES Zapper":           258
-                    "Arkanoid paddle":      514
     flycast:
       features: [autosave]
       cfeatures:
@@ -1890,24 +1876,24 @@ libretro:
                 prompt:      MAIN CONTROL DEVICE
                 description: Controller type of port 1,2.
                 choices:
-                    "gamepad": Game pad
-                    "zapper": Zapper
-                    "paddle": Arkanoid
+                    "Game pad": gamepad
+                    "Zapper": zapper
+                    "Arkanoid": paddle
             nestopia_arkanoid_device:
                 prompt:      PADDLE DEVICE
                 description: Select a paddle control way.
                 choices:
-                    "mouse": Mouse
-                    "pointer": Pointer
-                    "stick": Analog stick
+                    "Mouse": mouse
+                    "Pointer": pointer
+                    "Analog Stick": stick
             nestopia_zapper_device:
                 prompt:      ZAPPER DEVICE
                 description: Select a zapper control way.
                 choices:
-                    "lightgun": Light gun
-                    "mouse": Mouse
-                    "pointer": Pointert
-                    "stick": Analog stick
+                    "Light gun": lightgun
+                    "Mouse": mouse
+                    "Pointer": pointer
+                    "Analog Stick": stick
             nestopia_left_stick_speed:
                 prompt:      LEFT STICK SPEED
                 description: Customize left stick speed for stylus.

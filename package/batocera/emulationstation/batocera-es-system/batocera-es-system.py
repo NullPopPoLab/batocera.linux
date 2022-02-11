@@ -86,15 +86,11 @@ class EsSystemConf:
         if os.path.isdir(romsdirtarget):
             shutil.rmtree(romsdirtarget)
 
-        print("removing the " + romsdirinfo + " folder...")
-        if os.path.isdir(romsdirinfo):
-            shutil.rmtree(romsdirinfo)
-
         print("generating the " + romsdirtarget + " folder...")
         for system in sortedRules:
             if rules[system]:
                 if EsSystemConf.needFolder(system, rules[system], config):
-                    EsSystemConf.createFolders(system, rules[system], romsdirsource, romsdirtarget)
+                    #EsSystemConf.createFolders(system, rules[system], romsdirsource, romsdirtarget)
                     EsSystemConf.infoSystem(system, rules[system], romsdirinfo)
                 else:
                     print("skipping directory for system " + system)
@@ -216,10 +212,6 @@ class EsSystemConf:
         if subdir is None:
             return
 
-        shutil.copytree(romsdirsource, romsdirtarget)
-        return
-
-        # dont run 
         if not os.path.isdir(romsdirtarget + "/" + subdir):
             os.makedirs(romsdirtarget + "/" + subdir)
             # copy from the template one, or just keep it empty
@@ -235,6 +227,9 @@ class EsSystemConf:
         # nothing to create
         if subdir is None:
             return
+
+        if not os.path.isdir(infodir):
+            os.makedirs(infodir)
 
         infoTxt = "## SYSTEM %s ##\n" % (data["name"].upper())
         infoTxt += "-------------------------------------------------------------------------------\n"

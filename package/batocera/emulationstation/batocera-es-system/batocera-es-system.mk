@@ -9,6 +9,7 @@ BATOCERA_ES_SYSTEM_SOURCE=
 BATOCERA_ES_SYSTEM_VERSION=1.03
 
 define BATOCERA_ES_SYSTEM_BUILD_CMDS
+	chmod 0777 $(@D)/roms
 	$(HOST_DIR)/bin/python \
 		$(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulationstation/batocera-es-system/batocera-es-system.py \
 		$(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulationstation/batocera-es-system/es_systems.yml        \
@@ -22,6 +23,9 @@ define BATOCERA_ES_SYSTEM_BUILD_CMDS
 		$(STAGING_DIR)/usr/share/batocera/configgen/configgen-defaults-arch.yml \
 		$(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulationstation/batocera-es-system/roms \
 		$(@D)/roms $(BATOCERA_SYSTEM_ARCH)
+
+		chmod 0775 $(@D)/roms
+
 		# translations
 		mkdir -p $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulationstation/batocera-es-system/locales
 		echo "$(@D)/es_external_translations.h" | xgettext --language=C --add-comments=TRANSLATION -f - -o $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulationstation/batocera-es-system/locales/batocera-es-system.pot --no-location --keyword=_

@@ -94,7 +94,7 @@ class EsSystemConf:
         for system in sortedRules:
             if rules[system]:
                 if EsSystemConf.needFolder(system, rules[system], config):
-                    #EsSystemConf.createFolders(system, rules[system], romsdirsource, romsdirtarget)
+                    EsSystemConf.createFolders(system, rules[system], romsdirsource, romsdirtarget)
                     EsSystemConf.infoSystem(system, rules[system], romsdirinfo)
                 else:
                     print("skipping directory for system " + system)
@@ -231,9 +231,6 @@ class EsSystemConf:
         # nothing to create
         if subdir is None:
             return
-
-        if not os.path.isdir(infodir):
-            os.makedirs(infodir)
 
         infoTxt = "## SYSTEM %s ##\n" % (data["name"].upper())
         infoTxt += "-------------------------------------------------------------------------------\n"

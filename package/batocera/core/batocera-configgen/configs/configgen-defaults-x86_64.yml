@@ -24,6 +24,12 @@ n64dd:
   core:     mupen64plus-next
   options:
     videomode: max-1920x1080
+ps2:
+  emulator: libretro
+  core:     pcsx2
+psp:
+  emulator: libretro
+  core: ppsspp
 sgb:
   emulator: libretro
   core:     mesen-s

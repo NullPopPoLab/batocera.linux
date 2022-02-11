@@ -26,7 +26,6 @@ def ordered_load(stream, Loader=yaml.Loader, object_pairs_hook=OrderedDict):
 class EsSystemConf:
 
     default_parentpath = "/userdata/roms"
-    default_romsinfopath = "/userdata/roms/!info"
     default_command    = "python /usr/lib/python3.9/site-packages/configgen/emulatorlauncher.py %CONTROLLERSCONFIG% -system %SYSTEM% -rom %ROM% -gameinfoxml %GAMEINFOXML% -systemname %SYSTEMNAME%"
 
     # Generate the es_systems.cfg file by searching the information in the es_system.yml file
@@ -650,6 +649,7 @@ if __name__ == "__main__":
     parser.add_argument("gen_defaults_arch",   help="defaults configgen defaults")
     parser.add_argument("romsdirsource", help="emulationstation roms directory")
     parser.add_argument("romsdirtarget", help="emulationstation roms directory")
+    parser.add_argument("romsinfodir", help="emulationstation roms info directory")
     parser.add_argument("arch", help="arch")
     args = parser.parse_args()
-    EsSystemConf.generate(args.yml, args.features, args.config, args.es_systems, args.es_features, args.es_translations, args.blacklisted_words, args.gen_defaults_global, args.gen_defaults_arch, args.romsdirsource, args.romsdirtarget, EsSystemConf.default_romsinfopath, args.arch)
+    EsSystemConf.generate(args.yml, args.features, args.config, args.es_systems, args.es_features, args.es_translations, args.blacklisted_words, args.gen_defaults_global, args.gen_defaults_arch, args.romsdirsource, args.romsdirtarget, args.romsinfodir, args.arch)

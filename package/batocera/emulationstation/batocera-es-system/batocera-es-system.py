@@ -90,7 +90,7 @@ class EsSystemConf:
         for system in sortedRules:
             if rules[system]:
                 if EsSystemConf.needFolder(system, rules[system], config):
-                    #EsSystemConf.createFolders(system, rules[system], romsdirsource, romsdirtarget)
+                    EsSystemConf.createFolders(system, rules[system], romsdirsource, romsdirtarget)
                     EsSystemConf.infoSystem(system, rules[system], romsdirinfo)
                 else:
                     print("skipping directory for system " + system)
@@ -212,6 +212,11 @@ class EsSystemConf:
         if subdir is None:
             return
 
+        if not os.path.isdir(romsdirtarget + "/!info"):
+            os.makedirs(romsdirtarget + "/!info")
+        return
+
+        # don't run
         if not os.path.isdir(romsdirtarget + "/" + subdir):
             os.makedirs(romsdirtarget + "/" + subdir)
             # copy from the template one, or just keep it empty

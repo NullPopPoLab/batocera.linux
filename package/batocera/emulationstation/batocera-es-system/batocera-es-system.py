@@ -26,6 +26,7 @@ def ordered_load(stream, Loader=yaml.Loader, object_pairs_hook=OrderedDict):
 class EsSystemConf:
 
     default_parentpath = "/userdata/roms"
+    default_romsinfopath = "/userdata/roms/!info"
     default_command    = "python /usr/lib/python3.9/site-packages/configgen/emulatorlauncher.py %CONTROLLERSCONFIG% -system %SYSTEM% -rom %ROM% -gameinfoxml %GAMEINFOXML% -systemname %SYSTEMNAME%"
 
     # Generate the es_systems.cfg file by searching the information in the es_system.yml file
@@ -84,12 +85,21 @@ class EsSystemConf:
         print("removing the " + romsdirtarget + " folder...")
         if os.path.isdir(romsdirtarget):
             shutil.rmtree(romsdirtarget)
+        else:
+            os.makedirs(romsdirtarget)
+
+        print("removing the " + default_romsinfopath + " folder...")
+        if os.path.isdir(default_romsinfopath):
+            shutil.rmtree(default_romsinfopath)
+        else:
+            os.makedirs(default_romsinfopath)
+
         print("generating the " + romsdirtarget + " folder...")
         for system in sortedRules:
             if rules[system]:
                 if EsSystemConf.needFolder(system, rules[system], config):
-                    EsSystemConf.createFolders(system, rules[system], romsdirsource, romsdirtarget)
-                    EsSystemConf.infoSystem(system, rules[system], romsdirtarget)
+                    #EsSystemConf.createFolders(system, rules[system], romsdirsource, romsdirtarget)
+                    EsSystemConf.infoSystem(system, rules[system], default_romsinfopath)
                 else:
                     print("skipping directory for system " + system)
 
@@ -236,7 +246,7 @@ class EsSystemConf:
         if "comment_fr" in data:
             infoTxt += "\n" + data["comment_fr"]
 
-        arqtxt = romsdir + "/" + subdir + "/" + "_info.txt"
+        arqtxt = romsdir + "/" + subdir + ".txt"
 
         systemsInfo = open(arqtxt, 'w')
         systemsInfo.write(infoTxt)

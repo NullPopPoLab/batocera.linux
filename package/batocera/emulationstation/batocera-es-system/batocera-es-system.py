@@ -81,15 +81,17 @@ class EsSystemConf:
 
         EsSystemConf.createEsTranslations(esTranslationFile, toTranslate)
 
-        if not os.path.isdir(romsdirtarget):
-            print("generating the " + romsdirtarget + " folder...")
-            for system in sortedRules:
-                if rules[system]:
-                    if EsSystemConf.needFolder(system, rules[system], config):
-                        EsSystemConf.createFolders(system, rules[system], romsdirsource, romsdirtarget)
-                        EsSystemConf.infoSystem(system, rules[system], romsdirtarget)
-                    else:
-                        print("skipping directory for system " + system)
+        print("removing the " + romsdirtarget + " folder...")
+        if os.path.isdir(romsdirtarget):
+            shutil.rmtree(romsdirtarget)
+        print("generating the " + romsdirtarget + " folder...")
+        for system in sortedRules:
+            if rules[system]:
+                if EsSystemConf.needFolder(system, rules[system], config):
+                    EsSystemConf.createFolders(system, rules[system], romsdirsource, romsdirtarget)
+                    EsSystemConf.infoSystem(system, rules[system], romsdirtarget)
+                else:
+                    print("skipping directory for system " + system)
 
     # check if the folder is required
     @staticmethod

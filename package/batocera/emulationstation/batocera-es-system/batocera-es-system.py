@@ -216,6 +216,10 @@ class EsSystemConf:
         if subdir is None:
             return
 
+        shutil.copytree(romsdirsource, romsdirtarget)
+        return
+
+        # dont run 
         if not os.path.isdir(romsdirtarget + "/" + subdir):
             os.makedirs(romsdirtarget + "/" + subdir)
             # copy from the template one, or just keep it empty

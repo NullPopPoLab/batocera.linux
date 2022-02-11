@@ -31,7 +31,7 @@ class EsSystemConf:
 
     # Generate the es_systems.cfg file by searching the information in the es_system.yml file
     @staticmethod
-    def generate(rulesYaml, featuresYaml, configFile, esSystemFile, esFeaturesFile, esTranslationFile, esBlacklistedWordsFile, systemsConfigFile, archSystemsConfigFile, romsdirsource, romsdirtarget, arch):
+    def generate(rulesYaml, featuresYaml, configFile, esSystemFile, esFeaturesFile, esTranslationFile, esBlacklistedWordsFile, systemsConfigFile, archSystemsConfigFile, romsdirsource, romsdirtarget, romsdirinfo, arch):
         rules = yaml.safe_load(open(rulesYaml, "r"))
         config = EsSystemConf.loadConfig(configFile)
         es_system = ""
@@ -88,18 +88,18 @@ class EsSystemConf:
         else:
             os.makedirs(romsdirtarget)
 
-        print("removing the " + default_romsinfopath + " folder...")
-        if os.path.isdir(default_romsinfopath):
-            shutil.rmtree(default_romsinfopath)
+        print("removing the " + romsdirinfo + " folder...")
+        if os.path.isdir(romsdirinfo):
+            shutil.rmtree(romsdirinfo)
         else:
-            os.makedirs(default_romsinfopath)
+            os.makedirs(romsdirinfo)
 
         print("generating the " + romsdirtarget + " folder...")
         for system in sortedRules:
             if rules[system]:
                 if EsSystemConf.needFolder(system, rules[system], config):
                     #EsSystemConf.createFolders(system, rules[system], romsdirsource, romsdirtarget)
-                    EsSystemConf.infoSystem(system, rules[system], default_romsinfopath)
+                    EsSystemConf.infoSystem(system, rules[system], romsdirinfo)
                 else:
                     print("skipping directory for system " + system)
 
@@ -652,4 +652,4 @@ if __name__ == "__main__":
     parser.add_argument("romsdirtarget", help="emulationstation roms directory")
     parser.add_argument("arch", help="arch")
     args = parser.parse_args()
-    EsSystemConf.generate(args.yml, args.features, args.config, args.es_systems, args.es_features, args.es_translations, args.blacklisted_words, args.gen_defaults_global, args.gen_defaults_arch, args.romsdirsource, args.romsdirtarget, args.arch)
+    EsSystemConf.generate(args.yml, args.features, args.config, args.es_systems, args.es_features, args.es_translations, args.blacklisted_words, args.gen_defaults_global, args.gen_defaults_arch, args.romsdirsource, args.romsdirtarget, EsSystemConf.default_romsinfopath, args.arch)

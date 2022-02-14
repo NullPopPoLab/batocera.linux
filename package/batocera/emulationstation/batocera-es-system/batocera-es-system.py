@@ -211,8 +211,6 @@ class EsSystemConf:
         if subdir is None:
             return
 
-        if not os.path.isdir(romsdirtarget + "/!info"):
-            os.makedirs(romsdirtarget + "/!info")
         return
 
         # don't run

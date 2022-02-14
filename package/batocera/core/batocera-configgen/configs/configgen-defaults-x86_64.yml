@@ -27,6 +27,9 @@ n64dd:
 sgb:
   emulator: libretro
   core:     mesen-s
+easyrpg:
+  emulator: libretro
+  core:     easyrpg
 lcdgames:
   emulator: mame
   core:     mame

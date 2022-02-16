@@ -804,7 +804,7 @@ def generateCoreSettings(coreSettings, system, rom):
         if system.isOptSet('q88_cpu_clock'):
             coreSettings.save('q88_cpu_clock', '"' + system.config['q88_cpu_clock'] + '"')
         else:
-            coreSettings.save('q88_cpu_clock', '"4"')
+            coreSettings.save('q88_cpu_clock', '"8"')
         # Use PCG-8100
         if system.isOptSet('q88_pcg-8100'):
             coreSettings.save('q88_pcg-8100', system.config['q88_pcg-8100'])
@@ -1654,6 +1654,12 @@ def generateCoreSettings(coreSettings, system, rom):
 
     # TODO: Add CORE options for Beetle-saturn and Kronos
 
+    # Sharp X1
+    if (system.config['core'] == 'x1'):
+        coreSettings.save('X1_RESOLUTE', '"HIGH"')
+        coreSettings.save('X1_ROMTYPE', '"TURBO"')
+        coreSettings.save('X1_CPU_CLOCK', '"4"')
+
     # Sharp X68000
     if (system.config['core'] == 'px68k'):
         # To auto launch HDD games
@@ -1662,7 +1668,7 @@ def generateCoreSettings(coreSettings, system, rom):
         if system.isOptSet('px68k_cpuspeed'):
             coreSettings.save('px68k_cpuspeed', '"' + system.config['px68k_cpuspeed'] + '"')
         else:
-            coreSettings.save('px68k_cpuspeed', '"33Mhz (OC)"')
+            coreSettings.save('px68k_cpuspeed', '"16Mhz"')
         # RAM Size
         if system.isOptSet('px68k_ramsize'):
             coreSettings.save('px68k_ramsize', '"' + system.config['px68k_ramsize'] + '"')

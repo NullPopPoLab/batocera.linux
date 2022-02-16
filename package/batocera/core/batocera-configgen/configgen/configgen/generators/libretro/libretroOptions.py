@@ -873,6 +873,7 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('np2kai_joymode', '"' + system.config['np2kai_joymode'] + '"')
         else:
             coreSettings.save('np2kai_joymode', '"Arrows"')
+        coreSettings.save('np2kai_joynp2menu', '"OFF"')
 
     # Nec PC Engine SuperGrafx
     if (system.config['core'] == 'mednafen_supergrafx'):

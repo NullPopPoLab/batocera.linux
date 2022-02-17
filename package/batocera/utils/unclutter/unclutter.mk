@@ -8,6 +8,7 @@
 UNCLUTTER_VERSION = v1.5-batocera
 UNCLUTTER_LICENSE = MIT
 UNCLUTTER_SITE = $(call github,batocera-linux,unclutter-xfixes,$(UNCLUTTER_VERSION))
+UNCLUTTER_SITE_METHOD = git
 UNCLUTTER_DEPENDENCIES = xserver_xorg-server libev
 
 UNCLUTTER_CFLAGS="-I$(@D)/include -D'__VERSION=\"$(UNCLUTTER_VERSION)\"'"

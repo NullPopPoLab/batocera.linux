@@ -1634,7 +1634,7 @@ x1:
   manufacturer: Sharp
   release: 1982
   hardware: computer
-  extensions: [dx1, zip, 2d, 2hd, tfd, d88, 88d, hdm, xdf, dup, cmd, 7z]
+  extensions: [dx1, zip, 2d, 2hd, tfd, d88, 88d, hdm, xdf, dup, cmd, 7z, m3u]
   emulators:
     libretro:
       x1: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_XMIL] }

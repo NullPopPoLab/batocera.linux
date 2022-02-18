@@ -873,7 +873,8 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('np2kai_joymode', '"' + system.config['np2kai_joymode'] + '"')
         else:
             coreSettings.save('np2kai_joymode', '"Arrows"')
-        coreSettings.save('np2kai_joynp2menu', '"OFF"')
+        coreSettings.save('np2kai_stick2mouse', '"L-stick"')
+        coreSettings.save('np2kai_stick2mouse_shift', '"OFF"')
 
     # Nec PC Engine SuperGrafx
     if (system.config['core'] == 'mednafen_supergrafx'):

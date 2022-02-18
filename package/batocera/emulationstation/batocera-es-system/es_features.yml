@@ -168,6 +168,23 @@ libretro:
     bluemsx:
       features: [rewind, autosave, padtokeyboard, cheevos]
       cfeatures:
+            bluemsx_region:
+                prompt:      REGION
+                description: Auto select a localized machine.
+                choices:
+                    "Default": Default
+                    "C-BIOS": C-BIOS
+                    "European": European
+                    "Arabic": Arabic
+                    "Brazilian": Brazilian
+                    "Estonian": Estonian
+                    "French": French
+                    "German": German
+                    "Japanese": Japanese
+                    "Korean": Korean
+                    "Russian": Russian
+                    "Spanish": Spanish
+                    "Swedish": Swedish
             bluemsx_nospritelimits:
                 prompt:      REDUCE SPRITE FLICKERING
                 description: Enhancement. Remove the four sprites per line limit.

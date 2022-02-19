@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Jan 17, 2022
-LIBRETRO_SWANSTATION_VERSION = add2b1eca73981a7e86547c9daa0259d44bd3508
+LIBRETRO_SWANSTATION_VERSION = cbae115ecc87dab44da7b44d733a1d2c03c8971b
 LIBRETRO_SWANSTATION_SITE = https://github.com/NullPopPoLab/swanstation
 LIBRETRO_SWANSTATION_SITE_METHOD=git
 LIBRETRO_SWANSTATION_LICENSE = GPLv2

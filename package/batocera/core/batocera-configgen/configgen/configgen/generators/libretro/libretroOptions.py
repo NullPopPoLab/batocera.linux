@@ -1031,8 +1031,24 @@ def generateCoreSettings(coreSettings, system, rom):
 
     # Nintendo DS
     if (system.config['core'] == 'desmume'):
-        # Emulate Stylus on Right Stick
-        coreSettings.save('desmume_pointer_device_r', '"emulated"')
+        # Emulate Stylus on Analog Stick
+        if system.isOptSet('desmume_pointer_type'):
+            coreSettings.save('desmume_pointer_type', system.config['desmume_pointer_type'])
+        else:
+            coreSettings.save('desmume_pointer_type', '"stick"')
+        # Analog Stick Speed
+        if system.isOptSet('desmume_left_stick_speed'):
+            coreSettings.save('desmume_left_stick_speed', system.config['desmume_left_stick_speed'])
+        else:
+            coreSettings.save('desmume_left_stick_speed', '"0.8"')
+        if system.isOptSet('desmume_right_stick_speed'):
+            coreSettings.save('desmume_right_stick_speed', system.config['desmume_right_stick_speed'])
+        else:
+            coreSettings.save('desmume_right_stick_speed', '"0.1"')
+        if system.isOptSet('desmume_stick_deadzone'):
+            coreSettings.save('desmume_stick_deadzone', system.config['desmume_stick_deadzone'])
+        else:
+            coreSettings.save('desmume_stick_deadzone', '"5"')
         # Internal Resolution
         if system.isOptSet('internal_resolution_desmume'):
             coreSettings.save('desmume_internal_resolution', system.config['internal_resolution_desmume'])
@@ -1065,6 +1081,24 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('desmume_screens_layout', '"top/bottom"')
 
     if (system.config['core'] == 'melonds'):
+        # Emulate Stylus on Stick
+        if system.isOptSet('melonds_touch_mode'):
+            coreSettings.save('melonds_touch_mode', system.config['melonds_touch_mode'])
+        else:
+            coreSettings.save('melonds_touch_mode', '"Joystick"')
+        # Analog Stick Speed
+        if system.isOptSet('melonds_left_stick_speed'):
+            coreSettings.save('melonds_left_stick_speed', system.config['melonds_left_stick_speed'])
+        else:
+            coreSettings.save('melonds_left_stick_speed', '"0.8"')
+        if system.isOptSet('melonds_right_stick_speed'):
+            coreSettings.save('melonds_right_stick_speed', system.config['melonds_right_stick_speed'])
+        else:
+            coreSettings.save('melonds_right_stick_speed', '"0.1"')
+        if system.isOptSet('melonds_stick_deadzone'):
+            coreSettings.save('melonds_stick_deadzone', system.config['melonds_stick_deadzone'])
+        else:
+            coreSettings.save('melonds_stick_deadzone', '"5"')
         # Enable threaded rendering
         coreSettings.save('melonds_threaded_renderer', '"enabled"')
         # Emulate Stylus on Right Stick
@@ -1245,8 +1279,32 @@ def generateCoreSettings(coreSettings, system, rom):
 
     # Nintendo NES / Famicom Disk System
     if (system.config['core'] == 'nestopia'):
+        if system.isOptSet('nestopia_main_device'):
+            coreSettings.save('nestopia_main_device', system.config['nestopia_main_device'])
+        else:
+            coreSettings.save('nestopia_main_device', '"gamepad"')
         # Nestopia Mouse mode for Zapper
-        coreSettings.save('nestopia_zapper_device', '"mouse"')
+        if system.isOptSet('nestopia_arkanoid_device'):
+            coreSettings.save('nestopia_arkanoid_device', system.config['nestopia_arkanoid_device'])
+        else:
+            coreSettings.save('nestopia_arkanoid_device', '"stick"')
+        if system.isOptSet('nestopia_zapper_device'):
+            coreSettings.save('nestopia_zapper_device', system.config['nestopia_zapper_device'])
+        else:
+            coreSettings.save('nestopia_zapper_device', '"stick"')
+        # Analog Stick Speed
+        if system.isOptSet('nestopia_left_stick_speed'):
+            coreSettings.save('nestopia_left_stick_speed', system.config['nestopia_left_stick_speed'])
+        else:
+            coreSettings.save('nestopia_left_stick_speed', '"0.8"')
+        if system.isOptSet('nestopia_right_stick_speed'):
+            coreSettings.save('nestopia_right_stick_speed', system.config['nestopia_right_stick_speed'])
+        else:
+            coreSettings.save('nestopia_right_stick_speed', '"0.2"')
+        if system.isOptSet('nestopia_stick_deadzone'):
+            coreSettings.save('nestopia_stick_deadzone', system.config['nestopia_stick_deadzone'])
+        else:
+            coreSettings.save('nestopia_stick_deadzone', '"5"')
         # Reduce Sprite Flickering
         if system.isOptSet('nestopia_nospritelimit') and system.config['nestopia_nospritelimit'] == "disabled":
             coreSettings.save('nestopia_nospritelimit', '"disabled"')
@@ -1287,8 +1345,28 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('nestopia_select_adapter', '"auto"')
 
     if (system.config['core'] == 'fceumm'):
+        if system.isOptSet('fceumm_main_device'):
+            coreSettings.save('fceumm_main_device', system.config['fceumm_main_device'])
+        else:
+            coreSettings.save('fceumm_main_device', '"gamepad"')
         # FCEumm Mouse mode for Zapper
-        coreSettings.save('fceumm_zapper_mode', '"mouse"')
+        if system.isOptSet('fceumm_zapper_mode'):
+            coreSettings.save('fceumm_zapper_mode', system.config['fceumm_zapper_mode'])
+        else:
+            coreSettings.save('fceumm_zapper_mode', '"stick"')
+        # Analog Stick Speed
+        if system.isOptSet('fceumm_left_stick_speed'):
+            coreSettings.save('fceumm_left_stick_speed', system.config['fceumm_left_stick_speed'])
+        else:
+            coreSettings.save('fceumm_left_stick_speed', '"0.8"')
+        if system.isOptSet('fceumm_right_stick_speed'):
+            coreSettings.save('fceumm_right_stick_speed', system.config['fceumm_right_stick_speed'])
+        else:
+            coreSettings.save('fceumm_right_stick_speed', '"0.2"')
+        if system.isOptSet('fceumm_stick_deadzone'):
+            coreSettings.save('fceumm_stick_deadzone', system.config['fceumm_stick_deadzone'])
+        else:
+            coreSettings.save('fceumm_stick_deadzone', '"5"')
         # Reduce Sprite Flickering
         if system.isOptSet('fceumm_nospritelimit') and system.config['fceumm_nospritelimit'] == "disabled":
             coreSettings.save('fceumm_nospritelimit', '"disabled"')

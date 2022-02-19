@@ -281,6 +281,70 @@ libretro:
     desmume:
       features: [rewind, autosave, cheevos]
       cfeatures:
+            desmume_pointer_type:
+                prompt:      POINTER TYPE
+                description: Stylus control way.
+                choices:
+                    "Touch": touch
+                    "Mouse": mouse
+                    "Stick": stick
+            desmume_left_stick_speed:
+                prompt:      LEFT STICK SPEED
+                description: Customize left stick speed for alternative control.
+                choices:
+                    "0.03": 0.03
+                    "0.05": 0.05
+                    "0.07": 0.07
+                    "0.1": 0.1
+                    "0.2": 0.2
+                    "0.3": 0.3
+                    "0.4": 0.4
+                    "0.5": 0.5
+                    "0.6": 0.6
+                    "0.7": 0.7
+                    "0.8": 0.8
+                    "0.9": 0.9
+                    "1.0": 1.0
+                    "1.2": 1.2
+                    "1.5": 1.5
+                    "2.0": 2.0
+            desmume_right_stick_speed:
+                prompt:      RIGHT STICK SPEED
+                description: Customize right stick speed for alternative control.
+                choices:
+                    "0.03": 0.03
+                    "0.05": 0.05
+                    "0.07": 0.07
+                    "0.1": 0.1
+                    "0.2": 0.2
+                    "0.3": 0.3
+                    "0.4": 0.4
+                    "0.5": 0.5
+                    "0.6": 0.6
+                    "0.7": 0.7
+                    "0.8": 0.8
+                    "0.9": 0.9
+                    "1.0": 1.0
+                    "1.2": 1.2
+                    "1.5": 1.5
+                    "2.0": 2.0
+            desmume_stick_deadzone:
+                prompt:      STICK DEADZONE
+                description: Customize stick deadzone.
+                choices:
+                    "none": 0
+                    "1%": 1
+                    "2%": 2
+                    "5%": 5
+                    "10%": 10
+                    "15%": 15
+                    "20%": 20
+                    "25%": 25
+                    "30%": 30
+                    "35%": 35
+                    "40%": 40
+                    "45%": 45
+                    "50%": 50
             internal_resolution_desmume:
                 prompt:      RENDERING RESOLUTION
                 description: Enhancement. Increase the rendering resolution. Makes 3D objects clearer.
@@ -348,6 +412,70 @@ libretro:
     melonds:
       features: [autosave, cheevos]
       cfeatures:
+            melonds_touch_mode:
+                prompt:      TOUCH MODE
+                description: Stylus control way.
+                choices:
+                    "Touch": Touch
+                    "Mouse": Mouse
+                    "Stick": Joystick
+            melonds_left_stick_speed:
+                prompt:      LEFT STICK SPEED
+                description: Customize left stick speed for stylus.
+                choices:
+                    "0.03": 0.03
+                    "0.05": 0.05
+                    "0.07": 0.07
+                    "0.1": 0.1
+                    "0.2": 0.2
+                    "0.3": 0.3
+                    "0.4": 0.4
+                    "0.5": 0.5
+                    "0.6": 0.6
+                    "0.7": 0.7
+                    "0.8": 0.8
+                    "0.9": 0.9
+                    "1.0": 1.0
+                    "1.2": 1.2
+                    "1.5": 1.5
+                    "2.0": 2.0
+            melonds_right_stick_speed:
+                prompt:      RIGHT STICK SPEED
+                description: Customize right stick speed for stylus.
+                choices:
+                    "0.03": 0.03
+                    "0.05": 0.05
+                    "0.07": 0.07
+                    "0.1": 0.1
+                    "0.2": 0.2
+                    "0.3": 0.3
+                    "0.4": 0.4
+                    "0.5": 0.5
+                    "0.6": 0.6
+                    "0.7": 0.7
+                    "0.8": 0.8
+                    "0.9": 0.9
+                    "1.0": 1.0
+                    "1.2": 1.2
+                    "1.5": 1.5
+                    "2.0": 2.0
+            melonds_stick_deadzone:
+                prompt:      STICK DEADZONE
+                description: Customize stick deadzone.
+                choices:
+                    "none": 0
+                    "1%": 1
+                    "2%": 2
+                    "5%": 5
+                    "10%": 10
+                    "15%": 15
+                    "20%": 20
+                    "25%": 25
+                    "30%": 30
+                    "35%": 35
+                    "40%": 40
+                    "45%": 45
+                    "50%": 50
             melonds_boot_directly:
                 prompt:      SKIP DS SYSTEM MENU
                 description: Disable to access the system's settings, like time and language.
@@ -797,6 +925,78 @@ libretro:
     fceumm:
       features: [rewind, autosave, cheevos]
       cfeatures:
+            fceumm_main_device:
+                prompt:      MAIN CONTROL DEVICE
+                description: Controller type of port 1,2.
+                choices:
+                    "Game pad": gamepad
+                    "Zapper": zapper
+                    "Arkanoid": paddle
+            fceumm_zapper_mode:
+                prompt:      ZAPPER MODE
+                description: Select a zapper control way.
+                choices:
+                    "Light gun": lightgun
+                    "Mouse": mouse
+                    "Touch screen": touchscreen
+                    "Analog stick": stick
+            fceumm_left_stick_speed:
+                prompt:      LEFT STICK SPEED
+                description: Customize left stick speed for stylus.
+                choices:
+                    "0.03": 0.03
+                    "0.05": 0.05
+                    "0.07": 0.07
+                    "0.1": 0.1
+                    "0.2": 0.2
+                    "0.3": 0.3
+                    "0.4": 0.4
+                    "0.5": 0.5
+                    "0.6": 0.6
+                    "0.7": 0.7
+                    "0.8": 0.8
+                    "0.9": 0.9
+                    "1.0": 1.0
+                    "1.2": 1.2
+                    "1.5": 1.5
+                    "2.0": 2.0
+            fceumm_right_stick_speed:
+                prompt:      RIGHT STICK SPEED
+                description: Customize right stick speed for stylus.
+                choices:
+                    "0.03": 0.03
+                    "0.05": 0.05
+                    "0.07": 0.07
+                    "0.1": 0.1
+                    "0.2": 0.2
+                    "0.3": 0.3
+                    "0.4": 0.4
+                    "0.5": 0.5
+                    "0.6": 0.6
+                    "0.7": 0.7
+                    "0.8": 0.8
+                    "0.9": 0.9
+                    "1.0": 1.0
+                    "1.2": 1.2
+                    "1.5": 1.5
+                    "2.0": 2.0
+            fceumm_stick_deadzone:
+                prompt:      STICK DEADZONE
+                description: Customize stick deadzone.
+                choices:
+                    "none": 0
+                    "1%": 1
+                    "2%": 2
+                    "5%": 5
+                    "10%": 10
+                    "15%": 15
+                    "20%": 20
+                    "25%": 25
+                    "30%": 30
+                    "35%": 35
+                    "40%": 40
+                    "45%": 45
+                    "50%": 50
             fceumm_nospritelimit:
                 prompt:      REDUCE SPRITE FLICKERING
                 description: Enhancement. Remove the eight sprites per line limit.
@@ -1701,6 +1901,85 @@ libretro:
     nestopia:
       features: [rewind, autosave]
       cfeatures:
+            nestopia_main_device:
+                prompt:      MAIN CONTROL DEVICE
+                description: Controller type of port 1,2.
+                choices:
+                    "Game pad": gamepad
+                    "Zapper": zapper
+                    "Arkanoid": paddle
+            nestopia_arkanoid_device:
+                prompt:      PADDLE DEVICE
+                description: Select a paddle control way.
+                choices:
+                    "Mouse": mouse
+                    "Pointer": pointer
+                    "Analog Stick": stick
+            nestopia_zapper_device:
+                prompt:      ZAPPER DEVICE
+                description: Select a zapper control way.
+                choices:
+                    "Light gun": lightgun
+                    "Mouse": mouse
+                    "Pointer": pointer
+                    "Analog Stick": stick
+            nestopia_left_stick_speed:
+                prompt:      LEFT STICK SPEED
+                description: Customize left stick speed for stylus.
+                choices:
+                    "0.03": 0.03
+                    "0.05": 0.05
+                    "0.07": 0.07
+                    "0.1": 0.1
+                    "0.2": 0.2
+                    "0.3": 0.3
+                    "0.4": 0.4
+                    "0.5": 0.5
+                    "0.6": 0.6
+                    "0.7": 0.7
+                    "0.8": 0.8
+                    "0.9": 0.9
+                    "1.0": 1.0
+                    "1.2": 1.2
+                    "1.5": 1.5
+                    "2.0": 2.0
+            nestopia_right_stick_speed:
+                prompt:      RIGHT STICK SPEED
+                description: Customize right stick speed for stylus.
+                choices:
+                    "0.03": 0.03
+                    "0.05": 0.05
+                    "0.07": 0.07
+                    "0.1": 0.1
+                    "0.2": 0.2
+                    "0.3": 0.3
+                    "0.4": 0.4
+                    "0.5": 0.5
+                    "0.6": 0.6
+                    "0.7": 0.7
+                    "0.8": 0.8
+                    "0.9": 0.9
+                    "1.0": 1.0
+                    "1.2": 1.2
+                    "1.5": 1.5
+                    "2.0": 2.0
+            nestopia_stick_deadzone:
+                prompt:      STICK DEADZONE
+                description: Customize stick deadzone.
+                choices:
+                    "none": 0
+                    "1%": 1
+                    "2%": 2
+                    "5%": 5
+                    "10%": 10
+                    "15%": 15
+                    "20%": 20
+                    "25%": 25
+                    "30%": 30
+                    "35%": 35
+                    "40%": 40
+                    "45%": 45
+                    "50%": 50
             nestopia_nospritelimit:
                 prompt:      REDUCE SPRITE FLICKERING
                 description: Enhancement. Remove the eight sprites per line limit.

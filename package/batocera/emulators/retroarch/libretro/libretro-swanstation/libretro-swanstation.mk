@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version.: Commits on Jan 17, 2022
-LIBRETRO_SWANSTATION_VERSION = b94d18f22e92e1e80e6f5b1edaeda8aa3560b78f
-LIBRETRO_SWANSTATION_SITE = $(call github,libretro,swanstation,$(LIBRETRO_SWANSTATION_VERSION))
+LIBRETRO_SWANSTATION_VERSION = 23831d0a528380bc30de8eb2d020ac58ec260ece
+LIBRETRO_SWANSTATION_SITE = https://github.com/NullPopPoLab/duckstation
+LIBRETRO_SWANSTATION_SITE_METHOD=git
 LIBRETRO_SWANSTATION_LICENSE = GPLv2
 LIBRETRO_SWANSTATION_DEPENDENCIES = fmt boost ffmpeg retroarch
 

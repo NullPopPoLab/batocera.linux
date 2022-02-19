@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version.: Commits on Nov 17, 2021
-LIBRETRO_OPERA_VERSION = aa868e656b518567a95b11b2f14c5db8001b11a0
-LIBRETRO_OPERA_SITE = $(call github,libretro,opera-libretro,$(LIBRETRO_OPERA_VERSION))
+LIBRETRO_OPERA_VERSION = 14d6c3fc6647bee03265be8dc1f2c61554d598a5
+LIBRETRO_OPERA_SITE = https://github.com/NullPopPoLab/opera-libretro.git
+LIBRETRO_OPERA_SITE_METHOD=git
 LIBRETRO_OPERA_LICENSE = LGPL/Non-commercial
 
 LIBRETRO_OPERA_PLATFORM=$(LIBRETRO_PLATFORM)

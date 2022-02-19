@@ -3,7 +3,7 @@ default:
   core:
   options:
     videomode:      default
-    ratio:          auto
+    ratio:          core
     video_threaded: false
     smooth:         true
     rewind:         false

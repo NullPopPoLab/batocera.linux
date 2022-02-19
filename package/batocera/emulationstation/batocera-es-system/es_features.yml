@@ -2144,18 +2144,6 @@ libretro:
                 choices:
                     "Off":                          OFF
                     "On":                           ON
-            np2kai_joymode:
-                prompt:      JOY2KEY PROFILE
-                description: Emulate a keyboard/mouse/joypad.
-                choices:
-                    "Off":                          OFF
-                    "Mouse":                        Mouse
-                    "Arrows":                       Arrows
-                    "Arrows 3button":               Arrows 3button
-                    "Keypad":                       Keypad
-                    "Keypad 3button":               Keypad 3button
-                    "Manual keyboard":              Manual Keyboard
-                    "Atari Joypad":                 Atari Joypad
     o2em:
       features: [rewind, autosave, cheevos]
       cfeatures:
@@ -2814,13 +2802,6 @@ libretro:
                     "1/32 Frame":         1/32 Frame
                     "1/60 Frame":         1/60 Frame
                     "Auto Frame Skip":    Auto Frame Skip
-            px68k_joytype:
-                prompt:      JOYPAD TYPE
-                description: Applies to both players.
-                choices:
-                    "Default (2 Buttons)":       Default (2 Buttons)
-                    "Megadrive (8 Buttons)":     CPSF-MD (8 Buttons)
-                    "Super Famicom (8 Buttons)": CPSF-SFC (8 Buttons)
     quasi88:
       features: [rewind, autosave, padtokeyboard, cheevos]
       cfeatures:
@@ -3694,6 +3675,38 @@ libretro:
                     "On":       enabled
     x1:
       features: [rewind, autosave, padtokeyboard]
+      cfeatures:
+            x1_resolute:
+                prompt: Resolution
+                choices:
+                    "Low":      LOW
+                    "High":     HIGH
+            x1_bootmedia:
+                prompt: Boot media
+                choices:
+                    "2D":       2D
+                    "2HD":      2HD
+            x1_romtype:
+                prompt: ROM type
+                choices:
+                    "X1":       X1
+                    "TURBO":    TURBO
+                    "TURBOZ":   TURBOZ
+            x1_fmboard:
+                prompt: FM Board
+                choices:
+                    "OFF":      OFF
+                    "ON":       ON
+            x1_cpu_clock:
+                prompt: Cpu clock
+                choices:
+                    "1 MHz":    1
+                    "2 MHz":    2
+                    "4 MHz":    4
+                    "8 MHz":    8
+                    "12 MHz":   12
+                    "16 MHz":   16
+                    "20 MHz":   20
     xash3d_fwgs:
       features: []
     yabasanshiro:

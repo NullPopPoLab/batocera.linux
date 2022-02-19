@@ -868,11 +868,6 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('np2kai_jast_snd', '"ON"')
         else:
             coreSettings.save('np2kai_jast_snd', '"OFF"')
-        # Joypad to Keyboard Mapping
-        if system.isOptSet('np2kai_joymode'):
-            coreSettings.save('np2kai_joymode', '"' + system.config['np2kai_joymode'] + '"')
-        else:
-            coreSettings.save('np2kai_joymode', '"Arrows"')
 
     # Nec PC Engine SuperGrafx
     if (system.config['core'] == 'mednafen_supergrafx'):
@@ -1089,8 +1084,6 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('melonds_stick_deadzone', '"5"')
         # Enable threaded rendering
         coreSettings.save('melonds_threaded_renderer', '"enabled"')
-        # Emulate Stylus on Right Stick
-        coreSettings.save('melonds_touch_mode',        '"Joystick"')
         # Boot game directly
         if system.isOptSet('melonds_boot_directly'):
             coreSettings.save('melonds_boot_directly', system.config['melonds_boot_directly'])
@@ -1731,6 +1724,29 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('yabasanshiro_multitap_port2', '"disabled"')
 
     # TODO: Add CORE options for Beetle-saturn and Kronos
+
+    # Sharp X1
+    if (system.config['core'] == 'x1'):
+        if system.isOptSet('x1_resolute'):
+            coreSettings.save('x1_resolute', '"'+system.config['x1_resolute']+'"')
+        else:
+            coreSettings.save('x1_resolute', '"HIGH"')
+        if system.isOptSet('x1_bootmedia'):
+            coreSettings.save('x1_bootmedia', '"'+system.config['x1_bootmedia']+'"')
+        else:
+            coreSettings.save('x1_bootmedia', '"2D"')
+        if system.isOptSet('x1_romtype'):
+            coreSettings.save('x1_romtype', '"'+system.config['x1_romtype']+'"')
+        else:
+            coreSettings.save('x1_romtype', '"TURBO"')
+        if system.isOptSet('x1_cpu_clock'):
+            coreSettings.save('x1_cpu_clock', '"'+system.config['x1_cpu_clock']+'"')
+        else:
+            coreSettings.save('x1_cpu_clock', '"4"')
+        if system.isOptSet('x1_fmboard'):
+            coreSettings.save('x1_fmboard', '"'+system.config['x1_fmboard']+'"')
+        else:
+            coreSettings.save('x1_fmboard', '"ON"')
 
     # Sharp X68000
     if (system.config['core'] == 'px68k'):

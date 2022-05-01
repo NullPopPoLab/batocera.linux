@@ -1764,6 +1764,21 @@ def generateCoreSettings(coreSettings, system, rom):
     if (system.config['core'] == 'px68k'):
         # To auto launch HDD games
         coreSettings.save('px68k_disk_path', '"disabled"')
+        # Disk Config
+        if system.isOptSet('px68k_disk_config'):
+            coreSettings.save('px68k_disk_config', '"' + system.config['px68k_disk_config'] + '"')
+        else:
+            coreSettings.save('px68k_disk_config', '"disabled"')
+        # SRAM
+        if system.isOptSet('px68k_use_sram'):
+            coreSettings.save('px68k_use_sram', '"' + system.config['px68k_use_sram'] + '"')
+        else:
+            coreSettings.save('px68k_use_sram', '"disabled"')
+        # MIDI
+        if system.isOptSet('px68k_use_midi'):
+            coreSettings.save('px68k_use_midi', '"' + system.config['px68k_use_midi'] + '"')
+        else:
+            coreSettings.save('px68k_use_midi', '"disabled"')
         # CPU Speed (Overclock)
         if system.isOptSet('px68k_cpuspeed'):
             coreSettings.save('px68k_cpuspeed', '"' + system.config['px68k_cpuspeed'] + '"')

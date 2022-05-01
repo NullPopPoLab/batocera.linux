@@ -2743,6 +2743,24 @@ libretro:
     px68k:
       features: [padtokeyboard]
       cfeatures:
+            px68k_disk_config:
+                prompt:      USE DISK CONFIG
+                description: Resume previous disk config.
+                choices:
+                    "Off":    disabled
+                    "On":     enabled
+            px68k_use_sram:
+                prompt:      USE SRAM
+                description: save/load SRAM.
+                choices:
+                    "Off":    disabled
+                    "On":     enabled
+            px68k_use_midi:
+                prompt:      USE MIDI
+                description: Enable MIDI sound interface.
+                choices:
+                    "Off":    disabled
+                    "On":     enabled
             px68k_cpuspeed:
                 prompt:      CPU CLOCK
                 description: Slow down or speed up games as appropriate.

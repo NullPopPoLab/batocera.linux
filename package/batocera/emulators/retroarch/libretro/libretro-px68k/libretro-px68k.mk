@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Nov 26, 2021
-LIBRETRO_PX68K_VERSION = 69baeead276fa174cf434e9d9f6ac8f08141ef5c
+LIBRETRO_PX68K_VERSION = 63e40f2ee83836ee562e531a822ca7fabf556d1a
 LIBRETRO_PX68K_SITE = https://github.com/NullPopPoLab/px68k-libretro
 LIBRETRO_PX68K_SITE_METHOD = git
 LIBRETRO_PX68K_LICENSE = Unknown

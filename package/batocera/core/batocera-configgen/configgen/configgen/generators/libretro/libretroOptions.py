@@ -1766,7 +1766,7 @@ def generateCoreSettings(coreSettings, system, rom):
         if system.isOptSet('px68k_use_midi'):
             coreSettings.save('px68k_use_midi', '"' + system.config['px68k_use_midi'] + '"')
         else:
-            coreSettings.save('px68k_use_midi', '"disabled"')
+            coreSettings.save('px68k_use_midi', '"enabled"')
         # CPU Speed (Overclock)
         if system.isOptSet('px68k_cpuspeed'):
             coreSettings.save('px68k_cpuspeed', '"' + system.config['px68k_cpuspeed'] + '"')

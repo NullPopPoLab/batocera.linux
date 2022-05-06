@@ -91,6 +91,7 @@ def generateRetroarchCustomPathes(retroarchSettings):
     retroarchSettings.save('cheat_database_path',           '"/userdata/cheats/cht/"')
     retroarchSettings.save('cheat_settings_path',           '"/userdata/cheats/saves/"')
     retroarchSettings.save('system_directory',              '"/userdata/bios/"')
+    retroarchSettings.save('log_dir',                       '"/userdata/system/logs/"')
     retroarchSettings.save('joypad_autoconfig_dir',         '"/userdata/system/configs/retroarch/inputs/"')
     retroarchSettings.save('input_remapping_directory',     '"/userdata/system/configs/retroarch/remaps/"')
     retroarchSettings.save('rgui_config_directory',         '"/userdata/system/configs/retroarch/menu/"')

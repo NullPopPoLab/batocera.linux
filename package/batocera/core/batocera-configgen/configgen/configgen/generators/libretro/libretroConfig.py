@@ -142,6 +142,7 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution, gfxBac
 
     retroarchConfig['savestate_directory'] = batoceraFiles.savesDir + system.name
     retroarchConfig['savefile_directory'] = batoceraFiles.savesDir + system.name
+    retroarchConfig['content_root_directory'] = batoceraFiles.ROMS + '/' + system.name + '/'
 
     # Forced values (so that if the config is not correct, fix it)
     if system.config['core'] == 'tgbdual':

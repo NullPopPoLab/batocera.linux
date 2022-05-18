@@ -76,7 +76,7 @@ class Emulator():
 
     def game_settings_name(self,rom):
 
-        bdir=batoceraFiles.ROMS+"/"+this.name+"/"
+        bdir=batoceraFiles.ROMS+"/"+self.name+"/"
         bl=len(bdir)
         rl=len(rom)
         if rl>bl:

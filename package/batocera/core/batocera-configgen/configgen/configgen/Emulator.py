@@ -27,7 +27,7 @@ class Emulator():
         recalSettings = UnixSettings(batoceraFiles.batoceraConf)
         globalSettings = recalSettings.loadAll('global')
         systemSettings = recalSettings.loadAll(self.name)
-        gameSettings = recalSettings.loadAll(self.name + "[\"" + os.path.basename(rom) + "\"]")
+        gameSettings = recalSettings.loadAll(self.name + "[\"" + self.gamesettingname(rom) + "\"]")
 
         # add some other options
         displaySettings = recalSettings.loadAll('display')
@@ -71,6 +71,14 @@ class Emulator():
         # es only allow to update systemSettings and gameSettings in fact for the moment
         Emulator.updateConfiguration(self.renderconfig, systemSettings)
         Emulator.updateConfiguration(self.renderconfig, gameSettings)
+
+    def gamesettingname(self,rom):
+
+        rom=os.path.basename(rom)
+        # sanitize rule by EmulationStation 
+        rom=rom.replace('=','')
+        rom=rom.replace('#','')
+        return rom
 
     # to be updated for python3: https://gist.github.com/angstwad/bf22d1822c38a92ec0a9
     @staticmethod

@@ -23,11 +23,13 @@ class Emulator():
         system_emulator = self.config["emulator"]
         system_core     = self.config["core"]
 
+        gsname=self.game_settings_name(rom)
+
         # load configuration from batocera.conf
         recalSettings = UnixSettings(batoceraFiles.batoceraConf)
         globalSettings = recalSettings.loadAll('global')
         systemSettings = recalSettings.loadAll(self.name)
-        gameSettings = recalSettings.loadAll(self.name + "[\"" + self.gamesettingname(rom) + "\"]")
+        gameSettings = recalSettings.loadAll(self.name + "[\"" + gsname + "\"]")
 
         # add some other options
         displaySettings = recalSettings.loadAll('display')
@@ -66,18 +68,19 @@ class Emulator():
         # but it should be reviewed when we refactor configgen (to Python3?)
         # so that we can fetch them from system.shader without -renderer
         systemSettings = recalSettings.loadAll(self.name + "-renderer")
-        gameSettings = recalSettings.loadAll(self.name + "[\"" + os.path.basename(rom) + "\"]" + "-renderer")
+        gameSettings = recalSettings.loadAll(self.name + "[\"" + gsname + "\"]" + "-renderer")
 
         # es only allow to update systemSettings and gameSettings in fact for the moment
         Emulator.updateConfiguration(self.renderconfig, systemSettings)
         Emulator.updateConfiguration(self.renderconfig, gameSettings)
 
-    def gamesettingname(self,rom):
+    def game_settings_name(self,rom):
 
         rom=os.path.basename(rom)
         # sanitize rule by EmulationStation 
         rom=rom.replace('=','')
         rom=rom.replace('#','')
+        eslog.info("game settings name: "+rom)
         return rom
 
     # to be updated for python3: https://gist.github.com/angstwad/bf22d1822c38a92ec0a9

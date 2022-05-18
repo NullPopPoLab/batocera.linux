@@ -76,7 +76,13 @@ class Emulator():
 
     def game_settings_name(self,rom):
 
-        rom=os.path.basename(rom)
+        bdir=batoceraFiles.ROMS+"/"+this.name+"/"
+        bl=len(bdir)
+        rl=len(rom)
+        if rl>bl:
+            if bdir==rom[:bl]:
+                rom=rom[bl:]
+
         # sanitize rule by EmulationStation 
         rom=rom.replace('=','')
         rom=rom.replace('#','')

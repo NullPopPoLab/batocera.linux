@@ -764,26 +764,60 @@ def generateCoreSettings(coreSettings, system, rom):
     # Microsoft MSX and Colecovision
     if (system.config['core'] == 'bluemsx'):
         # Auto Select Core
-        if (system.name == 'colecovision'):
-            coreSettings.save('bluemsx_msxtype', '"ColecoVision"')
-        elif (system.name == 'msx1'):
-            coreSettings.save('bluemsx_msxtype', '"MSX"')
-        elif (system.name == 'msx2'):
-            coreSettings.save('bluemsx_msxtype', '"MSX2"')
-        elif (system.name == 'msx2+'):
-            coreSettings.save('bluemsx_msxtype', '"MSX2+"')
-        elif (system.name == 'msxturbor'):
-            coreSettings.save('bluemsx_msxtype', '"MSXturboR"')
+        msxtype = ''
+        if system.isOptSet('bluemsx_generation'):
+            if system.config['bluemsx_generation'] == "MSX1":
+                msxtype = 'MSX'
+            elif system.config['bluemsx_generation'] == "MSX2":
+                msxtype = 'MSX2'
+            elif system.config['bluemsx_generation'] == "MSX2+":
+                msxtype = 'MSX2+'
+            elif system.config['bluemsx_generation'] == "MSXturboR":
+                msxtype = 'MSXturboR'
+        if (msxtype==''):
+            if (system.name == 'colecovision'):
+                msxtype = 'ColecoVision'
+            elif (system.name == 'msx1'):
+                msxtype = 'MSX'
+            elif (system.name == 'msx2'):
+                msxtype = 'MSX2'
+            elif (system.name == 'msx2+'):
+                msxtype = 'MSX2+'
+            elif (system.name == 'msxturbor'):
+                msxtype = 'MSXturboR'
+            else:
+                msxtype = 'MSX'
+        # Select a region
+        msxtype2 = msxtype
+        if system.isOptSet('bluemsx_region'):
+            if system.config['bluemsx_region'] == "":
+                pass
+            elif system.config['bluemsx_region'] == "Default":
+                pass
+            else:
+                msxtype2 = msxtype+' - '+system.config['bluemsx_region']
+        coreSettings.save('bluemsx_msxtype', '"'+msxtype2+'"')
         # Forces cropping of overscanned frames
-        if system.name == 'colecovision' or system.name == 'msx1':
+        if msxtype == 'ColecoVision' or msxtype == 'MSX':
             coreSettings.save('bluemsx_overscan', '"enabled"')
         else:
             coreSettings.save('bluemsx_overscan', '"MSX2"')
+        # V Sync
+        # Reduce Sprite Flickering
+        if system.isOptSet('bluemsx_vdp_synctype'):
+            coreSettings.save('bluemsx_vdp_synctype', '"'+system.config['bluemsx_vdp_synctype']+'"')
+        else:
+            coreSettings.save('bluemsx_vdp_synctype', '"Auto"')
         # Reduce Sprite Flickering
         if system.isOptSet('bluemsx_nospritelimits') and system.config['bluemsx_nospritelimits'] == "False":
             coreSettings.save('bluemsx_nospritelimits', '"OFF"')
         else:
             coreSettings.save('bluemsx_nospritelimits', '"ON"')
+        # Auto Rewind Casette
+        if system.isOptSet('bluemsx_auto_rewind_cas') and system.config['bluemsx_auto_rewind_cas'] == "False":
+            coreSettings.save('bluemsx_auto_rewind_cas', '"OFF"')
+        else:
+            coreSettings.save('bluemsx_auto_rewind_cas', '"ON"')
 
     # Nec PC Engine / CD
     if system.config['core'] == 'pce' or system.config['core'] == 'pce_fast':
@@ -800,6 +834,11 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('q88_basic_mode', '"' + system.config['q88_basic_mode'] + '"')
         else:
             coreSettings.save('q88_basic_mode', '"N88 V2"')
+        # Sub CPU Mode
+        if system.isOptSet('q88_sub_cpu_mode'):
+            coreSettings.save('q88_sub_cpu_mode', '"' + system.config['q88_sub_cpu_mode'] + '"')
+        else:
+            coreSettings.save('q88_sub_cpu_mode', '"0"')
         # CPU clock (Overclock)
         if system.isOptSet('q88_cpu_clock'):
             coreSettings.save('q88_cpu_clock', '"' + system.config['q88_cpu_clock'] + '"')
@@ -815,9 +854,15 @@ def generateCoreSettings(coreSettings, system, rom):
     # https://github.com/AZO234/NP2kai/blob/6e8f651a72c2ece37cc52e17cdaf4fdb87a6b2f9/sdl/libretro/libretro_core_options.h
     if system.config['core'] == 'np2kai':
         # Use the American keyboard
-        coreSettings.save('np2kai_keyboard', '"Us"')
+        if system.isOptSet('np2kai_keyboard'):
+            coreSettings.save('np2kai_keyboard', '"' + system.config['np2kai_keyboard'] + '"')
+        else:
+            coreSettings.save('np2kai_keyboard', '"Us"')
         # Fast memcheck at startup
-        coreSettings.save('np2kai_FastMC', '"ON"')
+        if system.isOptSet('np2kai_FastMC') and system.config['np2kai_FastMC'] == "True":
+            coreSettings.save('np2kai_FastMC', '"ON"')
+        else:
+            coreSettings.save('np2kai_FastMC', '"OFF"')
         # Sound Generator: Use "fmgen" for enhanced sound rendering, not "Default"
         #coreSettings.save('np2kai_usefmgen', '"fmgen"')
         # PC Model
@@ -830,6 +875,11 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('np2kai_cpu_feature', '"' + system.config['np2kai_cpu_feature'] + '"')
         else:
             coreSettings.save('np2kai_cpu_feature', '"Intel 80386"')
+        # CPU Base Clock
+        if system.isOptSet('np2kai_clk_base'):
+            coreSettings.save('np2kai_clk_base', '"' + system.config['np2kai_clk_base'] + '"')
+        else:
+            coreSettings.save('np2kai_clk_base', '"2.4576 MHz"')
         # CPU Clock Multiplier
         if system.isOptSet('np2kai_clk_mult'):
             coreSettings.save('np2kai_clk_mult', '"' + system.config['np2kai_clk_mult'] + '"')
@@ -845,6 +895,11 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('np2kai_gdc', '"' + system.config['np2kai_gdc'] + '"')
         else:
             coreSettings.save('np2kai_gdc', '"uPD7220"')
+        # 118 ROM
+        if system.isOptSet('np2kai_118ROM'):
+            coreSettings.save('np2kai_118ROM', '"' + system.config['np2kai_118ROM'] + '"')
+        else:
+            coreSettings.save('np2kai_118ROM', '"ON"')
         # Remove Scanlines (255 lines)
         if system.isOptSet('np2kai_skipline') and system.config['np2kai_skipline'] != "Full 255 lines":
             if system.config['np2kai_skipline'] == "True":
@@ -868,6 +923,21 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('np2kai_jast_snd', '"ON"')
         else:
             coreSettings.save('np2kai_jast_snd', '"OFF"')
+        # WAB SWITCH
+        if system.isOptSet('np2kai_CLGD_en') and system.config['np2kai_CLGD_en'] == "True":
+            coreSettings.save('np2kai_CLGD_en', '"ON"')
+        else:
+            coreSettings.save('np2kai_CLGD_en', '"OFF"')
+        # WAB CURSOR
+        if system.isOptSet('np2kai_CLGD_fc') and system.config['np2kai_CLGD_fc'] == "True":
+            coreSettings.save('np2kai_CLGD_fc', '"ON"')
+        else:
+            coreSettings.save('np2kai_CLGD_fc', '"OFF"')
+        # WAB TYPE
+        if system.isOptSet('np2kai_CLGD_type'):
+            coreSettings.save('np2kai_CLGD_type', '"' + system.config['np2kai_CLGD_type'] + '"')
+        else:
+            coreSettings.save('np2kai_CLGD_type', '"PC-9821Xe10,Xa7e,Xb10 built-in"')
 
     # Nec PC Engine SuperGrafx
     if (system.config['core'] == 'mednafen_supergrafx'):

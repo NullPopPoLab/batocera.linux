@@ -168,6 +168,14 @@ libretro:
     bluemsx:
       features: [rewind, autosave, padtokeyboard, cheevos]
       cfeatures:
+            bluemsx_generation:
+                prompt:      GENERATION
+                choices:
+                    "Default": Default
+                    "MSX1": MSX1
+                    "MSX2": MSX2
+                    "MSX2+": MSX2+
+                    "MSXturboR": MSXturboR
             bluemsx_region:
                 prompt:      REGION
                 description: Auto select a localized machine.
@@ -185,9 +193,20 @@ libretro:
                     "Russian": Russian
                     "Spanish": Spanish
                     "Swedish": Swedish
+            bluemsx_vdp_synctype:
+                prompt:      VSYNC
+                choices:
+                    "Auto": Auto
+                    "50Hz": 50Hz
+                    "60Hz": 60Hz
             bluemsx_nospritelimits:
                 prompt:      REDUCE SPRITE FLICKERING
                 description: Enhancement. Remove the four sprites per line limit.
+                choices:
+                    "Off": OFF
+                    "On":  ON
+            bluemsx_auto_rewind_cas:
+                prompt:      AUTO REWIND CASETTE
                 choices:
                     "Off": OFF
                     "On":  ON
@@ -2033,6 +2052,11 @@ libretro:
     np2kai:
       features: [rewind, autosave, padtokeyboard]
       cfeatures:
+            np2kai_keyboard:
+                prompt:      KEYBOARD TYPE
+                choices:
+                    "JA":    Ja
+                    "US":    Us
             np2kai_model:
                 prompt:      PC MODEL
                 choices:
@@ -2050,6 +2074,11 @@ libretro:
                     "Intel Pentium 3":     Intel Pentium III
                     "Intel Pentium 4":     Intel Pentium 4
                     "Neko Processor II":   Neko Processor II
+            np2kai_clk_base:
+                prompt:      CPU BASE CLOCK
+                choices:
+                    "2MHz":                1.9968 MHz
+                    "2.5MHz":              2.4576 MHz
             np2kai_clk_mult:
                 prompt:      OVERCLOCK MULTIPLIER
                 choices:
@@ -2076,7 +2105,7 @@ libretro:
                 prompt:      EMULATED RAM SIZE
                 choices:
                     "1MB":                1
-                    "3MB":                2
+                    "3MB":                3
                     "7MB":                7
                     "11MB":               11
                     "13MB (Recommended)": 13
@@ -2087,12 +2116,22 @@ libretro:
                     "230MB":              230
                     "512MB":              512
                     "1024MB":             1024
+            np2kai_FastMC:
+                prompt:      FAST MEMORY CHECK
+                choices:
+                    "Off":       OFF
+                    "On":        ON
             np2kai_gdc:
                 prompt:      GDC
                 description: Graphic Display Controller model.
                 choices:
                     "uPD7220":   uPD7220
                     "uPD72020":  uPD72020
+            np2kai_118ROM:
+                prompt:      118 ROM
+                choices:
+                    "Off":       OFF
+                    "On":        ON
             np2kai_skipline:
                 prompt:      REMOVE SCANLINES
                 description: Older games skipped drawing every second line, this masks that.
@@ -2144,6 +2183,43 @@ libretro:
                 choices:
                     "Off":                          OFF
                     "On":                           ON
+            np2kai_CLGD_en:
+                prompt:      ENABLE WAB
+                choices:
+                    "Off":                          OFF
+                    "On":                           ON
+            np2kai_CLGD_fc:
+                prompt:      WAB HARDWARE CURSOR
+                choices:
+                    "Off":                          OFF
+                    "On":                           ON
+            np2kai_CLGD_type:
+                prompt:      WAB TYPE
+                choices:
+                    "PC-9821Xe10,Xa7e,Xb10 built-in": PC-9821Xe10,Xa7e,Xb10 built-in
+                    "PC-9821Bp,Bs,Be,Bf built-in": PC-9821Bp,Bs,Be,Bf built-in
+                    "PC-9821Xe built-in": PC-9821Xe built-in 
+                    "PC-9821Cb built-in": PC-9821Cb built-in
+                    "PC-9821Cf built-in": PC-9821Cf built-in
+                    "PC-9821Cb2 built-in": PC-9821Cb2 built-in
+                    "PC-9821Cx2 built-in": PC-9821Cx2 built-in
+                    "PC-9821 PCI CL-GD5446 built-in": PC-9821 PCI CL-GD5446 built-in
+                    "MELCO WAB-S": MELCO WAB-S
+                    "MELCO WSN-A2F": MELCO WSN-A2F
+                    "MELCO WSN-A4F": MELCO WSN-A4F
+                    "I-O DATA GA-98NBI/C": I-O DATA GA-98NBI/C
+                    "I-O DATA GA-98NBII": I-O DATA GA-98NBII
+                    "I-O DATA GA-98NBIV": I-O DATA GA-98NBIV
+                    "PC-9801-96(PC-9801B3-E02)": PC-9801-96(PC-9801B3-E02)
+                    "Auto Select(Xe10, GA-98NBI/C), PCI": Auto Select(Xe10, GA-98NBI/C), PCI
+                    "Auto Select(Xe10, GA-98NBII), PCI": Auto Select(Xe10, GA-98NBII), PCI
+                    "Auto Select(Xe10, GA-98NBIV), PCI": Auto Select(Xe10, GA-98NBIV), PCI
+                    "Auto Select(Xe10, WAB-S), PCI": Auto Select(Xe10, WAB-S), PCI
+                    "Auto Select(Xe10, WSN-A2F), PCI": Auto Select(Xe10, WSN-A2F), PCI
+                    "Auto Select(Xe10, WSN-A4F), PCI": Auto Select(Xe10, WSN-A4F), PCI
+                    "Auto Select(Xe10, WAB-S)": Auto Select(Xe10, WAB-S)
+                    "Auto Select(Xe10, WSN-A2F)": Auto Select(Xe10, WSN-A2F)
+                    "Auto Select(Xe10, WSN-A4F)": Auto Select(Xe10, WSN-A4F)
     o2em:
       features: [rewind, autosave, cheevos]
       cfeatures:
@@ -2830,6 +2906,12 @@ libretro:
                     "N88 BASIC V1H":        N88 V1H
                     "N88 BASIC V1S":        N88 V1S
                     "N BASIC":              N
+            q88_sub_cpu_mode:
+                prompt:      SUB CPU MODE
+                choices:
+                    "Sub-CPU during disk access": 0
+                    "Both CPUs during disk access": 1
+                    "Always Both CPUs": 2
             q88_cpu_clock:
                 prompt:      CPU CLOCK
                 description: Slow down or speed up games as appropriate.

@@ -1678,14 +1678,7 @@ def generateCoreSettings(coreSettings, system, rom):
         if system.isOptSet('px68k_frameskip'):
                 coreSettings.save('px68k_frameskip', '"' + system.config['px68k_frameskip'] + '"')
         else:
-            coreSettings.save('px68k_frameskip', '"Full Frame"')
-        # Joypad Type for two players
-        if system.isOptSet('px68k_joytype'):
-            coreSettings.save('px68k_joytype1', '"' + system.config['px68k_joytype'] + '"')
-            coreSettings.save('px68k_joytype2', '"' + system.config['px68k_joytype'] + '"')
-        else:
-            coreSettings.save('px68k_joytype1', '"Default (2 Buttons)"')
-            coreSettings.save('px68k_joytype2', '"Default (2 Buttons)"')
+            coreSettings.save('px68k_frameskip', '"Auto Frame Skip"')
 
     # Sinclair ZX81
     if (system.config['core'] == '81'):

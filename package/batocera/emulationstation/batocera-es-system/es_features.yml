@@ -2518,13 +2518,6 @@ libretro:
                     "1/32 Frame":         1/32 Frame
                     "1/60 Frame":         1/60 Frame
                     "Auto Frame Skip":    Auto Frame Skip
-            px68k_joytype:
-                prompt:      JOYPAD TYPE
-                description: Applies to both players.
-                choices:
-                    "Default (2 Buttons)":       Default (2 Buttons)
-                    "Megadrive (8 Buttons)":     CPSF-MD (8 Buttons)
-                    "Super Famicom (8 Buttons)": CPSF-SFC (8 Buttons)
     quasi88:
       features: [netplay, rewind, autosave, padtokeyboard, cheevos]
       cfeatures:

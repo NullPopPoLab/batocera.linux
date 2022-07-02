@@ -164,12 +164,4 @@ def getConfigValue(input):
 
 # Return the retroarch analog_dpad_mode
 def getAnalogMode(controller, system):
-    # don't enable analog as hat mode for some systems
-    if system.name == 'n64' or system.name == 'dreamcast' or system.name == '3ds':
-        return '0'
-
-    for dirkey in retroarchdirs:
-        if dirkey in controller.inputs:
-            if (controller.inputs[dirkey].type == 'button') or (controller.inputs[dirkey].type == 'hat'):
-                return '1'
     return '0'

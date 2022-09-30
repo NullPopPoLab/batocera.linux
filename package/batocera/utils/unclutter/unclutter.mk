@@ -5,7 +5,7 @@
 ################################################################################
 
 # Version: 1.5-batocera
-UNCLUTTER_VERSION = v1.5-batocera
+UNCLUTTER_VERSION = a73b7f8f353b8322374720aecf670803af4c8d8e
 UNCLUTTER_LICENSE = MIT
 UNCLUTTER_SITE = https://github.com/batocera-linux/unclutter-xfixes
 UNCLUTTER_SITE_METHOD = git

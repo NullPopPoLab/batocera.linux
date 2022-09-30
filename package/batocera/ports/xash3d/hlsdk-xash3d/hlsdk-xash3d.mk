@@ -13,7 +13,8 @@
 #
 #   https://github.com/FWGS/xash3d-fwgs/blob/master/Documentation/supported-mod-list.md#list-of-games-and-mods-with-custom-gamedll
 HLSDK_XASH3D_VERSION = 74f9375f
-HLSDK_XASH3D_SITE = $(call github,FWGS,hlsdk-xash3d,$(HLSDK_XASH3D_VERSION))
+HLSDK_XASH3D_SITE = https://github.com/FWGS/hlsdk-portable.git
+HLSDK_XASH3D_SITE_METHOD = git
 HLSDK_XASH3D_DEPENDENCIES = sdl2 sdl2_mixer sdl2_image sdl2_ttf libsodium
 HLSDK_XASH3D_LICENSE = Half Life 1 SDK LICENSE
 HLSDK_XASH3D_LICENSE_FILES = LICENSE

@@ -5,7 +5,7 @@
 ################################################################################
 
 # Version.: Commits on Dec 5, 2021
-LIBRETRO_PCSX2_VERSION = 6b619f47e3d1e82bd1a3f022c6ceabc0ad16cf37
+LIBRETRO_PCSX2_VERSION = 3bad23fecd555ca6b741f3aba7b650638c1038c1
 LIBRETRO_PCSX2_SITE = https://github.com/NullPopPoLab/pcsx2
 LIBRETRO_PCSX2_SITE_METHOD = git
 LIBRETRO_PCSX2_GIT_SUBMODULES = YES

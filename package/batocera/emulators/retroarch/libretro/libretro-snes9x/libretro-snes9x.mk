@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Oct 24, 2021
-LIBRETRO_SNES9X_VERSION = 544a73f5d3a18bb03fee88eff774bf2e2222dd11
+LIBRETRO_SNES9X_VERSION = a8c5add94e9ee1ec7de17a50ce47dc64d222a849
 LIBRETRO_SNES9X_SITE = https://github.com/NullPopPoLab/snes9x
 LIBRETRO_SNES9X_SITE_METHOD=git
 LIBRETRO_SNES9X_LICENSE = Non-commercial

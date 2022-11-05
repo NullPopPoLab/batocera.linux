@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Mar 30, 2021
-LIBRETRO_BSNES_VERSION = c7c79f458dcbaef1a0adac6e8ac0426147e69a65
+LIBRETRO_BSNES_VERSION = ef7a6920dcedf0c20c72552806ce7477155a997b
 LIBRETRO_BSNES_SITE = https://github.com/NullPopPoLab/bsnes
 LIBRETRO_BSNES_SITE_METHOD=git
 LIBRETRO_BSNES_LICENSE = GPLv3

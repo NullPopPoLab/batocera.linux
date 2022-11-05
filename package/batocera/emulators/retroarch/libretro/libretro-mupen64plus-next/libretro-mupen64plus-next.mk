@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Oct 11, 2021
-LIBRETRO_MUPEN64PLUS_NEXT_VERSION = 95c9e6e9443c97cd847ae54b8fc4c099f4b65cf4
+LIBRETRO_MUPEN64PLUS_NEXT_VERSION = 9af2a53f51e632e40a2c04f60380a1510ce5868b
 LIBRETRO_MUPEN64PLUS_NEXT_SITE = https://github.com/NullPopPoLab/mupen64plus-libretro-nx
 LIBRETRO_MUPEN64PLUS_NEXT_SITE_METHOD=git
 LIBRETRO_MUPEN64PLUS_NEXT_LICENSE = GPLv2

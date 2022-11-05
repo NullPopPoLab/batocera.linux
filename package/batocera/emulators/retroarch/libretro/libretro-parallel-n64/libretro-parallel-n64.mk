@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Mar 24, 2021
-LIBRETRO_PARALLEL_N64_VERSION = 5a5d00e5e2359ec57ebe405f2f04966f52f1aed0
+LIBRETRO_PARALLEL_N64_VERSION = 249de13c7250bdfa265f7336b7969334c8cdd003
 LIBRETRO_PARALLEL_N64_SITE = https://github.com/NullPopPoLab/parallel-n64
 LIBRETRO_PARALLEL_N64_SITE_METHOD=git
 LIBRETRO_PARALLEL_N64_LICENSE = GPLv2

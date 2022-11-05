@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Last commit: Oct 20, 2021
-LIBRETRO_VBA_M_VERSION = 5d221ee13912acecd8526aeaa1f88168435882b7
+LIBRETRO_VBA_M_VERSION = 9f448021afc0d08a765520a7520247656490dedd
 LIBRETRO_VBA_M_SITE = https://github.com/NullPopPoLab/visualboyadvance-m
 LIBRETRO_VBA_M_SITE_METHOD=git
 

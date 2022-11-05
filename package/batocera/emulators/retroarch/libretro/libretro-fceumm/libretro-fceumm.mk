@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: commit: Dec 23, 2021
-LIBRETRO_FCEUMM_VERSION = 927758df5bdad76056b2af2b6a47ee82198a0c71
+LIBRETRO_FCEUMM_VERSION = 1d16b0f231fe3b22e53095c42f900f1d6bea8569
 LIBRETRO_FCEUMM_SITE = https://github.com/NullPopPoLab/libretro-fceumm
 LIBRETRO_FCEUMM_SITE_METHOD=git
 LIBRETRO_FCEUMM_LICENSE = GPLv2

@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Nov 14, 2021
-LIBRETRO_PICODRIVE_VERSION = 0218a0d1ae7b5e3ed8e1c16d431d10aedac5e287
+LIBRETRO_PICODRIVE_VERSION = b0cdff12611403881aecd2d31b38e14053081274
 LIBRETRO_PICODRIVE_SITE = https://github.com/NullPopPoLab/picodrive
 LIBRETRO_PICODRIVE_SITE_METHOD=git
 LIBRETRO_PICODRIVE_GIT_SUBMODULES=YES

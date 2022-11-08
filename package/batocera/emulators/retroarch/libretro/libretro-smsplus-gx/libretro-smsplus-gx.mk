@@ -5,7 +5,8 @@
 ################################################################################
 # Version: Commits on Apr 9, 2022
 LIBRETRO_SMSPLUS_GX_VERSION = 9de9847dc8ba458e9522d5ae8b87bf71ad437257
-LIBRETRO_SMSPLUS_GX_SITE = $(call github,libretro,smsplus-gx,$(LIBRETRO_SMSPLUS_GX_VERSION))
+LIBRETRO_SMSPLUS_GX_SITE = https://github.com/NullPopPoLab/smsplus-gx
+LIBRETRO_SMSPLUS_GX_SITE_METHOD=git
 LIBRETRO_SMSPLUS_GX_LICENSE = Non-commercial
 
 LIBRETRO_SMSPLUS_GX_PLATFORM = $(LIBRETRO_PLATFORM)

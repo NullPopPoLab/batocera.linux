@@ -5,7 +5,8 @@
 ################################################################################
 # Version: Commits on Apr 8, 2022
 LIBRETRO_MESEN_VERSION = bb9ea02eba28682986044a6f49329ec533aa26ba
-LIBRETRO_MESEN_SITE = $(call github,libretro,Mesen,$(LIBRETRO_MESEN_VERSION))
+LIBRETRO_MESEN_SITE = https://github.com/NullPopPoLab/Mesen
+LIBRETRO_MESEN_SITE_METHOD=git
 LIBRETRO_MESEN_LICENSE = GPL
 
 define LIBRETRO_MESEN_BUILD_CMDS

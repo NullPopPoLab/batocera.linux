@@ -1,11 +1,12 @@
 ################################################################################
 #
-# libretro-bsnes-hd
+# BSNES-HD
 #
 ################################################################################
-# Version: Commits on Oct 16, 2021
-LIBRETRO_BSNES_HD_VERSION = 65f24e56c37f46bb752190024bd4058e64ad77d1
-LIBRETRO_BSNES_HD_SITE = $(call github,DerKoun,bsnes-hd,$(LIBRETRO_BSNES_HD_VERSION))
+# Version.: Commits on Oct 16, 2021
+LIBRETRO_BSNES_HD_VERSION = b384593bad68e34b27fb369ec56d90ae3df54e2b
+LIBRETRO_BSNES_HD_SITE = https://github.com/NullPopPoLab/bsnes-hd
+LIBRETRO_BSNES_HD_SITE_METHOD=git
 LIBRETRO_BSNES_HD_LICENSE = GPLv3
 
 define LIBRETRO_BSNES_HD_BUILD_CMDS

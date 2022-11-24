@@ -5,8 +5,9 @@
 ################################################################################
 # Version.: Commits on Nov 01, 2021
 # Need to use this branch : https://github.com/libretro/yabause/tree/yabasanshiro
-LIBRETRO_YABASANSHIRO_VERSION = 2848d5053fef1a69f68c600b65a1b9e0d915056c
-LIBRETRO_YABASANSHIRO_SITE = $(call github,libretro,yabause,$(LIBRETRO_YABASANSHIRO_VERSION))
+LIBRETRO_YABASANSHIRO_VERSION = e1818af5d2831a01afa597043d55433839d80513
+LIBRETRO_YABASANSHIRO_SITE = https://github.com/NullPopPoLab/yabause
+LIBRETRO_YABASANSHIRO_SITE_METHOD=git
 LIBRETRO_YABASANSHIRO_LICENSE = GPLv2
 LIBRETRO_YABASANSHIRO_DEPENDENCIES = retroarch
 

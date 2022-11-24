@@ -1,11 +1,12 @@
 ################################################################################
 #
-# libretro-kronos
+# LIBRETRO-KRONOS
 #
 ################################################################################
-# Version: Commits on Mar 16, 2022
-LIBRETRO_KRONOS_VERSION = 29205c6e034e30aa28697a5936f4e17895894be7
-LIBRETRO_KRONOS_SITE = $(call github,FCare,kronos,$(LIBRETRO_KRONOS_VERSION))
+# Version.: Commits on Oct 16, 2021
+LIBRETRO_KRONOS_VERSION = e94a8b725854c1525840fa17fab56120d2e9fea6
+LIBRETRO_KRONOS_SITE = https://github.com/NullPopPoLab/yabause
+LIBRETRO_KRONOS_SITE_METHOD=git
 LIBRETRO_KRONOS_LICENSE = BSD-3-Clause
 
 LIBRETRO_KRONOS_PLATFORM = $(LIBRETRO_PLATFORM)
@@ -18,7 +19,7 @@ else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_S922X),y)
 LIBRETRO_KRONOS_PLATFORM = odroid-n2
 LIBRETRO_KRONOS_EXTRA_ARGS += FORCE_GLES=1
 
-else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RK3399)$(BR2_PACKAGE_BATOCERA_TARGET_RG552),y)
+else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RK3399),y)
 LIBRETRO_KRONOS_PLATFORM = rockpro64
 LIBRETRO_KRONOS_EXTRA_ARGS += FORCE_GLES=1
 

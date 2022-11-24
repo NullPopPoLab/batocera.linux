@@ -1,11 +1,12 @@
 ################################################################################
 #
-# libretro-beetle-wswan
+# BEETLE_WSWAN
 #
 ################################################################################
-# Version: Commits on Apr 10, 2022
-LIBRETRO_BEETLE_WSWAN_VERSION = d1fb3f399a2bc16b9ad0f2e8c8ba9f7051cd26bd
-LIBRETRO_BEETLE_WSWAN_SITE = $(call github,libretro,beetle-wswan-libretro,$(LIBRETRO_BEETLE_WSWAN_VERSION))
+# Version.: Commits on Nov 25, 2021
+LIBRETRO_BEETLE_WSWAN_VERSION = 8bf439070547f1a0b0a3762cceed65fe5962b8be
+LIBRETRO_BEETLE_WSWAN_SITE = https://github.com/NullPopPoLab/beetle-wswan-libretro.git
+LIBRETRO_BEETLE_WSWAN_SITE_METHOD=git
 LIBRETRO_BEETLE_WSWAN_LICENSE = GPLv2
 
 LIBRETRO_BEETLE_WSWAN_PLATFORM = $(LIBRETRO_PLATFORM)

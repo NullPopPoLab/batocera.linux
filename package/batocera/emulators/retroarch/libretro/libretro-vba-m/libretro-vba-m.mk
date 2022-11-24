@@ -1,11 +1,12 @@
 ################################################################################
 #
-# libretro-vba-m
+# VBA-M
 #
 ################################################################################
-# Version: Commits on Mar 26, 2022
-LIBRETRO_VBA_M_VERSION = ad7dbf253c5af49f8c925fcc8443e9b0bcaa4fa1
-LIBRETRO_VBA_M_SITE = $(call github,visualboyadvance-m,visualboyadvance-m,$(LIBRETRO_VBA_M_VERSION))
+# Last commit: Oct 20, 2021
+LIBRETRO_VBA_M_VERSION = 9f448021afc0d08a765520a7520247656490dedd
+LIBRETRO_VBA_M_SITE = https://github.com/NullPopPoLab/visualboyadvance-m
+LIBRETRO_VBA_M_SITE_METHOD=git
 
 define LIBRETRO_VBA_M_BUILD_CMDS
 	$(TARGET_CONFIGURE_OPTS) $(MAKE) CXX="$(TARGET_CXX)" CC="$(TARGET_CC)" -C $(@D)/src/libretro -f Makefile platform="unix"  \

@@ -1,11 +1,12 @@
 ################################################################################
 #
-# libretro-beetle-vb
+# BEETLE_VB
 #
 ################################################################################
-# Version.: Commits on Apr 9, 2022
-LIBRETRO_BEETLE_VB_VERSION = 246555f8ed7e0b9e5748b2ee2ed6743187c61393
-LIBRETRO_BEETLE_VB_SITE = $(call github,libretro,beetle-vb-libretro,$(LIBRETRO_BEETLE_VB_VERSION))
+# Version.: Commits on Nov 17, 2021
+LIBRETRO_BEETLE_VB_VERSION = d7b0556affdc8cc2f36ebac47322a31909e358f9
+LIBRETRO_BEETLE_VB_SITE = https://github.com/NullPopPoLab/beetle-vb-libretro
+LIBRETRO_BEETLE_VB_SITE_METHOD=git
 LIBRETRO_BEETLE_VB_LICENSE = GPLv2
 
 LIBRETRO_BEETLE_VB_PLATFORM = $(LIBRETRO_PLATFORM)

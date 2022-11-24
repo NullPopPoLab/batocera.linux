@@ -1,22 +1,20 @@
 ################################################################################
 #
-# libretro-beetle-psx
+# LIBRETRO_BEETLE_PSX
 #
 ################################################################################
-# Version.: Commits on Feb 11, 2022
-LIBRETRO_BEETLE_PSX_VERSION = 88929ae90b4807a41b1b240377ab440e39ecf2cc
-LIBRETRO_BEETLE_PSX_SITE = $(call github,libretro,beetle-psx-libretro,$(LIBRETRO_BEETLE_PSX_VERSION))
+# Version.: Commits on Dec 10, 2021
+LIBRETRO_BEETLE_PSX_VERSION = 634c8e7db755a7c9e8435c878673dbef76211df8
+LIBRETRO_BEETLE_PSX_SITE = https://github.com/NullPopPoLab/beetle-psx-libretro
+LIBRETRO_BEETLE_PSX_SITE_METHOD=git
 LIBRETRO_BEETLE_PSX_LICENSE = GPLv2
 
 LIBRETRO_BEETLE_PSX_EXTRAOPT=
 LIBRETRO_BEETLE_PSX_OUTFILE=mednafen_psx_libretro.so
 
 ifeq ($(BR2_PACKAGE_XORG7),y)
-# Batocera - RPi4 required_hw_api = "OpenGL Core >= 3.3 | Vulkan >= 1.0"
-  ifneq ($(BR2_PACKAGE_BATOCERA_RPI4_WITH_XORG),y)
-    LIBRETRO_BEETLE_PSX_EXTRAOPT += HAVE_HW=1
-    LIBRETRO_BEETLE_PSX_OUTFILE=mednafen_psx_hw_libretro.so
-  endif
+LIBRETRO_BEETLE_PSX_EXTRAOPT += HAVE_HW=1
+LIBRETRO_BEETLE_PSX_OUTFILE=mednafen_psx_hw_libretro.so
 endif
 
 define LIBRETRO_BEETLE_PSX_BUILD_CMDS

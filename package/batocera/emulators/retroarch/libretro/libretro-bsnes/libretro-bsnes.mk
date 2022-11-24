@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version.: Commits on Mar 30, 2021
-LIBRETRO_BSNES_VERSION = 4ea6208ad05de7698c321db6fffea9273efc7dee
-LIBRETRO_BSNES_SITE = $(call github,libretro,bsnes,$(LIBRETRO_BSNES_VERSION))
+LIBRETRO_BSNES_VERSION = ef7a6920dcedf0c20c72552806ce7477155a997b
+LIBRETRO_BSNES_SITE = https://github.com/NullPopPoLab/bsnes
+LIBRETRO_BSNES_SITE_METHOD=git
 LIBRETRO_BSNES_LICENSE = GPLv3
 
 define LIBRETRO_BSNES_BUILD_CMDS

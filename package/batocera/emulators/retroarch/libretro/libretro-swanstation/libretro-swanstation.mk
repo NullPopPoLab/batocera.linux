@@ -1,11 +1,12 @@
 ################################################################################
 #
-# libretro-swanstation
+# LIBRETRO_SWANSTATION
 #
 ################################################################################
-# Version: Commits on Apr 17, 2022
-LIBRETRO_SWANSTATION_VERSION = c706125769c5f5137bd057bcf4f4c2585f8798a6
-LIBRETRO_SWANSTATION_SITE = $(call github,libretro,swanstation,$(LIBRETRO_SWANSTATION_VERSION))
+# Version.: Commits on Jan 17, 2022
+LIBRETRO_SWANSTATION_VERSION = 9f7e62bac7e4556722346216a9090cd0d0b6e9eb
+LIBRETRO_SWANSTATION_SITE = https://github.com/NullPopPoLab/swanstation
+LIBRETRO_SWANSTATION_SITE_METHOD=git
 LIBRETRO_SWANSTATION_LICENSE = GPLv2
 LIBRETRO_SWANSTATION_DEPENDENCIES = fmt boost ffmpeg retroarch
 

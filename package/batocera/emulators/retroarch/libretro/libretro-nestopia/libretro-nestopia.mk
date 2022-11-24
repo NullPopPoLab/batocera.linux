@@ -1,11 +1,12 @@
 ################################################################################
 #
-# libretro-nestopia
+# NESTOPIA
 #
 ################################################################################
-# Version: Commits on Apr 10, 2022
-LIBRETRO_NESTOPIA_VERSION = a9e197f2583ef4f36e9e77d930a677e63a2c2f62
-LIBRETRO_NESTOPIA_SITE = $(call github,libretro,nestopia,$(LIBRETRO_NESTOPIA_VERSION))
+# Version.: Commits on Dec 10, 2021
+LIBRETRO_NESTOPIA_VERSION = 8811c96b65c66fee5a1998d4288d329154b5b58b
+LIBRETRO_NESTOPIA_SITE = https://github.com/NullPopPoLab/nestopia
+LIBRETRO_NESTOPIA_SITE_METHOD=git
 LIBRETRO_NESTOPIA_LICENSE = GPLv2
 
 LIBRETRO_NESTOPIA_PLATFORM = $(LIBRETRO_PLATFORM)
@@ -34,8 +35,7 @@ LIBRETRO_NESTOPIA_PLATFORM = unix
 endif
 
 define LIBRETRO_NESTOPIA_BUILD_CMDS
-	$(TARGET_CONFIGURE_OPTS) $(MAKE) CXX="$(TARGET_CXX)" CC="$(TARGET_CC)" \
-	-C $(@D)/libretro/ platform="$(LIBRETRO_NESTOPIA_PLATFORM)" \
+	$(TARGET_CONFIGURE_OPTS) $(MAKE) CXX="$(TARGET_CXX)" CC="$(TARGET_CC)" -C $(@D)/libretro/ platform="$(LIBRETRO_NESTOPIA_PLATFORM)" \
         GIT_VERSION="-$(shell echo $(LIBRETRO_NESTOPIA_VERSION) | cut -c 1-7)"
 endef
 

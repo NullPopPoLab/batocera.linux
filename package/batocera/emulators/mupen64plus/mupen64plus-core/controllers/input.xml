@@ -4,9 +4,11 @@
 <input name="l3"             value="Mempak switch" />
 <input name="r3"             value="Rumblepak switch" />
 <input name="a"        	     value="C Button R" />
-<input name="b"        	     value="A Button" />
+<input name="b"        	     value="C Button D" />
+<input name="c"        	     value="A Button" />
 <input name="x"        	     value="C Button U" />
-<input name="y"        	     value="B Button" />
+<input name="y"        	     value="C Button L" />
+<input name="z"        	     value="B Button" />
 <input name="start"    	     value="Start" />
 <input name="select"   	     value="" />
 <input name="pageup"   	     value="L Trig" />

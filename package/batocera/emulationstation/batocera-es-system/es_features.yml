@@ -5425,6 +5425,7 @@ libretro:
     xash3d_fwgs:
       features: [padtokeyboard]
       shared: [rewind, autosave]
+    #xash3d_fwgs:
     yabasanshiro:
       shared: [autosave]
       cfeatures:

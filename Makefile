@@ -179,6 +179,13 @@ dl-dir:
 	$(if $(shell which python 2>/dev/null),,$(error "python not found!"))
 	@python3 -m http.server --directory $(OUTPUT_DIR)/$*/images/batocera/images/$*/
 
+%-ezserver: output-dir-%
+	$(if $(wildcard $(OUTPUT_DIR)/$*/images/batocera/*),,$(error "$* not built!"))
+	$(if $(shell which python 2>/dev/null),,$(error "python not found!"))
+	@mkdir -p $(OUTPUT_DIR)/_ezserver/$*/beta
+	@ln -fs ../../../$*/images/batocera/images/$* $(OUTPUT_DIR)/_ezserver/$*/beta/last
+	@python3 -m http.server --directory $(OUTPUT_DIR)/_ezserver/
+
 %-rsync: output-dir-%
 	$(eval TMP := $(call UC, $*)_IP)
 	$(if $(shell which rsync 2>/dev/null),, $(error "rsync not found!"))

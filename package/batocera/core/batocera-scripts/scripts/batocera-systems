@@ -93,13 +93,13 @@ systems = {
 
     # ---------- NEC ---------- #
     # https://docs.libretro.com/library/beetle_pce_fast/#bios
-    "pcengine":   { "name": "PC Engine", "biosFiles":  [ { "md5": "38179df8f4ac870017db21ebcbf53114", "file": "bios/syscard3.pce" } ] },
+    "pcengine":   { "name": "PC Engine", "biosFiles":  [ { "md5": "38179df8f4ac870017db21ebcbf53114", "file": "bios/pcengine/syscard3.pce" } ] },
 
     # https://docs.libretro.com/library/beetle_pc_fx/#bios
     "pcfx":       { "name": "PC-FX", "biosFiles":      [ { "md5": "08e36edbea28a017f79f8d4f7ff9b6d7", "file": "bios/pcfx.rom"     } ] },
 
     # https://docs.libretro.com/library/beetle_pce_fast/#bios
-    "supergrafx": { "name": "Supergrafx", "biosFiles": [ { "md5": "38179df8f4ac870017db21ebcbf53114", "file": "bios/syscard3.pce" } ] },
+    "supergrafx": { "name": "Supergrafx", "biosFiles": [ { "md5": "38179df8f4ac870017db21ebcbf53114", "file": "bios/pcengine/syscard3.pce" } ] },
 
     # ---------- SNK ----------#
     "neogeo":   { "name": "NeoGeo", "biosFiles":    [  { "md5": "dffb72f116d36d025068b23970a4f6df", "file": "bios/neogeo.zip" } ] },
@@ -121,82 +121,82 @@ systems = {
 
     # ---------- Panasonic, Sanyo and Goldstar ---------- #
     # https://github.com/libretro/libretro-super/blob/master/dist/info/opera_libretro.info
-    "3do":  { "name": "3DO", "biosFiles": [ { "md5": "f47264dd47fe30f73ab3c010015c155b", "file": "bios/panafz1.bin" },
-                                            { "md5": "51f2f43ae2f3508a14d9f56597e2d3ce", "file": "bios/panafz10.bin"},
-                                            { "md5": "8639fd5e549bd6238cfee79e3e749114", "file": "bios/goldstar.bin"} ] },
+    "3do":  { "name": "3DO", "biosFiles": [ { "md5": "f47264dd47fe30f73ab3c010015c155b", "file": "bios/3do/panafz1.bin" },
+                                            { "md5": "51f2f43ae2f3508a14d9f56597e2d3ce", "file": "bios/3do/panafz10.bin"},
+                                            { "md5": "8639fd5e549bd6238cfee79e3e749114", "file": "bios/3do/goldstar.bin"} ] },
 
     # ---------- Sega ---------- #
     # https://docs.libretro.com/library/flycast/#bios
-    "dreamcast":    { "name": "Dreamcast", "biosFiles":   [ { "md5": "e10c53c2f8b90bab96ead2d368858623", "file": "bios/dc_boot.bin"  },
-                                                            { "md5": "0a93f7940c455905bea6e392dfde92a4", "file": "bios/dc_flash.bin" } ] },
+    "dreamcast":    { "name": "Dreamcast", "biosFiles":   [ { "md5": "e10c53c2f8b90bab96ead2d368858623", "file": "bios/dreamcast/dc_boot.bin"  },
+                                                            { "md5": "0a93f7940c455905bea6e392dfde92a4", "file": "bios/dreamcast/dc_flash.bin" } ] },
 
     # https://github.com/libretro/libretro-super/blob/master/dist/info/flycast_libretro.info
-    "naomi":        { "name": "Naomi", "biosFiles":       [ { "md5": "eb4099aeb42ef089cfe94f8fe95e51f6", "file": "bios/dc/naomi.zip"   } ] },
+    "naomi":        { "name": "Naomi", "biosFiles":       [ { "md5": "eb4099aeb42ef089cfe94f8fe95e51f6", "file": "bios/dreamcast/naomi.zip"   } ] },
 
-    "atomiswave":   { "name": "Atomiswave", "biosFiles":  [ { "md5": "0ec5ae5b5a5c4959fa8b43fcf8687f7c", "file": "bios/dc/awbios.zip"  } ] },
+    "atomiswave":   { "name": "Atomiswave", "biosFiles":  [ { "md5": "0ec5ae5b5a5c4959fa8b43fcf8687f7c", "file": "bios/dreamcast/awbios.zip"  } ] },
 
-    "segacd":       { "name": "Sega CD", "biosFiles":     [ { "md5": "e66fa1dc5820d254611fdcdba0662372", "file": "bios/bios_CD_E.bin"   },
-                                                            { "md5": "854b9150240a198070150e4566ae1290", "file": "bios/bios_CD_U.bin"   },
-                                                            { "md5": "278a9397d192149e84e820ac621a8edd", "file": "bios/bios_CD_J.bin"   } ] },
+    "segacd":       { "name": "Sega CD", "biosFiles":     [ { "md5": "e66fa1dc5820d254611fdcdba0662372", "file": "bios/megadrive/bios_CD_E.bin"   },
+                                                            { "md5": "854b9150240a198070150e4566ae1290", "file": "bios/megadrive/bios_CD_U.bin"   },
+                                                            { "md5": "278a9397d192149e84e820ac621a8edd", "file": "bios/megadrive/bios_CD_J.bin"   } ] },
 
     # https://docs.libretro.com/library/beetle_saturn/#bios
     # https://github.com/libretro/libretro-super/blob/master/dist/info/yabasanshiro_libretro.info
-    "saturn":       { "name": "Sega Saturn", "biosFiles": [ { "md5": "85ec9ca47d8f6807718151cbcca8b964", "file": "bios/sega_101.bin"     },
-                                                            { "md5": "3240872c70984b6cbfda1586cab68dbe", "file": "bios/mpr-17933.bin"    },
-                                                            { "md5": "255113ba943c92a54facd25a10fd780c", "file": "bios/mpr-18811-mx.ic1" },
-                                                            { "md5": "1cd19988d1d72a3e7caa0b73234c96b4", "file": "bios/mpr-19367-mx.ic1" },
-                                                            { "md5": "af5828fdff51384f99b3c4926be27762", "file": "bios/saturn_bios.bin" } ] },
+    "saturn":       { "name": "Sega Saturn", "biosFiles": [ { "md5": "85ec9ca47d8f6807718151cbcca8b964", "file": "bios/saturn/sega_101.bin"     },
+                                                            { "md5": "3240872c70984b6cbfda1586cab68dbe", "file": "bios/saturn/mpr-17933.bin"    },
+                                                            { "md5": "255113ba943c92a54facd25a10fd780c", "file": "bios/saturn/mpr-18811-mx.ic1" },
+                                                            { "md5": "1cd19988d1d72a3e7caa0b73234c96b4", "file": "bios/saturn/mpr-19367-mx.ic1" },
+                                                            { "md5": "af5828fdff51384f99b3c4926be27762", "file": "bios/saturn/saturn_bios.bin" } ] },
 
     # ---------- Sony Computer Entertainment ---------- #
     # https://docs.libretro.com/library/pcsx_rearmed/#bios
-    "psx": { "name": "PSX", "biosFiles": [  { "md5": "c53ca5908936d412331790f4426c6c33", "file": "bios/psxonpsp660.bin" },
-                                            { "md5": "6e3735ff4c7dc899ee98981385f6f3d0", "file": "bios/scph101.bin"     },
-                                            { "md5": "dc2b9bf8da62ec93e868cfd29f0d067d", "file": "bios/scph1001.bin"    },
-                                            { "md5": "8dd7d5296a650fac7319bce665a6a53c", "file": "bios/scph5500.bin"    },
-                                            { "md5": "490f666e1afb15b7362b406ed1cea246", "file": "bios/scph5501.bin"    },
-                                            { "md5": "32736f17079d0b2b7024407c39bd3050", "file": "bios/scph5502.bin"    },
-                                            { "md5": "1e68c231d0896b7eadcad1d7d8e76129", "file": "bios/scph7001.bin"    } ] },
+    "psx": { "name": "PSX", "biosFiles": [  { "md5": "c53ca5908936d412331790f4426c6c33", "file": "bios/psx/psxonpsp660.bin" },
+                                            { "md5": "6e3735ff4c7dc899ee98981385f6f3d0", "file": "bios/psx/scph101.bin"     },
+                                            { "md5": "dc2b9bf8da62ec93e868cfd29f0d067d", "file": "bios/psx/scph1001.bin"    },
+                                            { "md5": "8dd7d5296a650fac7319bce665a6a53c", "file": "bios/psx/scph5500.bin"    },
+                                            { "md5": "490f666e1afb15b7362b406ed1cea246", "file": "bios/psx/scph5501.bin"    },
+                                            { "md5": "32736f17079d0b2b7024407c39bd3050", "file": "bios/psx/scph5502.bin"    },
+                                            { "md5": "1e68c231d0896b7eadcad1d7d8e76129", "file": "bios/psx/scph7001.bin"    } ] },
 
     # https://pcsx2.net/config-guide/official-english-pcsx2-configuration-guide.html#Bios
-    "ps2": { "name": "PS2", "biosFiles": [  { "md5": "28922c703cc7d2cf856f177f2985b3a9", "file": "bios/SCPH30004R.bin" },
-                                            { "md5": "3faf7c064a4984f53e2ef5e80ed543bc", "file": "bios/SCPH30004R.MEC" },
-                                            { "md5": "d5ce2c7d119f563ce04bc04dbc3a323e", "file": "bios/scph39001.bin"  },
-                                            { "md5": "3faf7c064a4984f53e2ef5e80ed543bc", "file": "bios/scph39001.MEC"  },
-                                            { "md5": "9a9e8ed7668e6adfc8f7766c08ab9cd0", "file": "bios/EROM.BIN"      },
-                                            { "md5": "44552702b05697a14ccbe2ca22ee7139", "file": "bios/rom1.bin"      },
-                                            { "md5": "b406d05922dac2eaf3c2e68157b1b468", "file": "bios/ROM2.BIN"      } ] },
+    "ps2": { "name": "PS2", "biosFiles": [  { "md5": "28922c703cc7d2cf856f177f2985b3a9", "file": "bios/ps2/SCPH30004R.bin" },
+                                            { "md5": "3faf7c064a4984f53e2ef5e80ed543bc", "file": "bios/ps2/SCPH30004R.MEC" },
+                                            { "md5": "d5ce2c7d119f563ce04bc04dbc3a323e", "file": "bios/ps2/scph39001.bin"  },
+                                            { "md5": "3faf7c064a4984f53e2ef5e80ed543bc", "file": "bios/ps2/scph39001.MEC"  },
+                                            { "md5": "9a9e8ed7668e6adfc8f7766c08ab9cd0", "file": "bios/ps2/EROM.BIN"      },
+                                            { "md5": "44552702b05697a14ccbe2ca22ee7139", "file": "bios/ps2/rom1.bin"      },
+                                            { "md5": "b406d05922dac2eaf3c2e68157b1b468", "file": "bios/ps2/ROM2.BIN"      } ] },
 
     # https://www.playstation.com/en-us/support/system-updates/ps3/
     "ps3": { "name": "PS3", "biosFiles": [  { "md5": "a0b63a3e4ae92ed176d6b9a67ce447f0", "file": "bios/PS3UPDAT.PUP" } ] },
 
     # ---------- Nintendo ---------- #
     # https://docs.libretro.com/library/fceumm/#bios
-    "fds":         { "name": "Nintendo Family Computer Disk System", "biosFiles": [ { "md5": "ca30b50f880eb660a320674ed365ef7a", "file": "bios/disksys.rom" } ] },
+    "fds":         { "name": "Nintendo Family Computer Disk System", "biosFiles": [ { "md5": "ca30b50f880eb660a320674ed365ef7a", "file": "bios/nes/disksys.rom" } ] },
 
     # https://docs.libretro.com/library/melonds/#bios
-    "nds": { "name": "Nintendo DS", "biosFiles": [  { "md5": "94bc5094607c5e6598d50472c52f27f2", "file": "bios/dsfirmware.bin" },
-                                            { "md5": "df692a80a5b1bc90728bc3dfc76cd948", "file": "bios/biosnds7.bin" },
-                                            { "md5": "a392174eb3e572fed6447e956bde4b25", "file": "bios/biosnds9.bin" },
-                                            { "md5": "87b665fce118f76251271c3732532777", "file": "bios/biosdsi9.bin" },
-                                            { "md5": "559dae4ea78eb9d67702c56c1d791e81", "file": "bios/biosdsi7.bin" },
-                                            { "md5": "74f23348012d7b3e1cc216c47192ffeb", "file": "bios/dsifirmware.bin" },
-                                            { "md5": "d71edf897ddd06bf335feeb68edeb272", "file": "bios/dsinand.bin" }, ] },
+    "nds": { "name": "Nintendo DS", "biosFiles": [  { "md5": "94bc5094607c5e6598d50472c52f27f2", "file": "bios/nds/firmware.bin" },
+                                            { "md5": "df692a80a5b1bc90728bc3dfc76cd948", "file": "bios/nds/bios7.bin" },
+                                            { "md5": "a392174eb3e572fed6447e956bde4b25", "file": "bios/nds/bios9.bin" },
+                                            { "md5": "87b665fce118f76251271c3732532777", "file": "bios/nds/dsi_bios9.bin" },
+                                            { "md5": "559dae4ea78eb9d67702c56c1d791e81", "file": "bios/nds/dsi_bios7.bin" },
+                                            { "md5": "74f23348012d7b3e1cc216c47192ffeb", "file": "bios/nds/dsi_firmware.bin" },
+                                            { "md5": "d71edf897ddd06bf335feeb68edeb272", "file": "bios/nds/dsi_nand.bin" }, ] },
 
     # https://docs.libretro.com/library/mgba/#bios
-    "gba": { "name": "Nintendo Gameboy Advance", "biosFiles": [  { "md5": "a860e8c0b6d573d191e4ec7db1b1e4f6", "file": "bios/gba_bios.bin" },
-                                            { "md5": "32fbbd84168d3482956eb3c5051637f5", "file": "bios/gb_bios.bin" }, # Optional
-                                            { "md5": "dbfce9db9deaa2567f6a84fde55f9680", "file": "bios/gbc_bios.bin" }, # Optional
-                                            { "md5": "d574d4f9c12f305074798f54c091a8b4", "file": "bios/sgb_bios.bin" } ] }, # Optional
+    "gba": { "name": "Nintendo Gameboy Advance", "biosFiles": [  { "md5": "a860e8c0b6d573d191e4ec7db1b1e4f6", "file": "bios/gbx/gba_bios.bin" },
+                                            { "md5": "32fbbd84168d3482956eb3c5051637f5", "file": "bios/gbx/gb_bios.bin" }, # Optional
+                                            { "md5": "dbfce9db9deaa2567f6a84fde55f9680", "file": "bios/gbx/gbc_bios.bin" }, # Optional
+                                            { "md5": "d574d4f9c12f305074798f54c091a8b4", "file": "bios/gbx/sgb_bios.bin" } ] }, # Optional
 
     # https://docs.libretro.com/library/snes9x/#bios
-    "satellaview": { "name": "Satellaview", "biosFiles": [ { "md5": "96cf17bf589fcbfa6f8de2dc84f19fa2", "file": "bios/BS-X.bin"   } ] },
-    "sufami":      { "name": "Sufami", "biosFiles":      [ { "md5": "d3a44ba7d42a74d3ac58cb9c14c6a5ca", "file": "bios/STBIOS.bin" } ] },
+    "satellaview": { "name": "Satellaview", "biosFiles": [ { "md5": "96cf17bf589fcbfa6f8de2dc84f19fa2", "file": "bios/snes/BS-X.bin"   } ] },
+    "sufami":      { "name": "Sufami", "biosFiles":      [ { "md5": "d3a44ba7d42a74d3ac58cb9c14c6a5ca", "file": "bios/snes/STBIOS.bin" } ] },
 
     # https://docs.libretro.com/library/mesen-s/#bios
-    "sgb": { "name": "Super Game Boy", "biosFiles": [ { "md5": "d574d4f9c12f305074798f54c091a8b4", "file": "bios/sgb_boot.bin" },
-                                            { "md5": "e0430bca9925fb9882148fd2dc2418c1", "file": "bios/sgb2_boot.bin" },
-                                            { "md5": "b15ddb15721c657d82c5bab6db982ee9", "file": "bios/SGB1.sfc" },
-                                            { "md5": "8ecd73eb4edf7ed7e81aef1be80031d5", "file": "bios/SGB2.sfc" } ] },
+    "sgb": { "name": "Super Game Boy", "biosFiles": [ { "md5": "d574d4f9c12f305074798f54c091a8b4", "file": "bios/gbx/sgb_boot.bin" },
+                                            { "md5": "e0430bca9925fb9882148fd2dc2418c1", "file": "bios/gbx/sgb2_boot.bin" },
+                                            { "md5": "b15ddb15721c657d82c5bab6db982ee9", "file": "bios/gbx/SGB1.sfc" },
+                                            { "md5": "8ecd73eb4edf7ed7e81aef1be80031d5", "file": "bios/gbx/SGB2.sfc" } ] },
     # ---------- Microsoft ---------- #
     # https://docs.libretro.com/library/fmsx/#bios
     "msx": { "name": "MSX", "biosFiles": [  { "md5": "364a1a579fe5cb8dba54519bcfcdac0d", "file": "bios/MSX.ROM"      },

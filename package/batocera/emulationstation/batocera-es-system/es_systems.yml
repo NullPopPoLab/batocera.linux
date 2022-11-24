@@ -462,7 +462,7 @@ segacd:
   emulators:
     libretro:
       genesisplusgx: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_GENESISPLUSGX] }
-      picodrive:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_PICODRIVE], incompatible_extensions: [m3u] }
+      picodrive:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_PICODRIVE] }
 
 sega32x:
   name:       32x
@@ -485,7 +485,7 @@ mastersystem:
     libretro:
       genesisplusgx: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_GENESISPLUSGX] }
       picodrive:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_PICODRIVE] }
-      smsplusgx:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_SMSPLUS_GX]}
+      smsplus:       { requireAnyOf: [BR2_PACKAGE_LIBRETRO_SMSPLUS_GX]}
 
 gamegear:
   name:       Game Gear
@@ -497,7 +497,7 @@ gamegear:
     libretro:
       genesisplusgx: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_GENESISPLUSGX] }
       picodrive:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_PICODRIVE] }
-      smsplusgx:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_SMSPLUS_GX]}
+      smsplus:       { requireAnyOf: [BR2_PACKAGE_LIBRETRO_SMSPLUS_GX]}
 
 sg1000:
   name:       SG-1000
@@ -562,7 +562,7 @@ pcenginecd:
   manufacturer: NEC
   release: 1988
   hardware: console
-  extensions: [pce, cue, ccd, iso, img, chd]
+  extensions: [pce, cue, ccd, iso, img, chd, m3u]
   theme:      pce-cd
   emulators:
     libretro:
@@ -1366,7 +1366,7 @@ msxturbor:
   manufacturer: Microsoft
   release: 1990
   hardware: computer
-  extensions: [dsk, mx2, rom, zip, 7z]
+  extensions: [dsk, mx2, rom, zip, 7z, m3u]
   platform:   msx
   group:      msx
   emulators:
@@ -1607,7 +1607,7 @@ ps2:
   manufacturer: Sony
   release: 2000
   hardware: console
-  extensions: [iso, mdf, nrg, bin, img, dump, gz, cso, chd]
+  extensions: [iso, mdf, nrg, bin, img, dump, gz, cso, chd, m3u]
   emulators:
     pcsx2:
       pcsx2: { requireAnyOf: [BR2_PACKAGE_PCSX2, BR2_PACKAGE_PCSX2_AVX2, BR2_PACKAGE_PCSX2_X86] }
@@ -1679,7 +1679,7 @@ x1:
   manufacturer: Sharp
   release: 1982
   hardware: computer
-  extensions: [dx1, zip, 2d, 2hd, tfd, d88, 88d, hdm, xdf, dup, cmd, 7z]
+  extensions: [dx1, zip, 2d, 2hd, tfd, d88, 88d, hdm, xdf, dup, cmd, 7z, m3u]
   emulators:
     libretro:
       x1: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_XMIL] }
@@ -1844,13 +1844,6 @@ ports:
 amiga:
   name:       Amiga
   manufacturer: Commodore
-  release:
-  hardware: computer
-  force:      True
-
-msx:
-  name:       Msx
-  manufacturer: Microsoft
   release:
   hardware: computer
   force:      True

@@ -302,8 +302,8 @@ def configureUI(config_directory, bios_directory, system_config, gameResolution)
     bios = [ "PS2 Bios 30004R V6 Pal.bin", "scph10000.bin", "scph39001.bin", "SCPH-70004_BIOS_V12_PAL_200.BIN" ]
     biosFound = False
     for bio in bios:
-        if os.path.exists(bios_directory + "/" + bio):
-            biosFile = bios_directory + "/" + bio
+        if os.path.exists(bios_directory + "/ps2/" + bio):
+            biosFile = bios_directory + "/ps2/" + bio
             biosFound = True
             break;
     if not biosFound:

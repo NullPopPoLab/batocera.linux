@@ -88,7 +88,7 @@ class DuckstationGenerator(Generator):
         ## [BIOS]
         if not settings.has_section("BIOS"):
             settings.add_section("BIOS")
-        settings.set("BIOS", "SearchDirectory", "/userdata/bios") # Path
+        settings.set("BIOS", "SearchDirectory", "/userdata/bios/psx") # Path
         # Boot Logo
         if system.isOptSet("duckstation_PatchFastBoot") and system.config["duckstation_PatchFastBoot"] != '0':
             settings.set("BIOS", "PatchFastBoot", "true")

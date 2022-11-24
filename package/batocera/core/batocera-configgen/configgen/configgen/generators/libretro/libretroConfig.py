@@ -154,6 +154,7 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution, gfxBac
 
     retroarchConfig['savestate_directory'] = batoceraFiles.savesDir + system.name
     retroarchConfig['savefile_directory'] = batoceraFiles.savesDir + system.name
+    retroarchConfig['content_root_directory'] = batoceraFiles.ROMS + '/' + system.name + '/'
 
     # Forced values (so that if the config is not correct, fix it)
     if system.config['core'] == 'tgbdual':
@@ -166,14 +167,15 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution, gfxBac
     retroarchConfig['input_joypad_driver'] = 'udev'
     retroarchConfig['input_driver'] = 'udev'                    # driver for mouse/keyboard. udev required for guns.
     retroarchConfig['input_max_users'] = "16"                   # Allow up to 16 players
+    retroarchConfig['input_max_users'] = "6"                    # Allow up to 6 players (16? too many)
 
     retroarchConfig['input_libretro_device_p1'] = '1'           # Default devices choices
     retroarchConfig['input_libretro_device_p2'] = '1'
 
     # D-pad = Left analog stick forcing on PUAE and VICE (New D2A system on RA doesn't work with these cores.)
     if system.config['core'] == 'puae' or system.config['core'] == 'vice_x64':
-        retroarchConfig['input_player1_analog_dpad_mode'] = '3'
-        retroarchConfig['input_player2_analog_dpad_mode'] = '3'
+        retroarchConfig['input_player1_analog_dpad_mode'] = '0'
+        retroarchConfig['input_player2_analog_dpad_mode'] = '0'
 
     # force notification messages, but not the "remap" one
     retroarchConfig['video_font_enable'] = '"true"'
@@ -246,48 +248,24 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution, gfxBac
     if (system.config['core'] == 'mednafen_psx'):               # Madnafen
         if system.isOptSet('beetle_psx_Controller1'):
             retroarchConfig['input_libretro_device_p1'] = system.config['beetle_psx_Controller1']
-            if system.config['beetle_psx_Controller1'] != '1':
-                retroarchConfig['input_player1_analog_dpad_mode'] = '0'
-            else:
-                retroarchConfig['input_player1_analog_dpad_mode'] = '1'
+            retroarchConfig['input_player1_analog_dpad_mode'] = '0'
         if system.isOptSet('beetle_psx_Controller2'):
             retroarchConfig['input_libretro_device_p2'] = system.config['beetle_psx_Controller2']
-            if system.config['beetle_psx_Controller2'] != '1':
-                retroarchConfig['input_player2_analog_dpad_mode'] = '0'
-            else:
-                retroarchConfig['input_player2_analog_dpad_mode'] = '1'
+            retroarchConfig['input_player2_analog_dpad_mode'] = '0'
     if (system.config['core'] == 'pcsx_rearmed'):               # PCSX Rearmed
         if system.isOptSet('controller1_pcsx'):
             retroarchConfig['input_libretro_device_p1'] = system.config['controller1_pcsx']
-            if system.config['controller1_pcsx'] != '1':
-                retroarchConfig['input_player1_analog_dpad_mode'] = '0'
-            else:
-                retroarchConfig['input_player1_analog_dpad_mode'] = '1'
+            retroarchConfig['input_player1_analog_dpad_mode'] = '0'
         if system.isOptSet('controller2_pcsx'):
             retroarchConfig['input_libretro_device_p2'] = system.config['controller2_pcsx']
-            if system.config['controller2_pcsx'] != '1':
-                retroarchConfig['input_player2_analog_dpad_mode'] = '0'
-            else:
-                retroarchConfig['input_player2_analog_dpad_mode'] = '1'
+            retroarchConfig['input_player2_analog_dpad_mode'] = '0'
 
     ## Sega Dreamcast controller
     if system.config['core'] == 'flycast':
-        if system.isOptSet('controller1_dc'):
-            retroarchConfig['input_libretro_device_p1'] = system.config['controller1_dc']
-        else:
-            retroarchConfig['input_libretro_device_p1'] = '1'
-        if system.isOptSet('controller2_dc'):
-            retroarchConfig['input_libretro_device_p2'] = system.config['controller2_dc']
-        else:
-            retroarchConfig['input_libretro_device_p2'] = '1'
-        if system.isOptSet('controller3_dc'):
-            retroarchConfig['input_libretro_device_p3'] = system.config['controller3_dc']
-        else:
-            retroarchConfig['input_libretro_device_p3'] = '1'
-        if system.isOptSet('controller4_dc'):
-            retroarchConfig['input_libretro_device_p4'] = system.config['controller4_dc']
-        else:
-            retroarchConfig['input_libretro_device_p4'] = '1'
+        retroarchConfig['input_player1_analog_dpad_mode'] = '0'
+        retroarchConfig['input_player2_analog_dpad_mode'] = '0'
+        retroarchConfig['input_player3_analog_dpad_mode'] = '0'
+        retroarchConfig['input_player4_analog_dpad_mode'] = '0'
 
     ## Sega Megadrive controller
     if system.config['core'] == 'genesisplusgx' and system.name == 'megadrive':
@@ -322,16 +300,10 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution, gfxBac
     if (system.config['core'] == 'dosbox_pure'):               # Dosbox-Pure
         if system.isOptSet('controller1_dosbox_pure'):
             retroarchConfig['input_libretro_device_p1'] = system.config['controller1_dosbox_pure']
-            if system.config['controller1_dosbox_pure'] != '3':
-                retroarchConfig['input_player1_analog_dpad_mode'] = '0'
-            else:
-                retroarchConfig['input_player1_analog_dpad_mode'] = '3'
+            retroarchConfig['input_player1_analog_dpad_mode'] = '0'
         if system.isOptSet('controller2_dosbox_pure'):
             retroarchConfig['input_libretro_device_p2'] = system.config['controller2_dosbox_pure']
-            if system.config['controller2_dosbox_pure'] != '3':
-                retroarchConfig['input_player2_analog_dpad_mode'] = '0'
-            else:
-                retroarchConfig['input_player2_analog_dpad_mode'] = '3'
+            retroarchConfig['input_player2_analog_dpad_mode'] = '0'
 
     ## PS1 Swanstation and Duckstation
     if (system.config['core'] == 'swanstation'):               # Swanstation
@@ -348,16 +320,10 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution, gfxBac
     if (system.config['core'] == 'duckstation'):               # Duckstation
         if system.isOptSet('duckstation_Controller1'):
             retroarchConfig['input_libretro_device_p1'] = system.config['duckstation_Controller1']
-            if system.config['duckstation_Controller1'] != '1':
-                retroarchConfig['input_player1_analog_dpad_mode'] = '0'
-            else:
-                retroarchConfig['input_player1_analog_dpad_mode'] = '3'
+            retroarchConfig['input_player1_analog_dpad_mode'] = '0'
         if system.isOptSet('duckstation_Controller2'):
             retroarchConfig['input_libretro_device_p2'] = system.config['duckstation_Controller2']
-            if system.config['duckstation_Controller2'] != '1':
-                retroarchConfig['input_player2_analog_dpad_mode'] = '0'
-            else:
-                retroarchConfig['input_player2_analog_dpad_mode'] = '3'
+            retroarchConfig['input_player2_analog_dpad_mode'] = '0'
 
     ## Wonder Swan & Wonder Swan Color
     if (system.config['core'] == "mednafen_wswan"):             # Beetle Wonderswan
@@ -378,10 +344,7 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution, gfxBac
     if (system.config['core'] == 'tyrquake'):
         if system.isOptSet('tyrquake_controller1'):
             retroarchConfig['input_libretro_device_p1'] = system.config['tyrquake_controller1']
-            if system.config['tyrquake_controller1'] == '773' or system.config['tyrquake_controller1'] == '3':
-                retroarchConfig['input_player1_analog_dpad_mode'] = '0'
-            else:
-                retroarchConfig['input_player1_analog_dpad_mode'] = '1'
+            retroarchConfig['input_player1_analog_dpad_mode'] = '0'
         else:
             retroarchConfig['input_libretro_device_p1'] = '1'
 
@@ -389,10 +352,7 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution, gfxBac
     if (system.config['core'] == 'prboom'):
         if system.isOptSet('prboom_controller1'):
             retroarchConfig['input_libretro_device_p1'] = system.config['prboom_controller1']
-            if system.config['prboom_controller1'] != '1' or system.config['prboom_controller1'] == '3':
-                retroarchConfig['input_player1_analog_dpad_mode'] = '0'
-            else:
-                retroarchConfig['input_player1_analog_dpad_mode'] = '1'
+            retroarchConfig['input_player1_analog_dpad_mode'] = '0'
         else:
             retroarchConfig['input_libretro_device_p1'] = '1'
 

@@ -781,26 +781,60 @@ def generateCoreSettings(coreSettings, system, rom):
     # Microsoft MSX and Colecovision
     if (system.config['core'] == 'bluemsx'):
         # Auto Select Core
-        if (system.name == 'colecovision'):
-            coreSettings.save('bluemsx_msxtype', '"ColecoVision"')
-        elif (system.name == 'msx1'):
-            coreSettings.save('bluemsx_msxtype', '"MSX"')
-        elif (system.name == 'msx2'):
-            coreSettings.save('bluemsx_msxtype', '"MSX2"')
-        elif (system.name == 'msx2+'):
-            coreSettings.save('bluemsx_msxtype', '"MSX2+"')
-        elif (system.name == 'msxturbor'):
-            coreSettings.save('bluemsx_msxtype', '"MSXturboR"')
+        msxtype = ''
+        if system.isOptSet('bluemsx_generation'):
+            if system.config['bluemsx_generation'] == "MSX1":
+                msxtype = 'MSX'
+            elif system.config['bluemsx_generation'] == "MSX2":
+                msxtype = 'MSX2'
+            elif system.config['bluemsx_generation'] == "MSX2+":
+                msxtype = 'MSX2+'
+            elif system.config['bluemsx_generation'] == "MSXturboR":
+                msxtype = 'MSXturboR'
+        if (msxtype==''):
+            if (system.name == 'colecovision'):
+                msxtype = 'ColecoVision'
+            elif (system.name == 'msx1'):
+                msxtype = 'MSX'
+            elif (system.name == 'msx2'):
+                msxtype = 'MSX2'
+            elif (system.name == 'msx2+'):
+                msxtype = 'MSX2+'
+            elif (system.name == 'msxturbor'):
+                msxtype = 'MSXturboR'
+            else:
+                msxtype = 'MSX'
+        # Select a region
+        msxtype2 = msxtype
+        if system.isOptSet('bluemsx_region'):
+            if system.config['bluemsx_region'] == "":
+                pass
+            elif system.config['bluemsx_region'] == "Default":
+                pass
+            else:
+                msxtype2 = msxtype+' - '+system.config['bluemsx_region']
+        coreSettings.save('bluemsx_msxtype', '"'+msxtype2+'"')
         # Forces cropping of overscanned frames
-        if system.name == 'colecovision' or system.name == 'msx1':
+        if msxtype == 'ColecoVision' or msxtype == 'MSX':
             coreSettings.save('bluemsx_overscan', '"enabled"')
         else:
             coreSettings.save('bluemsx_overscan', '"MSX2"')
+        # V Sync
+        # Reduce Sprite Flickering
+        if system.isOptSet('bluemsx_vdp_synctype'):
+            coreSettings.save('bluemsx_vdp_synctype', '"'+system.config['bluemsx_vdp_synctype']+'"')
+        else:
+            coreSettings.save('bluemsx_vdp_synctype', '"Auto"')
         # Reduce Sprite Flickering
         if system.isOptSet('bluemsx_nospritelimits') and system.config['bluemsx_nospritelimits'] == "False":
             coreSettings.save('bluemsx_nospritelimits', '"OFF"')
         else:
             coreSettings.save('bluemsx_nospritelimits', '"ON"')
+        # Auto Rewind Casette
+        if system.isOptSet('bluemsx_auto_rewind_cas') and system.config['bluemsx_auto_rewind_cas'] == "False":
+            coreSettings.save('bluemsx_auto_rewind_cas', '"OFF"')
+        else:
+            coreSettings.save('bluemsx_auto_rewind_cas', '"ON"')
 
     # Nec PC Engine / CD
     if system.config['core'] == 'pce' or system.config['core'] == 'pce_fast':
@@ -817,11 +851,16 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('q88_basic_mode', '"' + system.config['q88_basic_mode'] + '"')
         else:
             coreSettings.save('q88_basic_mode', '"N88 V2"')
+        # Sub CPU Mode
+        if system.isOptSet('q88_sub_cpu_mode'):
+            coreSettings.save('q88_sub_cpu_mode', '"' + system.config['q88_sub_cpu_mode'] + '"')
+        else:
+            coreSettings.save('q88_sub_cpu_mode', '"0"')
         # CPU clock (Overclock)
         if system.isOptSet('q88_cpu_clock'):
             coreSettings.save('q88_cpu_clock', '"' + system.config['q88_cpu_clock'] + '"')
         else:
-            coreSettings.save('q88_cpu_clock', '"4"')
+            coreSettings.save('q88_cpu_clock', '"8"')
         # Use PCG-8100
         if system.isOptSet('q88_pcg-8100'):
             coreSettings.save('q88_pcg-8100', system.config['q88_pcg-8100'])
@@ -832,9 +871,15 @@ def generateCoreSettings(coreSettings, system, rom):
     # https://github.com/AZO234/NP2kai/blob/6e8f651a72c2ece37cc52e17cdaf4fdb87a6b2f9/sdl/libretro/libretro_core_options.h
     if system.config['core'] == 'np2kai':
         # Use the American keyboard
-        coreSettings.save('np2kai_keyboard', '"Us"')
+        if system.isOptSet('np2kai_keyboard'):
+            coreSettings.save('np2kai_keyboard', '"' + system.config['np2kai_keyboard'] + '"')
+        else:
+            coreSettings.save('np2kai_keyboard', '"Us"')
         # Fast memcheck at startup
-        coreSettings.save('np2kai_FastMC', '"ON"')
+        if system.isOptSet('np2kai_FastMC') and system.config['np2kai_FastMC'] == "True":
+            coreSettings.save('np2kai_FastMC', '"ON"')
+        else:
+            coreSettings.save('np2kai_FastMC', '"OFF"')
         # Sound Generator: Use "fmgen" for enhanced sound rendering, not "Default"
         #coreSettings.save('np2kai_usefmgen', '"fmgen"')
         # PC Model
@@ -847,6 +892,11 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('np2kai_cpu_feature', '"' + system.config['np2kai_cpu_feature'] + '"')
         else:
             coreSettings.save('np2kai_cpu_feature', '"Intel 80386"')
+        # CPU Base Clock
+        if system.isOptSet('np2kai_clk_base'):
+            coreSettings.save('np2kai_clk_base', '"' + system.config['np2kai_clk_base'] + '"')
+        else:
+            coreSettings.save('np2kai_clk_base', '"2.4576 MHz"')
         # CPU Clock Multiplier
         if system.isOptSet('np2kai_clk_mult'):
             coreSettings.save('np2kai_clk_mult', '"' + system.config['np2kai_clk_mult'] + '"')
@@ -862,6 +912,11 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('np2kai_gdc', '"' + system.config['np2kai_gdc'] + '"')
         else:
             coreSettings.save('np2kai_gdc', '"uPD7220"')
+        # 118 ROM
+        if system.isOptSet('np2kai_118ROM'):
+            coreSettings.save('np2kai_118ROM', '"' + system.config['np2kai_118ROM'] + '"')
+        else:
+            coreSettings.save('np2kai_118ROM', '"ON"')
         # Remove Scanlines (255 lines)
         if system.isOptSet('np2kai_skipline') and system.config['np2kai_skipline'] != "Full 255 lines":
             if system.config['np2kai_skipline'] == "True":
@@ -885,11 +940,21 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('np2kai_jast_snd', '"ON"')
         else:
             coreSettings.save('np2kai_jast_snd', '"OFF"')
-        # Joypad to Keyboard Mapping
-        if system.isOptSet('np2kai_joymode'):
-            coreSettings.save('np2kai_joymode', '"' + system.config['np2kai_joymode'] + '"')
+        # WAB SWITCH
+        if system.isOptSet('np2kai_CLGD_en') and system.config['np2kai_CLGD_en'] == "True":
+            coreSettings.save('np2kai_CLGD_en', '"ON"')
         else:
-            coreSettings.save('np2kai_joymode', '"Arrows"')
+            coreSettings.save('np2kai_CLGD_en', '"OFF"')
+        # WAB CURSOR
+        if system.isOptSet('np2kai_CLGD_fc') and system.config['np2kai_CLGD_fc'] == "True":
+            coreSettings.save('np2kai_CLGD_fc', '"ON"')
+        else:
+            coreSettings.save('np2kai_CLGD_fc', '"OFF"')
+        # WAB TYPE
+        if system.isOptSet('np2kai_CLGD_type'):
+            coreSettings.save('np2kai_CLGD_type', '"' + system.config['np2kai_CLGD_type'] + '"')
+        else:
+            coreSettings.save('np2kai_CLGD_type', '"PC-9821Xe10,Xa7e,Xb10 built-in"')
 
     # Nec PC Engine SuperGrafx
     if (system.config['core'] == 'mednafen_supergrafx'):
@@ -1051,8 +1116,24 @@ def generateCoreSettings(coreSettings, system, rom):
 
     # Nintendo DS
     if (system.config['core'] == 'desmume'):
-        # Emulate Stylus on Right Stick
-        coreSettings.save('desmume_pointer_device_r', '"emulated"')
+        # Emulate Stylus on Analog Stick
+        if system.isOptSet('desmume_pointer_type'):
+            coreSettings.save('desmume_pointer_type', system.config['desmume_pointer_type'])
+        else:
+            coreSettings.save('desmume_pointer_type', '"stick"')
+        # Analog Stick Speed
+        if system.isOptSet('desmume_left_stick_speed'):
+            coreSettings.save('desmume_left_stick_speed', system.config['desmume_left_stick_speed'])
+        else:
+            coreSettings.save('desmume_left_stick_speed', '"0.8"')
+        if system.isOptSet('desmume_right_stick_speed'):
+            coreSettings.save('desmume_right_stick_speed', system.config['desmume_right_stick_speed'])
+        else:
+            coreSettings.save('desmume_right_stick_speed', '"0.1"')
+        if system.isOptSet('desmume_stick_deadzone'):
+            coreSettings.save('desmume_stick_deadzone', system.config['desmume_stick_deadzone'])
+        else:
+            coreSettings.save('desmume_stick_deadzone', '"5"')
         # Internal Resolution
         if system.isOptSet('internal_resolution_desmume'):
             coreSettings.save('desmume_internal_resolution', system.config['internal_resolution_desmume'])
@@ -1085,10 +1166,26 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('desmume_screens_layout', '"top/bottom"')
 
     if (system.config['core'] == 'melonds'):
+        # Emulate Stylus on Stick
+        if system.isOptSet('melonds_touch_mode'):
+            coreSettings.save('melonds_touch_mode', system.config['melonds_touch_mode'])
+        else:
+            coreSettings.save('melonds_touch_mode', '"Joystick"')
+        # Analog Stick Speed
+        if system.isOptSet('melonds_left_stick_speed'):
+            coreSettings.save('melonds_left_stick_speed', system.config['melonds_left_stick_speed'])
+        else:
+            coreSettings.save('melonds_left_stick_speed', '"0.8"')
+        if system.isOptSet('melonds_right_stick_speed'):
+            coreSettings.save('melonds_right_stick_speed', system.config['melonds_right_stick_speed'])
+        else:
+            coreSettings.save('melonds_right_stick_speed', '"0.1"')
+        if system.isOptSet('melonds_stick_deadzone'):
+            coreSettings.save('melonds_stick_deadzone', system.config['melonds_stick_deadzone'])
+        else:
+            coreSettings.save('melonds_stick_deadzone', '"5"')
         # Enable threaded rendering
         coreSettings.save('melonds_threaded_renderer', '"enabled"')
-        # Emulate Stylus on Right Stick
-        coreSettings.save('melonds_touch_mode',        '"Joystick"')
         # Boot game directly
         if system.isOptSet('melonds_boot_directly'):
             coreSettings.save('melonds_boot_directly', system.config['melonds_boot_directly'])
@@ -1268,8 +1365,32 @@ def generateCoreSettings(coreSettings, system, rom):
 
     # Nintendo NES / Famicom Disk System
     if (system.config['core'] == 'nestopia'):
+        if system.isOptSet('nestopia_main_device'):
+            coreSettings.save('nestopia_main_device', system.config['nestopia_main_device'])
+        else:
+            coreSettings.save('nestopia_main_device', '"gamepad"')
         # Nestopia Mouse mode for Zapper
-        coreSettings.save('nestopia_zapper_device', '"mouse"')
+        if system.isOptSet('nestopia_arkanoid_device'):
+            coreSettings.save('nestopia_arkanoid_device', system.config['nestopia_arkanoid_device'])
+        else:
+            coreSettings.save('nestopia_arkanoid_device', '"stick"')
+        if system.isOptSet('nestopia_zapper_device'):
+            coreSettings.save('nestopia_zapper_device', system.config['nestopia_zapper_device'])
+        else:
+            coreSettings.save('nestopia_zapper_device', '"stick"')
+        # Analog Stick Speed
+        if system.isOptSet('nestopia_left_stick_speed'):
+            coreSettings.save('nestopia_left_stick_speed', system.config['nestopia_left_stick_speed'])
+        else:
+            coreSettings.save('nestopia_left_stick_speed', '"0.8"')
+        if system.isOptSet('nestopia_right_stick_speed'):
+            coreSettings.save('nestopia_right_stick_speed', system.config['nestopia_right_stick_speed'])
+        else:
+            coreSettings.save('nestopia_right_stick_speed', '"0.2"')
+        if system.isOptSet('nestopia_stick_deadzone'):
+            coreSettings.save('nestopia_stick_deadzone', system.config['nestopia_stick_deadzone'])
+        else:
+            coreSettings.save('nestopia_stick_deadzone', '"5"')
         # Reduce Sprite Flickering
         if system.isOptSet('nestopia_nospritelimit') and system.config['nestopia_nospritelimit'] == "disabled":
             coreSettings.save('nestopia_nospritelimit', '"disabled"')
@@ -1310,8 +1431,28 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('nestopia_select_adapter', '"auto"')
 
     if (system.config['core'] == 'fceumm'):
+        if system.isOptSet('fceumm_main_device'):
+            coreSettings.save('fceumm_main_device', system.config['fceumm_main_device'])
+        else:
+            coreSettings.save('fceumm_main_device', '"gamepad"')
         # FCEumm Mouse mode for Zapper
-        coreSettings.save('fceumm_zapper_mode', '"mouse"')
+        if system.isOptSet('fceumm_zapper_mode'):
+            coreSettings.save('fceumm_zapper_mode', system.config['fceumm_zapper_mode'])
+        else:
+            coreSettings.save('fceumm_zapper_mode', '"stick"')
+        # Analog Stick Speed
+        if system.isOptSet('fceumm_left_stick_speed'):
+            coreSettings.save('fceumm_left_stick_speed', system.config['fceumm_left_stick_speed'])
+        else:
+            coreSettings.save('fceumm_left_stick_speed', '"0.8"')
+        if system.isOptSet('fceumm_right_stick_speed'):
+            coreSettings.save('fceumm_right_stick_speed', system.config['fceumm_right_stick_speed'])
+        else:
+            coreSettings.save('fceumm_right_stick_speed', '"0.2"')
+        if system.isOptSet('fceumm_stick_deadzone'):
+            coreSettings.save('fceumm_stick_deadzone', system.config['fceumm_stick_deadzone'])
+        else:
+            coreSettings.save('fceumm_stick_deadzone', '"5"')
         # Reduce Sprite Flickering
         if system.isOptSet('fceumm_nospritelimit') and system.config['fceumm_nospritelimit'] == "disabled":
             coreSettings.save('fceumm_nospritelimit', '"disabled"')
@@ -1753,15 +1894,53 @@ def generateCoreSettings(coreSettings, system, rom):
 
     # TODO: Add CORE options for Beetle-saturn and Kronos
 
+    # Sharp X1
+    if (system.config['core'] == 'x1'):
+        if system.isOptSet('x1_resolute'):
+            coreSettings.save('x1_resolute', '"'+system.config['x1_resolute']+'"')
+        else:
+            coreSettings.save('x1_resolute', '"HIGH"')
+        if system.isOptSet('x1_bootmedia'):
+            coreSettings.save('x1_bootmedia', '"'+system.config['x1_bootmedia']+'"')
+        else:
+            coreSettings.save('x1_bootmedia', '"2D"')
+        if system.isOptSet('x1_romtype'):
+            coreSettings.save('x1_romtype', '"'+system.config['x1_romtype']+'"')
+        else:
+            coreSettings.save('x1_romtype', '"TURBO"')
+        if system.isOptSet('x1_cpu_clock'):
+            coreSettings.save('x1_cpu_clock', '"'+system.config['x1_cpu_clock']+'"')
+        else:
+            coreSettings.save('x1_cpu_clock', '"4"')
+        if system.isOptSet('x1_fmboard'):
+            coreSettings.save('x1_fmboard', '"'+system.config['x1_fmboard']+'"')
+        else:
+            coreSettings.save('x1_fmboard', '"ON"')
+
     # Sharp X68000
     if (system.config['core'] == 'px68k'):
         # To auto launch HDD games
         coreSettings.save('px68k_disk_path', '"disabled"')
+        # Disk Config
+        if system.isOptSet('px68k_disk_config'):
+            coreSettings.save('px68k_disk_config', '"' + system.config['px68k_disk_config'] + '"')
+        else:
+            coreSettings.save('px68k_disk_config', '"disabled"')
+        # SRAM
+        if system.isOptSet('px68k_use_sram'):
+            coreSettings.save('px68k_use_sram', '"' + system.config['px68k_use_sram'] + '"')
+        else:
+            coreSettings.save('px68k_use_sram', '"disabled"')
+        # MIDI
+        if system.isOptSet('px68k_use_midi'):
+            coreSettings.save('px68k_use_midi', '"' + system.config['px68k_use_midi'] + '"')
+        else:
+            coreSettings.save('px68k_use_midi', '"enabled"')
         # CPU Speed (Overclock)
         if system.isOptSet('px68k_cpuspeed'):
             coreSettings.save('px68k_cpuspeed', '"' + system.config['px68k_cpuspeed'] + '"')
         else:
-            coreSettings.save('px68k_cpuspeed', '"33Mhz (OC)"')
+            coreSettings.save('px68k_cpuspeed', '"16Mhz"')
         # RAM Size
         if system.isOptSet('px68k_ramsize'):
             coreSettings.save('px68k_ramsize', '"' + system.config['px68k_ramsize'] + '"')
@@ -1771,14 +1950,7 @@ def generateCoreSettings(coreSettings, system, rom):
         if system.isOptSet('px68k_frameskip'):
                 coreSettings.save('px68k_frameskip', '"' + system.config['px68k_frameskip'] + '"')
         else:
-            coreSettings.save('px68k_frameskip', '"Full Frame"')
-        # Joypad Type for two players
-        if system.isOptSet('px68k_joytype'):
-            coreSettings.save('px68k_joytype1', '"' + system.config['px68k_joytype'] + '"')
-            coreSettings.save('px68k_joytype2', '"' + system.config['px68k_joytype'] + '"')
-        else:
-            coreSettings.save('px68k_joytype1', '"Default (2 Buttons)"')
-            coreSettings.save('px68k_joytype2', '"Default (2 Buttons)"')
+            coreSettings.save('px68k_frameskip', '"Auto Frame Skip"')
 
     # Sinclair ZX81
     if (system.config['core'] == '81'):

@@ -358,7 +358,7 @@ virtualboy:
 
 lcdgames:
   name:       LCD Games
-  manufacturer: Various
+  manufacturer: Etc-Portable
   release: 1979
   hardware: portable
   extensions: [mgw, zip, 7z]
@@ -406,7 +406,7 @@ dreamcast:
 
 naomi:
   name:       Naomi
-  manufacturer: Sega
+  manufacturer: Arcade
   release: 1998
   hardware: arcade
   extensions: [lst, bin, dat, zip, 7z]
@@ -421,7 +421,7 @@ naomi:
 
 atomiswave:
   name:       Atomiswave
-  manufacturer: Sammy
+  manufacturer: Arcade
   release: 2003
   hardware: arcade
   extensions: [lst, bin, dat, zip, 7z]
@@ -591,7 +591,7 @@ pcfx:
 
 scummvm:
   name:       ScummVM
-  manufacturer: LucasArts
+  manufacturer: Creative
   release: 1987
   hardware: computer
   extensions: [scummvm, squashfs]
@@ -801,7 +801,7 @@ neogeocd:
 
 colecovision:
   name:       ColecoVision
-  manufacturer: Coleco
+  manufacturer: Etc-Console
   release: 1982
   hardware: console
   extensions: [bin, col, rom, zip, 7z]
@@ -937,7 +937,7 @@ ngpc:
 
 wswan:
   name:       WonderSwan
-  manufacturer: Bandai
+  manufacturer: Etc-Portable
   release: 1999
   hardware: portable
   extensions: [ws, zip, 7z]
@@ -949,7 +949,7 @@ wswan:
 
 wswanc:
   name:       WonderSwan Color
-  manufacturer: Bandai
+  manufacturer: Etc-Portable
   release: 2000
   hardware: portable
   extensions: [wsc, zip, 7z]
@@ -1016,7 +1016,7 @@ mrboom:
 
 tic80:
   name:       TIC-80
-  manufacturer: Fantasy
+  manufacturer: Creative
   release: 2016
   hardware: console
   extensions: [tic]
@@ -1030,7 +1030,7 @@ tic80:
 
 pico8:
   name:       Pico-8
-  manufacturer: Fantasy
+  manufacturer: Creative
   release: 2015
   hardware: console
   extensions: [p8, png, m3u]
@@ -1044,7 +1044,7 @@ pico8:
 
 channelf:
   name:       Channel-F
-  manufacturer: Fairchild
+  manufacturer: Etc-Console
   release: 1976
   hardware: console
   extensions: [zip, rom, bin, chf]
@@ -1088,7 +1088,7 @@ sdlpop:
 
 vectrex:
   name:       Vectrex
-  manufacturer: MB
+  manufacturer: Etc-Console
   release: 1982
   hardware: console
   extensions: [bin, gam, vec, zip, 7z]
@@ -1123,7 +1123,7 @@ lutro:
 
 cavestory:
   name:       Cave Story
-  manufacturer: Daisuke "Pixel" Amaya
+  manufacturer: Ports
   release: 2004
   hardware: port
   extensions: [exe]
@@ -1158,7 +1158,7 @@ atarist:
 
 amstradcpc:
   name:       Amstrad CPC
-  manufacturer: Amstrad
+  manufacturer: Etc-Computer
   release: 1984
   hardware: computer
   extensions: [dsk, sna, tap, cdt, voc, m3u, zip, 7z]
@@ -1174,7 +1174,7 @@ amstradcpc:
 
 msx1:
   name:       MSX1
-  manufacturer: Microsoft
+  manufacturer: Etc-Computer
   release: 1983
   hardware: computer
   extensions: [dsk, mx1, rom, zip, 7z, cas, m3u]
@@ -1237,7 +1237,7 @@ msx1:
 
 msx2:
   name:       MSX2
-  manufacturer: Microsoft
+  manufacturer: Etc-Computer
   release: 1985
   hardware: computer
   extensions: [dsk, mx2, rom, zip, 7z, cas, m3u]
@@ -1300,7 +1300,7 @@ msx2:
 
 msx2+:
   name:       MSX2+
-  manufacturer: Microsoft
+  manufacturer: Etc-Computer
   release: 1988
   hardware: computer
   extensions: [dsk, mx2, rom, zip, 7z, cas, m3u]
@@ -1363,7 +1363,7 @@ msx2+:
 
 msxturbor:
   name:       MSX Turbo-R
-  manufacturer: Microsoft
+  manufacturer: Etc-Computer
   release: 1990
   hardware: computer
   extensions: [dsk, mx2, rom, zip, 7z, m3u]
@@ -1425,7 +1425,7 @@ msxturbor:
 
 odyssey2:
   name:       Odyssey2
-  manufacturer: Magnavox - Philips
+  manufacturer: Etc-Console
   release: 1978
   hardware: console
   extensions: [bin, zip, 7z]
@@ -1436,7 +1436,7 @@ odyssey2:
 
 zx81:
   name:       ZX81
-  manufacturer: Sinclair
+  manufacturer: Etc-Computer
   release: 1981
   hardware: computer
   extensions: [tzx, p, zip, 7z]
@@ -1452,7 +1452,7 @@ zx81:
 
 zxspectrum:
   name:       ZX Spectrum
-  manufacturer: Sinclair
+  manufacturer: Etc-Computer
   release: 1982
   hardware: computer
   extensions: [tzx, tap, z80, rzx, scl, trd, zip, 7z]
@@ -1487,7 +1487,7 @@ zxspectrum:
 
 moonlight:
   name:       Moonlight Embedded
-  manufacturer: Misc. System
+  manufacturer: Creative
   release:
   hardware: system
   extensions: [moonlight]
@@ -1501,7 +1501,7 @@ moonlight:
 
 apple2:
   name:       Apple II
-  manufacturer: Apple
+  manufacturer: Etc-Computer
   release: 1977
   hardware: computer
   extensions: [nib, do, po, dsk, mfi, dfi, rti, edd, woz, wav, zip, 7z]
@@ -1558,7 +1558,7 @@ gamecube:
 
 triforce:
   name:       Triforce
-  manufacturer: Namco, Sega, Nintendo
+  manufacturer: Arcade
   release: 2003
   hardware: arcade
   extensions: [gcm, iso, gcz, ciso, wbfs, elf, dol, m3u]
@@ -1646,7 +1646,7 @@ ps3:
 
 3do:
   name:       3DO Interactive Multiplayer
-  manufacturer: Panasonic - Sanyo - Goldstar
+  manufacturer: Etc-Console
   release: 1993
   hardware: console
   extensions: [iso, chd, cue]
@@ -1656,7 +1656,7 @@ ps3:
 
 intellivision:
   name:       Mattel Intellivision
-  manufacturer: Mattel
+  manufacturer: Etc-Console
   release: 1979
   hardware: console
   extensions: [int, bin, rom, zip, 7z]
@@ -1666,7 +1666,7 @@ intellivision:
 
 x68000:
   name:       Sharp X68000
-  manufacturer: Sharp
+  manufacturer: Etc-Computer
   release: 1987
   hardware: computer
   extensions: [dim, img, d88, 88d, hdm, dup, 2hd, xdf, hdf, cmd, m3u, zip, 7z]
@@ -1676,7 +1676,7 @@ x68000:
 
 x1:
   name:       Sharp X1
-  manufacturer: Sharp
+  manufacturer: Etc-Computer
   release: 1982
   hardware: computer
   extensions: [dx1, zip, 2d, 2hd, tfd, d88, 88d, hdm, xdf, dup, cmd, 7z, m3u]
@@ -1698,7 +1698,7 @@ x1:
 
 openbor:
   name:       OpenBOR
-  manufacturer: Ports
+  manufacturer: Creative
   release:
   hardware: port
   extensions: [pak]
@@ -1727,7 +1727,7 @@ satellaview:
 
 sufami:
   name:       SuFami Turbo
-  manufacturer: Bandai
+  manufacturer: Nintendo
   release: 1996
   hardware: console
   extensions: [st, fig, bs, smc, sfc, zip, 7z]
@@ -1748,7 +1748,7 @@ pokemini:
 
 gx4000:
   name:       GX4000
-  manufacturer: Amstrad
+  manufacturer: Etc-Console
   release: 1991
   hardware: console
   extensions: [dsk, m3u, cpr, zip, 7z]
@@ -1773,7 +1773,7 @@ daphne:
 
 thomson:
   name:       Thomson - MO/TO (Theodore)
-  manufacturer: Thomson
+  manufacturer: Etc-Computer
   release: 1984
   hardware: computer
   extensions: [fd, sap, k7, m7, m5, rom, zip]
@@ -1805,7 +1805,7 @@ pc98:
 
 fmtowns:
   name:       FM-TOWNS
-  manufacturer: Fujitsu
+  manufacturer: Etc-Computer
   release: 1987
   hardware: computer
   extensions: [bin, m3u, cue, d88, d77, xdf, iso, chd, toc, nrg, gdi, cdr, mfi, dfi, hfe, mfm, td0, imd, 1dd, cqm, cqi, dsk, zip, 7z]
@@ -1929,7 +1929,7 @@ wiiu:
 
 solarus:
   name:       Solarus
-  manufacturer: Solarus Team
+  manufacturer: Creative
   release: 2011
   hardware: port
   extensions: [zip, solarus]
@@ -1939,7 +1939,7 @@ solarus:
 
 easyrpg:
   name:       EasyRPG
-  manufacturer: EasyRPG Team
+  manufacturer: Creative
   release: 2000
   hardware: port
   extensions: [easyrpg, squashfs, zip]
@@ -1963,7 +1963,7 @@ cgenius:
 
 pygame:
   name:       Pygame
-  manufacturer: Pygame Team
+  manufacturer: Creative
   release: 2000
   hardware: library
   extensions: [pygame]
@@ -1979,7 +1979,7 @@ pygame:
 
 imageviewer:
   name:       Screenshots
-  manufacturer: Misc. System
+  manufacturer: Gallery
   release:
   hardware: system
   extensions: [jpg, jpeg, png, bmp, psd, tga, gif, hdr, pic, ppm, pgm, mkv, pdf, mp4, avi]
@@ -1989,7 +1989,7 @@ imageviewer:
 
 library:
   name:       Library
-  manufacturer: Misc. System
+  manufacturer: Gallery
   release:
   hardware: system
   extensions: [jpg, jpeg, png, bmp, psd, tga, gif, hdr, pic, ppm, pgm, mkv, pdf, mp4, avi, cbz]
@@ -1999,7 +1999,7 @@ library:
 
 model3:
   name:       Model 3
-  manufacturer: Sega
+  manufacturer: Arcade
   release: 1996
   hardware: arcade
   extensions: [zip]
@@ -2057,7 +2057,7 @@ model3:
 
 mugen:
   name:       MUGEN
-  manufacturer: Elecbyte
+  manufacturer: Ports
   release: 1999
   hardware: port
   extensions: [pc, squashfs]
@@ -2068,7 +2068,7 @@ mugen:
 
 fpinball:
   name:       Future Pinball
-  manufacturer: Christopher Leathley
+  manufacturer: Ports
   release: 2005
   hardware: port
   extensions: [fpt]
@@ -2082,7 +2082,7 @@ fpinball:
 
 flash:
   name:       Flash Player
-  manufacturer: Adobe
+  manufacturer: Creative
   release: 1996
   hardware: port
   extensions: [swf]
@@ -2108,7 +2108,7 @@ xbox:
 
 flatpak:
   name: Applications
-  manufacturer:
+  manufacturer: Ports
   release:
   hardware:
   extensions: [flatpak]
@@ -2130,7 +2130,7 @@ flatpak:
 
 steam:
   name: Steam
-  manufacturer: Valve
+  manufacturer: Creative
   release:
   hardware:
   extensions: [steam]
@@ -2143,7 +2143,7 @@ steam:
 
 supervision:
   name:       Supervision
-  manufacturer: Watara
+  manufacturer: Etc-Portable
   release: 1992
   hardware: portable
   extensions: [sv, zip, 7z]
@@ -2179,7 +2179,7 @@ ecwolf:
 
 sonicretro:
   name:       Sonic Retro Engine
-  manufacturer: Rubberduckycooly
+  manufacturer: Ports
   release: 2021
   hardware: port
   extensions: [son, scd]
@@ -2216,7 +2216,7 @@ sonicretro:
 
 model2:
   name:       Model 2
-  manufacturer: Sega
+  manufacturer: Arcade
   release: 1993
   hardware: arcade
   extensions: [zip]
@@ -2286,7 +2286,7 @@ model2:
 
 scv:
   name:       Super Cassette Vision
-  manufacturer: Epoch
+  manufacturer: Etc-Console
   release: 1984
   hardware: console
   extensions: [bin, "0"]
@@ -2296,7 +2296,7 @@ scv:
 
 apple2gs:
   name:      Apple IIGS
-  manufacturer: Apple
+  manufacturer: Etc-Computer
   release: 1986
   hardware: computer
   extensions: [2mg, do, nib, po, dsk, mfi, dfi, rti, edd, woz, hfe, mfm, td0, imd, d77, d88, 1dd, cqm, cqui, ima, img, ufi, 360, ipf, dc42, zip, 7z]
@@ -2310,7 +2310,7 @@ apple2gs:
 
 uzebox:
   name:       Uzebox
-  manufacturer: Atmel
+  manufacturer: Etc-Console
   release: 2008
   hardware: console
   extensions: [uze]
@@ -2320,7 +2320,7 @@ uzebox:
 
 cdi:
   name:       CD-i
-  manufacturer: Philips
+  manufacturer: Etc-Console
   release: 1990
   hardware: console
   extensions: [chd, cue, toc, nrg, gdi, iso, cdr]
@@ -2334,7 +2334,7 @@ cdi:
 
 advision:
   name:       Adventure Vision
-  manufacturer: Entex
+  manufacturer: Etc-Console
   release: 1982
   hardware: console
   extensions: [bin, zip, 7z]
@@ -2348,7 +2348,7 @@ advision:
 
 plugnplay:
   name:       Plug and Play TV Games
-  manufacturer: Various
+  manufacturer: Etc-Console
   release: 2002
   hardware: console
   extensions: [zip, 7z]
@@ -2360,7 +2360,7 @@ plugnplay:
 
 megaduck:
   name:       Mega Duck / Cougar Boy
-  manufacturer: Welback Holdings
+  manufacturer: Etc-Portable
   release: 1993
   hardware: portable
   extensions:  [bin, zip, 7z]
@@ -2375,7 +2375,7 @@ megaduck:
 
 pv1000:
   name:       PV-1000
-  manufacturer: Casio
+  manufacturer: Etc-Console
   release: 1983
   hardware: console
   extensions: [bin, zip, 7z]
@@ -2387,7 +2387,7 @@ pv1000:
 
 gamate:
   name:       Gamate
-  manufacturer: Bitcorp
+  manufacturer: Etc-Portable
   release: 1990
   hardware: portable
   extensions: [bin, zip, 7z]
@@ -2401,7 +2401,7 @@ gamate:
 
 crvision:
   name:       CreatiVision
-  manufacturer: VTech
+  manufacturer: Etc-Console
   release: 1982
   hardware: console
   theme: creativision
@@ -2416,7 +2416,7 @@ crvision:
 
 socrates:
   name:       Socrates
-  manufacturer: VTech
+  manufacturer: Etc-Console
   release: 1988
   hardware: console
   extensions: [bin, zip, 7z]
@@ -2431,7 +2431,7 @@ socrates:
 
 vsmile:
   name:       V.Smile
-  manufacturer: VTech
+  manufacturer: Etc-Console
   release: 2005
   hardware: console
   extensions: [u1, u3, bin, zip, 7z]
@@ -2445,7 +2445,7 @@ vsmile:
 
 supracan:
   name:       Super A'Can
-  manufacturer: Funtech Entertainment
+  manufacturer: Etc-Console
   release: 1995
   hardware: console
   extensions: [bin, zip, 7z]
@@ -2459,7 +2459,7 @@ supracan:
 
 gamecom:
   name:       Game.com
-  manufacturer: Tiger Electronics
+  manufacturer: Etc-Portable
   release: 1997
   hardware: portable
   extensions: [bin, tgc, zip, 7z]
@@ -2473,7 +2473,7 @@ gamecom:
 
 gamepock:
   name:       Game Pocket Computer
-  manufacturer: Epoch
+  manufacturer: Etc-Portable
   release: 1984
   hardware: portable
   extensions: [bin, zip, 7z]
@@ -2487,7 +2487,7 @@ gamepock:
 
 fm7:
   name:       FM-7
-  manufacturer: Fujitsu
+  manufacturer: Etc-Computer
   release: 1982
   hardware: computer
   extensions: [wav, t77, mfi, dfi, hfe, mfm, td0, imd, d77, d88, 1dd, cqm, cqi, dsk, zip, 7z]
@@ -2501,7 +2501,7 @@ fm7:
 
 archimedes:
   name:       Archimedes
-  manufacturer: Acorn Computers
+  manufacturer: Etc-Computer
   release: 1987
   hardware: computer
   extensions: [mfi, dfi, hfe, mfm, td0, imd, d77, d88, 1dd, cqm, cqi, dsk, ima, img, ufi, 360, ipf, adf, apd, jfd, ads, adm, adl, ssd, bbc, dsd, st, msa, chd, zip, 7z]
@@ -2517,7 +2517,7 @@ archimedes:
 
 atom:
   name:       Atom
-  manufacturer: Acorn Computers
+  manufacturer: Etc-Computer
   release: 1979
   hardware: computer
   extensions: [wav, tap, csw, uef, mfi, dfi, hfe, mfm, td0, imd, d77, d88, 1dd, cqm, cqi, dsk, 40t, atm, bin, rom, zip, 7z]
@@ -2533,7 +2533,7 @@ atom:
 
 electron:
   name:       Electron
-  manufacturer: Acorn Computers
+  manufacturer: Etc-Computer
   release: 1983
   hardware: computer
   extensions: [wav, csw, uef, mfi, dfi, hfe, mfm, td0, imd, d77, d88, 1dd, cqm, cqi, dsk, ssd, bbc, img, dsd, adf, ads, adm, adl, rom, bin, zip, 7z]
@@ -2549,7 +2549,7 @@ electron:
 
 apfm1000:
   name:       M-1000
-  manufacturer: APF Electronics
+  manufacturer: Etc-Console
   release: 1978
   hardware: console
   extensions: [bin, zip, 7z]
@@ -2563,7 +2563,7 @@ apfm1000:
 
 bbc:
   name:       BBC Micro
-  manufacturer: Acorn Computers
+  manufacturer: Etc-Computer
   release: 1981
   hardware: computer
   theme: bbcmicro
@@ -2579,7 +2579,7 @@ bbc:
 
 camplynx:
   name:       Camputers Lynx
-  manufacturer: Camputers
+  manufacturer: Etc-Computer
   release: 1983
   hardware: computer
   extensions: [wav, tap, zip, 7z]
@@ -2594,7 +2594,7 @@ camplynx:
 
 adam:
   name:       ADAM
-  manufacturer: Coleco
+  manufacturer: Etc-Computer
   release: 1983
   hardware: computer
   extensions: [wav, ddp, mfi, dfi, hfe, mfm, td0, imd, d77, d88, 1dd, cqm, cqi, dsk, rom, col, bin, zip, 7z]
@@ -2609,7 +2609,7 @@ adam:
 
 arcadia:
   name:       Arcadia 2001
-  manufacturer: Emerson
+  manufacturer: Etc-Console
   release: 1982
   hardware: console
   extensions: [bin, zip, 7z]
@@ -2621,7 +2621,7 @@ arcadia:
 
 gmaster:
   name:       Game Master
-  manufacturer: Hartung
+  manufacturer: Etc-Portable
   release: 1990
   hardware: portable
   extensions: [bin, zip, 7z]
@@ -2635,7 +2635,7 @@ gmaster:
 
 astrocde:
   name:       Astrocade
-  manufacturer: Bally
+  manufacturer: Etc-Console
   release: 1978
   hardware: console
   theme: astrocade
@@ -2650,7 +2650,7 @@ astrocde:
 
 ti99:
   name:       TI-99
-  manufacturer: Texas Instruments
+  manufacturer: Etc-Computer
   release: 1981
   hardware: computer
   extensions: [rpk, wav, zip, 7z]
@@ -2665,7 +2665,7 @@ ti99:
 
 tutor:
   name:       Tutor
-  manufacturer: Tomy
+  manufacturer: Etc-Computer
   release: 1983
   hardware: computer
   extensions: [bin, wav, zip, 7z]
@@ -2680,7 +2680,7 @@ tutor:
 
 coco:
   name:       Color Computer
-  manufacturer: Tandy Radio Shack
+  manufacturer: Etc-Computer
   release: 1980
   hardware: computer
   extensions: [wav, cas, ccc, rom, zip, 7z]
@@ -2694,7 +2694,7 @@ coco:
 
 vc4000:
   name:       VC 4000
-  manufacturer: Interton
+  manufacturer: Etc-Console
   release: 1978
   hardware: console
   extensions: [bin, rom, pgm, tvc, zip, 7z]
@@ -2706,7 +2706,7 @@ vc4000:
 
 vgmplay:
   name:       Video Game Music Player
-  manufacturer: Various
+  manufacturer: Etc-Computer
   release: 1980
   hardware: computer
   extensions: [vgm, vgz, zip, 7z]
@@ -2761,7 +2761,7 @@ vitaquake2:
 
 j2me:
   name:       Java 2 MicroEdition
-  manufacturer: Sun
+  manufacturer: Etc-Portable
   release: 2001
   hardware: portable
   extensions: [jar]
@@ -2834,7 +2834,7 @@ hcl:
 
 samcoupe:
   name:       SAM Coupé
-  manufacturer: Miles Gordon Technology
+  manufacturer: Etc-Computer
   release: 1989
   hardware: computer
   extensions: [cpm, dsk, sad, mgt, sdf, td0, sbt]
@@ -2889,7 +2889,7 @@ xrick:
     
 macintosh:
   name:       Macintosh
-  manufacturer: Apple
+  manufacturer: Etc-Computer
   release: 1984
   hardware: computer
   extensions: [dsk, zip, 7z, mfi, dfi, hfe, mfm, td0, imd, d77, d88, 1dd, cqm, cqi, dsk, ima, img, ufi, ipf, dc42, woz, 2mg, 360, chd, cue, toc, nrg, gdi, iso, cdr, hd, hdv, 2mg, hdi]
@@ -2917,7 +2917,7 @@ macintosh:
 
 naomi2:
   name:       Naomi 2
-  manufacturer: Sega
+  manufacturer: Arcade
   release: 2000
   hardware: arcade
   extensions: [zip, 7z]
@@ -2991,7 +2991,7 @@ naomi2:
 
 hikaru:
   name:       Hikaru
-  manufacturer: Sega
+  manufacturer: Arcade
   release: 1999
   hardware: arcade
   extensions: [zip, 7z]
@@ -3042,7 +3042,7 @@ hikaru:
 
 gaelco:
   name:       Gaelco
-  manufacturer: Sega
+  manufacturer: Arcade
   release: 1999
   hardware: arcade
   extensions: [zip, 7z]
@@ -3092,7 +3092,7 @@ gaelco:
 
 cave3rd:
   name:       Cave CV1000
-  manufacturer: Sega
+  manufacturer: Arcade
   release: 2004
   hardware: arcade
   extensions: [zip, 7z]
@@ -3142,7 +3142,7 @@ cave3rd:
 
 pdp1:
   name:       PDP-1
-  manufacturer: Digital Equipment Corporation
+  manufacturer: Etc-Computer
   release: 1961
   hardware: computer
   extensions: [zip, 7z, tap, rim, drm]

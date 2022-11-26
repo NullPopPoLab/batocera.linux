@@ -8284,6 +8284,13 @@ wine:
                 "Ukrainian":   "uk_UA"
                 "Simplified Chinese":   "zh_CN"
                 "Traditional Chinese":   "zh_TW"
+        enable_gamepad:
+            group: ADVANCED OPTIONS
+            prompt:      ENABLE GAMEPAD
+            description: Use gamepad by Windows
+            choices:
+                "Off": 0
+                "On":  1
         dxvk:
             group: ADVANCED OPTIONS
             prompt:      DXVK FEATURE

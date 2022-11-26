@@ -43,9 +43,11 @@ class Controller:
         else:
             self.inputs = inputs
 
-    def generateSDLGameDBLine(self):
-        return _generateSdlGameControllerConfig(self)
-
+    def generateSDLGameDBLine(self,enabled=True):
+        if enabled:
+            return _generateSdlGameControllerConfig(self)
+        else:
+            return _generateSdlGameControllerConfig(self,None)
 
 # Load all controllers from the es_input.cfg
 def loadAllControllersConfig():
@@ -116,6 +118,10 @@ def _generateSdlGameControllerConfig(controller, sdlMapping=_DEFAULT_SDL_MAPPING
     config.append(controller.guid)
     config.append(controller.realName)
     config.append("platform:Linux")
+
+    if sdlMapping is None:
+        config.append('')
+        return ','.join(config)
 
     def add_mapping(input):
         keyname = sdlMapping.get(input.name, None)
@@ -192,10 +198,10 @@ def _keyToSdlGameControllerConfig(keyname, name, type, id, value=None):
         raise ValueError('unknown key type: {!r}'.format(type))
 
 
-def generateSdlGameControllerConfig(controllers):
+def generateSdlGameControllerConfig(controllers,enabled=True):
     configs = []
     for idx, controller in controllers.items():
-        configs.append(controller.generateSDLGameDBLine())
+        configs.append(controller.generateSDLGameDBLine(enabled))
     return "\n".join(configs)
 
 

@@ -8252,6 +8252,7 @@ wine:
   shared: [videomode]
   cfeatures:
         lang:
+            group: ADVANCED OPTIONS
             prompt:      LANGUAGE
             description: Change the game's language.
             choices:

@@ -114,6 +114,12 @@ dl-dir:
 		$(DOCKER_REPO)/$(IMAGE_NAME) \
 		make $(MAKE_OPTS) O=/$* BR2_EXTERNAL=/build -C /build/buildroot $(CMD)
 
+%-build-redate:
+	@if [ -d $(OUTPUT_DIR)/$*/build ]; then \
+		rm -rf $(OUTPUT_DIR)/$*/build/batocera-system-*; \
+	fi
+	@$(MAKE) $*-build
+
 %-source: batocera-docker-image %-config ccache-dir dl-dir
 	@$(DOCKER) run -t --init --rm \
 		-v $(PROJECT_DIR):/build \

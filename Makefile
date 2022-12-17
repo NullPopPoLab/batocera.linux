@@ -180,6 +180,20 @@ dl-dir:
 	$(if $(PKG),,$(error "PKG not specified!"))
 	@$(MAKE) $*-build CMD=$(PKG)
 
+%-pkg-unstamp:
+	$(if $(PKG),,$(error "PKG not specified!"))
+	rm -f $(OUTPUT_DIR)/$*/build/$(PKG)/.stamp_rsynced
+	rm -f $(OUTPUT_DIR)/$*/build/$(PKG)/.stamp_built
+	rm -f $(OUTPUT_DIR)/$*/build/$(PKG)/.stamp_installed
+	find $(OUTPUT_DIR)/$*/build -maxdepth 1 -type d -name "$(PKG)-*" -exec rm -f {}/.stamp_downloaded \;
+	find $(OUTPUT_DIR)/$*/build -maxdepth 1 -type d -name "$(PKG)-*" -exec rm -f {}/.stamp_built \;
+	find $(OUTPUT_DIR)/$*/build -maxdepth 1 -type d -name "$(PKG)-*" -exec rm -f {}/.stamp_installed \;
+
+%-pkg-again:
+	$(if $(PKG),,$(error "PKG not specified!"))
+	@$(MAKE) $*-pkg-unstamp PKG=$(PKG)
+	@$(MAKE) $*-build CMD=$(PKG)
+
 %-webserver: output-dir-%
 	$(if $(wildcard $(OUTPUT_DIR)/$*/images/batocera/*),,$(error "$* not built!"))
 	$(if $(shell which python 2>/dev/null),,$(error "python not found!"))

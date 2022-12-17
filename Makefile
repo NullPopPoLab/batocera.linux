@@ -115,9 +115,7 @@ dl-dir:
 		make $(MAKE_OPTS) O=/$* BR2_EXTERNAL=/build -C /build/buildroot $(CMD)
 
 %-build-redate:
-	@if [ -d $(OUTPUT_DIR)/$*/build ]; then \
-		rm -rf $(OUTPUT_DIR)/$*/build/batocera-system-*; \
-	fi
+	@$(MAKE) $*-pkg-unstamp PKG=batocera-system
 	@$(MAKE) $*-build
 
 %-source: batocera-docker-image %-config ccache-dir dl-dir

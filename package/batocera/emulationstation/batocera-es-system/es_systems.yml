@@ -1846,6 +1846,15 @@ amiga:
   manufacturer: Commodore
   release:
   hardware: computer
+  group: amiga
+  force:      True
+
+msx:
+  name:       Msx
+  manufacturer: Microsoft
+  release:
+  hardware: computer
+  group: msx
   force:      True
 
 windows:

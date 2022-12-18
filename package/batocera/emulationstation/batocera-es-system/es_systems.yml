@@ -593,7 +593,7 @@ scummvm:
   name:       ScummVM
   manufacturer: Creative
   release: 1987
-  hardware: computer
+  hardware: creative
   extensions: [scummvm, squashfs]
   platform:   pc
   emulators:
@@ -1018,7 +1018,7 @@ tic80:
   name:       TIC-80
   manufacturer: Creative
   release: 2016
-  hardware: console
+  hardware: creative
   extensions: [tic]
   emulators:
     libretro:
@@ -1032,7 +1032,7 @@ pico8:
   name:       Pico-8
   manufacturer: Creative
   release: 2015
-  hardware: console
+  hardware: creative
   extensions: [p8, png, m3u]
   emulators:
     libretro:
@@ -1489,7 +1489,7 @@ moonlight:
   name:       Moonlight Embedded
   manufacturer: Creative
   release:
-  hardware: system
+  hardware: creative
   extensions: [moonlight]
   emulators:
     moonlight:
@@ -1861,7 +1861,7 @@ windows:
   name:       Windows
   manufacturer: Microsoft
   release: 1992
-  hardware: pc
+  hardware: computer
   extensions: [pc, exe, wine, wsquashfs, wtgz]
   platform:   pc
   theme:      windows
@@ -1878,7 +1878,7 @@ windows_installers:
   name:       Install a new Windows game
   manufacturer: Microsoft
   release: 1992
-  hardware: pc
+  hardware: computer
   extensions: [exe, iso]
   platform:   pc
   group:      windows
@@ -1940,7 +1940,7 @@ solarus:
   name:       Solarus
   manufacturer: Creative
   release: 2011
-  hardware: port
+  hardware: creative
   extensions: [zip, solarus]
   emulators:
     solarus:
@@ -1950,7 +1950,7 @@ easyrpg:
   name:       EasyRPG
   manufacturer: Creative
   release: 2000
-  hardware: port
+  hardware: creative
   extensions: [easyrpg, squashfs, zip]
   emulators:
     easyrpg:
@@ -1974,7 +1974,7 @@ pygame:
   name:       Pygame
   manufacturer: Creative
   release: 2000
-  hardware: library
+  hardware: creative
   extensions: [pygame]
   platform:   pygame
   theme:      pygame
@@ -2093,7 +2093,7 @@ flash:
   name:       Flash Player
   manufacturer: Creative
   release: 1996
-  hardware: port
+  hardware: creative
   extensions: [swf]
   emulators:
     lightspark:
@@ -2164,7 +2164,7 @@ gong:
   name:       Pong
   manufacturer: Ports
   release: 1972
-  hardware: console
+  hardware: port
   extensions: [game]
   group: ports
   emulators:
@@ -2783,7 +2783,7 @@ zc210:
   name:       Zelda Classic
   manufacturer: Ports
   release: 1999
-  hardware: console
+  hardware: port
   theme: zeldac
   extensions: [qst]
   emulators:
@@ -2794,7 +2794,7 @@ vemulator:
   name:       Dreamcast VMU
   manufacturer: Sega
   release: 1998
-  hardware: console
+  hardware: portable
   extensions: [vms, dci, bin]
   emulators:
     libretro:

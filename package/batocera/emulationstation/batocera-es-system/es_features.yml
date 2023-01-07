@@ -8292,6 +8292,13 @@ wine:
             choices:
                 "Off": 0
                 "On":  1
+        gamedrive:
+            group: ADVANCED OPTIONS
+            prompt:      USE GAME SPECIFIC DRIVE
+            description: "Game directory as Y:"
+            choices:
+                "Off": ""
+                "On":  "y"
         dxvk:
             group: ADVANCED OPTIONS
             prompt:      DXVK FEATURE

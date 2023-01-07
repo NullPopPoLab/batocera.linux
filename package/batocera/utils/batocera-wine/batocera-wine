@@ -459,6 +459,10 @@ play_pc() {
     dxvk_install "${WINEPOINT}" || return 1
 
     BASEGAMENAME=$(basename "${GAMENAME}")
+    if test -n "${GAMEDRIVE}"; then
+        ln -sf "${G_ROMS_DIR}/${BASEGAMENAME}" "${WINEPOINT}/dosdevices/${GAMEDRIVE}:"
+    fi
+
     GAMEISOMOUNT="/var/run/wine/${BASEGAMENAME}.cdrom"
     RUNTIMEISO="${G_ROMS_DIR}/${BASEGAMENAME}/disc01.iso"
     if [ -f "${RUNTIMEISO}" ]; then
@@ -779,6 +783,10 @@ cleanAndExit() {
         umount "${GAMEISOMOUNT}"
         rmdir "${GAMEISOMOUNT}"
         rm -f "${WINEPOINT}/dosdevices/d:"
+    fi
+
+    if test -n "${GAMEDRIVE}"; then
+        rm -f "${WINEPOINT}/dosdevices/${GAMEDRIVE}:"
     fi
 
     exit "${1}"

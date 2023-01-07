@@ -8251,6 +8251,18 @@ wine:
   features: [padtokeyboard]
   shared: [videomode]
   cfeatures:
+        bootup:
+            group: ADVANCED OPTIONS
+            prompt:      BOOTUP WAY
+            description: Select the game's bootup way.
+            choices:
+                "Game":   "game"
+                "Config":   "config"
+                "Option":   "option"
+                "Edit":   "edit"
+                "Help":   "help"
+                "Appendix":   "appendix"
+                "Maintenance":   "maintenance"
         lang:
             group: ADVANCED OPTIONS
             prompt:      LANGUAGE

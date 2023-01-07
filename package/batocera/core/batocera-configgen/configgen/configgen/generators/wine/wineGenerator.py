@@ -19,6 +19,8 @@ class WineGenerator(Generator):
         else: raise Exception("invalid system " + system.name)
         if 'lang' in system.config and system.config['lang'] != '':
             cmd.env['LANG']=cmd.env['LC_ALL']=system.config['lang']+'.UTF-8'
+        if 'bootup' in system.config and system.config['bootup'] != '':
+            cmd.env['BOOTUP']=system.config['bootup']
         if 'gamedrive' in system.config and system.config['gamedrive'] != '':
             cmd.env['GAMEDRIVE']=system.config['gamedrive']
         cmd.env['SDL_GAMECONTROLLERCONFIG']=controllersConfig.generateSdlGameControllerConfig(playersControllers,'enable_gamepad' not in system.config or system.config['enable_gamepad']=='1')

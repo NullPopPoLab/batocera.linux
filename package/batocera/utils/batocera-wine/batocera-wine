@@ -463,6 +463,11 @@ play_pc() {
         ln -sf "${G_ROMS_DIR}/${BASEGAMENAME}" "${WINEPOINT}/dosdevices/${GAMEDRIVE}:"
     fi
 
+    BOOTUPCMD="${G_ROMS_DIR}/${BASEGAMENAME}/autorun_${BOOTUP}.cmd"
+    if [ -f "${BOOTUPCMD}" ]; then
+        cp "${BOOTUPCMD}" "${G_ROMS_DIR}/${BASEGAMENAME}/autorun.cmd"
+    fi
+
     GAMEISOMOUNT="/var/run/wine/${BASEGAMENAME}.cdrom"
     RUNTIMEISO="${G_ROMS_DIR}/${BASEGAMENAME}/disc01.iso"
     if [ -f "${RUNTIMEISO}" ]; then

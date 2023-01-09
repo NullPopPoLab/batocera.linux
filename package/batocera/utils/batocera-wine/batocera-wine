@@ -448,7 +448,7 @@ play_wine() {
 play_pc() {
     GAMENAME=$1
     WINEPOINT="${G_SAVES_DIR}/${WINE_VERSION}/"$(basename "${GAMENAME}")".wine"
-    
+
     wine_options "${WINEPOINT}"
     createWineDirectory "${WINEPOINT}" || return 1
     redist_install "${WINEPOINT}" || return 1
@@ -459,6 +459,26 @@ play_pc() {
     dxvk_install "${WINEPOINT}" || return 1
 
     BASEGAMENAME=$(basename "${GAMENAME}")
+    TRICKSFILE="${G_ROMS_DIR}/${BASEGAMENAME}/tricks.txt"
+    TRICKSLOG="${G_ROMS_DIR}/${BASEGAMENAME}/tricks_${WINE_VERSION}.log"
+    WINEPREFIX=${WINEPOINT}
+    echo "" >&2
+    echo "tricks file: ${TRICKSFILE}" >&2
+    echo "tricks log: ${TRICKSLOG}" >&2
+    echo "wine dir: ${WINEPOINT}" >&2
+    if [ -f "${TRICKSFILE}" ]; then
+        install_winetricks
+        export DISPLAY=:0.0
+        while read line; do
+            line=`echo "${line}" | xargs`
+            echo "bgn trick: $line" >&2
+            `sh /usr/bin/batocera-wine windows tricks "${WINEPOINT}" "$line"`
+            echo "end trick: $line" >&2
+            echo "$line" >> "${TRICKSLOG}"
+        done < "${TRICKSFILE}"
+        rm "${TRICKSFILE}"
+    fi
+
     if test -n "${GAMEDRIVE}"; then
         ln -sf "${G_ROMS_DIR}/${BASEGAMENAME}" "${WINEPOINT}/dosdevices/${GAMEDRIVE}:"
     fi
@@ -500,8 +520,8 @@ play_pc() {
     waitWineServer
 }
 
-trick_wine() {
-    GAMENAME=$1
+install_winetricks() {
+
     if [ -e "${WINETRICKS}" ]; then
         echo "Winetricks is installed"
 	else
@@ -510,9 +530,13 @@ trick_wine() {
         chmod +x "${WINETRICKS}"
         echo "Winetricks is now installed"
 	fi
+}
+
+trick_wine() {
+    GAMENAME=$1
     TRICK=$2
     WINEPOINT="${GAMENAME}"
-    WINEPREFIX=${WINEPOINT} "${WINETRICKS}" "${TRICK}"
+    WINEPREFIX="${WINEPOINT}" "${WINETRICKS}" "${TRICK}"
 }
 
 #play_iso() {
@@ -852,6 +876,7 @@ case "${ACTION}" in
     	GAMEEXT=$(gameext "${GAMENAME}")
 	case "${GAMEEXT}" in
 	    "wine")
+        install_winetricks
 		trick_wine "${GAMENAME}" "${TRICK}" || cleanAndExit 1
 		;;
 	esac

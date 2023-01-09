@@ -461,6 +461,18 @@ play_pc() {
     echo "wine dir: ${WINEPOINT}" >&2
 
     BASEGAMENAME=$(basename "${GAMENAME}")
+    REGSFILE="${G_ROMS_DIR}/${BASEGAMENAME}/regs.txt"
+    REGSLOG="${G_ROMS_DIR}/${BASEGAMENAME}/regs_${WINE_VERSION}.log"
+    if [ -f "${REGSFILE}" ]; then
+        echo "" >&2
+        echo "regs file: ${REGSFILE}" >&2
+        echo "regs log: ${REGSLOG}" >&2
+        WINEPREFIX=${WINEPOINT} "${WINE}" regedit "${REGSFILE}" &>/dev/null || return 1
+        WINEPREFIX=${WINEPOINT} "${WINE64}" regedit "${REGSFILE}" &>/dev/null || return 1
+        cat "${REGSFILE}" >> "${REGSLOG}"
+        rm "${REGSFILE}"
+    fi
+
     TRICKSFILE="${G_ROMS_DIR}/${BASEGAMENAME}/tricks.txt"
     TRICKSLOG="${G_ROMS_DIR}/${BASEGAMENAME}/tricks_${WINE_VERSION}.log"
     if [ -f "${TRICKSFILE}" ]; then

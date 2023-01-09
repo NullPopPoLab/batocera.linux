@@ -458,15 +458,15 @@ play_pc() {
     sandboxing_prefix "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
+    echo "wine dir: ${WINEPOINT}" >&2
+
     BASEGAMENAME=$(basename "${GAMENAME}")
     TRICKSFILE="${G_ROMS_DIR}/${BASEGAMENAME}/tricks.txt"
     TRICKSLOG="${G_ROMS_DIR}/${BASEGAMENAME}/tricks_${WINE_VERSION}.log"
-    WINEPREFIX=${WINEPOINT}
-    echo "" >&2
-    echo "tricks file: ${TRICKSFILE}" >&2
-    echo "tricks log: ${TRICKSLOG}" >&2
-    echo "wine dir: ${WINEPOINT}" >&2
     if [ -f "${TRICKSFILE}" ]; then
+        echo "" >&2
+        echo "tricks file: ${TRICKSFILE}" >&2
+        echo "tricks log: ${TRICKSLOG}" >&2
         install_winetricks
         export DISPLAY=:0.0
         while read line; do

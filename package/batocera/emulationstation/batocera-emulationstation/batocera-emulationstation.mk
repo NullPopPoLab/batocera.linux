@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-BATOCERA_EMULATIONSTATION_VERSION = 3ec846e9112e1e38e0aded3a3e0aac4f0284e247
+BATOCERA_EMULATIONSTATION_VERSION = af99bfc6bd098d03f2420112beecce95aec3f803
 BATOCERA_EMULATIONSTATION_SITE = https://github.com/NullPopPoLab/batocera-emulationstation
 BATOCERA_EMULATIONSTATION_SITE_METHOD = git
 BATOCERA_EMULATIONSTATION_LICENSE = MIT

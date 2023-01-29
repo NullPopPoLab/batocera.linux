@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version.: Release 0.242
-MAME_VERSION = gm0242sr002h
-MAME_SITE = $(call github,antonioginer,GroovyMAME,$(MAME_VERSION))
+MAME_VERSION = 35700276bd79a34e9e05ebdfa66abb45e1e4c8fa
+MAME_SITE = https://github.com/NullPopPoLab/GroovyMAME
+MAME_SITE_METHOD=git
 MAME_DEPENDENCIES = sdl2 sdl2_ttf zlib libpng fontconfig sqlite jpeg flac rapidjson expat glm
 MAME_LICENSE = MAME
 

@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version.: Commits on Apr 12, 2021
-LIBRETRO_MAME2010_VERSION = 932e6f2c4f13b67b29ab33428a4037dee9a236a8
-LIBRETRO_MAME2010_SITE = $(call github,libretro,mame2010-libretro,$(LIBRETRO_MAME2010_VERSION))
+LIBRETRO_MAME2010_VERSION = 742611be6117708c8ab2df99cf7edd9903ab7e75
+LIBRETRO_MAME2010_SITE = https://github.com/NullPopPoLab/mame2010-libretro
+LIBRETRO_MAME2010_SITE_METHOD=git
 LIBRETRO_MAME2010_LICENSE = MAME
 LIBRETRO_MAME2010_DEPENDENCIES = retroarch
 

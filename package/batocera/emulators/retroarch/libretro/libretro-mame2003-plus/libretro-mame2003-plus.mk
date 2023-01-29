@@ -5,7 +5,8 @@
 ################################################################################
 # Version: Commits on Apr 8, 2022
 LIBRETRO_MAME2003_PLUS_VERSION = e5ee29ecb8182952f861f22516e5791625fe2671
-LIBRETRO_MAME2003_PLUS_SITE = $(call github,libretro,mame2003-plus-libretro,$(LIBRETRO_MAME2003_PLUS_VERSION))
+LIBRETRO_MAME2003_PLUS_SITE = https://github.com/NullPopPoLab/mame2003-plus-libretro
+LIBRETRO_MAME2003_SITE_METHOD=git
 LIBRETRO_MAME2003_PLUS_LICENSE = MAME
 
 LIBRETRO_MAME2003_PLUS_PLATFORM = $(LIBRETRO_PLATFORM)

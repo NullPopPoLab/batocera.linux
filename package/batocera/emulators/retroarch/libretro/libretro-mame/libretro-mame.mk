@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version: Commits on Apr 11, 2022 (v0.242)
-LIBRETRO_MAME_VERSION = b7dd999590717638ceade2e24d16d63147aa12ad
-LIBRETRO_MAME_SITE = $(call github,libretro,mame,$(LIBRETRO_MAME_VERSION))
+LIBRETRO_MAME_VERSION = b373f58b21d11c2280fead5b83c5eba797ab3dd2
+LIBRETRO_MAME_SITE = https://github.com/NullPopPoLab/GroovyMAME
+LIBRETRO_MAME_SITE_METHOD=git
 LIBRETRO_MAME_LICENSE = MAME
 LIBRETRO_MAME_DEPENDENCIES = retroarch
 

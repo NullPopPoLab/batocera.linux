@@ -228,10 +228,10 @@ def generatePadsConfig(cfgPath, playersControllers, sysName, dpadMode, altButton
 
             #UI Mappings
             if nplayer == 1:
-                xml_input.appendChild(generateComboPortElement(config, 'standard', pad.index, "UI_DOWN", "DOWN", mappings_use["JOYSTICK_DOWN"], pad.inputs[mappings_use["JOYSTICK_UP"]], False, dpadMode, "", ""))      # Down
+                xml_input.appendChild(generateComboPortElement(config, 'standard', pad.index, "UI_DOWN", "DOWN", mappings_use["JOYSTICK_DOWN"], pad.inputs[mappings_use["JOYSTICK_UP"]], True, dpadMode, "", ""))      # Down
                 xml_input.appendChild(generateComboPortElement(config, 'standard', pad.index, "UI_LEFT", "LEFT", mappings_use["JOYSTICK_LEFT"], pad.inputs[mappings_use["JOYSTICK_LEFT"]], False, dpadMode, "", ""))    # Left
                 xml_input.appendChild(generateComboPortElement(config, 'standard', pad.index, "UI_UP", "UP", mappings_use["JOYSTICK_UP"], pad.inputs[mappings_use["JOYSTICK_UP"]], False, dpadMode, "", ""))            # Up
-                xml_input.appendChild(generateComboPortElement(config, 'standard', pad.index, "UI_RIGHT", "RIGHT", mappings_use["JOYSTICK_RIGHT"], pad.inputs[mappings_use["JOYSTICK_LEFT"]], False, dpadMode, "", "")) # Right
+                xml_input.appendChild(generateComboPortElement(config, 'standard', pad.index, "UI_RIGHT", "RIGHT", mappings_use["JOYSTICK_RIGHT"], pad.inputs[mappings_use["JOYSTICK_LEFT"]], True, dpadMode, "", "")) # Right
 
             # Special case for CD-i - doesn't use default controls, map special controller
             # Keep orginal mapping functions for menus etc, create system-specific config file dor CD-i.
@@ -539,6 +539,10 @@ def generatePadsConfig(cfgPath, playersControllers, sysName, dpadMode, altButton
             mameXml_alt.write(dom_string_alt)
 
 def reverseMapping(key):
+    if key == "down":
+        return "up"
+    if key == "right":
+        return "left"
     if key == "joystick1down":
         return "joystick1up"
     if key == "joystick1right":
@@ -617,16 +621,23 @@ def generateAnalogPortElement(config, tag, nplayer, padindex, mapping, inckey, d
     return xml_port
 
 def input2definition(key, input, joycode, reversed, dpadMode, altButtons):
+
+    if reversed: key=reverseMapping(key)
+
     if input.type == "button":
         return "JOYCODE_{}_BUTTON{}".format(joycode, int(input.id)+1)
     elif input.type == "hat":
         if input.value == "1":
+            if reversed: return "JOYCODE_{}_HAT1DOWN".format(joycode)
             return "JOYCODE_{}_HAT1UP".format(joycode)
         elif input.value == "2":
+            if reversed: return "JOYCODE_{}_HAT1LEFT".format(joycode)
             return "JOYCODE_{}_HAT1RIGHT".format(joycode)
         elif input.value == "4":
+            if reversed: return "JOYCODE_{}_HAT1UP".format(joycode)
             return "JOYCODE_{}_HAT1DOWN".format(joycode)
         elif input.value == "8":
+            if reversed: return "JOYCODE_{}_HAT1RIGHT".format(joycode)
             return "JOYCODE_{}_HAT1LEFT".format(joycode)
     elif input.type == "axis":
         if altButtons == "qbert": # Q*Bert Joystick

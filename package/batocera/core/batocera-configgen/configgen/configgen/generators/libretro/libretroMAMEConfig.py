@@ -27,7 +27,7 @@ def generateMAMEConfigs(playersControllers, system, rom):
         if system.getOptBoolean("customcfg"):
             cfgPath = "/userdata/system/configs/lr-mame/custom/"
         else:
-            cfgPath = "/userdata/saves/mame/mame/cfg/"
+            cfgPath = "/userdata/saves/mame/lr-mame/cfg/"
         if not os.path.exists(cfgPath):
             os.makedirs(cfgPath)
         commandLine += [ romDrivername ]
@@ -78,7 +78,7 @@ def generateMAMEConfigs(playersControllers, system, rom):
             if system.getOptBoolean("customcfg"):
                 cfgPath = "/userdata/system/configs/lr-mame/custom/"
             else:
-                cfgPath = "/userdata/saves/mame/mame/cfg/"
+                cfgPath = "/userdata/saves/mame/lr-mame/cfg/"
             if not os.path.exists(cfgPath):
                 os.makedirs(cfgPath)
             commandLine += [ romDrivername ]
@@ -208,7 +208,7 @@ def generateMAMEConfigs(playersControllers, system, rom):
             if system.getOptBoolean("customcfg"):
                 cfgPath = "/userdata/system/configs/lr-mame/" + messSysName[messMode] + "/custom/"
             else:
-                cfgPath = "/userdata/saves/mame/mame/cfg/" + messSysName[messMode] + "/"
+                cfgPath = "/userdata/saves/mame/lr-mame/cfg/" + messSysName[messMode] + "/"
             if system.getOptBoolean("pergamecfg"):
                 cfgPath = "/userdata/system/configs/lr-mame/" + messSysName[messMode] + "/" + romBasename + "/"
             if not os.path.exists(cfgPath):
@@ -221,10 +221,10 @@ def generateMAMEConfigs(playersControllers, system, rom):
             # Using computer.ini since autorun only applies to computers, and this would be unlikely to be used otherwise
             autoRunCmd = ""
             autoRunDelay = 0
-            if not os.path.exists('/userdata/saves/mame/mame/ini/'):
-                     os.makedirs('/userdata/saves/mame/mame/ini/')
-            if os.path.exists('/userdata/saves/mame/mame/ini/computer.ini'):
-                os.remove('/userdata/saves/mame/mame/ini/computer.ini')
+            if not os.path.exists('/userdata/saves/mame/lr-mame/ini/'):
+                     os.makedirs('/userdata/saves/mame/lr-mame/ini/')
+            if os.path.exists('/userdata/saves/mame/lr-mame/ini/computer.ini'):
+                os.remove('/userdata/saves/mame/lr-mame/ini/computer.ini')
             # bbc has different boots for floppy & cassette, no special boot for carts
             if system.name == "bbc":
                 if system.isOptSet("altromtype") or softList != "":
@@ -255,11 +255,11 @@ def generateMAMEConfigs(playersControllers, system, rom):
                             if row[0].casefold() == os.path.splitext(romBasename)[0].casefold():
                                 autoRunCmd = row[1] + "\\n"
                                 autoRunDelay = 3
-            commandLine += [ '-inipath', '/userdata/saves/mame/mame/ini/' ]
+            commandLine += [ '-inipath', '/userdata/saves/mame/lr-mame/ini/' ]
             if autoRunCmd != "":
                 if autoRunCmd.startswith("'"):
                     autoRunCmd.replace("'", "")
-                iniFile = open('/userdata/saves/mame/mame/ini/computer.ini', "w")
+                iniFile = open('/userdata/saves/mame/lr-mame/ini/computer.ini', "w")
                 iniFile.write('autoboot_command          ' + autoRunCmd + "\n")
                 iniFile.write('autoboot_delay            ' + str(autoRunDelay))
                 iniFile.close()
@@ -292,10 +292,10 @@ def generateMAMEConfigs(playersControllers, system, rom):
             commandLine += [ "-artwork_crop" ]
 
     # Share plugins & samples with standalone MAME
-    commandLine += [ "-pluginspath", "/usr/bin/mame/plugins/;/userdata/saves/mame/plugins" ]
-    commandLine += [ "-homepath" , "/userdata/saves/mame/plugins/" ]
-    if not os.path.exists("/userdata/saves/mame/plugins/"):
-        os.makedirs("/userdata/saves/mame/plugins/")
+    commandLine += [ "-pluginspath", "/usr/bin/mame/plugins/;/userdata/saves/mame/lr-mame/plugins" ]
+    commandLine += [ "-homepath" , "/userdata/saves/mame/lr-mame/plugins/" ]
+    if not os.path.exists("/userdata/saves/mame/lr-mame/plugins/"):
+        os.makedirs("/userdata/saves/mame/lr-mame/plugins/")
     commandLine += [ "-samplepath", "/userdata/bios/mame/samples/" ]
 
     # Write command line file

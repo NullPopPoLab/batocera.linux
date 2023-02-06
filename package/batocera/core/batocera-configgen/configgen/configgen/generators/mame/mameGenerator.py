@@ -38,7 +38,7 @@ class MameGenerator(Generator):
         subdirSoftList = [ "mac_hdd", "bbc_hdd", "cdi", "archimedes_hdd", "fmtowns_cd" ]
 
         # Generate userdata folders if needed
-        mamePaths = [ "system/configs/mame", "saves/mame", "saves/mame/nvram", "saves/mame/cfg", "saves/mame/input", "saves/mame/state", "saves/mame/diff", "saves/mame/comments", "bios/mame", "bios/mame/artwork", "cheats/mame", "saves/mame/plugins", "system/configs/mame/ctrlr", "system/configs/mame/ini", "bios/mame/artwork/crosshairs" ]
+        mamePaths = [ "saves/mame", "saves/mame/groovy", "bios/mame", "bios/mame/artwork", "cheats/mame", "bios/mame/artwork/crosshairs" ]
         for checkPath in mamePaths:
             if not os.path.exists("/userdata/" + checkPath + "/"):
                 os.makedirs("/userdata/" + checkPath + "/")
@@ -99,7 +99,7 @@ class MameGenerator(Generator):
         commandArray += [ "-bgfx_path",    "/usr/bin/mame/bgfx/" ]          # Core bgfx files can be left on ROM filesystem
         commandArray += [ "-fontpath",     "/usr/bin/mame/" ]               # Fonts can be left on ROM filesystem
         commandArray += [ "-languagepath", "/usr/bin/mame/language/" ]      # Translations can be left on ROM filesystem
-        commandArray += [ "-pluginspath", "/usr/bin/mame/plugins/;/userdata/saves/mame/plugins" ]
+        commandArray += [ "-pluginspath", "/usr/bin/mame/plugins/;/userdata/saves/mame/groovy/plugins" ]
         commandArray += [ "-samplepath",   "/userdata/bios/mame/samples/" ] # Current batocera storage location for MAME samples
         commandArray += [ "-artpath",       "/var/run/mame_artwork/;/usr/bin/mame/artwork/;/userdata/bios/mame/artwork/;/userdata/decorations/" ] # first for systems ; second for overlays
 
@@ -107,8 +107,8 @@ class MameGenerator(Generator):
         commandArray += [ "-cheat" ]
         commandArray += [ "-cheatpath",    "/userdata/cheats/mame/" ]       # Should this point to path containing the cheat.7z file
 
-        # MAME saves a lot of stuff, we need to map this on /userdata/saves/mame/<subfolder> for each one
-        commandArray += [ "-nvram_directory" ,    "/userdata/saves/mame/nvram/" ]
+        # MAME saves a lot of stuff, we need to map this on /userdata/saves/mame/groovy/<subfolder> for each one
+        commandArray += [ "-nvram_directory" ,    "/userdata/saves/mame/groovy/nvram/" ]
 
         # Set custom config path if option is selected or default path if not
         if system.isOptSet("customcfg"):
@@ -116,42 +116,37 @@ class MameGenerator(Generator):
         else:
             customCfg = False
 
+        cfgBase = "/userdata/saves/mame/groovy/"
         if system.name == "mame":
             if customCfg:
-                cfgPath = "/userdata/system/configs/mame/custom/"
+                cfgBase += "mame-custom/"
             else:
-                cfgPath = "/userdata/system/configs/mame/"
-            if not os.path.exists("/userdata/system/configs/mame/"):
-                os.makedirs("/userdata/system/configs/mame/")
+                cfgBase += "mame/"
         else:
             if customCfg:
-                cfgPath = "/userdata/system/configs/mame/" + messSysName[messMode]+ "/custom/"
+                cfgBase += messSysName[messMode]+ "-custom/"
             else:
-                cfgPath = "/userdata/system/configs/mame/" + messSysName[messMode] + "/"
-            if not os.path.exists("/userdata/system/configs/mame/" + messSysName[messMode] + "/"):
-                os.makedirs("/userdata/system/configs/mame/" + messSysName[messMode] + "/")
-        if not os.path.exists(cfgPath):
-            os.makedirs(cfgPath)
+                cfgBase += messSysName[messMode] + "/"
 
         # MAME will create custom configs per game for MAME ROMs and MESS ROMs with no system attached (LCD games, TV games, etc.)
         # This will allow an alternate config path per game for MESS console/computer ROMs that may need additional config.
         if system.isOptSet("pergamecfg") and system.getOptBoolean("pergamecfg"):
-            if not messMode == -1:
-                if not messSysName[messMode] == "":
-                    if not os.path.exists("/userdata/system/configs/mame/" + messSysName[messMode] + "/"):
-                        os.makedirs("/userdata/system/configs/mame/" + messSysName[messMode]+ "/")
-                    cfgPath = "/userdata/system/configs/mame/" + messSysName[messMode]+ "/" + romBasename + "/"
-                    if not os.path.exists(cfgPath):
-                        os.makedirs(cfgPath)
+            cfgBase += romBasename + "/"
+        if not os.path.exists(cfgBase):
+            os.makedirs(cfgBase)
+        cfgPath = cfgBase+"cfg/"
+        if not os.path.exists(cfgPath):
+            os.makedirs(cfgPath)
+
         commandArray += [ "-cfg_directory"   ,    cfgPath ]
-        commandArray += [ "-input_directory" ,    "/userdata/saves/mame/input/" ]
-        commandArray += [ "-state_directory" ,    "/userdata/saves/mame/state/" ]
+        commandArray += [ "-input_directory" ,    cfgBase+"input/" ]
+        commandArray += [ "-state_directory" ,    cfgBase+"state/" ]
         commandArray += [ "-snapshot_directory" , "/userdata/screenshots/" ]
-        commandArray += [ "-diff_directory" ,     "/userdata/saves/mame/diff/" ]
-        commandArray += [ "-comment_directory",   "/userdata/saves/mame/comments/" ]
-        commandArray += [ "-homepath" ,           "/userdata/saves/mame/plugins/" ]
-        commandArray += [ "-ctrlrpath" ,          "/userdata/system/configs/mame/ctrlr/" ]
-        commandArray += [ "-inipath" ,            "/userdata/system/configs/mame/;/userdata/system/configs/mame/ini/" ]
+        commandArray += [ "-diff_directory" ,     cfgBase+"diff/" ]
+        commandArray += [ "-comment_directory",   cfgBase+"comments/" ]
+        commandArray += [ "-homepath" ,           cfgBase+"plugins/" ]
+        commandArray += [ "-ctrlrpath" ,          cfgBase+"ctrlr/" ]
+        commandArray += [ "-inipath" ,            cfgBase+"ini/" ]
         commandArray += [ "-crosshairpath" ,      "/userdata/bios/mame/artwork/crosshairs/" ]
         if softList != "":
             commandArray += [ "-swpath" ,        softDir ]
@@ -337,7 +332,7 @@ class MameGenerator(Generator):
                 if system.isOptSet('addblankdisk') and system.getOptBoolean('addblankdisk'):
                     if system.name == 'fmtowns':
                         blankDisk = '/usr/share/mame/blank.fmtowns'
-                        targetFolder = '/userdata/saves/mame/{}'.format(system.name)
+                        targetFolder = '/userdata/saves/mame/groovy/{}'.format(system.name)
                         targetDisk = '{}/{}.fmtowns'.format(targetFolder, os.path.splitext(romBasename)[0])
                     # Add elif statements here for other systems if enabled
                     if not os.path.exists(targetFolder):

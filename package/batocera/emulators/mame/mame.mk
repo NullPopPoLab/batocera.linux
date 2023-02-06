@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Release 0.242
-MAME_VERSION = 35700276bd79a34e9e05ebdfa66abb45e1e4c8fa
+MAME_VERSION = 05990b83feeb1c792536016290828f47306032cf
 MAME_SITE = https://github.com/NullPopPoLab/GroovyMAME
 MAME_SITE_METHOD=git
 MAME_DEPENDENCIES = sdl2 sdl2_ttf zlib libpng fontconfig sqlite jpeg flac rapidjson expat glm

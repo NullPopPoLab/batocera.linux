@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version: Commits on Jan 6, 2023
-LIBRETRO_SCUMMVM_VERSION = 4da739e26e43de2e7fd2efbf4c026c6b14493c09
+LIBRETRO_SCUMMVM_VERSION = 89731516d30d0fe109d099b6a382d3cdf451dd87
 LIBRETRO_SCUMMVM_SITE = https://github.com/libretro/scummvm
 LIBRETRO_SCUMMVM_SITE_METHOD=git
 LIBRETRO_SCUMMVM_GIT_SUBMODULES=YES

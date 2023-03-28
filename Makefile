@@ -178,6 +178,11 @@ dl-dir:
 	$(if $(PKG),,$(error "PKG not specified!"))
 	@$(MAKE) $*-build CMD=$(PKG)
 
+%-pkg-clean:
+	$(if $(PKG),,$(error "PKG not specified!"))
+	rm -rf $(OUTPUT_DIR)/$*/build/$(PKG)
+	find $(OUTPUT_DIR)/$*/build -maxdepth 1 -type d -name "$(PKG)-*" -exec rm -rf {} \;
+
 %-pkg-unstamp:
 	$(if $(PKG),,$(error "PKG not specified!"))
 	rm -f $(OUTPUT_DIR)/$*/build/$(PKG)/.stamp_rsynced

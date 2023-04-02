@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version: Commits on Mar 24, 2022
-LIBRETRO_PPSSPP_VERSION = 10b5038093dc10c59a66c2586448ef6ffa262612
+LIBRETRO_PPSSPP_VERSION = 371ea76f970a6b257692be83597aeefe8f1df437
 LIBRETRO_PPSSPP_SITE = https://github.com/NullPopPoLab/ppsspp.git
 LIBRETRO_PPSSPP_SITE_METHOD=git
 LIBRETRO_PPSSPP_GIT_SUBMODULES=YES

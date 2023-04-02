@@ -516,10 +516,10 @@ psp:
   manufacturer: Sony
   release: 2004
   hardware: portable
-  extensions: [iso, cso, pbp]
+  extensions: [iso, cso, m3u, pbp]
   emulators:
     ppsspp:
-      ppsspp: { requireAnyOf: [BR2_PACKAGE_PPSSPP]  }
+      ppsspp: { requireAnyOf: [BR2_PACKAGE_PPSSPP], incompatible_extensions: [m3u] }
     libretro:
       ppsspp:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_PPSSPP] }
   comment_en: |

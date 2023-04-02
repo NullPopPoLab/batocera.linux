@@ -23,9 +23,9 @@ hatstoname = {'1': 'up', '2': 'right', '4': 'down', '8': 'left'}
 # Systems to swap Disc/CD : Atari ST / Amstrad CPC / AMIGA 500 1200 / DOS / MSX / PC98 / X68000 / Commodore 64 128 Plus4 | Dreamcast / PSX / Saturn / SegaCD / 3DO
 # Systems with internal mapping : PC88 / FDS | No multi-disc support : opera / yabasanshiro | No m3u support : PicoDrive
 # (NullPopPoCustom) Additional Systems to swap Disc/CD : PC-Engine / X1 / PS2 / PC88 / FDS (internal mapping is obsoleted) 
-# (NullPopPoCustom) Additional m3u support: PicoDrive / X1
+# (NullPopPoCustom) Additional m3u support: PicoDrive / X1 / PPSSPP
 # (NullPopPoCustom) 2 disk drives support : MSX / PC88 / PC98 / X1 / X68000
-coreWithSwapSupport = {'hatari', 'cap32', 'bluemsx', 'dosbox_pure', 'flycast', 'np2kai', 'puae', 'px68k', 'vice_x64', 'vice_x64sc', 'vice_xplus4', 'vice_x128', 'pcsx_rearmed', 'duckstation', 'mednafen_psx', 'beetle-saturn', 'genesisplusgx', 'picodrive', 'pce', 'pce_fast', 'fceumm', 'nestopia', 'quasi88', 'x1','pcsx2'};
+coreWithSwapSupport = {'hatari', 'cap32', 'bluemsx', 'dosbox_pure', 'flycast', 'np2kai', 'puae', 'px68k', 'vice_x64', 'vice_x64sc', 'vice_xplus4', 'vice_x128', 'pcsx_rearmed', 'duckstation', 'mednafen_psx', 'beetle-saturn', 'genesisplusgx', 'picodrive', 'pce', 'pce_fast', 'fceumm', 'nestopia', 'quasi88', 'x1','pcsx2', 'ppsspp'};
 systemToSwapDisable = {'amigacd32', 'amigacdtv', 'naomi', 'atomiswave', 'megadrive', 'mastersystem', 'gamegear'}
 secondDiskDriveSupport = {'bluemsx','quasi88','np2kai','px68k','x1'}
 

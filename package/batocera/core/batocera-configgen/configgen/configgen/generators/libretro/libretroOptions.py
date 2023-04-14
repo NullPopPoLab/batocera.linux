@@ -981,6 +981,41 @@ def generateCoreSettings(coreSettings, system, rom):
             f.write("video_driver = \"glcore\"\n")
             f.close()
 
+        if system.isOptSet('citra_is_new_3ds'):
+            coreSettings.save('citra_is_new_3ds', system.config['citra_is_new_3ds'])
+        else:
+            coreSettings.save('citra_is_new_3ds', '"New 3DS"')
+
+        if system.isOptSet('citra_region_value'):
+            coreSettings.save('citra_region_value', system.config['citra_region_value'])
+        else:
+            coreSettings.save('citra_region_value', '"Auto"')
+
+        if system.isOptSet('citra_control_style'):
+            coreSettings.save('citra_control_style', system.config['citra_control_style'])
+        else:
+            coreSettings.save('citra_control_style', '"SlidePad"')
+
+        if system.isOptSet('citra_mouse_touchscreen'):
+            coreSettings.save('citra_mouse_touchscreen', system.config['citra_mouse_touchscreen'])
+        else:
+            coreSettings.save('citra_mouse_touchscreen', '"enabled"')
+
+        if system.isOptSet('citra_slow_stick_speed'):
+            coreSettings.save('citra_slow_stick_speed', system.config['citra_slow_stick_speed'])
+        else:
+            coreSettings.save('citra_slow_stick_speed', '"0.1"')
+
+        if system.isOptSet('citra_fast_stick_speed'):
+            coreSettings.save('citra_fast_stick_speed', system.config['citra_fast_stick_speed'])
+        else:
+            coreSettings.save('citra_fast_stick_speed', '"0.8"')
+
+        if system.isOptSet('citra_deadzone'):
+            coreSettings.save('citra_deadzone', system.config['citra_deadzone'])
+        else:
+            coreSettings.save('citra_deadzone', '"10"')
+
     # Nintendo 64
     if (system.config['core'] == 'mupen64plus-next'):
         # Threaded Rendering

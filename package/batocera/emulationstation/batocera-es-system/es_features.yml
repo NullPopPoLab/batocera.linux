@@ -541,6 +541,103 @@ libretro:
             "After NMI":  After NMI
     citra:
       shared: [rewind, autosave]
+      cfeatures:
+        citra_is_new_3ds:
+            group: ADVANCED OPTIONS
+            prompt:      NEW 3DS MODE
+            description: The New 3DS has a faster processor, ZL/ZR buttons and a C-stick.
+            choices:
+                "Off": Old 3DS
+                "On": New 3DS
+        citra_region_value:
+            group: ADVANCED OPTIONS
+            prompt:      REGION
+            description: Select a country 
+            choices:
+                "Japan": Japan
+                "USA": USA
+                "Europe": Europe
+                "Australia": Australia
+                "China": China
+                "Korea": Korea
+                "Taiwan": Taiwan
+        citra_control_style:
+            group: ADVANCED OPTIONS
+            prompt:      CONTROL STYLE
+            description: Select a control method about both analog sticks
+            choices:
+                "SlidePad & SlowTouch": SlidePad
+                "FastTouch & SlowTouch": TwinTouchR
+                "SlowTouch & FastTouch": TwinTouchL
+                "SlidePad & CStick": CStick
+                "SlidePad & Motion": Motion
+        citra_fast_stick_speed:
+            group: ADVANCED OPTIONS
+            prompt:      FAST STICK SPEED
+            description: Customize fast stick speed for alternative control.
+            choices:
+                "0.03": 0.03
+                "0.05": 0.05
+                "0.07": 0.07
+                "0.1": 0.1
+                "0.2": 0.2
+                "0.3": 0.3
+                "0.4": 0.4
+                "0.5": 0.5
+                "0.6": 0.6
+                "0.7": 0.7
+                "0.8": 0.8
+                "0.9": 0.9
+                "1.0": 1.0
+                "1.2": 1.2
+                "1.5": 1.5
+                "2.0": 2.0
+        citra_slow_stick_speed:
+            group: ADVANCED OPTIONS
+            prompt:      SLOW STICK SPEED
+            description: Customize slow stick speed for alternative control.
+            choices:
+                "0.03": 0.03
+                "0.05": 0.05
+                "0.07": 0.07
+                "0.1": 0.1
+                "0.2": 0.2
+                "0.3": 0.3
+                "0.4": 0.4
+                "0.5": 0.5
+                "0.6": 0.6
+                "0.7": 0.7
+                "0.8": 0.8
+                "0.9": 0.9
+                "1.0": 1.0
+                "1.2": 1.2
+                "1.5": 1.5
+                "2.0": 2.0
+        citra_stick_deadzone:
+            group: ADVANCED OPTIONS
+            prompt:      STICK DEADZONE
+            description: Customize stick deadzone.
+            choices:
+                "none": 0
+                "1%": 1
+                "2%": 2
+                "5%": 5
+                "10%": 10
+                "15%": 15
+                "20%": 20
+                "25%": 25
+                "30%": 30
+                "35%": 35
+                "40%": 40
+                "45%": 45
+                "50%": 50
+        citra_mouse_touchscreen:
+            group: ADVANCED OPTIONS
+            prompt: USE MOUSE FOR TOUCHSCREEN
+            description: Control touchscreen by mouse.
+            choices:
+                "Off": disabled
+                "On": enabled
     daphne:
       features: [padtokeyboard]
     desmume:

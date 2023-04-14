@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version: Commits on Jul 30, 2021
-LIBRETRO_CITRA_VERSION = b1959d07a340bfd9af65ad464fd19eb6799a96ef
+LIBRETRO_CITRA_VERSION = c0edf5a1e145ecb7af0eeed008af890821bbd7f3
 LIBRETRO_CITRA_SITE = https://github.com/NullPopPoLab/citra.git
 LIBRETRO_CITRA_SITE_METHOD=git
 LIBRETRO_CITRA_GIT_SUBMODULES=YES

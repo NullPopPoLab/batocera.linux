@@ -1512,6 +1512,27 @@ def generateCoreSettings(coreSettings, system, rom):
             coreSettings.save('mesen_nospritelimit', '"' + system.config['mesen_nospritelimit'] + '"')
         else:
             coreSettings.save('mesen_nospritelimit', '"disabled"')
+        # Crop Overscan
+        if system.isOptSet('mesen_cropoverscan') and system.config['mesen_cropoverscan'] == "none":
+            coreSettings.save('mesen_overscan_up',    '"None"')
+            coreSettings.save('mesen_overscan_down',  '"None"')
+            coreSettings.save('mesen_overscan_left',  '"None"')
+            coreSettings.save('mesen_overscan_right', '"None"')
+        elif system.isOptSet('mesen_cropoverscan') and system.config['mesen_cropoverscan'] == "h":
+            coreSettings.save('mesen_overscan_up',    '"None"')
+            coreSettings.save('mesen_overscan_down',  '"None"')
+            coreSettings.save('mesen_overscan_left',  '"8px"')
+            coreSettings.save('mesen_overscan_right', '"8px"')
+        elif system.isOptSet('mesen_cropoverscan') and system.config['mesen_cropoverscan'] == "v":
+            coreSettings.save('mesen_overscan_up',    '"8px"')
+            coreSettings.save('mesen_overscan_down',  '"8px"')
+            coreSettings.save('mesen_overscan_left',  '"None"')
+            coreSettings.save('mesen_overscan_right', '"None"')
+        else:
+            coreSettings.save('mesen_overscan_up',    '"8px"')
+            coreSettings.save('mesen_overscan_down',  '"8px"')
+            coreSettings.save('mesen_overscan_left',  '"8px"')
+            coreSettings.save('mesen_overscan_right', '"8px"')
         # Palette
         if system.isOptSet('mesen_palette'):
             coreSettings.save('mesen_palette', '"' + system.config['mesen_palette'] + '"')

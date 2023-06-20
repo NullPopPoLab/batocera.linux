@@ -482,6 +482,15 @@ libretro:
           choices:
             "Off": Off
             "On":  On
+        mesen_cropoverscan:
+            group: ADVANCED OPTIONS
+            prompt:      CROP OVERSCAN
+            description: Zooms in to hide black borders. Borders are different per game.
+            choices:
+                "None":                 none
+                "Horizontal":           h
+                "Vertical":             v
+                "Both":                 both
         mesen_palette:
           prompt:      COLOR PALETTE
           choices:

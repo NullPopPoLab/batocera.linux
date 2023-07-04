@@ -622,7 +622,7 @@ libretro:
                 "1.2": 1.2
                 "1.5": 1.5
                 "2.0": 2.0
-        citra_stick_deadzone:
+        citra_deadzone:
             group: ADVANCED OPTIONS
             prompt:      STICK DEADZONE
             description: Customize stick deadzone.

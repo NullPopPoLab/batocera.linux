@@ -1014,7 +1014,7 @@ def generateCoreSettings(coreSettings, system, rom):
         if system.isOptSet('citra_deadzone'):
             coreSettings.save('citra_deadzone', system.config['citra_deadzone'])
         else:
-            coreSettings.save('citra_deadzone', '"10"')
+            coreSettings.save('citra_deadzone', '"2"')
 
     # Nintendo 64
     if (system.config['core'] == 'mupen64plus-next'):

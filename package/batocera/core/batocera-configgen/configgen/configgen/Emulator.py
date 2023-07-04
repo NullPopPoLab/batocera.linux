@@ -7,6 +7,8 @@ import shlex
 from utils.logger import get_logger
 import yaml
 import collections
+import json
+import io
 
 eslog = get_logger(__name__)
 
@@ -28,9 +30,32 @@ class Emulator():
         # load configuration from batocera.conf
         recalSettings = UnixSettings(batoceraFiles.batoceraConf)
         globalSettings = recalSettings.loadAll('global')
+
         systemSettings = recalSettings.loadAll(self.name)
+        sysSetFile=batoceraFiles.SAVES+'/'+self.name+'/conf.json'
+        print('sysSetFile: '+sysSetFile)
+        if os.path.isfile(sysSetFile):
+            print('found: '+sysSetFile)
+            with open(sysSetFile) as f: systemSettings.update(json.load(f))
+
         folderSettings = recalSettings.loadAll(self.name + ".folder[\"" + os.path.dirname(rom) + "\"]")
+        lv=[]
+        for s in gsname.split('/'):
+            lv.append(s)
+            dir=batoceraFiles.SAVES+'/'+self.name+'/'+'/'.join(lv)
+            dirSetFile=dir+'/conf.json'
+            print('dirSetFile: '+dirSetFile)
+            if not os.path.isdir(dir): break
+            if not os.path.isfile(dirSetFile): continue
+            print('found: '+dirSetFile)
+            with open(dirSetFile) as f: folderSettings.update(json.load(f))
+
         gameSettings = recalSettings.loadAll(self.name + "[\"" + gsname + "\"]")
+        gameSetFile = batoceraFiles.SAVES+'/'+self.name+'/'+os.path.splitext(gsname)[0]+'/conf.json'
+        print('gameSetFile: '+gameSetFile)
+        if os.path.isfile(gameSetFile):
+            print('found: '+gameSetFile)
+            with open(gameSetFile) as f: gameSettings.update(json.load(f))
 
         # add some other options
         displaySettings = recalSettings.loadAll('display')

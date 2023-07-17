@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Oct 16, 2021
-LIBRETRO_KRONOS_VERSION = e94a8b725854c1525840fa17fab56120d2e9fea6
+LIBRETRO_KRONOS_VERSION = aa9a1087ffb0bf89efd3433f9a09686cae2a9df3
 LIBRETRO_KRONOS_SITE = https://github.com/NullPopPoLab/yabause
 LIBRETRO_KRONOS_SITE_METHOD=git
 LIBRETRO_KRONOS_LICENSE = BSD-3-Clause

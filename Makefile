@@ -114,6 +114,10 @@ dl-dir:
 		$(DOCKER_REPO)/$(IMAGE_NAME) \
 		make $(MAKE_OPTS) O=/$* BR2_EXTERNAL=/build -C /build/buildroot $(CMD)
 
+%-build-redate:
+	@$(MAKE) $*-pkg-unstamp PKG=batocera-system
+	@$(MAKE) $*-build
+
 %-source: batocera-docker-image %-config ccache-dir dl-dir
 	@$(DOCKER) run -t --init --rm \
 		-v $(PROJECT_DIR):/build \
@@ -174,10 +178,36 @@ dl-dir:
 	$(if $(PKG),,$(error "PKG not specified!"))
 	@$(MAKE) $*-build CMD=$(PKG)
 
+%-pkg-clean:
+	$(if $(PKG),,$(error "PKG not specified!"))
+	rm -rf $(OUTPUT_DIR)/$*/build/$(PKG)
+	find $(OUTPUT_DIR)/$*/build -maxdepth 1 -type d -name "$(PKG)-*" -exec rm -rf {} \;
+
+%-pkg-unstamp:
+	$(if $(PKG),,$(error "PKG not specified!"))
+	rm -f $(OUTPUT_DIR)/$*/build/$(PKG)/.stamp_rsynced
+	rm -f $(OUTPUT_DIR)/$*/build/$(PKG)/.stamp_built
+	rm -f $(OUTPUT_DIR)/$*/build/$(PKG)/.stamp_installed
+	find $(OUTPUT_DIR)/$*/build -maxdepth 1 -type d -name "$(PKG)-*" -exec rm -f {}/.stamp_downloaded \;
+	find $(OUTPUT_DIR)/$*/build -maxdepth 1 -type d -name "$(PKG)-*" -exec rm -f {}/.stamp_built \;
+	find $(OUTPUT_DIR)/$*/build -maxdepth 1 -type d -name "$(PKG)-*" -exec rm -f {}/.stamp_installed \;
+
+%-pkg-again:
+	$(if $(PKG),,$(error "PKG not specified!"))
+	@$(MAKE) $*-pkg-unstamp PKG=$(PKG)
+	@$(MAKE) $*-build CMD=$(PKG)
+
 %-webserver: output-dir-%
 	$(if $(wildcard $(OUTPUT_DIR)/$*/images/batocera/*),,$(error "$* not built!"))
 	$(if $(shell which python 2>/dev/null),,$(error "python not found!"))
 	@python3 -m http.server --directory $(OUTPUT_DIR)/$*/images/batocera/images/$*/
+
+%-ezserver: output-dir-%
+	$(if $(wildcard $(OUTPUT_DIR)/$*/images/batocera/*),,$(error "$* not built!"))
+	$(if $(shell which python 2>/dev/null),,$(error "python not found!"))
+	@mkdir -p $(OUTPUT_DIR)/_ezserver/$*/beta
+	@ln -fs ../../../$*/images/batocera/images/$* $(OUTPUT_DIR)/_ezserver/$*/beta/last
+	@python3 -m http.server --directory $(OUTPUT_DIR)/_ezserver/
 
 %-rsync: output-dir-%
 	$(eval TMP := $(call UC, $*)_IP)

@@ -75,7 +75,6 @@ dl-dir:
 %-clean: batocera-docker-image output-dir-%
 	@$(DOCKER) run -t --init --rm \
 		-v $(PROJECT_DIR):/build \
-		-v $(DL_DIR):/build/buildroot/dl \
 		-v $(OUTPUT_DIR)/$*:/$* \
 		-v /etc/passwd:/etc/passwd:ro \
 		-v /etc/group:/etc/group:ro \

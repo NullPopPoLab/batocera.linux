@@ -75,7 +75,6 @@ dl-dir:
 %-clean: batocera-docker-image output-dir-%
 	@$(DOCKER) run -t --init --rm \
 		-v $(PROJECT_DIR):/build \
-		-v $(DL_DIR):/build/buildroot/dl \
 		-v $(OUTPUT_DIR)/$*:/$* \
 		-v /etc/passwd:/etc/passwd:ro \
 		-v /etc/group:/etc/group:ro \
@@ -188,7 +187,6 @@ dl-dir:
 	rm -f $(OUTPUT_DIR)/$*/build/$(PKG)/.stamp_rsynced
 	rm -f $(OUTPUT_DIR)/$*/build/$(PKG)/.stamp_built
 	rm -f $(OUTPUT_DIR)/$*/build/$(PKG)/.stamp_installed
-	find $(OUTPUT_DIR)/$*/build -maxdepth 1 -type d -name "$(PKG)-*" -exec rm -f {}/.stamp_downloaded \;
 	find $(OUTPUT_DIR)/$*/build -maxdepth 1 -type d -name "$(PKG)-*" -exec rm -f {}/.stamp_built \;
 	find $(OUTPUT_DIR)/$*/build -maxdepth 1 -type d -name "$(PKG)-*" -exec rm -f {}/.stamp_installed \;
 

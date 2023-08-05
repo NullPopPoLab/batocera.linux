@@ -208,6 +208,11 @@ dl-dir:
 	@$(MAKE) $*-pkg-unstamp PKG=$(PKG)
 	@$(MAKE) $*-build CMD=$(PKG)
 
+%-pkg-again-full:
+	$(if $(PKG),,$(error "PKG not specified!"))
+	@$(MAKE) $*-pkg-clean PKG=$(PKG)
+	@$(MAKE) $*-build CMD=$(PKG)
+
 %-webserver: output-dir-%
 	$(if $(wildcard $(OUTPUT_DIR)/$*/images/batocera/*),,$(error "$* not built!"))
 	$(if $(shell which python 2>/dev/null),,$(error "python not found!"))

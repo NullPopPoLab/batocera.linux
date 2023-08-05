@@ -9399,7 +9399,7 @@ wine:
                 "Welsh":   "cy_GB"
                 "German":   "de"
                 "Greek":   "el"
-                "BritishEnglish":   "en_GB"
+                "British English":   "en_GB"
                 "American English":   "en_US"
                 "Spanish":   "es"
                 "Mexican Spanish":   "es_MX"
@@ -9422,6 +9422,12 @@ wine:
                 "Ukrainian":   "uk_UA"
                 "Simplified Chinese":   "zh_CN"
                 "Traditional Chinese":   "zh_TW"
+        enable_gamepad:
+            prompt:      ENABLE GAMEPAD
+            description: Use gamepad detected via Batocera (detected via Wine always enabled)
+            choices:
+                "Off": 0
+                "On":  1
         dxvk:
             group: ADVANCED OPTIONS
             prompt:      DXVK FEATURE

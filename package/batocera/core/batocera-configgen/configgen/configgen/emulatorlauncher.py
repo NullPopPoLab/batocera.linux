@@ -581,7 +581,6 @@ def runCommand(command):
     env={}
     env.update(os.environ)
     env.update(command.env)
-    command.env.update(os.environ)
     eslog.debug("command: {}".format(str(command)))
     eslog.debug("command: {}".format(str(command.array)))
     eslog.debug("env: {}".format(str(env)))

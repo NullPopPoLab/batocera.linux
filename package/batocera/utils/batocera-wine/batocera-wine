@@ -71,6 +71,59 @@ waitWineServer() {
     done
 }
 
+GAMEISOMOUNT=""
+GAMEISODRIVE=""
+
+unmount_iso() {
+
+	if test -n "${GAMEISODRIVE}"
+	then
+		echo "unlink ${GAMEISODRIVE}" >&2
+
+		rm -f "${GAMEISODRIVE}"
+		GAMEISODRIVE=""
+	fi
+
+	if test -n "${GAMEISOMOUNT}"
+	then
+		echo "unmount ${GAMEISOMOUNT}" >&2
+
+		umount "${GAMEISOMOUNT}"
+		rmdir "${GAMEISOMOUNT}"
+		GAMEISOMOUNT=""
+		echo "unmount done" >&2
+	fi
+}
+
+mount_iso() {
+
+	unmount_iso
+
+	echo "" >&2
+
+	DRIVE="$1"
+	DISC="$2"
+	echo "game disc: ${DISC}" >&2
+
+	GAMEISOMOUNT="/var/run/wine/drive_${DRIVE}.cdrom"
+	echo "mount point: ${GAMEISOMOUNT}" >&2
+
+	mkdir -p "${GAMEISOMOUNT}" || return 1
+	if ! mount -t iso9660 "${DISC}" "${GAMEISOMOUNT}"
+	then
+		if ! mount -t udf "${DISC}" "${GAMEISOMOUNT}"
+		then
+			echo "cannot mount: ${DISC}" >&2
+			return 1
+		fi
+	fi
+
+	GAMEISODRIVE="${WINEPOINT}/dosdevices/${DRIVE}:"
+	echo "drive path: ${GAMEISODRIVE}" >&2
+	ln -sf "${GAMEISOMOUNT}" "${GAMEISODRIVE}"
+	echo "mount done" >&2
+}
+
 wine_options() {
     WINEPOINT=$1
     ESYNC="$(get_setting esync "${SYSTEM}" "${ROMGAMENAME}")"
@@ -676,35 +729,21 @@ install_msi() {
 install_iso() {
     GAMENAME=$1
     BASEGAMENAME=$(basename_no_dup "${GAMENAME}")
-    GAMEISOMOUNT="/var/run/wine/${BASEGAMENAME}.cdrom"
     INSTALLERISO="${GAMENAME}"
 
-    mkdir -p "${GAMEISOMOUNT}" || return 1
-    if ! mount -t iso9660 "${INSTALLERISO}" "${GAMEISOMOUNT}"
-    then
-        if ! mount -t udf "${INSTALLERISO}" "${GAMEISOMOUNT}"
-        then
-            rmdir "${GAMEISOMOUNT}"
-            return 1
-        fi
-    fi
-
     WINEPOINT=$(echo "${G_ROMS_DIR}/${BASEGAMENAME}" | sed -e s+"\.iso$"++)".wine"
-
     createWineDirectory "${WINEPOINT}"
-    
-    if mkdir -p "${WINEPOINT}/dosdevices" && rm -f "${WINEPOINT}/dosdevices/d:" && ln -sf "${GAMEISOMOUNT}" "${WINEPOINT}/dosdevices/d:"
-    then
-	    WINEPREFIX=${WINEPOINT} wine explorer "d:"
-	    rm -f "${WINEPOINT}/dosdevices/d:"
-    fi
 
-    waitWineServer
-    init_cmd "${WINEPOINT}"
+	mount_iso d "${INSTALLERISO}"
 
-    # try to clean the cdrom
-    umount "${GAMEISOMOUNT}"
-    rmdir "${GAMEISOMOUNT}"
+	if test -n "${GAMEISODRIVE}"
+	then
+		WINEPREFIX=${WINEPOINT} wine explorer "d:"
+		waitWineServer
+		init_cmd "${WINEPOINT}"
+	fi
+
+	unmount_iso
 }
 
 wine2squashfs() {

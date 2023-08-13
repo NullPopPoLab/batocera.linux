@@ -57,6 +57,8 @@ export SPA_PLUGIN_DIR="/usr/lib/spa-0.2:/lib32/spa-0.2"
 export PIPEWIRE_MODULE_DIR="/usr/lib/pipewire-0.3:/lib32/pipewire-0.3"
 
 GAMESPECIFICDRIVE=""
+GAMEISOMOUNT=""
+GAMEISODRIVE=""
 
 usage() {
     echo "${1} windows play    	     <game>.iso"             >&2
@@ -80,9 +82,6 @@ waitWineServer() {
     done
 }
 
-GAMEISOMOUNT=""
-GAMEISODRIVE=""
-
 unmount_iso() {
 
 	if test -n "${GAMEISODRIVE}"
@@ -100,7 +99,7 @@ unmount_iso() {
 		umount "${GAMEISOMOUNT}"
 		rmdir "${GAMEISOMOUNT}"
 		GAMEISOMOUNT=""
-		echo "unmount done" >&2
+		echo "unmount_iso done" >&2
 	fi
 }
 
@@ -115,7 +114,6 @@ mount_iso() {
 		return 0
 	fi
 
-	echo "" >&2
 	echo "game disc: ${DISC}" >&2
 
 	GAMEISOMOUNT="/var/run/wine/drive_${DRIVE}.cdrom"
@@ -132,9 +130,9 @@ mount_iso() {
 	fi
 
 	GAMEISODRIVE="${WINEPOINT}/dosdevices/${DRIVE}:"
-	echo "drive path: ${GAMEISODRIVE}" >&2
+	echo "disc path: ${GAMEISODRIVE}" >&2
 	ln -sf "${GAMEISOMOUNT}" "${GAMEISODRIVE}"
-	echo "mount done" >&2
+	echo "mount_iso done" >&2
 }
 
 unmount_game() {
@@ -846,6 +844,8 @@ cleanAndExit() {
     if test -e "${GST_REGISTRY_1_0}"; then
         rm -f "${GST_REGISTRY_1_0}"
     fi
+
+	unmount_iso
 	unmount_game
 
     exit "${1}"

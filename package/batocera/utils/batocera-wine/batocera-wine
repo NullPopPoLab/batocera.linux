@@ -578,6 +578,7 @@ play_exe() {
     sandboxing_prefix "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
+	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
 	mount_game y "${GAMEDIR}/${BASEGAMENAME}"
 
     (cd "${GAMEDIR}" && WINEPREFIX=${WINEPOINT} wine "${GAMEEXE}")

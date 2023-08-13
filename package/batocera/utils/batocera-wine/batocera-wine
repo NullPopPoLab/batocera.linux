@@ -14,7 +14,13 @@ get_setting() {
 GAMENAME=$1 
 ROMGAMENAME=$(basename "${GAMENAME}")
 WINE_VERSION="$(get_setting core "${SYSTEM}" "${ROMGAMENAME}" || echo proton)"
-WINE_PROFILE="wine"
+
+if [ ${BATCERA_WINE_SAVES_EACH_CORE} -eq 1 ]
+then
+	WINE_PROFILE=${WINE_VERSION}
+else
+	WINE_PROFILE="wine"
+fi
 
 # Wine Folder
 wine_folder() {

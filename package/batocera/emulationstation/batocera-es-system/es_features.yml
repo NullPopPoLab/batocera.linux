@@ -9428,6 +9428,12 @@ wine:
             choices:
                 "Off": 0
                 "On":  1
+        winepoint_each_core:
+            prompt:      WINEPOINT EACH CORE
+            description: Creating Winepoint each cores.
+            choices:
+                "Off": 0
+                "On":  1
         dxvk:
             group: ADVANCED OPTIONS
             prompt:      DXVK FEATURE

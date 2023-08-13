@@ -161,6 +161,30 @@ mount_game() {
 	echo "mount_game done" >&2
 }
 
+unmount_root() {
+
+	ROOTDRIVE="${WINEPOINT}/dosdevices/z:"
+	if [ -L "${ROOTDRIVE}" ]
+	then
+		rm -f "${ROOTDRIVE}"
+	fi
+}
+
+mount_root() {
+
+	DRIVE="$1"
+	ENABLITY="$2"
+	ROOTDRIVE="${WINEPOINT}/dosdevices/${DRIVE}:"
+
+	if [ "${ENABLITY}" != "1" ]
+	then
+		unmount_root
+	elif [ ! -L "${ROOTDRIVE}" ]
+	then
+		ln -sf / "${ROOTDRIVE}"
+	fi
+}
+
 wine_options() {
     WINEPOINT=$1
     ESYNC="$(get_setting esync "${SYSTEM}" "${ROMGAMENAME}")"
@@ -540,6 +564,7 @@ play_wine() {
     fonts_install "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
+	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
 	mount_iso d "${WINEPOINT}/disc01.iso"
 
     WINE_CMD=$(getWine_var "${WINEPOINT}" "CMD" "explorer")
@@ -570,6 +595,7 @@ play_pc() {
     sandboxing_prefix "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
+	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
 	mount_game y "${G_ROMS_DIR}/${BASEGAMENAME}"
 	mount_iso d "${G_ROMS_DIR}/${BASEGAMENAME}/disc01.iso"
 
@@ -653,6 +679,7 @@ play_winetgz() {
     fonts_install "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
+	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
 	mount_iso d "${WINEPOINT}/disc01.iso"
 
     WINE_CMD=$(getWine_var "${WINEPOINT}" "CMD" "explorer")
@@ -713,6 +740,7 @@ play_squashfs() {
     fonts_install "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
+	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
 	mount_iso d "${WINEPOINT}/disc01.iso"
 
     WINE_CMD=$(getWine_var "${WINEPOINT}" "CMD" "explorer")
@@ -771,6 +799,8 @@ install_exe() {
 
     createWineDirectory "${WINEPOINT}"
 
+	mount_root z "1"
+
     (cd "${GAMEDIR}" && WINEPREFIX=${WINEPOINT} wine "${INSTALLERFILE}")
     waitWineServer
     init_cmd "${WINEPOINT}"
@@ -785,6 +815,8 @@ install_msi() {
 
     createWineDirectory "${WINEPOINT}"
 
+	mount_root z "1"
+
     (cd "${GAMEDIR}" && WINEPREFIX=${WINEPOINT} "${MSIEXEC}" /i "${INSTALLERFILE}")
     waitWineServer
     init_cmd "${WINEPOINT}"
@@ -798,6 +830,7 @@ install_iso() {
     WINEPOINT=$(echo "${G_ROMS_DIR}/${BASEGAMENAME}" | sed -e s+"\.iso$"++)".wine"
     createWineDirectory "${WINEPOINT}"
 
+	mount_root z "1"
 	mount_iso d "${INSTALLERISO}"
 
 	if test -n "${GAMEISODRIVE}"
@@ -847,6 +880,7 @@ cleanAndExit() {
 
 	unmount_iso
 	unmount_game
+	unmount_root
 
     exit "${1}"
     # TODO : unmount always, trap, later

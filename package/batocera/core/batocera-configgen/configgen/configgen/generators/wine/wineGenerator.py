@@ -22,6 +22,8 @@ class WineGenerator(Generator):
 
         if 'lang' in system.config and system.config['lang'] != '':
             cmd.env['LANG']=cmd.env['LC_ALL']=system.config['lang']+'.UTF-8'
+        if 'enable_rootdrive' in system.config and system.config['enable_rootdrive'] != '':
+            cmd.env['BATOCERA_WINE_USE_ROOTDRIVE']=system.config['enable_rootdrive']
         if 'winepoint_each_core' in system.config and system.config['winepoint_each_core'] != '':
             cmd.env['BATCERA_WINE_SAVES_EACH_CORE']=system.config['winepoint_each_core']
 

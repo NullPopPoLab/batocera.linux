@@ -48,6 +48,8 @@ export WINEDLLPATH="${DIR}/${WINE_VERSION}/lib/wine/i386-windows:${DIR}/${WINE_V
 export SPA_PLUGIN_DIR="/usr/lib/spa-0.2:/lib32/spa-0.2"
 export PIPEWIRE_MODULE_DIR="/usr/lib/pipewire-0.3:/lib32/pipewire-0.3"
 
+GAMESPECIFICDRIVE=""
+
 usage() {
     echo "${1} windows play    	     <game>.iso"             >&2
     echo "${1} windows play    	     <game>.exe"             >&2

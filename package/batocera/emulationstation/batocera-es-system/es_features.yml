@@ -10043,6 +10043,12 @@ wine:
             choices:
                 "Off":          0
                 "On (Default)": 1
+        enable_rootdrive:
+            prompt:      ENABLE ROOT DRIVE
+            description: Use Z drive for root directory
+            choices:
+                "Off": 0
+                "On":  1
         dxvk:
             group: ADVANCED OPTIONS
             prompt:      DXVK FEATURE

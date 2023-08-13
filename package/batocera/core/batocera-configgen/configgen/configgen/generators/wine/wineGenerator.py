@@ -25,7 +25,7 @@ class WineGenerator(Generator):
         if 'enable_rootdrive' in system.config and system.config['enable_rootdrive'] != '':
             cmd.env['BATOCERA_WINE_USE_ROOTDRIVE']=system.config['enable_rootdrive']
         if 'winepoint_each_core' in system.config and system.config['winepoint_each_core'] != '':
-            cmd.env['BATCERA_WINE_SAVES_EACH_CORE']=system.config['winepoint_each_core']
+            cmd.env['BATOCERA_WINE_SAVES_EACH_CORE']=system.config['winepoint_each_core']
 
         return cmd
 

@@ -15,7 +15,7 @@ GAMENAME=$1
 ROMGAMENAME=$(basename "${GAMENAME}")
 WINE_VERSION="$(get_setting core "${SYSTEM}" "${ROMGAMENAME}" || echo proton)"
 
-if [ ${BATCERA_WINE_SAVES_EACH_CORE} -eq 1 ]
+if [ "${BATOCERA_WINE_SAVES_EACH_CORE}" = "1" ]
 then
 	WINE_PROFILE=${WINE_VERSION}
 else

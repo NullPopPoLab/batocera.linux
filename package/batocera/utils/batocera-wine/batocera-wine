@@ -500,7 +500,8 @@ play_pc() {
     sandboxing_prefix "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
-	mount_game y "${G_ROMS_DIR}/${BASEGAMENAME}"    WINE_CMD=$(getWine_var "${GAMENAME}" "CMD" "explorer")
+	mount_game y "${G_ROMS_DIR}/${BASEGAMENAME}"
+    WINE_CMD=$(getWine_var "${GAMENAME}" "CMD" "explorer")
     WINE_DIR=$(getWine_var "${GAMENAME}" "DIR" "")
     WINE_LANG=$(getWine_var "${GAMENAME}" "LANG" "")
     if test -n "${WINE_LANG}"
@@ -549,7 +550,9 @@ play_exe() {
     sandboxing_prefix "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
-	mount_game y "${GAMEDIR}/${BASEGAMENAME}"    (cd "${GAMEDIR}" && WINEPREFIX=${WINEPOINT} wine "${GAMEEXE}")
+	mount_game y "${GAMEDIR}/${BASEGAMENAME}"
+
+    (cd "${GAMEDIR}" && WINEPREFIX=${WINEPOINT} wine "${GAMEEXE}")
     waitWineServer
 	unmount_game
 }

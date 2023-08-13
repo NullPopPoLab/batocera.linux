@@ -71,6 +71,63 @@ waitWineServer() {
     done
 }
 
+GAMEISOMOUNT=""
+GAMEISODRIVE=""
+
+unmount_iso() {
+
+	if test -n "${GAMEISODRIVE}"
+	then
+		echo "unlink ${GAMEISODRIVE}" >&2
+
+		rm -f "${GAMEISODRIVE}"
+		GAMEISODRIVE=""
+	fi
+
+	if test -n "${GAMEISOMOUNT}"
+	then
+		echo "unmount ${GAMEISOMOUNT}" >&2
+
+		umount "${GAMEISOMOUNT}"
+		rmdir "${GAMEISOMOUNT}"
+		GAMEISOMOUNT=""
+		echo "unmount done" >&2
+	fi
+}
+
+mount_iso() {
+
+	unmount_iso
+
+	DRIVE="$1"
+	DISC="$2"
+	if [ ! -f "${DISC}" ]
+	then
+		return 0
+	fi
+
+	echo "" >&2
+	echo "game disc: ${DISC}" >&2
+
+	GAMEISOMOUNT="/var/run/wine/drive_${DRIVE}.cdrom"
+	echo "mount point: ${GAMEISOMOUNT}" >&2
+
+	mkdir -p "${GAMEISOMOUNT}" || return 1
+	if ! mount -t iso9660 "${DISC}" "${GAMEISOMOUNT}"
+	then
+		if ! mount -t udf "${DISC}" "${GAMEISOMOUNT}"
+		then
+			echo "cannot mount: ${DISC}" >&2
+			return 1
+		fi
+	fi
+
+	GAMEISODRIVE="${WINEPOINT}/dosdevices/${DRIVE}:"
+	echo "drive path: ${GAMEISODRIVE}" >&2
+	ln -sf "${GAMEISOMOUNT}" "${GAMEISODRIVE}"
+	echo "mount done" >&2
+}
+
 wine_options() {
     WINEPOINT=$1
     ESYNC="$(get_setting esync "${SYSTEM}" "${ROMGAMENAME}")"
@@ -449,6 +506,9 @@ play_wine() {
     mf_install "${WINEPOINT}" || return 1
     fonts_install "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
+
+	mount_iso d "${WINEPOINT}/disc01.iso"
+
     WINE_CMD=$(getWine_var "${WINEPOINT}" "CMD" "explorer")
     WINE_DIR=$(getWine_var "${WINEPOINT}" "DIR" "")
     WINE_LANG=$(getWine_var "${WINEPOINT}" "LANG" "")
@@ -459,6 +519,7 @@ play_wine() {
         (cd "${WINEPOINT}/${WINE_DIR}" && WINEPREFIX=${WINEPOINT} eval "${WINE} ${VDESKTOP} ${WINE_CMD}")
     fi
     waitWineServer
+	unmount_iso
 }
 
 play_pc() {
@@ -475,6 +536,8 @@ play_pc() {
     sandboxing_prefix "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
+	mount_iso d "${G_ROMS_DIR}/${BASEGAMENAME}/disc01.iso"
+
     WINE_CMD=$(getWine_var "${GAMENAME}" "CMD" "explorer")
     WINE_DIR=$(getWine_var "${GAMENAME}" "DIR" "")
     WINE_LANG=$(getWine_var "${GAMENAME}" "LANG" "")
@@ -485,6 +548,7 @@ play_pc() {
         (cd "${GAMENAME}/${WINE_DIR}" && WINEPREFIX=${WINEPOINT} eval "${WINE} ${VDESKTOP} ${WINE_CMD}")
     fi
     waitWineServer
+	unmount_iso
 }
 
 trick_wine() {
@@ -523,12 +587,16 @@ play_exe() {
     sandboxing_prefix "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
+	mount_iso d "${GAMEDIR}/disc01.iso"
+
     (cd "${GAMEDIR}" && WINEPREFIX=${WINEPOINT} wine "${GAMEEXE}")
     waitWineServer
+	unmount_iso
 }
 
 play_winetgz() {
     GAMENAME=$1
+    GAMEDIR=$(dirname "${GAMENAME}")
     WINEPOINT="${G_SAVES_DIR}/"$(basename "${GAMENAME}")".wine"
 
     wine_options "${WINEPOINT}"
@@ -545,6 +613,8 @@ play_winetgz() {
     fonts_install "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
+	mount_iso d "${WINEPOINT}/disc01.iso"
+
     WINE_CMD=$(getWine_var "${WINEPOINT}" "CMD" "explorer")
     WINE_DIR=$(getWine_var "${WINEPOINT}" "DIR" "")
     WINE_LANG=$(getWine_var "${WINEPOINT}" "LANG" "")
@@ -555,12 +625,15 @@ play_winetgz() {
         (cd "${WINEPOINT}/${WINE_DIR}" && WINEPREFIX=${WINEPOINT} eval "${WINE} ${VDESKTOP} ${WINE_CMD}")
     fi
     waitWineServer
+	unmount_iso
 }
 
 play_squashfs() {
     GAMENAME=$1
     BASEGAMENAME=$(basename "${GAMENAME}")
+    GAMEDIR=$(dirname "${GAMENAME}")
     WINEPOINT="/var/run/wine/${BASEGAMENAME}"
+
     wine_options "${WINEPOINT}"
     SQUASHFSPOINT="/var/run/wine/squashfs_${BASEGAMENAME}"
     SAVEPOINT="${G_SAVES_DIR}/${BASEGAMENAME}"
@@ -600,6 +673,8 @@ play_squashfs() {
     fonts_install "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
+	mount_iso d "${WINEPOINT}/disc01.iso"
+
     WINE_CMD=$(getWine_var "${WINEPOINT}" "CMD" "explorer")
     WINE_DIR=$(getWine_var "${WINEPOINT}" "DIR" "")
     WINE_LANG=$(getWine_var "${WINEPOINT}" "LANG" "")
@@ -610,6 +685,8 @@ play_squashfs() {
         (cd "${WINEPOINT}/${WINE_DIR}" && WINEPREFIX=${WINEPOINT} eval "${WINE} ${VDESKTOP} ${WINE_CMD}")
     fi
     waitWineServer
+	unmount_iso
+
     # wait 1 sec before unmounting
     sleep 1
 
@@ -676,35 +753,21 @@ install_msi() {
 install_iso() {
     GAMENAME=$1
     BASEGAMENAME=$(basename_no_dup "${GAMENAME}")
-    GAMEISOMOUNT="/var/run/wine/${BASEGAMENAME}.cdrom"
     INSTALLERISO="${GAMENAME}"
 
-    mkdir -p "${GAMEISOMOUNT}" || return 1
-    if ! mount -t iso9660 "${INSTALLERISO}" "${GAMEISOMOUNT}"
-    then
-        if ! mount -t udf "${INSTALLERISO}" "${GAMEISOMOUNT}"
-        then
-            rmdir "${GAMEISOMOUNT}"
-            return 1
-        fi
-    fi
-
     WINEPOINT=$(echo "${G_ROMS_DIR}/${BASEGAMENAME}" | sed -e s+"\.iso$"++)".wine"
-
     createWineDirectory "${WINEPOINT}"
-    
-    if mkdir -p "${WINEPOINT}/dosdevices" && rm -f "${WINEPOINT}/dosdevices/d:" && ln -sf "${GAMEISOMOUNT}" "${WINEPOINT}/dosdevices/d:"
-    then
-	    WINEPREFIX=${WINEPOINT} wine explorer "d:"
-	    rm -f "${WINEPOINT}/dosdevices/d:"
-    fi
 
-    waitWineServer
-    init_cmd "${WINEPOINT}"
+	mount_iso d "${INSTALLERISO}"
 
-    # try to clean the cdrom
-    umount "${GAMEISOMOUNT}"
-    rmdir "${GAMEISOMOUNT}"
+	if test -n "${GAMEISODRIVE}"
+	then
+		WINEPREFIX=${WINEPOINT} wine explorer "d:"
+		waitWineServer
+		init_cmd "${WINEPOINT}"
+	fi
+
+	unmount_iso
 }
 
 wine2squashfs() {

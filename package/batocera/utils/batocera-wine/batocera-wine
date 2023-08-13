@@ -71,6 +71,32 @@ waitWineServer() {
     done
 }
 
+unmount_game() {
+
+	if test -n "${GAMESPECIFICDRIVE}"
+	then
+		echo "unlink ${GAMESPECIFICDRIVE}" >&2
+
+		rm -f "${GAMESPECIFICDRIVE}"
+		GAMESPECIFICDRIVE=""
+		echo "unmount_game done" >&2
+	fi
+}
+
+mount_game() {
+
+	unmount_game
+
+	DRIVE="$1"
+	HOMEPOINT="$2"
+	echo "game dir: ${HOMEPOINT}" >&2
+
+	GAMESPECIFICDRIVE="${WINEPOINT}/dosdevices/${DRIVE}:"
+	echo "game path: ${GAMESPECIFICDRIVE}" >&2
+	ln -sf "${HOMEPOINT}" "${GAMESPECIFICDRIVE}"
+	echo "mount_game done" >&2
+}
+
 wine_options() {
     WINEPOINT=$1
     ESYNC="$(get_setting esync "${SYSTEM}" "${ROMGAMENAME}")"
@@ -475,7 +501,7 @@ play_pc() {
     sandboxing_prefix "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
-    WINE_CMD=$(getWine_var "${GAMENAME}" "CMD" "explorer")
+	mount_game y "${G_ROMS_DIR}/${BASEGAMENAME}"    WINE_CMD=$(getWine_var "${GAMENAME}" "CMD" "explorer")
     WINE_DIR=$(getWine_var "${GAMENAME}" "DIR" "")
     WINE_LANG=$(getWine_var "${GAMENAME}" "LANG" "")
     if test -n "${WINE_LANG}"
@@ -485,6 +511,7 @@ play_pc() {
         (cd "${GAMENAME}/${WINE_DIR}" && WINEPREFIX=${WINEPOINT} eval "${WINE} ${VDESKTOP} ${WINE_CMD}")
     fi
     waitWineServer
+	unmount_game
 }
 
 trick_wine() {
@@ -523,8 +550,9 @@ play_exe() {
     sandboxing_prefix "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
-    (cd "${GAMEDIR}" && WINEPREFIX=${WINEPOINT} wine "${GAMEEXE}")
+	mount_game y "${GAMEDIR}/${BASEGAMENAME}"    (cd "${GAMEDIR}" && WINEPREFIX=${WINEPOINT} wine "${GAMEEXE}")
     waitWineServer
+	unmount_game
 }
 
 play_winetgz() {
@@ -741,6 +769,7 @@ cleanAndExit() {
     if test -e "${GST_REGISTRY_1_0}"; then
         rm -f "${GST_REGISTRY_1_0}"
     fi
+	unmount_game
 
     exit "${1}"
     # TODO : unmount always, trap, later

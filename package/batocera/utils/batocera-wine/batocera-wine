@@ -561,6 +561,21 @@ TRICKSLOG="${QUICKINSTALLDIR}/tricks.txt.done"
     fi
 }
 
+set_bootup() {
+
+	if test -z $2
+	then
+		BOOTUPCMD="$1/boot/default.cmd"
+	else
+		BOOTUPCMD="$1/boot/$2.cmd"
+	fi
+
+    if [ -f "${BOOTUPCMD}" ]; then
+		echo "select to bootup: ${BOOTUPCMD}" >&2
+        cp "${BOOTUPCMD}" "$1/autorun.cmd"
+    fi
+}
+
 sandboxing_prefix() {
     if [ -d "${WINEPREFIX}/drive_c/users/steamuser" ]; then
         USERNAME=steamuser
@@ -632,6 +647,8 @@ play_wine() {
     WINEPOINT="${GAMENAME}"
 
     wine_options "${WINEPOINT}"
+	set_bootup "${WINEPOINT}" "${BATOCERA_WINE_BOOTUP}"
+
     redist_install "${WINEPOINT}" || return 1
     msi_install "${WINEPOINT}" || return 1
     reg_install "${WINEPOINT}" || return 1
@@ -660,8 +677,10 @@ play_pc() {
     GAMENAME=$1
     BASEGAMENAME=$(basename "${GAMENAME}")
     WINEPOINT="${G_SAVES_DIR}/${BASEGAMENAME}/${WINE_PROFILE}"
-    
+
     wine_options "${WINEPOINT}"
+	set_bootup "${G_ROMS_DIR}/${BASEGAMENAME}" "${BATOCERA_WINE_BOOTUP}"
+    
     createWineDirectory "${WINEPOINT}" || return 1
     redist_install "${WINEPOINT}" || return 1
     msi_install "${WINEPOINT}" || return 1
@@ -722,6 +741,8 @@ play_exe() {
     GAMEEXE=$(basename "${GAMENAME}")
 
     wine_options "${WINEPOINT}"
+	set_bootup "${GAMEDIR}" "${BATOCERA_WINE_BOOTUP}"
+
     createWineDirectory "${WINEPOINT}" || return 1
     redist_install "${WINEPOINT}" || return 1
     msi_install "${WINEPOINT}" || return 1
@@ -754,6 +775,8 @@ play_winetgz() {
 	    mkdir -p "${WINEPOINT}" || return 1
 	    (cd "${WINEPOINT}" && gunzip -c "${GAMENAME}" | tar xf -) || return 1
     fi
+
+	set_bootup "${WINEPOINT}" "${BATOCERA_WINE_BOOTUP}"
 
     redist_install "${WINEPOINT}" || return 1
     msi_install "${WINEPOINT}" || return 1
@@ -819,6 +842,8 @@ play_squashfs() {
 	    return 1
     fi
     
+	set_bootup "${WINEPOINT}" "${BATOCERA_WINE_BOOTUP}"
+
     reg_install "${WINEPOINT}" || return 1
     mf_install "${WINEPOINT}" || return 1
     fonts_install "${WINEPOINT}" || return 1

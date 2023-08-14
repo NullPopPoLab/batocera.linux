@@ -20,8 +20,6 @@ class WineGenerator(Generator):
 
         cmd.env['SDL_GAMECONTROLLERCONFIG']=controllersConfig.generateSdlGameControllerConfig(playersControllers)
 
-        if 'lang' in system.config and system.config['lang'] != '':
-            cmd.env['LANG']=cmd.env['LC_ALL']=system.config['lang']+'.UTF-8'
 
         return cmd
 

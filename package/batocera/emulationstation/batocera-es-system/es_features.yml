@@ -9424,7 +9424,7 @@ wine:
                 "Traditional Chinese":   "zh_TW"
         enable_gamepad:
             prompt:      ENABLE GAMEPAD
-            description: Use gamepad detected via Batocera (detected via Wine always enabled)
+            description: Use gamepad detected via Wine (PadToKey always enabled)
             choices:
                 "Off": 0
                 "On":  1

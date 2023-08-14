@@ -416,6 +416,28 @@ dxvk_install() {
     return 0
 }
 
+tricks_install() {
+WINEPREFIX=$1
+QUICKINSTALLDIR=${WINEPOINT}/${QUICKINSTALLSUBDIR}
+TRICKSFILE="${QUICKINSTALLDIR}/tricks.txt"
+TRICKSLOG="${QUICKINSTALLDIR}/tricks.txt.done"
+
+    if [ -f "${TRICKSFILE}" ]; then
+        echo "tricks file: ${TRICKSFILE}" >&2
+        echo "tricks log: ${TRICKSLOG}" >&2
+        install_winetricks
+        export DISPLAY=:0.0
+        while read line; do
+            line=`echo "${line}" | xargs`
+            echo "bgn trick: $line" >&2
+            `sh /usr/bin/batocera-wine windows tricks "${WINEPOINT}" "$line"`
+            echo "end trick: $line" >&2
+            echo "$line" >> "${TRICKSLOG}"
+        done < "${TRICKSFILE}"
+        rm "${TRICKSFILE}"
+    fi
+}
+
 sandboxing_prefix() {
     if [ -d "${WINEPREFIX}/drive_c/users/steamuser" ]; then
         USERNAME=steamuser
@@ -493,6 +515,7 @@ play_wine() {
     mf_install "${WINEPOINT}" || return 1
     fonts_install "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
+    tricks_install "${WINEPOINT}" || return 1
     WINE_CMD=$(getWine_var "${WINEPOINT}" "CMD" "explorer")
     WINE_DIR=$(getWine_var "${WINEPOINT}" "DIR" "")
     WINE_LANG=$(getWine_var "${WINEPOINT}" "LANG" "")
@@ -518,6 +541,7 @@ play_pc() {
     fonts_install "${WINEPOINT}" || return 1
     sandboxing_prefix "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
+    tricks_install "${WINEPOINT}" || return 1
 
     WINE_CMD=$(getWine_var "${GAMENAME}" "CMD" "explorer")
     WINE_DIR=$(getWine_var "${GAMENAME}" "DIR" "")
@@ -531,8 +555,8 @@ play_pc() {
     waitWineServer
 }
 
-trick_wine() {
-    GAMENAME=$1
+install_winetricks() {
+
     if [ -e "${WINETRICKS}" ]; then
         echo "Winetricks is installed"
 	else
@@ -541,9 +565,13 @@ trick_wine() {
         chmod +x "${WINETRICKS}"
         echo "Winetricks is now installed"
 	fi
+}
+
+trick_wine() {
+    GAMENAME=$1
     TRICK=$2
     WINEPOINT="${GAMENAME}"
-    WINEPREFIX=${WINEPOINT} "${WINETRICKS}" "${TRICK}"
+    WINEPREFIX="${WINEPOINT}" "${WINETRICKS}" "${TRICK}"
 }
 
 #play_iso() {
@@ -566,6 +594,7 @@ play_exe() {
     fonts_install "${WINEPOINT}" || return 1
     sandboxing_prefix "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
+    tricks_install "${WINEPOINT}" || return 1
 
     (cd "${GAMEDIR}" && WINEPREFIX=${WINEPOINT} wine "${GAMEEXE}")
     waitWineServer
@@ -588,6 +617,7 @@ play_winetgz() {
     mf_install "${WINEPOINT}" || return 1
     fonts_install "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
+    tricks_install "${WINEPOINT}" || return 1
 
     WINE_CMD=$(getWine_var "${WINEPOINT}" "CMD" "explorer")
     WINE_DIR=$(getWine_var "${WINEPOINT}" "DIR" "")
@@ -643,6 +673,7 @@ play_squashfs() {
     mf_install "${WINEPOINT}" || return 1
     fonts_install "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
+    tricks_install "${WINEPOINT}" || return 1
 
     WINE_CMD=$(getWine_var "${WINEPOINT}" "CMD" "explorer")
     WINE_DIR=$(getWine_var "${WINEPOINT}" "DIR" "")
@@ -844,6 +875,7 @@ case "${ACTION}" in
     	GAMEEXT=$(gameext "${GAMENAME}")
 	case "${GAMEEXT}" in
 	    "wine")
+		install_winetricks
 		trick_wine "${GAMENAME}" "${TRICK}" || cleanAndExit 1
 		;;
 	esac

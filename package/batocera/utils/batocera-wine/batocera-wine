@@ -5,15 +5,14 @@ ACTION=$2
 shift
 shift
 
-# Arguments: key, system, game
-get_setting() {
-    /usr/bin/batocera-settings-get "$2[\"$3\"].$1" "$2.$1" "global.$1"
-}
-
 ## Wine detection
 GAMENAME=$1 
 ROMGAMENAME=$(basename "${GAMENAME}")
-WINE_VERSION="$(get_setting core "${SYSTEM}" "${ROMGAMENAME}" || echo proton)"
+
+if test -z "${WINE_VERSION}"
+then
+	WINE_VERSION="proton"
+fi
 
 if [ "${BATOCERA_WINE_SAVES_EACH_CORE}" = "1" ]
 then
@@ -194,22 +193,12 @@ mount_root() {
 
 wine_options() {
     WINEPOINT=$1
-    ESYNC="$(get_setting esync "${SYSTEM}" "${ROMGAMENAME}")"
-    FSYNC="$(get_setting fsync "${SYSTEM}" "${ROMGAMENAME}")"
-    PBA="$(get_setting pba "${SYSTEM}" "${ROMGAMENAME}")"
-    FSR="$(get_setting fsr "${SYSTEM}" "${ROMGAMENAME}")"
-    FPS_LIMIT="$(get_setting fps_limit "${SYSTEM}" "${ROMGAMENAME}")"
-    ALLOW_XIM="$(get_setting allow_xim "${SYSTEM}" "${ROMGAMENAME}")"
-    NO_WRITE_WATCH="$(get_setting no_write_watch "${SYSTEM}" "${ROMGAMENAME}")"
-    FORCE_LARGE_ADRESS="$(get_setting force_large_adress "${SYSTEM}" "${ROMGAMENAME}")"
-    HEAP_DELAY_FREE="$(get_setting heap_delay_free "${SYSTEM}" "${ROMGAMENAME}")"
-    HIDE_NVIDIA_GPU="$(get_setting hide_nvidia_gpu "${SYSTEM}" "${ROMGAMENAME}")"
-    DXVK_RESET_CACHE="$(get_setting dxvk_reset_cache "${SYSTEM}" "${ROMGAMENAME}")"
-    WINE_NTFS="$(get_setting wine_ntfs "${SYSTEM}" "${ROMGAMENAME}")"
-    WINE_DEBUG="$(get_setting wine_debug "${SYSTEM}" "${ROMGAMENAME}")"
     KEYBOARD="$(/usr/bin/batocera-settings-get system.kblayout)"
-    VIRTUAL_DESKTOP="$(get_setting virtual_desktop "${SYSTEM}" "${ROMGAMENAME}")"
-    VIRTUAL_DESKTOP_SIZE="$(get_setting videomode "${SYSTEM}" "${ROMGAMENAME}" || batocera-resolution currentResolution)"
+
+	if test -z "${VIRTUAL_DESKTOP_SIZE}"
+	then
+		VIRTUAL_DESKTOP_SIZE=`batocera-resolution currentResolution`
+	fi
 
     if [ "${VIRTUAL_DESKTOP}" = 1 ]; then
         VDESKTOP="explorer /desktop=Wine,${VIRTUAL_DESKTOP_SIZE}"
@@ -292,7 +281,6 @@ wine_options() {
 
 mf_install() {
     WINEPREFIX=$1
-    MF="$(get_setting mf "${SYSTEM}" "${ROMGAMENAME}")"
 
     if test "${MF}" = 1
     then
@@ -498,9 +486,6 @@ dxvk_install() {
 
     # install dxvk only on system where it is available (aka, not x86)
     test -e "/usr/wine/dxvk" || return 0
-
-    DXVK=$(get_setting dxvk "${SYSTEM}" "${ROMGAMENAME}")
-    DXVK_HUD=$(get_setting dxvk_hud "${SYSTEM}" "${ROMGAMENAME}")
 
     if test "${DXVK_HUD}" = 1
     then

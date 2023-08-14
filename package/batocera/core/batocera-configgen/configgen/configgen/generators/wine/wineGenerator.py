@@ -59,8 +59,6 @@ class WineGenerator(Generator):
         if 'dxvk_hud' in system.config and system.config['dxvk_hud'] != '':
             cmd.env['DXVK_HUD']=system.config['dxvk_hud']
 
-        if 'lang' in system.config and system.config['lang'] != '':
-            cmd.env['LANG']=cmd.env['LC_ALL']=system.config['lang']+'.UTF-8'
         if 'bootup' in system.config and system.config['bootup'] != '':
             cmd.env['BATOCERA_WINE_BOOTUP']=system.config['bootup']
         else:

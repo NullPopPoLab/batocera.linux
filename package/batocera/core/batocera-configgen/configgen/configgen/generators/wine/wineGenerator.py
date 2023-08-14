@@ -22,6 +22,10 @@ class WineGenerator(Generator):
 
         if 'lang' in system.config and system.config['lang'] != '':
             cmd.env['LANG']=cmd.env['LC_ALL']=system.config['lang']+'.UTF-8'
+        if 'bootup' in system.config and system.config['bootup'] != '':
+            cmd.env['BATOCERA_WINE_BOOTUP']=system.config['bootup']
+        else:
+            cmd.env['BATOCERA_WINE_BOOTUP']=''
 
         return cmd
 

@@ -221,8 +221,8 @@ dl-dir:
 %-ezserver: output-dir-%
 	$(if $(wildcard $(OUTPUT_DIR)/$*/images/batocera/*),,$(error "$* not built!"))
 	$(if $(shell which python 2>/dev/null),,$(error "python not found!"))
-	@mkdir -p $(OUTPUT_DIR)/_ezserver/$*/stable
-	@ln -fs ../../../$*/images/batocera/images/$* $(OUTPUT_DIR)/_ezserver/$*/stable/last
+	@mkdir -p $(OUTPUT_DIR)/_ezserver/$*/butterfly
+	@ln -fs ../../../$*/images/batocera/images/$* $(OUTPUT_DIR)/_ezserver/$*/butterfly/last
 	@python3 -m http.server --directory $(OUTPUT_DIR)/_ezserver/
 
 %-rsync: output-dir-%

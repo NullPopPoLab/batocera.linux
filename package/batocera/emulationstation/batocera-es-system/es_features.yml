@@ -10043,18 +10043,10 @@ wine:
             choices:
                 "Off":          0
                 "On (Default)": 1
-        winepoint_each_core:
-            prompt:      WINEPOINT EACH CORE
-            description: Creating Winepoint each cores.
-            choices:
-                "Off": 0
-                "On":  1
-        enable_rootdrive:
-            prompt:      ENABLE ROOT DRIVE
-            description: Use Z drive for root directory
-            choices:
-                "Off": 0
-                "On":  1
+        bootup:
+            prompt:      BOOTUP
+            description: Replace autorun.cmd from boot/*.cmd (or boot/default.cmd)
+            preset: input
         dxvk:
             group: ADVANCED OPTIONS
             prompt:      DXVK FEATURE

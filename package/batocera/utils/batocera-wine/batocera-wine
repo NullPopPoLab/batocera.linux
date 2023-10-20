@@ -14,6 +14,13 @@ then
 	WINE_VERSION="proton"
 fi
 
+if [ "${BATOCERA_WINE_SAVES_EACH_CORE}" = "1" ]
+then
+	WINE_PROFILE=${WINE_VERSION}
+else
+	WINE_PROFILE="wine"
+fi
+
 # Wine Folder
 wine_folder() {
 if test -e "/userdata/system/wine/proton" || test -e "/userdata/system/wine/lutris"; then
@@ -521,7 +528,8 @@ play_wine() {
 
 play_pc() {
     GAMENAME=$1
-    WINEPOINT="${G_SAVES_DIR}/${WINE_VERSION}/"$(basename "${GAMENAME}")".wine"
+    BASEGAMENAME=$(basename "${GAMENAME}")
+    WINEPOINT="${G_SAVES_DIR}/${BASEGAMENAME}/${WINE_PROFILE}"
     
     wine_options "${WINEPOINT}"
     createWineDirectory "${WINEPOINT}" || return 1
@@ -570,7 +578,8 @@ trick_wine() {
 
 play_exe() {
     GAMENAME=$1
-    WINEPOINT="${G_SAVES_DIR}/${WINE_VERSION}/"$(basename "${GAMENAME}")".wine"
+    BASEGAMENAME=$(basename "${GAMENAME}")
+    WINEPOINT="${G_SAVES_DIR}/${BASEGAMENAME}/${WINE_PROFILE}"
     GAMEDIR=$(dirname "${GAMENAME}")
     GAMEEXE=$(basename "${GAMENAME}")
 
@@ -594,7 +603,9 @@ play_exe() {
 
 play_winetgz() {
     GAMENAME=$1
-    WINEPOINT="${G_SAVES_DIR}/"$(basename "${GAMENAME}")".wine"
+    GAMEDIR=$(dirname "${GAMENAME}")
+    BASEGAMENAME=$(basename "${GAMENAME}")
+    WINEPOINT="${G_SAVES_DIR}/${BASEGAMENAME}/${WINE_PROFILE}"
 
     wine_options "${WINEPOINT}"
     if ! test -e "${WINEPOINT}"
@@ -627,11 +638,13 @@ play_winetgz() {
 play_squashfs() {
     GAMENAME=$1
     BASEGAMENAME=$(basename "${GAMENAME}")
+    GAMEDIR=$(dirname "${GAMENAME}")
     WINEPOINT="/var/run/wine/${BASEGAMENAME}"
+
     wine_options "${WINEPOINT}"
     SQUASHFSPOINT="/var/run/wine/squashfs_${BASEGAMENAME}"
-    SAVEPOINT="${G_SAVES_DIR}/${BASEGAMENAME}"
-    WORKPOINT="${G_SAVES_DIR}/${BASEGAMENAME}.work"
+    SAVEPOINT="${G_SAVES_DIR}/${BASEGAMENAME}/${WINE_PROFILE}"
+    WORKPOINT="${G_SAVES_DIR}/${BASEGAMENAME}/${WINE_PROFILE}.work"
 
     # ensure we clean before starting if wine was killed for some reason
     umount -f -R "${WINEPOINT}"

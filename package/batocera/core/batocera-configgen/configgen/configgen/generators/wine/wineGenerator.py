@@ -9,6 +9,7 @@ import controllersConfig
 class WineGenerator(Generator):
 
     def generate(self, system, rom, playersControllers, guns, wheels, gameResolution):
+        cmd=None
         if system.name == "windows_installers":
             commandArray = ["batocera-wine", "windows", "install", rom]
             cmd=Command.Command(array=commandArray)
@@ -17,7 +18,7 @@ class WineGenerator(Generator):
             cmd=Command.Command(array=commandArray)
         else: raise Exception("invalid system " + system.name)
 
-        cmd.env['SDL_GAMECONTROLLERCONFIG']=controllersConfig.generateSdlGameControllerConfig(playersControllers)
+        cmd.env['SDL_GAMECONTROLLERCONFIG']=controllersConfig.generateSdlGameControllerConfig(playersControllers,'sdl_config' not in system.config or system.config['sdl_config']=='1')
 
         if 'core' in system.config and system.config['core'] != '':
             cmd.env['WINE_VERSION']=system.config['core']
@@ -62,6 +63,8 @@ class WineGenerator(Generator):
 
         if 'lang' in system.config and system.config['lang'] != '':
             cmd.env['LANG']=cmd.env['LC_ALL']=system.config['lang']+'.UTF-8'
+        if 'winepoint_each_core' in system.config and system.config['winepoint_each_core'] != '':
+            cmd.env['BATOCERA_WINE_SAVES_EACH_CORE']=system.config['winepoint_each_core']
         if 'enable_rootdrive' in system.config and system.config['enable_rootdrive'] != '':
             cmd.env['BATOCERA_WINE_USE_ROOTDRIVE']=system.config['enable_rootdrive']
 

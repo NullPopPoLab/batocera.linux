@@ -208,7 +208,7 @@ dl-dir:
 	@$(MAKE) $*-pkg-unstamp PKG=$(PKG)
 	@$(MAKE) $*-build CMD=$(PKG)
 
-%-pkg-again-full:
+%-pkg-renew:
 	$(if $(PKG),,$(error "PKG not specified!"))
 	@$(MAKE) $*-pkg-clean PKG=$(PKG)
 	@$(MAKE) $*-build CMD=$(PKG)

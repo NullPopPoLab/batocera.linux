@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version.: Commits on Jul 13, 2023
-RETROARCH_VERSION = 227a9ec34ab6ce0a24b16e003142aed083d34c6b
-RETROARCH_SITE = $(call github,libretro,RetroArch,$(RETROARCH_VERSION))
+RETROARCH_VERSION = 7ddf77db2e5a7a1714055befc0294ca903c1eca2
+RETROARCH_SITE = https://github.com/NullPopPoLab/RetroArch.git
+RETROARCH_SITE_METHOD = git
 RETROARCH_LICENSE = GPLv3+
 RETROARCH_DEPENDENCIES = host-pkgconf dejavu retroarch-assets flac noto-cjk-fonts
 # install in staging for debugging (gdb)

@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Jul 13, 2023
-RETROARCH_VERSION = 7ddf77db2e5a7a1714055befc0294ca903c1eca2
+RETROARCH_VERSION = 49a0a449e5fe88215bfbaffb96613c06aeb5c815
 RETROARCH_SITE = https://github.com/NullPopPoLab/RetroArch.git
 RETROARCH_SITE_METHOD = git
 RETROARCH_LICENSE = GPLv3+

@@ -93,18 +93,18 @@ def generateControllerConfig(controller, retroarchspecials, system, lightgun):
 # Map an emulationstation button name to the corresponding retroarch name
     retroarchbtns = {'a': 'a', 'b': 'b', 'c': 'c', 'x': 'x', 'y': 'y', 'z': 'z', \
                      'pageup': 'l', 'pagedown': 'r', 'l2': 'l2', 'r2': 'r2', \
-                     'l3': 'l3', 'r3': 'r3', 'menu': 'menu', \
-                     'start': 'start', 'select': 'select'}
+                     'l3': 'l3', 'r3': 'r3', 'r4': 'r4', 'r5': 'r5', \
+                     'start': 'start', 'select': 'select', 'menu': 'menu', 'hotkey': 'opt'}
     retroarchGunbtns = {'a': 'aux_a', 'b': 'aux_b', 'y': 'aux_c', \
                         'pageup': 'offscreen_shot', 'pagedown': 'trigger', \
                         'start': 'start', 'select': 'select'}
 
     # Some input adaptations for some cores...
     # Z is important, in case l2 (z) is not available for this pad, use l1
-    if system.name == "n64":
-        if 'r2' not in controller.inputs:
-            retroarchbtns["pageup"] = "l2"
-            retroarchbtns["l2"] = "l"
+#    if system.name == "n64":
+#        if 'r2' not in controller.inputs:
+#            retroarchbtns["pageup"] = "l2"
+#            retroarchbtns["l2"] = "l"
 
     config = dict()
     # config['input_device'] = '"%s"' % controller.realName

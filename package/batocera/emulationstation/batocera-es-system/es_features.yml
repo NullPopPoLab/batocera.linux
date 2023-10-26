@@ -7689,30 +7689,33 @@ mupen64plus:
             prompt: CONTROLLER TYPE             
             description: Useful for N64 style controllers. Limited hotkeys for controllers without dedicated hotkey.
             choices:
-                "RetroPad (Default)": retropad
-                "N64": n64
-                "N64 (Limited Hotkeys)": n64limited
+                "Default": default
+                "Analog": analog
+                "Dual": dual
         mupen64-controller2:
             submenu: CONTROLLER 2
             prompt: CONTROLLER TYPE
             description: Useful for N64 style controllers.
             choices:
-                "RetroPad (Default)": retropad
-                "N64": n64
+                "Default": default
+                "Analog": analog
+                "Dual": dual
         mupen64-controller3:
             submenu: CONTROLLER 3
             prompt: CONTROLLER TYPE
             description: Useful for N64 style controllers.
             choices:
-                "RetroPad (Default)": retropad
-                "N64": n64
+                "Default": default
+                "Analog": analog
+                "Dual": dual
         mupen64-controller4:
             submenu: CONTROLLER 4
             prompt: CONTROLLER TYPE
             description: Useful for N64 style controllers.
             choices:
-                "RetroPad (Default)": retropad
-                "N64": n64
+                "Default": default
+                "Analog": analog
+                "Dual": dual
         mupen64-sensitivity1:
             submenu: CONTROLLER 1
             prompt: SENSITIVITY

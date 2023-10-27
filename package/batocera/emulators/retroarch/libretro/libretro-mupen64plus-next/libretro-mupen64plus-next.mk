@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version: Commits on Aug 8, 2023
-LIBRETRO_MUPEN64PLUS_NEXT_VERSION = 26fd1edd640ff3db49dd5ebb7e54f0de6600fc45
-LIBRETRO_MUPEN64PLUS_NEXT_SITE = $(call github,libretro,mupen64plus-libretro-nx,$(LIBRETRO_MUPEN64PLUS_NEXT_VERSION))
+LIBRETRO_MUPEN64PLUS_NEXT_VERSION = d6d4de23c630b3382f86f25bd32e8c3d80347c04
+LIBRETRO_MUPEN64PLUS_NEXT_SITE = https://github.com/NullPopPoLab/mupen64plus-libretro-nx.git
+LIBRETRO_MUPEN64PLUS_NEXT_SITE_METHOD = git
 LIBRETRO_MUPEN64PLUS_NEXT_LICENSE = GPLv2
 LIBRETRO_MUPEN64PLUS_NEXT_DEPENDENCIES = host-nasm
 

@@ -1128,6 +1128,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('mupen64plus-parallel-rdp-upscaling', '"' + system.config['mupen64plus-parallel-rdp-upscaling'] + '"')
         else:
             coreSettings.save('mupen64plus-parallel-rdp-upscaling', '"1x"')
+        # Controller Button Mapping
+        if system.isOptSet('mupen64plus-controller'):
+            coreSettings.save('mupen64plus-controller', '"' + system.config['mupen64plus-controller'] + '"')
+        else:
+            coreSettings.save('mupen64plus-controller', '"default"')
 
     if (system.config['core'] == 'parallel_n64'):
         coreSettings.save('parallel-n64-64dd-hardware', '"disabled"')
@@ -1163,6 +1168,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('parallel-n64-framerate', '"' + system.config['parallel-n64-framerate'] + '"')
         else:
             coreSettings.save('parallel-n64-framerate', '"automatic"')
+        # Controller Type
+        if system.isOptSet('parallel-n64-controller'):
+            coreSettings.save('parallel-n64-controller', '"' + system.config['parallel-n64-controller'] + '"')
+        else:
+            coreSettings.save('parallel-n64-controller', '"default"')
         # Controller Pak 1
         if system.isOptSet('parallel-n64-pak1'):
             coreSettings.save('parallel-n64-pak1', '"' + system.config['parallel-n64-pak1'] + '"')

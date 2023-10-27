@@ -56,18 +56,6 @@ def writeControllersConfig(retroconfig, system, controllers, lightgun):
     if system.config["uimode"] != "Full":
         del retroarchspecials['b']
     
-    # Check if hotkeys need to be removed/disabled (Needed for N64 controllers without a dedicated hotkey button)
-    # Assign value based on core
-    if (system.config['core'] == 'mupen64plus-next'):
-        option = 'mupen64plus-controller1'
-    elif (system.config['core'] == 'parallel_n64'):
-        option = 'parallel-n64-controller1'
-    else:
-        option = None
-    # Check for limited hotkey setting
-    if option and option in system.config and system.config[option] in ['n64limited']:
-        retroarchspecials = {'start': 'exit_emulator'}
-    
     for controller in controllers:
         mouseIndex = None
         if system.name in ['nds', '3ds']:
@@ -113,13 +101,6 @@ def generateControllerConfig(controller, retroarchspecials, system, lightgun, mo
     retroarchGunbtns = {'a': 'aux_a', 'b': 'aux_b', 'y': 'aux_c', \
                         'pageup': 'offscreen_shot', 'pagedown': 'trigger', \
                         'start': 'start', 'select': 'select'}
-
-    # Some input adaptations for some cores...
-    # Z is important, in case l2 (z) is not available for this pad, use l1
-#    if system.name == "n64":
-#        if 'r2' not in controller.inputs:
-#            retroarchbtns["pageup"] = "l2"
-#            retroarchbtns["l2"] = "l"
 
     config = dict()
     # config['input_device'] = '"%s"' % controller.realName

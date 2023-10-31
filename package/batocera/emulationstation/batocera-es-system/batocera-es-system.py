@@ -212,13 +212,6 @@ class EsSystemConf:
         if subdir is None:
             return
 
-        if not os.path.isdir(romsdirtarget + "/" + subdir):
-            os.makedirs(romsdirtarget + "/" + subdir)
-            # copy from the template one, or just keep it empty
-            if os.path.isdir(romsdirsource + "/" + subdir):
-                os.rmdir(romsdirtarget + "/" + subdir) # remove the last level
-                shutil.copytree(romsdirsource + "/" + subdir, romsdirtarget + "/" + subdir)
-
     # Creates an _info.txt file inside the emulators folders in roms with the information of the supported extensions.
     @staticmethod
     def infoSystem(system, data, romsdir):

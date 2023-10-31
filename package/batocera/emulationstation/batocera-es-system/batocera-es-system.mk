@@ -21,7 +21,7 @@ define BATOCERA_ES_SYSTEM_BUILD_CMDS
 		$(STAGING_DIR)/usr/share/batocera/configgen/configgen-defaults.yml \
 		$(STAGING_DIR)/usr/share/batocera/configgen/configgen-defaults-arch.yml \
 		$(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulationstation/batocera-es-system/roms \
-		$(@D)/roms $(BATOCERA_SYSTEM_ARCH)
+		$(@D)/roms $(@D)/roms/0000_info_0000 $(BATOCERA_SYSTEM_ARCH)
 		# translations
 		mkdir -p $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulationstation/batocera-es-system/locales
 		echo "$(@D)/es_external_translations.h" | xgettext --language=C --add-comments=TRANSLATION -f - -o $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulationstation/batocera-es-system/locales/batocera-es-system.pot --no-location --keyword=_

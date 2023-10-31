@@ -25,20 +25,21 @@ class Emulator():
         system_emulator = self.config["emulator"]
         system_core     = self.config["core"]
 
-        gsname=self.game_settings_name(rom)
+        gsname = self.game_settings_name(rom)
 
         # load configuration from batocera.conf
         recalSettings = UnixSettings(batoceraFiles.batoceraConf)
         globalSettings = recalSettings.loadAll('global')
-
         systemSettings = recalSettings.loadAll(self.name)
+        folderSettings = recalSettings.loadAll(self.name + ".folder[\"" + os.path.dirname(rom) + "\"]")
+        gameSettings = recalSettings.loadAll(self.name + "[\"" + gsname + "\"]")
+
         sysSetFile=batoceraFiles.SAVES+'/'+self.name+'/conf.json'
         print('sysSetFile: '+sysSetFile)
         if os.path.isfile(sysSetFile):
             print('found: '+sysSetFile)
             with open(sysSetFile) as f: systemSettings.update(json.load(f))
 
-        folderSettings = recalSettings.loadAll(self.name + ".folder[\"" + os.path.dirname(rom) + "\"]")
         lv=[]
         for s in gsname.split('/'):
             lv.append(s)
@@ -50,7 +51,6 @@ class Emulator():
             print('found: '+dirSetFile)
             with open(dirSetFile) as f: folderSettings.update(json.load(f))
 
-        gameSettings = recalSettings.loadAll(self.name + "[\"" + gsname + "\"]")
         gameSetFile = batoceraFiles.SAVES+'/'+self.name+'/'+os.path.splitext(gsname)[0]+'/conf.json'
         print('gameSetFile: '+gameSetFile)
         if os.path.isfile(gameSetFile):
@@ -108,9 +108,6 @@ class Emulator():
             if bdir==rom[:bl]:
                 rom=rom[bl:]
 
-        # sanitize rule by EmulationStation 
-        rom=rom.replace('=','')
-        rom=rom.replace('#','')
         eslog.info("game settings name: "+rom)
         return rom
 

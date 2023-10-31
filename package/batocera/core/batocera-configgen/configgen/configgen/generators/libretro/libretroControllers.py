@@ -33,17 +33,19 @@ secondaryDiskDriveSupport = {'bluemsx','quasi88','np2kai','px68k','x1'}
 # Warning, function used by amiberry because it reads the same retroarch formatting
 def writeControllersConfig(retroconfig, system, controllers, lightgun):
     # Map buttons to the corresponding retroarch specials keys
-    retroarchspecials = {'x': 'load_state', 'y': 'save_state', 'a': 'reset', 'start': 'exit_emulator', \
+    retroarchspecials = {'x': 'load_state', 'y': 'save_state', 'b': 'pause_toggle', 'c': 'frame_advance', 'z':'grab_mouse_toggle', 'menu': 'reset', 'start': 'exit_emulator', \
                          'up': 'state_slot_increase', 'down': 'state_slot_decrease', 'left': 'rewind', 'right': 'hold_fast_forward', \
-                         'pageup': 'screenshot', 'pagedown': 'ai_service', 'l2': 'shader_prev', 'r2': 'shader_next'}
-    retroarchspecials["b"] = "menu_toggle"
+                         'l3':'recording_toggle', 'r3':'screenshot'}
+    retroarchspecials["a"] = "menu_toggle"
 
     # Some input adaptations for some systems with swap Disc/CD
     if (system.config['core'] in coreWithSwapSupport) and (system.name not in systemToSwapDisable):
         retroarchspecials["pageup"] = "disk_eject_toggle"
         retroarchspecials["l2"] =     "disk_prev"
         retroarchspecials["r2"] =     "disk_next"
-        retroarchspecials["l3"] =     "screenshot"
+
+    if (system.config['core'] in secondaryDiskDriveSupport) and (system.name not in systemToSwapDisable):
+        retroarchspecials["pagedown"] = "disk2_eject_toggle"
 
     # Full special features list to disable
     retroarchFullSpecial = {'1':  'state_slot_increase', '2':  'load_state',        '3': 'save_state', \
@@ -168,12 +170,4 @@ def getConfigValue(input):
 
 # Return the retroarch analog_dpad_mode
 def getAnalogMode(controller, system):
-    # don't enable analog as hat mode for some systems
-    if system.name == 'n64' or system.name == 'dreamcast' or system.name == '3ds':
-        return '0'
-
-    for dirkey in retroarchdirs:
-        if dirkey in controller.inputs:
-            if (controller.inputs[dirkey].type == 'button') or (controller.inputs[dirkey].type == 'hat'):
-                return '1'
     return '0'

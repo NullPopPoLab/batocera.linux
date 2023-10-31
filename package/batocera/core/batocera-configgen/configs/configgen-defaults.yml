@@ -4,12 +4,12 @@ default:
   options:
     hud_support:    true
     videomode:      default
-    ratio:          auto
+    ratio:          core
     video_threaded: false
     smooth:         true
     shaderset:      sharp-bilinear-simple
     rewind:         false
-    bezel:          consoles
+    bezel:          none
     forceNoBezel:   false
 
 # 0-C

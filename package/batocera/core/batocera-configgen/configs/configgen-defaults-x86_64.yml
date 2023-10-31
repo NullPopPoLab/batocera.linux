@@ -15,14 +15,27 @@ saturn:
   emulator: libretro
   core:     beetle-saturn
 n64:
+  emulator: libretro
+  core:     mupen64plus-next
   options:
     videomode: max-1920x1080
 n64dd:
+  emulator: libretro
+  core:     mupen64plus-next
   options:
     videomode: max-1920x1080
+ps2:
+  emulator: libretro
+  core:     pcsx2
+psp:
+  emulator: libretro
+  core: ppsspp
 sgb:
   emulator: libretro
   core:     mesen-s
+easyrpg:
+  emulator: libretro
+  core:     easyrpg
 lcdgames:
   emulator: mame
   core:     mame

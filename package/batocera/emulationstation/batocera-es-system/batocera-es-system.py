@@ -33,7 +33,7 @@ class EsSystemConf:
 
     # Generate the es_systems.cfg file by searching the information in the es_system.yml file
     @staticmethod
-    def generate(rulesYaml, featuresYaml, configFile, esSystemFile, esFeaturesFile, esTranslationFile, esKeysTranslationFile, esKeysParentFolder, esBlacklistedWordsFile, systemsConfigFile, archSystemsConfigFile, romsdirsource, romsdirtarget, arch):
+    def generate(rulesYaml, featuresYaml, configFile, esSystemFile, esFeaturesFile, esTranslationFile, esKeysTranslationFile, esKeysParentFolder, esBlacklistedWordsFile, systemsConfigFile, archSystemsConfigFile, romsdirsource, romsdirtarget, romsdirinfo, arch):
         rules = yaml.safe_load(open(rulesYaml, "r"))
         config = EsSystemConf.loadConfig(configFile)
         es_system = ""

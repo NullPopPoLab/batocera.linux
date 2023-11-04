@@ -4,9 +4,8 @@
 #
 ################################################################################
 # Version.: Commits on Aug 25, 2023
-LIBRETRO_PARALLEL_N64_VERSION = f43d25de5ee006ae738a66ac026ffa265c6a74e9
-LIBRETRO_PARALLEL_N64_SITE = https://github.com/NullPopPoLab/parallel-n64.git
-LIBRETRO_PARALLEL_N64_SITE_METHOD = git
+LIBRETRO_PARALLEL_N64_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-parallel-n64
+LIBRETRO_PARALLEL_N64_SITE_METHOD = local
 LIBRETRO_PARALLEL_N64_LICENSE = GPLv2
 
 LIBRETRO_PARALLEL_N64_EXTRA_ARGS=FORCE_GLES=1

@@ -95,7 +95,7 @@ class EsSystemConf:
             if rules[system]:
                 if EsSystemConf.needFolder(system, rules[system], config):
                     EsSystemConf.createFolders(system, rules[system], romsdirsource, romsdirtarget)
-                    EsSystemConf.infoSystem(system, rules[system], romsdirtarget)
+                    EsSystemConf.infoSystem(system, rules[system], romsdirinfo)
                 else:
                     print("skipping directory for system " + system)
 
@@ -218,12 +218,15 @@ class EsSystemConf:
 
     # Creates an _info.txt file inside the emulators folders in roms with the information of the supported extensions.
     @staticmethod
-    def infoSystem(system, data, romsdir):
+    def infoSystem(system, data, infodir):
         subdir = EsSystemConf.systemSubRomsDir(system, data)
 
         # nothing to create
         if subdir is None:
             return
+
+        if not os.path.isdir(infodir):
+            os.makedirs(infodir)
 
         infoTxt = "## SYSTEM %s ##\n" % (data["name"].upper())
         infoTxt += "-------------------------------------------------------------------------------\n"
@@ -235,7 +238,7 @@ class EsSystemConf:
         if "comment_fr" in data:
             infoTxt += "\n" + data["comment_fr"]
 
-        arqtxt = romsdir + "/" + subdir + "/" + "_info.txt"
+        arqtxt = infodir + "/" + subdir + ".txt"
 
         systemsInfo = open(arqtxt, 'w')
         systemsInfo.write(infoTxt)

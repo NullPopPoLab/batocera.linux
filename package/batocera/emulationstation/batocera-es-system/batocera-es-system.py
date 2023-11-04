@@ -95,7 +95,7 @@ class EsSystemConf:
             if rules[system]:
                 if EsSystemConf.needFolder(system, rules[system], config):
                     EsSystemConf.createFolders(system, rules[system], romsdirsource, romsdirtarget)
-                    EsSystemConf.infoSystem(system, rules[system], romsdirtarget)
+                    EsSystemConf.infoSystem(system, rules[system], romsdirinfo)
                 else:
                     print("skipping directory for system " + system)
 
@@ -225,12 +225,15 @@ class EsSystemConf:
 
     # Creates an _info.txt file inside the emulators folders in roms with the information of the supported extensions.
     @staticmethod
-    def infoSystem(system, data, romsdir):
+    def infoSystem(system, data, infodir):
         subdir = EsSystemConf.systemSubRomsDir(system, data)
 
         # nothing to create
         if subdir is None:
             return
+
+        if not os.path.isdir(infodir):
+            os.makedirs(infodir)
 
         infoTxt = "## SYSTEM %s ##\n" % (data["name"].upper())
         infoTxt += "-------------------------------------------------------------------------------\n"
@@ -242,7 +245,7 @@ class EsSystemConf:
         if "comment_fr" in data:
             infoTxt += "\n" + data["comment_fr"]
 
-        arqtxt = romsdir + "/" + subdir + "/" + "_info.txt"
+        arqtxt = infodir + "/" + subdir + ".txt"
 
         systemsInfo = open(arqtxt, 'w')
         systemsInfo.write(infoTxt)
@@ -706,6 +709,7 @@ if __name__ == "__main__":
     parser.add_argument("gen_defaults_arch",   help="defaults configgen defaults")
     parser.add_argument("romsdirsource", help="emulationstation roms directory")
     parser.add_argument("romsdirtarget", help="emulationstation roms directory")
+    parser.add_argument("romsinfodir", help="emulationstation roms info directory")
     parser.add_argument("arch", help="arch")
     args = parser.parse_args()
-    EsSystemConf.generate(args.yml, args.features, args.config, args.es_systems, args.es_features, args.es_translations, args.es_keys_translations, args.es_keys_parent_folder, args.blacklisted_words, args.gen_defaults_global, args.gen_defaults_arch, args.romsdirsource, args.romsdirtarget, args.arch)
+    EsSystemConf.generate(args.yml, args.features, args.config, args.es_systems, args.es_features, args.es_translations, args.es_keys_translations, args.es_keys_parent_folder, args.blacklisted_words, args.gen_defaults_global, args.gen_defaults_arch, args.romsdirsource, args.romsdirtarget, args.romsinfodir, args.arch)

@@ -699,6 +699,7 @@ if __name__ == "__main__":
     parser.add_argument("gen_defaults_arch",   help="defaults configgen defaults")
     parser.add_argument("romsdirsource", help="emulationstation roms directory")
     parser.add_argument("romsdirtarget", help="emulationstation roms directory")
+    parser.add_argument("romsinfodir", help="emulationstation roms info directory")
     parser.add_argument("arch", help="arch")
     args = parser.parse_args()
-    EsSystemConf.generate(args.yml, args.features, args.config, args.es_systems, args.es_features, args.es_translations, args.es_keys_translations, args.es_keys_parent_folder, args.blacklisted_words, args.gen_defaults_global, args.gen_defaults_arch, args.romsdirsource, args.romsdirtarget, args.arch)
+    EsSystemConf.generate(args.yml, args.features, args.config, args.es_systems, args.es_features, args.es_translations, args.es_keys_translations, args.es_keys_parent_folder, args.blacklisted_words, args.gen_defaults_global, args.gen_defaults_arch, args.romsdirsource, args.romsdirtarget, args.romsinfodir, args.arch)

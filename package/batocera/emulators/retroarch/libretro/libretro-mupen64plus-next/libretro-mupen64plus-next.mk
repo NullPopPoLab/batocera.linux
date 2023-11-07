@@ -4,6 +4,7 @@
 #
 ################################################################################
 # Version: Commits on Aug 8, 2023
+LIBRETRO_MUPEN64PLUS_NEXT_VERSION = d6d4de23c630b3382f86f25bd32e8c3d80347c04
 LIBRETRO_MUPEN64PLUS_NEXT_SITE = nanassy@192.168.1.18:/prj/batocera/git/libretro-mupen64plus-next.git
 LIBRETRO_MUPEN64PLUS_NEXT_SITE_METHOD = git
 LIBRETRO_MUPEN64PLUS_NEXT_LICENSE = GPLv2

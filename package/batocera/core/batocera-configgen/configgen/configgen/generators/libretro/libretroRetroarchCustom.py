@@ -98,6 +98,8 @@ def generateRetroarchCustomPathes(retroarchSettings):
     retroarchSettings.save('cheat_settings_path',           '"/userdata/cheats/saves/"')
     retroarchSettings.save('system_directory',              '"/userdata/bios/"')
     retroarchSettings.save('joypad_autoconfig_dir',         '"/userdata/system/configs/retroarch/inputs/"')
+    retroarchSettings.save('input_remapping_directory',     '"/userdata/saves/"')
+    retroarchSettings.save('rgui_config_directory',         '"/userdata/saves/"')
     retroarchSettings.save('content_root_directory',        '"/userdata/roms/"')
     retroarchSettings.save('video_shader_dir',              '"/usr/share/batocera/shaders/"')
     retroarchSettings.save('video_font_path',               '"/usr/share/fonts/dejavu/DejaVuSansMono.ttf"')

@@ -4,6 +4,8 @@ from settings.unixSettings import UnixSettings
 import xml.etree.ElementTree as ET
 import yaml
 import collections
+import json
+import io
 
 from utils.logger import get_logger
 eslog = get_logger(__name__)
@@ -30,6 +32,29 @@ class Emulator():
         systemSettings = recalSettings.loadAll(self.name)
         folderSettings = recalSettings.loadAll(self.name + ".folder[\"" + os.path.dirname(rom) + "\"]")
         gameSettings = recalSettings.loadAll(self.name + "[\"" + gsname + "\"]")
+
+        sysSetFile=batoceraFiles.SAVES+'/'+self.name+'/conf.json'
+        print('sysSetFile: '+sysSetFile)
+        if os.path.isfile(sysSetFile):
+            print('found: '+sysSetFile)
+            with open(sysSetFile) as f: systemSettings.update(json.load(f))
+
+        lv=[]
+        for s in gsname.split('/'):
+            lv.append(s)
+            dir=batoceraFiles.SAVES+'/'+self.name+'/'+'/'.join(lv)
+            dirSetFile=dir+'/conf.json'
+            print('dirSetFile: '+dirSetFile)
+            if not os.path.isdir(dir): break
+            if not os.path.isfile(dirSetFile): continue
+            print('found: '+dirSetFile)
+            with open(dirSetFile) as f: folderSettings.update(json.load(f))
+
+        gameSetFile = batoceraFiles.SAVES+'/'+self.name+'/'+os.path.splitext(gsname)[0]+'/conf.json'
+        print('gameSetFile: '+gameSetFile)
+        if os.path.isfile(gameSetFile):
+            print('found: '+gameSetFile)
+            with open(gameSetFile) as f: gameSettings.update(json.load(f))
 
         # add some other options
         displaySettings = recalSettings.loadAll('display')
@@ -76,12 +101,13 @@ class Emulator():
 
     def game_settings_name(self,rom):
 
-        rom = os.path.basename(rom)
+        bdir=batoceraFiles.ROMS+"/"+self.name+"/"
+        bl=len(bdir)
+        rl=len(rom)
+        if rl>bl:
+            if bdir==rom[:bl]:
+                rom=rom[bl:]
 
-        # sanitize rule by EmulationStation 
-        # see FileData::getConfigurationName() on batocera-emulationstation 
-        rom = rom.replace('=','')
-        rom = rom.replace('#','')
         eslog.info("game settings name: "+rom)
         return rom
 

@@ -24,37 +24,43 @@ hatstoname = {'1': 'up', '2': 'right', '4': 'down', '8': 'left'}
 
 # Systems to swap Disc/CD : Atari ST / Amstrad CPC / AMIGA 500 1200 / DOS / MSX / PC98 / X68000 / Commodore 64 128 Plus4 | Dreamcast / PSX / Saturn / SegaCD / 3DO / PS2 / PC-FX
 # Systems with internal mapping : PC88 / FDS | No multi-disc support : opera / yabasanshiro | No m3u support : PicoDrive
-coreWithSwapSupport = {'hatari', 'cap32', 'bluemsx', 'dosbox_pure', 'flycast', 'np2kai', 'puae', 'puae2021', 'px68k', 'vice_x64', 'vice_x64sc', 'vice_xscpu64', 'vice_xplus4', 'vice_x128', 'pcsx_rearmed', 'duckstation', 'mednafen_psx', 'beetle-saturn', 'kronos', 'genesisplusgx', 'pcsx2', 'pcfx'};
+coreWithSwapSupport = {'hatari', 'cap32', 'bluemsx', 'dosbox_pure', 'flycast', 'np2kai', 'puae', 'puae2021', 'px68k', 'vice_x64', 'vice_x64sc', 'vice_xscpu64', 'vice_xplus4', 'vice_x128', 'pcsx_rearmed', 'duckstation', 'mednafen_psx', 'beetle-saturn', 'kronos', 'genesisplusgx', 'pcsx2', 'pcfx'}
 systemToSwapDisable = {'amigacd32', 'amigacdtv', 'naomi', 'atomiswave', 'megadrive', 'mastersystem', 'gamegear'}
+secondDiskDriveSupport = {}
 
 # Write a configuration for a specified controller
 # Warning, function used by amiberry because it reads the same retroarch formatting
 def writeControllersConfig(retroconfig, system, controllers, lightgun):
     # Map buttons to the corresponding retroarch specials keys
-    retroarchspecials = {'x': 'load_state', 'y': 'save_state', 'a': 'reset', 'start': 'exit_emulator', \
-                         'up': 'state_slot_increase', 'down': 'state_slot_decrease', 'left': 'rewind', 'right': 'hold_fast_forward', \
-                         'pageup': 'screenshot', 'pagedown': 'ai_service', 'l2': 'shader_prev', 'r2': 'shader_next'}
-    retroarchspecials["b"] = "menu_toggle"
+    retroarchspecials = {'x': 'load_state', 'y': 'save_state', 'b': 'cheat_toggle', 'c': 'screenshot', 'z':'recording_toggle', \
+                         'menu': 'reset', 'start': 'exit_emulator', 'select':'pause_toggle', \
+                         'up': 'frame_advance', 'down': 'hold_slowmotion', 'left': 'rewind', 'right': 'hold_fast_forward', \
+                         'pageup':'state_slot_decrease', 'pagedown':'state_slot_increase'}
+    retroarchspecials["a"] = "menu_toggle"
 
     # Some input adaptations for some systems with swap Disc/CD
     if (system.config['core'] in coreWithSwapSupport) and (system.name not in systemToSwapDisable):
-        retroarchspecials["pageup"] = "disk_eject_toggle"
+        retroarchspecials["l3"] = "disk_eject_toggle"
         retroarchspecials["l2"] =     "disk_prev"
         retroarchspecials["r2"] =     "disk_next"
         retroarchspecials["l3"] =     "screenshot"
+
+    if (system.config['core'] in secondDiskDriveSupport) and (system.name not in systemToSwapDisable):
+        retroarchspecials["r3"] = "disk2_eject_toggle"
 
     # Full special features list to disable
     retroarchFullSpecial = {'1':  'state_slot_increase', '2':  'load_state',        '3': 'save_state', \
                             '4':  'state_slot_decrease', '5':  'reset',             '6': 'exit_emulator', \
                             '7':  'rewind',              '8':  'hold_fast_forward', '9': 'screenshot', \
                             '10': 'disk_prev',           '11': 'disk_next',         '12': 'disk_eject_toggle', \
-                            '13': 'shader_prev',         '14': 'shader_next',       '15': 'ai_service', \
-                            '16': 'menu_toggle'}
+                            '13': 'menu_toggle',         '14': 'pause_toggle',      '15': 'frame_advance', \
+                            '16': 'cheat_toggle',        '17': 'recording_toggle',  '18': 'hold_slowmotion', \
+                            '19': 'disk2_eject_toggle'}
     cleanControllerConfig(retroconfig, controllers, retroarchFullSpecial)
 
     # No menu in non full uimode
     if system.config["uimode"] != "Full":
-        del retroarchspecials['b']
+        del retroarchspecials['a']
     
     # Check if hotkeys need to be removed/disabled (Needed for N64 controllers without a dedicated hotkey button)
     # Assign value based on core
@@ -70,9 +76,6 @@ def writeControllersConfig(retroconfig, system, controllers, lightgun):
     
     for controller in controllers:
         mouseIndex = None
-        if system.name in ['nds', '3ds']:
-            deviceList = getDevicesInformation()
-            mouseIndex = getAssociatedMouse(deviceList, controllers[controller].dev)
         if mouseIndex == None:
             mouseIndex = 0
         writeControllerConfig(retroconfig, controllers[controller], controller, system, retroarchspecials, lightgun, mouseIndex)
@@ -106,10 +109,10 @@ def writeControllerConfig(retroconfig, controller, playerIndex, system, retroarc
 # Create a configuration for a given controller
 def generateControllerConfig(controller, retroarchspecials, system, lightgun, mouseIndex=0):
 # Map an emulationstation button name to the corresponding retroarch name
-    retroarchbtns = {'a': 'a', 'b': 'b', 'x': 'x', 'y': 'y', \
+    retroarchbtns = {'a': 'a', 'b': 'b', 'c': 'c', 'x': 'x', 'y': 'y', 'z': 'z', \
                      'pageup': 'l', 'pagedown': 'r', 'l2': 'l2', 'r2': 'r2', \
-                     'l3': 'l3', 'r3': 'r3', \
-                     'start': 'start', 'select': 'select'}
+                     'l3': 'l3', 'r3': 'r3', 'r4': 'r4', 'r5': 'r5', \
+                     'start': 'start', 'select': 'select', 'menu': 'menu', 'hotkey': 'opt'}
     retroarchGunbtns = {'a': 'aux_a', 'b': 'aux_b', 'y': 'aux_c', \
                         'pageup': 'offscreen_shot', 'pagedown': 'trigger', \
                         'start': 'start', 'select': 'select'}

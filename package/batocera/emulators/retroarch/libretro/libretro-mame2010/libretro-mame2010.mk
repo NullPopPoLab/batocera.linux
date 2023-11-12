@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version.: Commits on Jun 15, 2022
-LIBRETRO_MAME2010_VERSION = 5f524dd5fca63ec1dcf5cca63885286109937587
-LIBRETRO_MAME2010_SITE = $(call github,libretro,mame2010-libretro,$(LIBRETRO_MAME2010_VERSION))
+LIBRETRO_MAME2010_VERSION = be521ad2d6b225f5b0fc5c61c6399c90001294c0
+LIBRETRO_MAME2010_SITE = https://github.com/NullPopPoLab/mame2010-libretro.git
+LIBRETRO_MAME2010_SITE_METHOD = git
 LIBRETRO_MAME2010_LICENSE = MAME
 
 LIBRETRO_MAME2010_PLATFORM = $(LIBRETRO_PLATFORM)

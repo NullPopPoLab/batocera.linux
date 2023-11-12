@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version.: Commits on Aug 18, 2023
-LIBRETRO_BSNES_VERSION = f02ee33bab106b3847659b309c1080dd30606ef4
-LIBRETRO_BSNES_SITE = $(call github,libretro,bsnes-libretro,$(LIBRETRO_BSNES_VERSION))
+LIBRETRO_BSNES_VERSION = 9b189919516043b2d9c24d94663f30e7930bd8c7
+LIBRETRO_BSNES_SITE = https://github.com/NullPopPoLab/bsnes.git
+LIBRETRO_BSNES_SITE_METHOD = git
 LIBRETRO_BSNES_LICENSE = GPLv3
 LIBRETRO_BSNES_LICENSE_FILE = LICENSE.txt
 

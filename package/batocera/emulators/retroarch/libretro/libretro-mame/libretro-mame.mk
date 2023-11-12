@@ -4,8 +4,9 @@
 #
 ################################################################################
 
-LIBRETRO_MAME_VERSION = lrmame0258
-LIBRETRO_MAME_SITE = $(call github,libretro,mame,$(LIBRETRO_MAME_VERSION))
+LIBRETRO_MAME_VERSION = 1d92cf9f0e65cf7fe854743fe67eace94bafe5b3
+LIBRETRO_MAME_SITE = https://github.com/NullPopPoLab/GroovyMAME.git
+LIBRETRO_MAME_SITE_METHOD = git
 LIBRETRO_MAME_LICENSE = MAME
 
 # Limit number of jobs not to eat too much RAM....

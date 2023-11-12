@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version: Commits on Mar 26, 2023
-LIBRETRO_GENESISPLUSGX_VERSION = 7e40bc8caf5239c79a9cbf2ebc2e808890c0764f
+LIBRETRO_GENESISPLUSGX_VERSION = e50efff491bf8b261501d785af126b8a83e06fac
 LIBRETRO_GENESISPLUSGX_SITE = https://github.com/NullPopPoLab/Genesis-Plus-GX.git
 LIBRETRO_GENESISPLUSGX_SITE_METHOD = git
 LIBRETRO_GENESISPLUSGX_LICENSE = Non-commercial

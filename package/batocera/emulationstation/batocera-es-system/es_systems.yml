@@ -1460,6 +1460,7 @@ msx1:
   hardware: computer
   extensions: [dsk, mx1, rom, zip, 7z, cas, m3u, ogv, openmsx]
   platform: pc
+  group: msx
   emulators:
     libretro:
       bluemsx: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_BLUEMSX], incompatible_extensions: [ogv, openmsx] }
@@ -1559,6 +1560,7 @@ msx2:
   hardware: computer
   extensions: [dsk, mx2, rom, zip, 7z, cas, m3u, ogv, openmsx]
   platform: pc
+  group: msx
   emulators:
     libretro:
       bluemsx: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_BLUEMSX], incompatible_extensions: [openmsx] }
@@ -1657,6 +1659,7 @@ msx2+:
   hardware: computer
   extensions: [dsk, mx2, rom, zip, 7z, cas, m3u, openmsx]
   platform: pc
+  group: msx
   emulators:
     libretro:
       bluemsx: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_BLUEMSX], incompatible_extensions: [openmsx] }
@@ -1755,6 +1758,7 @@ msxturbor:
   hardware: computer
   extensions: [dsk, mx2, rom, zip, 7z, openmsx, m3u]
   platform: pc
+  group: msx
   emulators:
     libretro:
       bluemsx: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_BLUEMSX], incompatible_extensions: [openmsx] }

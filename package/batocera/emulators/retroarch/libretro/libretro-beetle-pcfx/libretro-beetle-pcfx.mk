@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version.: Commits on Feb 24, 2022
-LIBRETRO_BEETLE_PCFX_VERSION = 724bd21b4524f8cf376dbc29c3e5a12cb674c758
-LIBRETRO_BEETLE_PCFX_SITE = $(call github,libretro,beetle-pcfx-libretro,$(LIBRETRO_BEETLE_PCFX_VERSION))
+LIBRETRO_BEETLE_PCFX_VERSION = c3c93fe21cf123fb1a91a35f9c5a3e3eac7b6842
+LIBRETRO_BEETLE_PCFX_SITE = https://github.com/NullPopPoLab/beetle-pcfx-libretro
+LIBRETRO_BEETLE_PCFX_SITE_METHOD = git
 LIBRETRO_BEETLE_PCFX_LICENSE = GPLv2
 
 LIBRETRO_BEETLE_PCFX_PLATFORM = $(LIBRETRO_PLATFORM)

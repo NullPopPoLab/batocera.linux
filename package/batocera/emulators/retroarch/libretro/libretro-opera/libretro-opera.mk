@@ -4,8 +4,8 @@
 #
 ################################################################################
 # Version: Commits on Jul 25, 2022
-LIBRETRO_OPERA_VERSION = 8a49bb8877611037438aeb857cb182f41ee0e3a1
-LIBRETRO_OPERA_SITE = $(call github,libretro,opera-libretro,$(LIBRETRO_OPERA_VERSION))
+LIBRETRO_OPERA_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-opera
+LIBRETRO_OPERA_SITE_METHOD = local
 LIBRETRO_OPERA_LICENSE = LGPL/Non-commercial
 
 LIBRETRO_OPERA_PLATFORM=$(LIBRETRO_PLATFORM)

@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version: Commits on Aug 1, 2023
-LIBRETRO_MGBA_VERSION = 5534d236901e4cccefce98f87cb2e244dbf80725
-LIBRETRO_MGBA_SITE = $(call github,mgba-emu,mgba,$(LIBRETRO_MGBA_VERSION))
+LIBRETRO_MGBA_VERSION = 1163869139a4cf38027e567ad77854691958ae84
+LIBRETRO_MGBA_SITE = https://github.com/NullPopPoLab/mgba.git
+LIBRETRO_MGBA_SITE_METHOD = git
 LIBRETRO_MGBA_LICENSE = MPLv2.0
 
 LIBRETRO_MGBA_DEPENDENCIES = libzip libpng zlib

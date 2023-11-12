@@ -4,8 +4,8 @@
 #
 ################################################################################
 # Version.: Commits on Jun 15, 2022
-LIBRETRO_MAME2010_VERSION = 5f524dd5fca63ec1dcf5cca63885286109937587
-LIBRETRO_MAME2010_SITE = $(call github,libretro,mame2010-libretro,$(LIBRETRO_MAME2010_VERSION))
+LIBRETRO_MAME2010_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-mame2010
+LIBRETRO_MAME2010_SITE_METHOD = local
 LIBRETRO_MAME2010_LICENSE = MAME
 
 LIBRETRO_MAME2010_PLATFORM = $(LIBRETRO_PLATFORM)

@@ -4,8 +4,8 @@
 #
 ################################################################################
 # Version: Commits on Mar 11, 2022
-LIBRETRO_FCEUMM_VERSION = 1fa798b220a6df8417dcf7da0ab117533385d9c2
-LIBRETRO_FCEUMM_SITE = $(call github,libretro,libretro-fceumm,$(LIBRETRO_FCEUMM_VERSION))
+LIBRETRO_FCEUMM_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-fceumm
+LIBRETRO_FCEUMM_SITE_METHOD = local
 LIBRETRO_FCEUMM_LICENSE = GPLv2
 
 LIBRETRO_FCEUMM_PLATFORM = $(LIBRETRO_PLATFORM)

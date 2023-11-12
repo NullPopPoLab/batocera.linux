@@ -4,8 +4,8 @@
 #
 ################################################################################
 # Version: Commits on Jun 29, 2022
-LIBRETRO_BSNES_HD_VERSION = 04821703aefdc909a4fd66d168433fcac06c2ba7
-LIBRETRO_BSNES_HD_SITE = $(call github,DerKoun,bsnes-hd,$(LIBRETRO_BSNES_HD_VERSION))
+LIBRETRO_BSNES_HD_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-bsnes-hd
+LIBRETRO_BSNES_HD_SITE_METHOD = local
 LIBRETRO_BSNES_HD_LICENSE = GPLv3
 
 define LIBRETRO_BSNES_HD_BUILD_CMDS

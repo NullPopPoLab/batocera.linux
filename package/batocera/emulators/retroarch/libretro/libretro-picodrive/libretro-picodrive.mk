@@ -4,10 +4,8 @@
 #
 ################################################################################
 # Version: Commits on Sep 30, 2022
-LIBRETRO_PICODRIVE_VERSION = 26719f348eb579a8372e2c58ef0132d95d9dc817
-LIBRETRO_PICODRIVE_SITE = https://github.com/libretro/picodrive.git
-LIBRETRO_PICODRIVE_SITE_METHOD=git
-LIBRETRO_PICODRIVE_GIT_SUBMODULES=YES
+LIBRETRO_PICODRIVE_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-picodrive
+LIBRETRO_PICODRIVE_SITE_METHOD = local
 LIBRETRO_PICODRIVE_DEPENDENCIES = libpng
 LIBRETRO_PICODRIVE_LICENSE = MAME
 

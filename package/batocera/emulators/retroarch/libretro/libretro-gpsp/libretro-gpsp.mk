@@ -5,8 +5,8 @@
 #
 ################################################################################
 # Version: Commits on Mar 03, 2023
-LIBRETRO_GPSP_VERSION = 541adc9e1c6c9328c07058659594d6300ae0fa19
-LIBRETRO_GPSP_SITE = $(call github,libretro,gpsp,$(LIBRETRO_GPSP_VERSION))
+LIBRETRO_GPSP_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-gpsp
+LIBRETRO_GPSP_SITE_METHOD = local
 LIBRETRO_GPSP_LICENSE = GPLv2
 
 LIBRETRO_GPSP_PLATFORM = unix

@@ -4,8 +4,8 @@
 #
 ################################################################################
 # Version: Commits on Mar 26, 2023
-LIBRETRO_FBNEO_VERSION = d747a598d6ff142ea454bb3b4c838c6c8387b011
-LIBRETRO_FBNEO_SITE = $(call github,libretro,FBNeo,$(LIBRETRO_FBNEO_VERSION))
+LIBRETRO_FBNEO_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-fbneo
+LIBRETRO_FBNEO_SITE_METHOD = local
 LIBRETRO_FBNEO_LICENSE = Non-commercial
 
 LIBRETRO_FBNEO_PLATFORM = $(LIBRETRO_PLATFORM)

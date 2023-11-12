@@ -4,8 +4,8 @@
 #
 ################################################################################
 # Version: Commits on Feb 20, 2023
-LIBRETRO_SNES9X_NEXT_VERSION = d8b10c4cd7606ed58f9c562864c986bc960faaaf
-LIBRETRO_SNES9X_NEXT_SITE = $(call github,libretro,snes9x2010,$(LIBRETRO_SNES9X_NEXT_VERSION))
+LIBRETRO_SNES9X_NEXT_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-snes9x-next
+LIBRETRO_SNES9X_NEXT_SITE_METHOD = local
 LIBRETRO_SNES9X_NEXT_LICENSE = Non-commercial
 
 LIBRETRO_SNES9X_NEXT_PLATFORM = $(LIBRETRO_PLATFORM)

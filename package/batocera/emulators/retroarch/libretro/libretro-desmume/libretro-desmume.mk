@@ -4,8 +4,8 @@
 #
 ################################################################################
 # Version: Commits on Sep 26, 2022
-LIBRETRO_DESMUME_VERSION = fbd368c8109f95650e1f81bca1facd6d4d8687d7
-LIBRETRO_DESMUME_SITE = $(call github,libretro,desmume,$(LIBRETRO_DESMUME_VERSION))
+LIBRETRO_DESMUME_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-desmume
+LIBRETRO_DESMUME_SITE_METHOD = local
 LIBRETRO_DESMUME_LICENSE = GPLv2
 LIBRETRO_DESMUME_DEPENDENCIES = libpcap
 

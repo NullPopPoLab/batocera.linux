@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version: Commits on Feb 20, 2023
-LIBRETRO_SNES9X_NEXT_VERSION = d8b10c4cd7606ed58f9c562864c986bc960faaaf
-LIBRETRO_SNES9X_NEXT_SITE = $(call github,libretro,snes9x2010,$(LIBRETRO_SNES9X_NEXT_VERSION))
+LIBRETRO_SNES9X_NEXT_VERSION = 7e1b3762228f96e4b73d55c3972915d589637cc0
+LIBRETRO_SNES9X_NEXT_SITE = https://github.com/NullPopPoLab/snes9x2010.git
+LIBRETRO_SNES9X_NEXT_SITE_METHOD = git
 LIBRETRO_SNES9X_NEXT_LICENSE = Non-commercial
 
 LIBRETRO_SNES9X_NEXT_PLATFORM = $(LIBRETRO_PLATFORM)

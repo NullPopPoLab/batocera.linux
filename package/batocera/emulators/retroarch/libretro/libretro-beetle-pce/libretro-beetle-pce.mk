@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version.: Commits on Mar 23, 2023
-LIBRETRO_BEETLE_PCE_VERSION = 3a5e402490c98f543887869975f01b5c2f76a12a
-LIBRETRO_BEETLE_PCE_SITE = $(call github,libretro,beetle-pce-libretro,$(LIBRETRO_BEETLE_PCE_VERSION))
+LIBRETRO_BEETLE_PCE_VERSION = 5297c2d4c29b0c2d35700511bda7eccd652c64f7
+LIBRETRO_BEETLE_PCE_SITE = https://github.com/NullPopPoLab/beetle-pce-libretro.git
+LIBRETRO_BEETLE_PCE_SITE_METHOD = git
 LIBRETRO_BEETLE_PCE_LICENSE = GPLv2
 
 define LIBRETRO_BEETLE_PCE_BUILD_CMDS

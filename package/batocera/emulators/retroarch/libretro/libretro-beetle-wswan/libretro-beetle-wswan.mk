@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version: Commits on Mar 24, 2023
-LIBRETRO_BEETLE_WSWAN_VERSION = 3f56cefe2b1f56dd2775452ca17f57a2c673c3b6
-LIBRETRO_BEETLE_WSWAN_SITE = $(call github,libretro,beetle-wswan-libretro,$(LIBRETRO_BEETLE_WSWAN_VERSION))
+LIBRETRO_BEETLE_WSWAN_VERSION = 8bf439070547f1a0b0a3762cceed65fe5962b8be
+LIBRETRO_BEETLE_WSWAN_SITE = https://github.com/NullPopPoLab/beetle-wswan-libretro.git
+LIBRETRO_BEETLE_WSWAN_SITE_METHOD = git
 LIBRETRO_BEETLE_WSWAN_LICENSE = GPLv2
 
 LIBRETRO_BEETLE_WSWAN_PLATFORM = $(LIBRETRO_PLATFORM)

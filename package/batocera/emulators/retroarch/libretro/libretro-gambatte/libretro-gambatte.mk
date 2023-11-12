@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version: Commits on Mar 24, 2023
-LIBRETRO_GAMBATTE_VERSION = c21b9fb85134b1eba304f5d71685a1ee6339cef0
-LIBRETRO_GAMBATTE_SITE = $(call github,libretro,gambatte-libretro,$(LIBRETRO_GAMBATTE_VERSION))
+LIBRETRO_GAMBATTE_VERSION = 8197d42a7e6acb7c5cf2db27c84a0574d5a0497f
+LIBRETRO_GAMBATTE_SITE = https://github.com/NullPopPoLab/gambatte-libretro.git
+LIBRETRO_GAMBATTE_SITE_METHOD = git
 LIBRETRO_GAMBATTE_LICENSE = GPLv2
 
 LIBRETRO_GAMBATTE_PLATFORM = $(LIBRETRO_PLATFORM)

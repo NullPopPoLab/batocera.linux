@@ -4,8 +4,8 @@
 #
 ################################################################################
 # Version: Commits on Mar 26, 2022
-LIBRETRO_PCSX2_VERSION = 8fa9f92eee3dc57e8a9f310d6925a7119648f37f
-LIBRETRO_PCSX2_SITE = https://github.com/libretro/pcsx2.git
+LIBRETRO_PCSX2_VERSION = bda3c4857b8a1438b5225832bc0362e6f034591b
+LIBRETRO_PCSX2_SITE = https://github.com/NullPopPoLab/pcsx2.git
 LIBRETRO_PCSX2_SITE_METHOD = git
 LIBRETRO_PCSX2_GIT_SUBMODULES = YES
 LIBRETRO_PCSX2_LICENSE = GPLv2

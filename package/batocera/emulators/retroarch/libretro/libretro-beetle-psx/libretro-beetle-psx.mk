@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version.: Commits on Mar 24, 2023
-LIBRETRO_BEETLE_PSX_VERSION = 817a1231f6e6fa4e706e16624aa3db51a0fb884d
-LIBRETRO_BEETLE_PSX_SITE = $(call github,libretro,beetle-psx-libretro,$(LIBRETRO_BEETLE_PSX_VERSION))
+LIBRETRO_BEETLE_PSX_VERSION = 2dc3d64189d94075dafb37971e29ff60305b84f5
+LIBRETRO_BEETLE_PSX_SITE = https://nullpopolab@github.com/NullPopPoLab/beetle-psx-libretro.git
+LIBRETRO_BEETLE_PSX_SITE_METHOD = git
 LIBRETRO_BEETLE_PSX_LICENSE = GPLv2
 
 LIBRETRO_BEETLE_PSX_EXTRAOPT=

@@ -4,8 +4,8 @@
 #
 ################################################################################
 # Version.: Commits on Mar 24, 2023
-LIBRETRO_BEETLE_PSX_VERSION = 817a1231f6e6fa4e706e16624aa3db51a0fb884d
-LIBRETRO_BEETLE_PSX_SITE = $(call github,libretro,beetle-psx-libretro,$(LIBRETRO_BEETLE_PSX_VERSION))
+LIBRETRO_BEETLE_PSX_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-beetle-psx
+LIBRETRO_BEETLE_PSX_SITE_METHOD = local
 LIBRETRO_BEETLE_PSX_LICENSE = GPLv2
 
 LIBRETRO_BEETLE_PSX_EXTRAOPT=

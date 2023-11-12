@@ -4,10 +4,8 @@
 #
 ################################################################################
 # Version: Commits on Mar 26, 2022
-LIBRETRO_PCSX2_VERSION = 8fa9f92eee3dc57e8a9f310d6925a7119648f37f
-LIBRETRO_PCSX2_SITE = https://github.com/libretro/pcsx2.git
-LIBRETRO_PCSX2_SITE_METHOD = git
-LIBRETRO_PCSX2_GIT_SUBMODULES = YES
+LIBRETRO_PCSX2_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-pcsx2
+LIBRETRO_PCSX2_SITE_METHOD = local
 LIBRETRO_PCSX2_LICENSE = GPLv2
 LIBRETRO_PCSX2_DEPENDENCIES = libaio xz host-xxd
 

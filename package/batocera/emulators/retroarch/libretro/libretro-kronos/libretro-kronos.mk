@@ -4,8 +4,8 @@
 #
 ################################################################################
 # Version: Commits on Mar 16, 2022
-LIBRETRO_KRONOS_VERSION = 29205c6e034e30aa28697a5936f4e17895894be7
-LIBRETRO_KRONOS_SITE = $(call github,FCare,kronos,$(LIBRETRO_KRONOS_VERSION))
+LIBRETRO_KRONOS_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-kronos
+LIBRETRO_KRONOS_SITE_METHOD = local
 LIBRETRO_KRONOS_LICENSE = BSD-3-Clause
 
 LIBRETRO_KRONOS_PLATFORM = $(LIBRETRO_PLATFORM)

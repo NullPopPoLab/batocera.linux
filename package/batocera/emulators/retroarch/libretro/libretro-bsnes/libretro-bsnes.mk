@@ -4,8 +4,8 @@
 #
 ################################################################################
 # Version.: Commits on Aug 18, 2023
-LIBRETRO_BSNES_VERSION = f02ee33bab106b3847659b309c1080dd30606ef4
-LIBRETRO_BSNES_SITE = $(call github,libretro,bsnes-libretro,$(LIBRETRO_BSNES_VERSION))
+LIBRETRO_BSNES_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-bsnes
+LIBRETRO_BSNES_SITE_METHOD = local
 LIBRETRO_BSNES_LICENSE = GPLv3
 LIBRETRO_BSNES_LICENSE_FILE = LICENSE.txt
 

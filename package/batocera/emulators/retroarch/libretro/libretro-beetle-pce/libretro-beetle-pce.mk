@@ -4,8 +4,8 @@
 #
 ################################################################################
 # Version.: Commits on Mar 23, 2023
-LIBRETRO_BEETLE_PCE_VERSION = 3a5e402490c98f543887869975f01b5c2f76a12a
-LIBRETRO_BEETLE_PCE_SITE = $(call github,libretro,beetle-pce-libretro,$(LIBRETRO_BEETLE_PCE_VERSION))
+LIBRETRO_BEETLE_PCE_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-beetle-pce
+LIBRETRO_BEETLE_PCE_SITE_METHOD = local
 LIBRETRO_BEETLE_PCE_LICENSE = GPLv2
 
 define LIBRETRO_BEETLE_PCE_BUILD_CMDS

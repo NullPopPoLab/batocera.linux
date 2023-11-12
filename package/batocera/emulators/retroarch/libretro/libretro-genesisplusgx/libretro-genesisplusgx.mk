@@ -4,9 +4,8 @@
 #
 ################################################################################
 # Version: Commits on Mar 26, 2023
-LIBRETRO_GENESISPLUSGX_VERSION = 7e40bc8caf5239c79a9cbf2ebc2e808890c0764f
-LIBRETRO_GENESISPLUSGX_SITE = https://github.com/NullPopPoLab/Genesis-Plus-GX.git
-LIBRETRO_GENESISPLUSGX_SITE_METHOD = git
+LIBRETRO_GENESISPLUSGX_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-genesisplusgx
+LIBRETRO_GENESISPLUSGX_SITE_METHOD = local
 LIBRETRO_GENESISPLUSGX_LICENSE = Non-commercial
 
 LIBRETRO_GENESISPLUSGX_PLATFORM = $(LIBRETRO_PLATFORM)

@@ -4,8 +4,8 @@
 #
 ################################################################################
 # Version.: Commits on Feb 20, 2023
-LIBRETRO_BEETLE_NGP_VERSION = 65460e3a9ad529f6901caf669abbda11f437ab55
-LIBRETRO_BEETLE_NGP_SITE = $(call github,libretro,beetle-ngp-libretro,$(LIBRETRO_BEETLE_NGP_VERSION))
+LIBRETRO_BEETLE_NGP_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-beetle-ngp
+LIBRETRO_BEETLE_NGP_SITE_METHOD = local
 LIBRETRO_BEETLE_NGP_LICENSE = GPLv2
 
 LIBRETRO_BEETLE_NGP_PLATFORM = $(LIBRETRO_PLATFORM)

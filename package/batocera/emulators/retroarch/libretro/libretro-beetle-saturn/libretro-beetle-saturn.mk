@@ -4,8 +4,8 @@
 #
 ################################################################################
 # Version.: Commits on Mar 15, 2023
-LIBRETRO_BEETLE_SATURN_VERSION = 493421d190ba749d2b8d453d194f4cea6eab2e95
-LIBRETRO_BEETLE_SATURN_SITE = $(call github,libretro,beetle-saturn-libretro,$(LIBRETRO_BEETLE_SATURN_VERSION))
+LIBRETRO_BEETLE_SATURN_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-beetle-saturn
+LIBRETRO_BEETLE_SATURN_SITE_METHOD = local
 LIBRETRO_BEETLE_SATURN_LICENSE = GPLv2
 
 define LIBRETRO_BEETLE_SATURN_BUILD_CMDS

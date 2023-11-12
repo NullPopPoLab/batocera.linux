@@ -4,8 +4,8 @@
 #
 ################################################################################
 # Version: Commits on Feb 11, 2023
-LIBRETRO_PCSX_VERSION = 4373e29de72c917dbcd04ec2a5fb685e69d9def3
-LIBRETRO_PCSX_SITE = $(call github,libretro,pcsx_rearmed,$(LIBRETRO_PCSX_VERSION))
+LIBRETRO_PCSX_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-pcsx
+LIBRETRO_PCSX_SITE_METHOD = local
 LIBRETRO_PCSX_LICENSE = GPLv2
 
 LIBRETRO_PCSX_EXTRA_OPTIONS =

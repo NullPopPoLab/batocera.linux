@@ -44,8 +44,8 @@ class Emulator():
             lv.append(s)
             dir=batoceraFiles.SAVES+'/'+self.name+'/'+'/'.join(lv)
             dirSetFile=dir+'/conf.json'
-            print('dirSetFile: '+dirSetFile)
             if not os.path.isdir(dir): break
+            print('dirSetFile: '+dirSetFile)
             if not os.path.isfile(dirSetFile): continue
             print('found: '+dirSetFile)
             with open(dirSetFile) as f: folderSettings.update(json.load(f))

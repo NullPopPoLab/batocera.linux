@@ -29,18 +29,22 @@ retroPad = {
     "joystick2down":    "RYAXIS_POS_SWITCH",
     "joystick2left":    "RXAXIS_NEG_SWITCH",
     "joystick2right":   "RXAXIS_POS_SWITCH",
-    "a":                "BUTTON1",
+    "c":                "BUTTON1",
     "b":                "BUTTON2",
-    "x":                "BUTTON3",
-    "y":                "BUTTON4",
-    "pageup":           "BUTTON5",
-    "pagedown":         "BUTTON6",
-    "l2":               "RZAXIS_POS_SWITCH",
-    "r2":               "ZAXIS_POS_SWITCH",
-    "l3":               "BUTTON12",
-    "r3":               "BUTTON11",
-    "select":           "SELECT",
-    "start":            "START"
+    "a":                "BUTTON3",
+    "z":                "BUTTON4",
+    "y":                "BUTTON5",
+    "x":                "BUTTON6",
+    "pageup":           "BUTTON7",
+    "pagedown":         "BUTTON8",
+    "l2":               "BUTTON9",
+    "r2":               "BUTTON10",
+    "l3":               "CLEAR",
+    "r3":               "CANCEL",
+    "select":           "COIN",
+    "start":            "START",
+    "menu":             "MENU",
+    "opt":              "HOTKEY"
 }
 
 def generateMAMEConfigs(playersControllers, system, rom):
@@ -62,7 +66,7 @@ def generateMAMEConfigs(playersControllers, system, rom):
         if system.getOptBoolean("customcfg"):
             cfgPath = "/userdata/system/configs/{}/custom/".format(corePath)
         else:
-            cfgPath = "/userdata/saves/mame/mame/cfg/"
+            cfgPath = "/userdata/saves/mame/lr-mame/cfg/"
         if not os.path.exists(cfgPath):
             os.makedirs(cfgPath)
         if system.name == 'vis':
@@ -123,7 +127,7 @@ def generateMAMEConfigs(playersControllers, system, rom):
             if system.getOptBoolean("customcfg"):
                 cfgPath = "/userdata/system/configs/{}/custom/".format(corePath)
             else:
-                cfgPath = "/userdata/saves/mame/mame/cfg/"
+                cfgPath = "/userdata/saves/mame/lr-mame/cfg/"
             if not os.path.exists(cfgPath):
                 os.makedirs(cfgPath)
             commandLine += [ romDrivername ]
@@ -294,7 +298,7 @@ def generateMAMEConfigs(playersControllers, system, rom):
             if system.getOptBoolean("customcfg"):
                 cfgPath = "/userdata/system/configs/{}/{}/custom/".format(corePath, messSysName[messMode])
             else:
-                cfgPath = "/userdata/saves/mame/mame/cfg/{}/".format(messSysName[messMode])
+                cfgPath = "/userdata/saves/mame/lr-mame/cfg/{}/".format(messSysName[messMode])
             if system.getOptBoolean("pergamecfg"):
                 cfgPath = "/userdata/system/configs/{}/{}/{}/".format(corePath, messSysName[messMode], romBasename)
             if not os.path.exists(cfgPath):
@@ -307,10 +311,10 @@ def generateMAMEConfigs(playersControllers, system, rom):
             # Using computer.ini since autorun only applies to computers, and this would be unlikely to be used otherwise
             autoRunCmd = ""
             autoRunDelay = 0
-            if not os.path.exists('/userdata/saves/mame/mame/ini/'):
-                     os.makedirs('/userdata/saves/mame/mame/ini/')
-            if os.path.exists('/userdata/saves/mame/mame/ini/computer.ini'):
-                os.remove('/userdata/saves/mame/mame/ini/computer.ini')
+            if not os.path.exists('/userdata/saves/mame/lr-mame/ini/'):
+                     os.makedirs('/userdata/saves/mame/lr-mame/ini/')
+            if os.path.exists('/userdata/saves/mame/lr-mame/ini/computer.ini'):
+                os.remove('/userdata/saves/mame/lr-mame/ini/computer.ini')
             # bbc has different boots for floppy & cassette, no special boot for carts
             if system.name == "bbc":
                 if system.isOptSet("altromtype") or softList != "":
@@ -341,11 +345,11 @@ def generateMAMEConfigs(playersControllers, system, rom):
                             if row[0].casefold() == os.path.splitext(romBasename)[0].casefold():
                                 autoRunCmd = row[1] + "\\n"
                                 autoRunDelay = 3
-            commandLine += [ '-inipath', '/userdata/saves/mame/mame/ini/' ]
+            commandLine += [ '-inipath', '/userdata/saves/mame/lr-mame/ini/' ]
             if autoRunCmd != "":
                 if autoRunCmd.startswith("'"):
                     autoRunCmd.replace("'", "")
-                iniFile = open('/userdata/saves/mame/mame/ini/computer.ini', "w")
+                iniFile = open('/userdata/saves/mame/lr-mame/ini/computer.ini', "w")
                 iniFile.write('autoboot_command          ' + autoRunCmd + "\n")
                 iniFile.write('autoboot_delay            ' + str(autoRunDelay))
                 iniFile.close()

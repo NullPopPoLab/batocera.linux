@@ -39,7 +39,7 @@ class MameGenerator(Generator):
         subdirSoftList = [ "mac_hdd", "bbc_hdd", "cdi", "archimedes_hdd", "fmtowns_cd" ]
 
         # Generate userdata folders if needed
-        mamePaths = [ "saves/mame", "saves/mame/nvram", "bios/mame", "bios/mame/artwork", "cheats/mame", "bios/mame/artwork/crosshairs" ]
+        mamePaths = [ "system/configs/mame", "saves/mame", "saves/mame/nvram", "saves/mame/cfg", "saves/mame/input", "saves/mame/state", "saves/mame/diff", "saves/mame/comments", "bios/mame", "bios/mame/artwork", "cheats/mame", "saves/mame/plugins", "system/configs/mame/ctrlr", "system/configs/mame/ini", "bios/mame/artwork/crosshairs" ]
         for checkPath in mamePaths:
             if not os.path.exists("/userdata/" + checkPath + "/"):
                 os.makedirs("/userdata/" + checkPath + "/")
@@ -92,6 +92,7 @@ class MameGenerator(Generator):
         commandArray += [ "-bgfx_path",    "/usr/bin/mame/bgfx/" ]          # Core bgfx files can be left on ROM filesystem
         commandArray += [ "-fontpath",     "/usr/bin/mame/" ]               # Fonts can be left on ROM filesystem
         commandArray += [ "-languagepath", "/usr/bin/mame/language/" ]      # Translations can be left on ROM filesystem
+        commandArray += [ "-pluginspath", "/usr/bin/mame/plugins/;/userdata/saves/mame/plugins" ]
         commandArray += [ "-samplepath",   "/userdata/bios/mame/samples/" ] # Current batocera storage location for MAME samples
         commandArray += [ "-artpath",       "/var/run/mame_artwork/;/usr/bin/mame/artwork/;/userdata/bios/mame/artwork/;/userdata/decorations/" ] # first for systems ; second for overlays
 
@@ -101,6 +102,9 @@ class MameGenerator(Generator):
 
         # logs
         commandArray += [ "-verbose" ]
+
+        # MAME saves a lot of stuff, we need to map this on /userdata/saves/mame/<subfolder> for each one
+        commandArray += [ "-nvram_directory" ,    "/userdata/saves/mame/nvram/" ]
 
         # Set custom config path if option is selected or default path if not
         if system.isOptSet("customcfg"):

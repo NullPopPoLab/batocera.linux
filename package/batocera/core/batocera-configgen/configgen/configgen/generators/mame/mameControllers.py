@@ -92,11 +92,170 @@ def generatePadsConfig(cfgPath, playersControllers, sysName, altButtons, customC
         useControls = sysName
     eslog.debug(f"Using {useControls} for controller config.")
     
+    # Open or create alternate config file for systems with special controllers/settings
+    # If the system/game is set to per game config, don't try to open/reset an existing file, only write if it's blank or going to the shared cfg folder
+    specialControlList = [ "cdimono1", "apfm1000", "astrocde", "adam", "arcadia", "gamecom", "tutor", "crvision", "bbcb", "bbcm", "bbcm512", "bbcmc", "xegs", \
+        "socrates", "vgmplay", "pdp1", "vc4000", "fmtmarty", "gp32", "apple2p", "apple2e", "apple2ee" ]
+    if sysName in specialControlList:
+        # Load mess controls from csv
+        messControlFile = '/usr/share/batocera/configgen/data/mame/messControls.csv'
+        openMessFile = open(messControlFile, 'r')
+        with openMessFile:
+            controlList = csv.reader(openMessFile, delimiter=';')
+            for row in controlList:
+                if not row[0] in messControlDict.keys():
+                    messControlDict[row[0]] = {}
+                messControlDict[row[0]][row[1]] = {}
+                currentEntry = messControlDict[row[0]][row[1]]
+                currentEntry['type'] = row[2]
+                currentEntry['player'] = int(row[3])
+                currentEntry['tag'] = row[4]
+                currentEntry['key'] = row[5]
+                if currentEntry['type'] in [ 'special', 'main' ]:
+                    currentEntry['mapping'] = row[6]
+                    currentEntry['useMapping'] = row[7]
+                    currentEntry['reversed'] = row[8]
+                    currentEntry['mask'] = row[9]
+                    currentEntry['default'] = row[10]
+                elif currentEntry['type'] == 'analog':
+                    currentEntry['incMapping'] = row[6]
+                    currentEntry['decMapping'] = row[7]
+                    currentEntry['useMapping1'] = row[8]
+                    currentEntry['useMapping2'] = row[9]
+                    currentEntry['reversed'] = row[10]
+                    currentEntry['mask'] = row[11]
+                    currentEntry['default'] = row[12]
+                    currentEntry['delta'] = row[13]
+                    currentEntry['axis'] = row[14]
+                if currentEntry['type'] == 'combo':
+                    currentEntry['kbMapping'] = row[6]
+                    currentEntry['mapping'] = row[7]
+                    currentEntry['useMapping'] = row[8]
+                    currentEntry['reversed'] = row[9]
+                    currentEntry['mask'] = row[10]
+                    currentEntry['default'] = row[11]
+                if currentEntry['reversed'] == 'False':
+                    currentEntry['reversed'] == False
+                else:
+                    currentEntry['reversed'] == True
+
+        config_alt = minidom.Document()
+        configFile_alt = cfgPath + sysName + ".cfg"
+        if os.path.exists(configFile_alt) and cfgPath == "/userdata/system/configs/mame/" + sysName + "/":
+            try:
+                config_alt = minidom.parse(configFile_alt)
+            except:
+                pass # reinit the file
+        elif os.path.exists(configFile_alt):
+            try:
+                config_alt = minidom.parse(configFile_alt)
+            except:
+                pass # reinit the file
+        if cfgPath == "/userdata/system/configs/mame/" + sysName + "/":
+            perGameCfg = False
+        else:
+            perGameCfg = True
+        if os.path.exists(configFile_alt) and (customCfg or perGameCfg):
+            overwriteSystem = False
+        else:
+            overwriteSystem = True
+
+        xml_mameconfig_alt = getRoot(config_alt, "mameconfig")
+        xml_mameconfig_alt.setAttribute("version", "10")
+        xml_system_alt = getSection(config_alt, xml_mameconfig_alt, "system")
+        xml_system_alt.setAttribute("name", sysName)
+        
+        removeSection(config_alt, xml_system_alt, "input")
+        xml_input_alt = config_alt.createElement("input")
+        xml_system_alt.appendChild(xml_input_alt)
+
+        # Hide the LCD display on CD-i
+        if useControls == "cdimono1":
+            removeSection(config_alt, xml_system_alt, "video")
+            xml_video_alt = config_alt.createElement("video")
+            xml_system_alt.appendChild(xml_video_alt)
+
+            xml_screencfg_alt = config_alt.createElement("target")
+            xml_screencfg_alt.setAttribute("index", "0")
+            if decorations == "none":
+                xml_screencfg_alt.setAttribute("view", "Main Screen Standard (4:3)")
+            else:
+                xml_screencfg_alt.setAttribute("view", "Upright_Artwork")
+            xml_video_alt.appendChild(xml_screencfg_alt)
+
+        # If using BBC keyboard controls, enable keyboard to gamepad
+        if useControls == 'bbc':
+            xml_kbenable_alt = config_alt.createElement("keyboard")
+            xml_kbenable_alt.setAttribute("tag", ":")
+            xml_kbenable_alt.setAttribute("enabled", "1")
+            xml_input_alt.appendChild(xml_kbenable_alt)
+    
     # Fill in controls on cfg files
     nplayer = 1
     maxplayers = len(playersControllers)
     for playercontroller, pad in sorted(playersControllers.items()):
         mappings_use = mappings
+        if hasStick(pad) == False:
+            mappings_use["JOYSTICK_UP"] = "up"
+            mappings_use["JOYSTICK_DOWN"] = "down"
+            mappings_use["JOYSTICK_LEFT"] = "left"
+            mappings_use["JOYSTICK_RIGHT"] = "right"
+
+        # wheel mappings
+        isWheel = False
+        if useWheels:
+            for w in wheels:
+                if wheels[w]["joystick_index"] == pad.index:
+                    isWheel = True
+                    eslog.debug(f"player {nplayer} has a wheel")
+            if isWheel:
+                for x in mappings_use.copy():
+                    if mappings_use[x] == "l2" or mappings_use[x] == "r2" or mappings_use[x] == "joystick1left":
+                        del mappings_use[x]
+                mappings_use["PEDAL".format(pad.index+1)] = "r2"
+                mappings_use["PEDAL2".format(pad.index+1)] = "l2"
+                mappings_use["PADDLE".format(pad.index+1)] = "joystick1left"
+
+        addCommonPlayerPorts(config, xml_input, nplayer)
+
+        for mapping in mappings_use:
+            if mappings_use[mapping] in pad.inputs:
+                if mapping in [ 'START', 'COIN' ]:
+                    xml_input.appendChild(generateSpecialPortElementPlayer(pad, config, 'standard', nplayer, pad.index, mapping, mappings_use[mapping], pad.inputs[mappings_use[mapping]], False, "", "", gunmappings, mousemappings, multiMouse))
+                else:
+                    xml_input.appendChild(generatePortElement(pad, config, nplayer, pad.index, mapping, mappings_use[mapping], pad.inputs[mappings_use[mapping]], False, altButtons, gunmappings, isWheel, mousemappings, multiMouse))
+            else:
+                rmapping = reverseMapping(mappings_use[mapping])
+                if rmapping in pad.inputs:
+                        xml_input.appendChild(generatePortElement(pad, config, nplayer, pad.index, mapping, mappings_use[mapping], pad.inputs[rmapping], True, altButtons, gunmappings, isWheel, mousemappings, multiMouse))
+
+        #UI Mappings
+        if nplayer == 1:
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_DOWN", "DOWN", mappings_use["JOYSTICK_DOWN"], pad.inputs[mappings_use["JOYSTICK_UP"]], False, "", ""))      # Down
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_LEFT", "LEFT", mappings_use["JOYSTICK_LEFT"], pad.inputs[mappings_use["JOYSTICK_LEFT"]], False, "", ""))    # Left
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_UP", "UP", mappings_use["JOYSTICK_UP"], pad.inputs[mappings_use["JOYSTICK_UP"]], False, "", ""))            # Up
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_RIGHT", "RIGHT", mappings_use["JOYSTICK_RIGHT"], pad.inputs[mappings_use["JOYSTICK_LEFT"]], False, "", "")) # Right
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_SELECT", "ENTER", 'b', pad.inputs['b'], False, "", ""))                                                     # Select
+
+        if useControls in messControlDict.keys():
+            for controlDef in messControlDict[useControls].keys():
+                thisControl = messControlDict[useControls][controlDef]
+                if nplayer == thisControl['player']:
+                    if thisControl['type'] == 'special':
+                        xml_input_alt.appendChild(generateSpecialPortElement(pad, config_alt, thisControl['tag'], nplayer, pad.index, thisControl['key'], thisControl['mapping'], \
+                            pad.inputs[mappings_use[thisControl['useMapping']]], thisControl['reversed'], thisControl['mask'], thisControl['default']))
+                    elif thisControl['type'] == 'main':
+                        xml_input.appendChild(generateSpecialPortElement(pad, config_alt, thisControl['tag'], nplayer, pad.index, thisControl['key'], thisControl['mapping'], \
+                            pad.inputs[mappings_use[thisControl['useMapping']]], thisControl['reversed'], thisControl['mask'], thisControl['default']))
+                    elif thisControl['type'] == 'analog':
+                        xml_input_alt.appendChild(generateAnalogPortElement(pad, config_alt, thisControl['tag'], nplayer, pad.index, thisControl['key'], mappings_use[thisControl['incMapping']], \
+                            mappings_use[thisControl['decMapping']], pad.inputs[mappings_use[thisControl['useMapping1']]], pad.inputs[mappings_use[thisControl['useMapping2']]], thisControl['reversed'], \
+                            thisControl['mask'], thisControl['default'], thisControl['delta'], thisControl['axis']))
+                    elif thisControl['type'] == 'combo':
+                        xml_input_alt.appendChild(generateComboPortElement(pad, config_alt, thisControl['tag'], pad.index, thisControl['key'], thisControl['kbMapping'], thisControl['mapping'], \
+                            pad.inputs[mappings_use[thisControl['useMapping']]], thisControl['reversed'], thisControl['mask'], thisControl['default']))
+
+        nplayer = nplayer + 1
 
     # in case there are more guns than pads, configure them
     if useGuns and len(guns) > len(playersControllers):
@@ -217,28 +376,6 @@ def generateComboPortElement(pad, config, tag, padindex, mapping, kbkey, key, in
     xml_newseq.setAttribute("type", "standard")
     xml_port.appendChild(xml_newseq)
     value = config.createTextNode("KEYCODE_{} OR ".format(kbkey) + input2definition(pad, key, input, padindex + 1, reversed, 0))
-    xml_newseq.appendChild(value)
-    return xml_port
-
-def generateUIElement(config, tag, padindex, mapping, kbkey, padkey, input, hotkey, hotside, reversed, dpadMode, mask, default):
-    # Maps a keycode + button - for important keyboard keys when available
-    xml_port = config.createElement("port")
-    xml_port.setAttribute("tag", tag)
-    xml_port.setAttribute("type", mapping)
-    xml_port.setAttribute("mask", mask)
-    xml_port.setAttribute("defvalue", default)
-    xml_newseq = config.createElement("newseq")
-    xml_newseq.setAttribute("type", "standard")
-    xml_port.appendChild(xml_newseq)
-
-    hk = ''
-    if hotkey is not None:
-        hk = ' '+input2definition('', hotkey, padindex + 1, False, dpadMode, 0)
-        if not hotside: hk=' NOT'+hk
-    a = []
-    if kbkey is not None: a.append("KEYCODE_{}".format(kbkey))
-    if input is not None: a.append(input2definition(padkey, input, padindex + 1, reversed, dpadMode, 0)+hk)
-    value = config.createTextNode(' OR '.join(a))
     xml_newseq.appendChild(value)
     return xml_port
 

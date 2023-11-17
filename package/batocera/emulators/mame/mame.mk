@@ -4,8 +4,8 @@
 #
 ################################################################################
 # Version: GroovyMAME 0.258 - Switchres 2.002v
-MAME_VERSION =  gm0258sr002v
-MAME_SITE = $(call github,antonioginer,GroovyMAME,$(MAME_VERSION))
+MAME_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/mame
+MAME_SITE_METHOD = local
 MAME_DEPENDENCIES = sdl2 sdl2_ttf zlib libpng fontconfig sqlite jpeg flac rapidjson expat glm
 MAME_LICENSE = MAME
 

@@ -4728,7 +4728,6 @@ openlara:
   hardware: port
   extensions: [croft]
   platform: pc
-  group: ports
   emulators:
     libretro:
       openlara: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_OPENLARA] }

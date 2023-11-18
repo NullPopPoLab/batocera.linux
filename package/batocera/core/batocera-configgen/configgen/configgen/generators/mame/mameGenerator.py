@@ -112,7 +112,7 @@ class MameGenerator(Generator):
         else:
             customCfg = False
 
-        cfgBase = "/userdata/saves/mame/groovy/"
+        cfgBase = "/userdata/saves/mame/"
         if system.name == "mame":
             if customCfg:
                 cfgBase += "mame-custom/"
@@ -411,7 +411,7 @@ class MameGenerator(Generator):
             if system.isOptSet('addblankdisk') and system.getOptBoolean('addblankdisk'):
                 if system.name == 'fmtowns':
                     blankDisk = '/usr/share/mame/blank.fmtowns'
-                    targetFolder = '/userdata/saves/mame/groovy/{}'.format(system.name)
+                    targetFolder = '/userdata/saves/mame/{}'.format(system.name)
                     targetDisk = '{}/{}.fmtowns'.format(targetFolder, os.path.splitext(romBasename)[0])
                 # Add elif statements here for other systems if enabled
                 if not os.path.exists(targetFolder):

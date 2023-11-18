@@ -1,7 +1,7 @@
-default,JOYSTICK_UP,hat1up
-default,JOYSTICK_DOWN,hat1down
-default,JOYSTICK_LEFT,hat1left
-default,JOYSTICK_RIGHT,hat1right
+default,JOYSTICK_UP,up
+default,JOYSTICK_DOWN,down
+default,JOYSTICK_LEFT,left
+default,JOYSTICK_RIGHT,right
 default,JOYSTICKLEFT_UP,joystick1up
 default,JOYSTICKLEFT_DOWN,joystick1down
 default,JOYSTICKLEFT_LEFT,joystick1left

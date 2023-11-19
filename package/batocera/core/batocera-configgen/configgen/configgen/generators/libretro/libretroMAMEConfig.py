@@ -44,7 +44,7 @@ retroPad = {
     "select":           "COIN",
     "start":            "START",
     "menu":             "MENU",
-    "opt":              "HOTKEY"
+    "opt":              "OPT"
 }
 
 def generateMAMEConfigs(playersControllers, system, rom):
@@ -389,11 +389,11 @@ def generateMAMEConfigs(playersControllers, system, rom):
 
     # Share plugins & samples with standalone MAME (except TI99)
     if not system.name == "ti99":
-        commandLine += [ "-pluginspath", "/usr/bin/mame/plugins/;/userdata/saves/mame/plugins" ]
-        commandLine += [ "-homepath" , "/userdata/saves/mame/plugins/" ]
+        commandLine += [ "-pluginspath", "/usr/bin/mame/plugins/;/userdata/saves/mame/lr-mame/plugins" ]
+        commandLine += [ "-homepath" , "/userdata/saves/mame/lr-mame/plugins/" ]
         commandLine += [ "-samplepath", "/userdata/bios/mame/samples/" ]
-    if not os.path.exists("/userdata/saves/mame/plugins/"):
-        os.makedirs("/userdata/saves/mame/plugins/")
+    if not os.path.exists("/userdata/saves/mame/lr-mame/plugins/"):
+        os.makedirs("/userdata/saves/mame/lr-mame/plugins/")
     if not os.path.exists("/userdata/bios/mame/samples/"):
         os.makedirs("/userdata/bios/mame/samples/")
 
@@ -687,7 +687,15 @@ def generateMAMEPadConfig(cfgPath, playersControllers, system, messSysName, romB
             xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_LEFT", "LEFT", mappings_use["JOYSTICK_LEFT"], retroPad[mappings_use["JOYSTICK_LEFT"]], False, "", ""))    # Left
             xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_UP", "UP", mappings_use["JOYSTICK_UP"], retroPad[mappings_use["JOYSTICK_UP"]], False, "", ""))            # Up
             xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_RIGHT", "RIGHT", mappings_use["JOYSTICK_RIGHT"], retroPad[mappings_use["JOYSTICK_RIGHT"]], False, "", "")) # Right
-            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_SELECT", "ENTER", 'a', retroPad['a'], False, "", ""))                                                     # Select
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_PAGE_UP", "PAGEUP", 'pageup', retroPad['pageup'], False, "", ""))
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_PAGE_DOWN", "PAGEDOWN", 'pagedown', retroPad['pagedown'], False, "", ""))
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_PREV_GROUP", None, 'l2', retroPad['l2'], False, "", ""))
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_NEXT_GROUP", None, 'r2', retroPad['r2'], False, "", ""))
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_SELECT", "ENTER", 'b', retroPad['b'], False, "", ""))                                                     # Select
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_CANCEL", "ESCAPE", 'r3', retroPad['r3'], False, "", ""))
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_BACK", "BACKSPACE", 'a', retroPad['a'], False, "", ""))
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_CLEAR", "DELETE", 'l3', retroPad['l3'], False, "", ""))
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_MENU", "TAB", 'menu', retroPad['menu'], False, "", ""))
 
         if useControls in messControlDict.keys():
             for controlDef in messControlDict[useControls].keys():
@@ -712,16 +720,16 @@ def generateMAMEPadConfig(cfgPath, playersControllers, system, messSysName, romB
         # save the config file
         #mameXml = open(configFile, "w")
         # TODO: python 3 - workawround to encode files in utf-8
-        if overwriteMAME:
-            mameXml = codecs.open(configFile, "w", "utf-8")
-            dom_string = os.linesep.join([s for s in config.toprettyxml().splitlines() if s.strip()]) # remove ugly empty lines while minicom adds them...
-            mameXml.write(dom_string)
+#        if overwriteMAME:
+#            mameXml = codecs.open(configFile, "w", "utf-8")
+#            dom_string = os.linesep.join([s for s in config.toprettyxml().splitlines() if s.strip()]) # remove ugly empty lines while minicom adds them...
+#            mameXml.write(dom_string)
         
         # Write alt config (if used, custom config is turned off or file doesn't exist yet)
-        if messSysName in specialControlList and overwriteSystem:
-            mameXml_alt = codecs.open(configFile_alt, "w", "utf-8")
-            dom_string_alt = os.linesep.join([s for s in config_alt.toprettyxml().splitlines() if s.strip()]) # remove ugly empty lines while minicom adds them...
-            mameXml_alt.write(dom_string_alt)
+#        if messSysName in specialControlList and overwriteSystem:
+#            mameXml_alt = codecs.open(configFile_alt, "w", "utf-8")
+#            dom_string_alt = os.linesep.join([s for s in config_alt.toprettyxml().splitlines() if s.strip()]) # remove ugly empty lines while minicom adds them...
+#            mameXml_alt.write(dom_string_alt)
 
 def reverseMapping(key):
     if key == "joystick1down":
@@ -769,7 +777,8 @@ def generateComboPortElement(pad, config, tag, padindex, mapping, kbkey, key, in
     xml_newseq = config.createElement("newseq")
     xml_newseq.setAttribute("type", "standard")
     xml_port.appendChild(xml_newseq)
-    value = config.createTextNode(f"KEYCODE_{kbkey} OR " + input2definition(pad, key, input, padindex + 1, reversed, 0))
+    if kbkey is None: value = config.createTextNode(input2definition(pad, key, input, padindex + 1, reversed, 0))
+    else: value = config.createTextNode(f"KEYCODE_{kbkey} OR " + input2definition(pad, key, input, padindex + 1, reversed, 0))
     xml_newseq.appendChild(value)
     return xml_port
 

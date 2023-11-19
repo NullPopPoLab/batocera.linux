@@ -22,6 +22,8 @@ default,BUTTON9,l2
 default,BUTTON10,r2
 default,START,start
 default,COIN,select
+default,MENU,menu
+default,HOTKEY,opt
 gunbuttons,BUTTON1,BUTTON1
 gunbuttons,BUTTON2,BUTTON2
 gunbuttons,START,BUTTON3

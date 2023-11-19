@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIBRETRO_MAME_VERSION = 1d92cf9f0e65cf7fe854743fe67eace94bafe5b3
+LIBRETRO_MAME_VERSION = aefd898756546ec4b432d2420785803ab542d633
 LIBRETRO_MAME_SITE = https://github.com/NullPopPoLab/GroovyMAME.git
 LIBRETRO_MAME_SITE_METHOD = git
 LIBRETRO_MAME_LICENSE = MAME

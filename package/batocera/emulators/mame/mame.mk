@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version: GroovyMAME 0.258 - Switchres 2.002v
-MAME_VERSION = e46446f1111ad3ae36c57b14278a29c590964380
+MAME_VERSION = b7a08d0cf82e177b08a41277bb4d7aa96b97a68c
 MAME_SITE = https://github.com/NullPopPoLab/GroovyMAME
 MAME_SITE_METHOD = git
 MAME_DEPENDENCIES = sdl2 sdl2_ttf zlib libpng fontconfig sqlite jpeg flac rapidjson expat glm

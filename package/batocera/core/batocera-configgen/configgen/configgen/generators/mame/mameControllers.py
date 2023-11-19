@@ -231,11 +231,19 @@ def generatePadsConfig(cfgPath, playersControllers, sysName, altButtons, customC
 
         #UI Mappings
         if nplayer == 1:
-            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_DOWN", "DOWN", mappings_use["JOYSTICK_DOWN"], pad.inputs[mappings_use["JOYSTICK_DOWN"]], False, "", ""))      # Down
-            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_LEFT", "LEFT", mappings_use["JOYSTICK_LEFT"], pad.inputs[mappings_use["JOYSTICK_LEFT"]], False, "", ""))    # Left
-            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_UP", "UP", mappings_use["JOYSTICK_UP"], pad.inputs[mappings_use["JOYSTICK_UP"]], False, "", ""))            # Up
-            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_RIGHT", "RIGHT", mappings_use["JOYSTICK_RIGHT"], pad.inputs[mappings_use["JOYSTICK_RIGHT"]], False, "", "")) # Right
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_DOWN", "DOWN", 'down', pad.inputs['down'], False, "", ""))      # Down
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_LEFT", "LEFT", 'left', pad.inputs['left'], False, "", ""))    # Left
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_UP", "UP", 'up', pad.inputs['up'], False, "", ""))            # Up
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_RIGHT", "RIGHT", 'right', pad.inputs['right'], False, "", "")) # Right
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_PAGE_UP", "PAGEUP", 'pageup', pad.inputs['pageup'], False, "", ""))
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_PAGE_DOWN", "PAGEDOWN", 'pagedown', pad.inputs['pagedown'], False, "", ""))
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_PREV_GROUP", None, 'l2', pad.inputs['l2'], False, "", ""))
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_NEXT_GROUP", None, 'r2', pad.inputs['r2'], False, "", ""))
             xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_SELECT", "ENTER", 'b', pad.inputs['b'], False, "", ""))                                                     # Select
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_CANCEL", "ESCAPE", 'r3', pad.inputs['r3'], False, "", ""))                                                     # Cancel
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_BACK", "BACKSPACE", 'a', pad.inputs['a'], False, "", ""))                                                     # Cancel
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_CLEAR", "DELETE", 'l3', pad.inputs['l3'], False, "", ""))                                                     # Cancel
+            xml_input.appendChild(generateComboPortElement(pad, config, 'standard', pad.index, "UI_MENU", "TAB", 'menu', pad.inputs['menu'], False, "", ""))                                                     # Menu
 
         if useControls in messControlDict.keys():
             for controlDef in messControlDict[useControls].keys():
@@ -375,7 +383,25 @@ def generateComboPortElement(pad, config, tag, padindex, mapping, kbkey, key, in
     xml_newseq = config.createElement("newseq")
     xml_newseq.setAttribute("type", "standard")
     xml_port.appendChild(xml_newseq)
-    value = config.createTextNode("KEYCODE_{} OR ".format(kbkey) + input2definition(pad, key, input, padindex + 1, reversed, 0))
+    if kbkey is None: value = config.createTextNode(input2definition(pad, key, input, padindex + 1, reversed, 0))
+    else: value = config.createTextNode("KEYCODE_{} OR ".format(kbkey) + input2definition(pad, key, input, padindex + 1, reversed, 0))
+    xml_newseq.appendChild(value)
+    return xml_port
+
+def generateHotKeyPortElement(pad, config, tag, padindex, mapping, kbkey, key1, key2, reversed, mask, default):
+    # Maps a keycode + button - for important keyboard keys when available
+    input1 = pad.inputs[key1]
+    input2 = pad.inputs[key2]
+    xml_port = config.createElement("port")
+    xml_port.setAttribute("tag", tag)
+    xml_port.setAttribute("type", mapping)
+    xml_port.setAttribute("mask", mask)
+    xml_port.setAttribute("defvalue", default)
+    xml_newseq = config.createElement("newseq")
+    xml_newseq.setAttribute("type", "standard")
+    xml_port.appendChild(xml_newseq)
+    if kbkey is None: value = config.createTextNode(input2definition(pad, key, input1, padindex + 1, reversed, 0) + " " + input2definition(pad, key, input2, padindex + 1, reversed, 0))
+    else: value = config.createTextNode("KEYCODE_{} OR ".format(kbkey) + input2definition(pad, key, input1, padindex + 1, reversed, 0) + " " + input2definition(pad, key, input2, padindex + 1, reversed, 0))
     xml_newseq.appendChild(value)
     return xml_port
 

@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version: Commits on Mar 26, 2023
-LIBRETRO_FBNEO_VERSION = c10a230c6aad7e6dbc6aa9ee5114169d28534897
+LIBRETRO_FBNEO_VERSION = 79147b4f62b850a729933548e7d652ff7b411097
 LIBRETRO_FBNEO_SITE = https://github.com/NullPopPoLab/FBNeo.git
 LIBRETRO_FBNEO_SITE_METHOD = git
 LIBRETRO_FBNEO_LICENSE = Non-commercial

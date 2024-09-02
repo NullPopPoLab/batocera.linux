@@ -720,6 +720,7 @@ trick_wine() {
     GAMENAME=$1
     TRICK=$2
     WINEPOINT="${GAMENAME}"
+	mount_root z "1"
     WINEPREFIX="${WINEPOINT}" "${WINETRICKS}" "${TRICK}"
 }
 

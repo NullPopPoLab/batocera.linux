@@ -717,9 +717,10 @@ install_winetricks() {
 }
 
 trick_wine() {
-    GAMENAME=$1
+    WINEPOINT=$1
     TRICK=$2
-    WINEPOINT="${GAMENAME}"
+	echo "** Do trick $2 to $1 **"
+	install_winetricks
 	mount_root z "1"
     WINEPREFIX="${WINEPOINT}" "${WINETRICKS}" "${TRICK}"
 }
@@ -1049,10 +1050,27 @@ case "${ACTION}" in
 	GAMENAME=$1
 	TRICK=$2
     	GAMEEXT=$(gameext "${GAMENAME}")
+	BASEGAMENAME=$(basename "${GAMENAME}")
 	case "${GAMEEXT}" in
 	    "wine")
-		install_winetricks
-		trick_wine "${GAMENAME}" "${TRICK}" || cleanAndExit 1
+		WINEPOINT="${GAMENAME}"
+		trick_wine "${WINEPOINT}" "${TRICK}" || cleanAndExit 1
+		;;
+	    "pc")
+		WINEPOINT="${G_SAVES_DIR}/${BASEGAMENAME}/${WINE_PROFILE}"
+		trick_wine "${WINEPOINT}" "${TRICK}" || cleanAndExit 1
+		;;
+	    "exe")
+		WINEPOINT="${G_SAVES_DIR}/${BASEGAMENAME}/${WINE_PROFILE}"
+		trick_wine "${WINEPOINT}" "${TRICK}" || cleanAndExit 1
+		;;
+	    "wsquashfs")
+		WINEPOINT="${G_SAVES_DIR}/${BASEGAMENAME}/${WINE_PROFILE}"
+		trick_wine "${WINEPOINT}" "${TRICK}" || cleanAndExit 1
+		;;
+	    "wtgz")
+		WINEPOINT="${G_SAVES_DIR}/${BASEGAMENAME}/${WINE_PROFILE}"
+		trick_wine "${WINEPOINT}" "${TRICK}" || cleanAndExit 1
 		;;
 	esac
 	;;

@@ -2101,8 +2101,6 @@ x1:
   emulators:
     citra:
       citra: { requireAnyOf: [BR2_PACKAGE_CITRA]          }
-    libretro:
-      citra: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_CITRA] }
 
 openbor:
   name:       OpenBOR

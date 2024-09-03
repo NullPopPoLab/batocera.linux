@@ -27,7 +27,22 @@ class TsugaruGenerator(Generator):
             commandArray += ["-PRETEND386DX"]
 
         extension = os.path.splitext(rom)[1][1:].lower()
-        if extension in ['iso', 'cue', 'bin']:
+        if extension in ['m3u']:
+            # Launch each images in m3u
+            dir=os.path.dirname(rom)
+            fd=open(rom)
+            lines=fd.readlines()
+            fd.close()
+            if len(lines)>0:
+                name=lines[0].strip()
+                if name!='': commandArray += ["-CD", dir+'/'+name]
+            if len(lines)>1:
+                name=lines[1].strip()
+                if name!='': commandArray += ["-FD0", dir+'/'+name]
+            if len(lines)>2:
+                name=lines[2].strip()
+                if name!='': commandArray += ["-FD1", dir+'/'+name]
+        elif extension in ['iso', 'cue', 'bin']:
             # Launch CD-ROM
             commandArray += ["-CD", rom]
         else:

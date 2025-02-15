@@ -320,7 +320,7 @@ gbc2players:
   manufacturer: Nintendo
   release: 1998
   hardware: handheld
-  extensions: [gbc, gb2, gbc2, zip, 7z]
+  extensions: [gbc, gb2, gbc2, zip, 7z, m3u]
   platform:   gbc
   emulators:
     libretro:
@@ -337,7 +337,7 @@ gb2players:
   manufacturer: Nintendo
   release: 1989
   hardware: handheld
-  extensions: [gb, gb2, gbc2, zip, 7z]
+  extensions: [gb, gb2, gbc2, zip, 7z, m3u]
   platform:   gb
   emulators:
     libretro:
@@ -2061,7 +2061,7 @@ ps3:
   manufacturer: Panasonic - Sanyo - Goldstar
   release: 1993
   hardware: console
-  extensions: [iso, chd, cue]
+  extensions: [iso, chd, cue, m3u]
   emulators:
     libretro:
       opera:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_OPERA]  }

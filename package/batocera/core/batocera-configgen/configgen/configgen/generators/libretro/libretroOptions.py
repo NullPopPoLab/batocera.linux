@@ -933,6 +933,12 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             else:
                 msxtype2 = msxtype+' - '+system.config['bluemsx_region']
         coreSettings.save('bluemsx_msxtype', '"'+msxtype2+'"')
+        # Cartridge mapper
+        if system.isOptSet('bluemsx_cartmapper'):
+            if system.config['bluemsx_cartmapper'] == "":
+                coreSettings.save('bluemsx_cartmapper', '"Auto"')
+            else:
+                coreSettings.save('bluemsx_cartmapper', '"'+system.config['bluemsx_cartmapper']+'"')
         # Forces cropping of overscanned frames
         if system.name == 'colecovision' or system.name == 'msx1':
             coreSettings.save('bluemsx_overscan', '"enabled"')

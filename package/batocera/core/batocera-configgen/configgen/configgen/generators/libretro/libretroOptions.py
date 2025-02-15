@@ -939,21 +939,20 @@ def generateCoreSettings(coreSettings, system, rom, guns):
                 coreSettings.save('bluemsx_cartmapper', '"Auto"')
             else:
                 coreSettings.save('bluemsx_cartmapper', '"'+system.config['bluemsx_cartmapper']+'"')
-        # Forces cropping of overscanned frames
-        if system.name == 'colecovision' or system.name == 'msx1':
-            coreSettings.save('bluemsx_overscan', '"enabled"')
-        else:
-            coreSettings.save('bluemsx_overscan', '"MSX2"')
         # Reduce Sprite Flickering
         if system.isOptSet('bluemsx_nospritelimits') and system.config['bluemsx_nospritelimits'] == "False":
             coreSettings.save('bluemsx_nospritelimits', '"OFF"')
         else:
             coreSettings.save('bluemsx_nospritelimits', '"ON"')
-        # Zoom, Hide Video Border
-        if system.isOptSet('bluemsx_overscan'):
-            coreSettings.save('bluemsx_overscan', '"' + system.config['bluemsx_overscan'] + '"')
+        # Forces cropping of overscanned frames
+        if system.name == 'colecovision' or system.name == 'msx1':
+            coreSettings.save('bluemsx_overscan', '"enabled"')
         else:
-            coreSettings.save('bluemsx_overscan', '"MSX2"')
+            # Zoom, Hide Video Border
+            if system.isOptSet('bluemsx_overscan'):
+                coreSettings.save('bluemsx_overscan', '"' + system.config['bluemsx_overscan'] + '"')
+            else:
+                coreSettings.save('bluemsx_overscan', '"MSX2"')
 
     # Nec PC Engine / CD
     if system.config['core'] == 'pce' or system.config['core'] == 'pce_fast':

@@ -429,6 +429,42 @@ libretro:
                     "Russian": Russian
                     "Spanish": Spanish
                     "Swedish": Swedish
+            bluemsx_cartmapper:
+                prompt:      CARTRIDGE MAPPER
+                description: Select a cartridge type for BlueMSX.
+                choices:
+                    "Default": Auto
+                    "Normal": Normal
+                    "Mirrored": mirrored
+                    "Start from 0x4000": 0x4000
+                    "Start from 0xC000": 0xC000
+                    "ASCII8": ascii8
+                    "ASCII8 with SRAM": ascii8sram
+                    "ASCII16": ascii16
+                    "ASCII16 with SRAM": ascii16sram
+                    "ASCII16 NF": ascii16nf
+                    "Konami4": konami4
+                    "Konami4 NF": konami4nf
+                    "Konami5": konami5
+                    "Konami Synthesizer": konamisynth
+                    "Korean 80 in 1": korean80
+                    "Korean 90 in 1": korean90
+                    "Korean 126 in 1": korean126
+                    "MegaFlashROM SCC": MegaFlashRomScc
+                    "MegaFlashROM SCC+": MegaFlashRomSccPlus
+                    "MSX-DOS2": msxdos2
+                    "Generic SCC": scc
+                    "SCC Expanded": sccexpanded
+                    "SCC Mirrored": sccmirrored
+                    "SCC Plus": sccplus
+                    "Snatcher": snatcher
+                    "SD Snatcher": sdsnatcher
+                    "SC-3000 Sega Basic": SegaBasic
+                    "SG-1000": SG1000
+                    "SG-1000 (The Castle)": SG1000Castle
+                    "SG-1000 RAM A": SG1000RamA
+                    "SG-1000 RAM B": SG1000RamB
+                    "SC-3000": SC3000
             bluemsx_nospritelimits:
                 prompt:      REDUCE SPRITE FLICKERING
                 description: Enhancement. Remove the four sprites per line limit.

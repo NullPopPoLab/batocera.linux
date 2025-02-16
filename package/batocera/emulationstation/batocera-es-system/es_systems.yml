@@ -320,7 +320,7 @@ gbc2players:
   manufacturer: Nintendo
   release: 1998
   hardware: portable
-  extensions: [gbc, gb2, gbc2, zip, 7z]
+  extensions: [gbc, gb2, gbc2, zip, 7z, m3u]
   platform:   gbc
   emulators:
     libretro:
@@ -337,7 +337,7 @@ gb2players:
   manufacturer: Nintendo
   release: 1989
   hardware: portable
-  extensions: [gb, gb2, gbc2, zip, 7z]
+  extensions: [gb, gb2, gbc2, zip, 7z, m3u]
   platform:   gb
   emulators:
     libretro:
@@ -595,10 +595,10 @@ psp:
   manufacturer: Sony
   release: 2004
   hardware: portable
-  extensions: [iso, cso, pbp]
+  extensions: [iso, cso, pbp, m3u]
   emulators:
     ppsspp:
-      ppsspp: { requireAnyOf: [BR2_PACKAGE_PPSSPP]  }
+      ppsspp: { requireAnyOf: [BR2_PACKAGE_PPSSPP], incompatible_extensions: [m3u]  }
     libretro:
       ppsspp:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_PPSSPP] }
   comment_en: |
@@ -644,7 +644,7 @@ pcenginecd:
   manufacturer: NEC
   release: 1988
   hardware: console
-  extensions: [pce, cue, ccd, iso, img, chd]
+  extensions: [pce, cue, ccd, iso, img, chd, m3u]
   theme:      pce-cd
   emulators:
     libretro:
@@ -2057,7 +2057,7 @@ ps3:
   manufacturer: Panasonic - Sanyo - Goldstar
   release: 1993
   hardware: console
-  extensions: [iso, chd, cue]
+  extensions: [iso, chd, cue, m3u]
   emulators:
     libretro:
       opera:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_OPERA]  }
@@ -2087,7 +2087,7 @@ x1:
   manufacturer: Sharp
   release: 1982
   hardware: computer
-  extensions: [dx1, zip, 2d, 2hd, tfd, d88, 88d, hdm, xdf, dup, cmd, 7z]
+  extensions: [dx1, zip, 2d, 2hd, tfd, d88, 88d, hdm, xdf, dup, cmd, 7z, m3u]
   emulators:
     libretro:
       x1: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_XMIL] }
@@ -4726,7 +4726,6 @@ openlara:
   hardware: port
   extensions: [croft]
   platform: pc
-  group: ports
   emulators:
     libretro:
       openlara: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_OPENLARA] }

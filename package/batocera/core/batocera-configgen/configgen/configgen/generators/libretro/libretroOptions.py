@@ -900,21 +900,44 @@ def generateCoreSettings(coreSettings, system, rom, guns):
     # Microsoft MSX and Colecovision
     if (system.config['core'] == 'bluemsx'):
         # Auto Select Core
-        if (system.name == 'colecovision'):
-            coreSettings.save('bluemsx_msxtype', '"ColecoVision"')
-        elif (system.name == 'msx1'):
-            coreSettings.save('bluemsx_msxtype', '"MSX"')
-        elif (system.name == 'msx2'):
-            coreSettings.save('bluemsx_msxtype', '"MSX2"')
-        elif (system.name == 'msx2+'):
-            coreSettings.save('bluemsx_msxtype', '"MSX2+"')
-        elif (system.name == 'msxturbor'):
-            coreSettings.save('bluemsx_msxtype', '"MSXturboR"')
-        # Forces cropping of overscanned frames
-        if system.name == 'colecovision' or system.name == 'msx1':
-            coreSettings.save('bluemsx_overscan', '"enabled"')
+        msxtype = ''
+        if system.isOptSet('bluemsx_generation'):
+            if system.config['bluemsx_generation'] == "MSX1":
+                msxtype = 'MSX'
+            elif system.config['bluemsx_generation'] == "MSX2":
+                msxtype = 'MSX2'
+            elif system.config['bluemsx_generation'] == "MSX2+":
+                msxtype = 'MSX2+'
+            elif system.config['bluemsx_generation'] == "MSXturboR":
+                msxtype = 'MSXturboR'
+        if (msxtype==''):
+            if (system.name == 'colecovision'):
+                msxtype = 'ColecoVision'
+            elif (system.name == 'msx1'):
+                msxtype = 'MSX'
+            elif (system.name == 'msx2'):
+                msxtype = 'MSX2'
+            elif (system.name == 'msx2+'):
+                msxtype = 'MSX2+'
+            elif (system.name == 'msxturbor'):
+                msxtype = 'MSXturboR'
+            else:
+                msxtype = 'MSX'
+        # Select a region
+        msxtype2 = msxtype
+        if system.isOptSet('bluemsx_region'):
+            if system.config['bluemsx_region'] == "":
+                pass
+            elif system.config['bluemsx_region'] == "Default":
+                pass
+            else:
+                msxtype2 = msxtype+' - '+system.config['bluemsx_region']
+        coreSettings.save('bluemsx_msxtype', '"'+msxtype2+'"')
+        # Cartridge mapper
+        if system.isOptSet('bluemsx_cartmapper') and system.config['bluemsx_cartmapper'] != "":
+            coreSettings.save('bluemsx_cartmapper', '"'+system.config['bluemsx_cartmapper']+'"')
         else:
-            coreSettings.save('bluemsx_overscan', '"MSX2"')
+            coreSettings.save('bluemsx_cartmapper', '"Auto"')
         # Reduce Sprite Flickering
         if system.isOptSet('bluemsx_nospritelimits') and system.config['bluemsx_nospritelimits'] == "False":
             coreSettings.save('bluemsx_nospritelimits', '"OFF"')
@@ -923,8 +946,12 @@ def generateCoreSettings(coreSettings, system, rom, guns):
         # Zoom, Hide Video Border
         if system.isOptSet('bluemsx_overscan'):
             coreSettings.save('bluemsx_overscan', '"' + system.config['bluemsx_overscan'] + '"')
+        elif system.name == 'colecovision' or system.name == 'msx1':
+            # Forces cropping of overscanned frames (256x192)
+            coreSettings.save('bluemsx_overscan', '"enabled"')
         else:
-            coreSettings.save('bluemsx_overscan', '"MSX2"')
+            # For MSX2 (256x212) + 8 dot border
+            coreSettings.save('bluemsx_overscan', '"bordering"')
 
     # Nec PC Engine / CD
     if system.config['core'] == 'pce' or system.config['core'] == 'pce_fast':
@@ -941,11 +968,16 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('q88_basic_mode', '"' + system.config['q88_basic_mode'] + '"')
         else:
             coreSettings.save('q88_basic_mode', '"N88 V2"')
+        # Sub CPU Mode
+        if system.isOptSet('q88_sub_cpu_mode'):
+            coreSettings.save('q88_sub_cpu_mode', '"' + system.config['q88_sub_cpu_mode'] + '"')
+        else:
+            coreSettings.save('q88_sub_cpu_mode', '"0"')
         # CPU clock (Overclock)
         if system.isOptSet('q88_cpu_clock'):
             coreSettings.save('q88_cpu_clock', '"' + system.config['q88_cpu_clock'] + '"')
         else:
-            coreSettings.save('q88_cpu_clock', '"4"')
+            coreSettings.save('q88_cpu_clock', '"8"')
         # Use PCG-8100
         if system.isOptSet('q88_pcg-8100'):
             coreSettings.save('q88_pcg-8100', '"' + system.config['q88_pcg-8100'] + '"')
@@ -956,9 +988,15 @@ def generateCoreSettings(coreSettings, system, rom, guns):
     # https://github.com/AZO234/NP2kai/blob/6e8f651a72c2ece37cc52e17cdaf4fdb87a6b2f9/sdl/libretro/libretro_core_options.h
     if system.config['core'] == 'np2kai':
         # Use the American keyboard
-        coreSettings.save('np2kai_keyboard', '"Us"')
+        if system.isOptSet('np2kai_keyboard'):
+            coreSettings.save('np2kai_keyboard', '"' + system.config['np2kai_keyboard'] + '"')
+        else:
+            coreSettings.save('np2kai_keyboard', '"Us"')
         # Fast memcheck at startup
-        coreSettings.save('np2kai_FastMC', '"ON"')
+        if system.isOptSet('np2kai_FastMC') and system.config['np2kai_FastMC'] == "True":
+            coreSettings.save('np2kai_FastMC', '"ON"')
+        else:
+            coreSettings.save('np2kai_FastMC', '"OFF"')
         # Sound Generator: Use "fmgen" for enhanced sound rendering, not "Default"
         #coreSettings.save('np2kai_usefmgen', '"fmgen"')
         # PC Model
@@ -971,6 +1009,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('np2kai_cpu_feature', '"' + system.config['np2kai_cpu_feature'] + '"')
         else:
             coreSettings.save('np2kai_cpu_feature', '"Intel 80386"')
+        # CPU Base Clock
+        if system.isOptSet('np2kai_clk_base'):
+            coreSettings.save('np2kai_clk_base', '"' + system.config['np2kai_clk_base'] + '"')
+        else:
+            coreSettings.save('np2kai_clk_base', '"2.4576 MHz"')
         # CPU Clock Multiplier
         if system.isOptSet('np2kai_clk_mult'):
             coreSettings.save('np2kai_clk_mult', '"' + system.config['np2kai_clk_mult'] + '"')
@@ -986,6 +1029,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('np2kai_gdc', '"' + system.config['np2kai_gdc'] + '"')
         else:
             coreSettings.save('np2kai_gdc', '"uPD7220"')
+        # 118 ROM
+        if system.isOptSet('np2kai_118ROM'):
+            coreSettings.save('np2kai_118ROM', '"' + system.config['np2kai_118ROM'] + '"')
+        else:
+            coreSettings.save('np2kai_118ROM', '"ON"')
         # Remove Scanlines (255 lines)
         if system.isOptSet('np2kai_skipline') and system.config['np2kai_skipline'] != "Full 255 lines":
             if system.config['np2kai_skipline'] == "True":
@@ -1009,11 +1057,21 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('np2kai_jast_snd', '"ON"')
         else:
             coreSettings.save('np2kai_jast_snd', '"OFF"')
-        # Joypad to Keyboard Mapping
-        if system.isOptSet('np2kai_joymode'):
-            coreSettings.save('np2kai_joymode', '"' + system.config['np2kai_joymode'] + '"')
+        # WAB SWITCH
+        if system.isOptSet('np2kai_CLGD_en') and system.config['np2kai_CLGD_en'] == "True":
+            coreSettings.save('np2kai_CLGD_en', '"ON"')
         else:
-            coreSettings.save('np2kai_joymode', '"Arrows"')
+            coreSettings.save('np2kai_CLGD_en', '"OFF"')
+        # WAB CURSOR
+        if system.isOptSet('np2kai_CLGD_fc') and system.config['np2kai_CLGD_fc'] == "True":
+            coreSettings.save('np2kai_CLGD_fc', '"ON"')
+        else:
+            coreSettings.save('np2kai_CLGD_fc', '"OFF"')
+        # WAB TYPE
+        if system.isOptSet('np2kai_CLGD_type'):
+            coreSettings.save('np2kai_CLGD_type', '"' + system.config['np2kai_CLGD_type'] + '"')
+        else:
+            coreSettings.save('np2kai_CLGD_type', '"PC-9821Xe10,Xa7e,Xb10 built-in"')
 
     # Nec PC Engine SuperGrafx
     if (system.config['core'] == 'mednafen_supergrafx'):
@@ -1039,6 +1097,41 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             f = open(batoceraFiles.CONF + "/retroarch/3ds.cfg", "w")
             f.write("video_driver = \"glcore\"\n")
             f.close()
+
+        if system.isOptSet('citra_is_new_3ds'):
+            coreSettings.save('citra_is_new_3ds', system.config['citra_is_new_3ds'])
+        else:
+            coreSettings.save('citra_is_new_3ds', '"New 3DS"')
+
+        if system.isOptSet('citra_region_value'):
+            coreSettings.save('citra_region_value', system.config['citra_region_value'])
+        else:
+            coreSettings.save('citra_region_value', '"Auto"')
+
+        if system.isOptSet('citra_control_style'):
+            coreSettings.save('citra_control_style', system.config['citra_control_style'])
+        else:
+            coreSettings.save('citra_control_style', '"SlidePad"')
+
+        if system.isOptSet('citra_mouse_touchscreen'):
+            coreSettings.save('citra_mouse_touchscreen', system.config['citra_mouse_touchscreen'])
+        else:
+            coreSettings.save('citra_mouse_touchscreen', '"enabled"')
+
+        if system.isOptSet('citra_slow_stick_speed'):
+            coreSettings.save('citra_slow_stick_speed', system.config['citra_slow_stick_speed'])
+        else:
+            coreSettings.save('citra_slow_stick_speed', '"0.1"')
+
+        if system.isOptSet('citra_fast_stick_speed'):
+            coreSettings.save('citra_fast_stick_speed', system.config['citra_fast_stick_speed'])
+        else:
+            coreSettings.save('citra_fast_stick_speed', '"0.8"')
+
+        if system.isOptSet('citra_deadzone'):
+            coreSettings.save('citra_deadzone', system.config['citra_deadzone'])
+        else:
+            coreSettings.save('citra_deadzone', '"2"')
 
     # Nintendo 64
     if (system.config['core'] == 'mupen64plus-next'):
@@ -1204,8 +1297,24 @@ def generateCoreSettings(coreSettings, system, rom, guns):
 
     # Nintendo DS
     if (system.config['core'] == 'desmume'):
-        # Emulate Stylus on Right Stick
-        coreSettings.save('desmume_pointer_device_r', '"emulated"')
+        # Emulate Stylus on Analog Stick
+        if system.isOptSet('desmume_pointer_type'):
+            coreSettings.save('desmume_pointer_type', system.config['desmume_pointer_type'])
+        else:
+            coreSettings.save('desmume_pointer_type', '"stick"')
+        # Analog Stick Speed
+        if system.isOptSet('desmume_left_stick_speed'):
+            coreSettings.save('desmume_left_stick_speed', system.config['desmume_left_stick_speed'])
+        else:
+            coreSettings.save('desmume_left_stick_speed', '"0.8"')
+        if system.isOptSet('desmume_right_stick_speed'):
+            coreSettings.save('desmume_right_stick_speed', system.config['desmume_right_stick_speed'])
+        else:
+            coreSettings.save('desmume_right_stick_speed', '"0.1"')
+        if system.isOptSet('desmume_stick_deadzone'):
+            coreSettings.save('desmume_stick_deadzone', system.config['desmume_stick_deadzone'])
+        else:
+            coreSettings.save('desmume_stick_deadzone', '"5"')
         # Internal Resolution
         if system.isOptSet('internal_resolution_desmume'):
             coreSettings.save('desmume_internal_resolution', '"' + system.config['internal_resolution_desmume'] + '"')
@@ -1253,6 +1362,24 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('melonds_use_fw_settings', '"' + system.config['melonds_use_fw_settings'] + '"')
         else:
             coreSettings.save('melonds_use_fw_settings', '"disable"')
+        # Emulate Stylus on Stick
+        if system.isOptSet('melonds_touch_mode'):
+            coreSettings.save('melonds_touch_mode', system.config['melonds_touch_mode'])
+        else:
+            coreSettings.save('melonds_touch_mode', '"Joystick"')
+        # Analog Stick Speed
+        if system.isOptSet('melonds_left_stick_speed'):
+            coreSettings.save('melonds_left_stick_speed', system.config['melonds_left_stick_speed'])
+        else:
+            coreSettings.save('melonds_left_stick_speed', '"0.8"')
+        if system.isOptSet('melonds_right_stick_speed'):
+            coreSettings.save('melonds_right_stick_speed', system.config['melonds_right_stick_speed'])
+        else:
+            coreSettings.save('melonds_right_stick_speed', '"0.1"')
+        if system.isOptSet('melonds_stick_deadzone'):
+            coreSettings.save('melonds_stick_deadzone', system.config['melonds_stick_deadzone'])
+        else:
+            coreSettings.save('melonds_stick_deadzone', '"5"')
         # Enable threaded rendering
         coreSettings.save('melonds_threaded_renderer', '"enabled"')
         # Emulate Stylus on Right Stick
@@ -1462,25 +1589,17 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('nestopia_nospritelimit', '"enabled"')
         # Crop Overscan
         if system.isOptSet('nestopia_cropoverscan') and system.config['nestopia_cropoverscan'] == "none":
-            coreSettings.save('nestopia_overscan_h_left', '"0"')
-            coreSettings.save('nestopia_overscan_h_right', '"0"')
-            coreSettings.save('nestopia_overscan_v_top', '"0"')
-            coreSettings.save('nestopia_overscan_v_bottom', '"0"')
+            coreSettings.save('nestopia_overscan_h',    '"disabled"')
+            coreSettings.save('nestopia_overscan_v',    '"disabled"')
         elif system.isOptSet('nestopia_cropoverscan') and system.config['nestopia_cropoverscan'] == "h":
-            coreSettings.save('nestopia_overscan_h_left', '"8"')
-            coreSettings.save('nestopia_overscan_h_right', '"8"')
-            coreSettings.save('nestopia_overscan_v_top', '"0"')
-            coreSettings.save('nestopia_overscan_v_bottom', '"0"')
-        elif system.isOptSet('nestopia_cropoverscan') and system.config['nestopia_cropoverscan'] == "both":
-            coreSettings.save('nestopia_overscan_h_left', '"8"')
-            coreSettings.save('nestopia_overscan_h_right', '"8"')
-            coreSettings.save('nestopia_overscan_v_top', '"8"')
-            coreSettings.save('nestopia_overscan_v_bottom', '"8"')
+            coreSettings.save('nestopia_overscan_h',    '"enabled"')
+            coreSettings.save('nestopia_overscan_v',    '"disabled"')
+        elif system.isOptSet('nestopia_cropoverscan') and system.config['nestopia_cropoverscan'] == "v":
+            coreSettings.save('nestopia_overscan_h',    '"disabled"')
+            coreSettings.save('nestopia_overscan_v',    '"enabled"')
         else:
-            coreSettings.save('nestopia_overscan_h_left', '"0"')
-            coreSettings.save('nestopia_overscan_h_right', '"0"')
-            coreSettings.save('nestopia_overscan_v_top', '"8"')
-            coreSettings.save('nestopia_overscan_v_bottom', '"8"')
+            coreSettings.save('nestopia_overscan_h',    '"enabled"')
+            coreSettings.save('nestopia_overscan_v',    '"enabled"')
         # Palette Choice
         if system.isOptSet('nestopia_palette'):
             coreSettings.save('nestopia_palette', '"' + system.config['nestopia_palette'] + '"')
@@ -1527,25 +1646,17 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('fceumm_nospritelimit', '"enabled"')
         # Crop Overscan
         if system.isOptSet('fceumm_cropoverscan') and system.config['fceumm_cropoverscan'] == "none":
-            coreSettings.save('fceumm_overscan_h_left', '"0"')
-            coreSettings.save('fceumm_overscan_h_right', '"0"')
-            coreSettings.save('fceumm_overscan_v_top', '"0"')
-            coreSettings.save('fceumm_overscan_v_bottom', '"0"')
+            coreSettings.save('fceumm_overscan_h',    '"disabled"')
+            coreSettings.save('fceumm_overscan_v',    '"disabled"')
         elif system.isOptSet('fceumm_cropoverscan') and system.config['fceumm_cropoverscan'] == "h":
-            coreSettings.save('fceumm_overscan_h_left', '"8"')
-            coreSettings.save('fceumm_overscan_h_right', '"8"')
-            coreSettings.save('fceumm_overscan_v_top', '"0"')
-            coreSettings.save('fceumm_overscan_v_bottom', '"0"')
-        elif system.isOptSet('fceumm_cropoverscan') and system.config['fceumm_cropoverscan'] == "both":
-            coreSettings.save('fceumm_overscan_h_left', '"8"')
-            coreSettings.save('fceumm_overscan_h_right', '"8"')
-            coreSettings.save('fceumm_overscan_v_top', '"8"')
-            coreSettings.save('fceumm_overscan_v_bottom', '"8"')
+            coreSettings.save('fceumm_overscan_h',    '"enabled"')
+            coreSettings.save('fceumm_overscan_v',    '"disabled"')
+        elif system.isOptSet('fceumm_cropoverscan') and system.config['fceumm_cropoverscan'] == "v":
+            coreSettings.save('fceumm_overscan_h',    '"disabled"')
+            coreSettings.save('fceumm_overscan_v',    '"enabled"')
         else:
-            coreSettings.save('fceumm_overscan_h_left', '"0"')
-            coreSettings.save('fceumm_overscan_h_right', '"0"')
-            coreSettings.save('fceumm_overscan_v_top', '"8"')
-            coreSettings.save('fceumm_overscan_v_bottom', '"8"')
+            coreSettings.save('fceumm_overscan_h',    '"enabled"')
+            coreSettings.save('fceumm_overscan_v',    '"enabled"')
         # Palette Choice
         if system.isOptSet('fceumm_palette'):
             coreSettings.save('fceumm_palette', '"' + system.config['fceumm_palette'] + '"')
@@ -1587,6 +1698,27 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('mesen_nospritelimit', '"' + system.config['mesen_nospritelimit'] + '"')
         else:
             coreSettings.save('mesen_nospritelimit', '"disabled"')
+        # Crop Overscan
+        if system.isOptSet('mesen_cropoverscan') and system.config['mesen_cropoverscan'] == "none":
+            coreSettings.save('mesen_overscan_up',    '"None"')
+            coreSettings.save('mesen_overscan_down',  '"None"')
+            coreSettings.save('mesen_overscan_left',  '"None"')
+            coreSettings.save('mesen_overscan_right', '"None"')
+        elif system.isOptSet('mesen_cropoverscan') and system.config['mesen_cropoverscan'] == "h":
+            coreSettings.save('mesen_overscan_up',    '"None"')
+            coreSettings.save('mesen_overscan_down',  '"None"')
+            coreSettings.save('mesen_overscan_left',  '"8px"')
+            coreSettings.save('mesen_overscan_right', '"8px"')
+        elif system.isOptSet('mesen_cropoverscan') and system.config['mesen_cropoverscan'] == "v":
+            coreSettings.save('mesen_overscan_up',    '"8px"')
+            coreSettings.save('mesen_overscan_down',  '"8px"')
+            coreSettings.save('mesen_overscan_left',  '"None"')
+            coreSettings.save('mesen_overscan_right', '"None"')
+        else:
+            coreSettings.save('mesen_overscan_up',    '"8px"')
+            coreSettings.save('mesen_overscan_down',  '"8px"')
+            coreSettings.save('mesen_overscan_left',  '"8px"')
+            coreSettings.save('mesen_overscan_right', '"8px"')
         # Palette
         if system.isOptSet('mesen_palette'):
             coreSettings.save('mesen_palette', '"' + system.config['mesen_palette'] + '"')
@@ -2108,6 +2240,29 @@ def generateCoreSettings(coreSettings, system, rom, guns):
                 status = '"Off"'
             coreSettings.save('beetle_saturn_virtuagun_crosshair', status)
 
+    # Sharp X1
+    if (system.config['core'] == 'x1'):
+        if system.isOptSet('x1_resolute'):
+            coreSettings.save('x1_resolute', '"'+system.config['x1_resolute']+'"')
+        else:
+            coreSettings.save('x1_resolute', '"HIGH"')
+        if system.isOptSet('x1_bootmedia'):
+            coreSettings.save('x1_bootmedia', '"'+system.config['x1_bootmedia']+'"')
+        else:
+            coreSettings.save('x1_bootmedia', '"2D"')
+        if system.isOptSet('x1_romtype'):
+            coreSettings.save('x1_romtype', '"'+system.config['x1_romtype']+'"')
+        else:
+            coreSettings.save('x1_romtype', '"TURBO"')
+        if system.isOptSet('x1_cpu_clock'):
+            coreSettings.save('x1_cpu_clock', '"'+system.config['x1_cpu_clock']+'"')
+        else:
+            coreSettings.save('x1_cpu_clock', '"4"')
+        if system.isOptSet('x1_fmboard'):
+            coreSettings.save('x1_fmboard', '"'+system.config['x1_fmboard']+'"')
+        else:
+            coreSettings.save('x1_fmboard', '"ON"')
+
     # Sharp X68000
     if (system.config['core'] == 'px68k'):
         # Fresh config file
@@ -2127,7 +2282,7 @@ def generateCoreSettings(coreSettings, system, rom, guns):
         if system.isOptSet('px68k_cpuspeed'):
             coreSettings.save('px68k_cpuspeed', '"' + system.config['px68k_cpuspeed'] + '"')
         else:
-            coreSettings.save('px68k_cpuspeed', '"33Mhz (OC)"')
+            coreSettings.save('px68k_cpuspeed', '"16Mhz"')
         # RAM Size
         if system.isOptSet('px68k_ramsize'):
             coreSettings.save('px68k_ramsize', '"' + system.config['px68k_ramsize'] + '"')
@@ -2137,14 +2292,7 @@ def generateCoreSettings(coreSettings, system, rom, guns):
         if system.isOptSet('px68k_frameskip'):
                 coreSettings.save('px68k_frameskip', '"' + system.config['px68k_frameskip'] + '"')
         else:
-            coreSettings.save('px68k_frameskip', '"Full Frame"')
-        # Joypad Type for two players
-        if system.isOptSet('px68k_joytype'):
-            coreSettings.save('px68k_joytype1', '"' + system.config['px68k_joytype'] + '"')
-            coreSettings.save('px68k_joytype2', '"' + system.config['px68k_joytype'] + '"')
-        else:
-            coreSettings.save('px68k_joytype1', '"Default (2 Buttons)"')
-            coreSettings.save('px68k_joytype2', '"Default (2 Buttons)"')
+            coreSettings.save('px68k_frameskip', '"Auto Frame Skip"')
 
     # Sinclair ZX81
     if (system.config['core'] == '81'):

@@ -112,42 +112,37 @@ class MameGenerator(Generator):
         else:
             customCfg = False
 
+        cfgBase = "/userdata/saves/mame/groovy/"
         if system.name == "mame":
             if customCfg:
-                cfgPath = "/userdata/system/configs/mame/custom/"
+                cfgBase += "mame-custom/"
             else:
-                cfgPath = "/userdata/system/configs/mame/"
-            if not os.path.exists("/userdata/system/configs/mame/"):
-                os.makedirs("/userdata/system/configs/mame/")
+                cfgBase += "mame/"
         else:
             if customCfg:
-                cfgPath = "/userdata/system/configs/mame/" + messSysName[messMode]+ "/custom/"
+                cfgBase += messSysName[messMode]+ "-custom/"
             else:
-                cfgPath = "/userdata/system/configs/mame/" + messSysName[messMode] + "/"
-            if not os.path.exists("/userdata/system/configs/mame/" + messSysName[messMode] + "/"):
-                os.makedirs("/userdata/system/configs/mame/" + messSysName[messMode] + "/")
-        if not os.path.exists(cfgPath):
-            os.makedirs(cfgPath)
+                cfgBase += messSysName[messMode] + "/"
 
         # MAME will create custom configs per game for MAME ROMs and MESS ROMs with no system attached (LCD games, TV games, etc.)
         # This will allow an alternate config path per game for MESS console/computer ROMs that may need additional config.
         if system.isOptSet("pergamecfg") and system.getOptBoolean("pergamecfg"):
-            if not messMode == -1:
-                if not messSysName[messMode] == "":
-                    if not os.path.exists("/userdata/system/configs/mame/" + messSysName[messMode] + "/"):
-                        os.makedirs("/userdata/system/configs/mame/" + messSysName[messMode]+ "/")
-                    cfgPath = "/userdata/system/configs/mame/" + messSysName[messMode]+ "/" + romBasename + "/"
-                    if not os.path.exists(cfgPath):
-                        os.makedirs(cfgPath)
+            cfgBase += romBasename + "/"
+        if not os.path.exists(cfgBase):
+            os.makedirs(cfgBase)
+        cfgPath = cfgBase+"cfg/"
+        if not os.path.exists(cfgPath):
+            os.makedirs(cfgPath)
+
         commandArray += [ "-cfg_directory"   ,    cfgPath ]
-        commandArray += [ "-input_directory" ,    "/userdata/saves/mame/input/" ]
-        commandArray += [ "-state_directory" ,    "/userdata/saves/mame/state/" ]
+        commandArray += [ "-input_directory" ,    cfgBase+"input/" ]
+        commandArray += [ "-state_directory" ,    cfgBase+"state/" ]
         commandArray += [ "-snapshot_directory" , "/userdata/screenshots/" ]
-        commandArray += [ "-diff_directory" ,     "/userdata/saves/mame/diff/" ]
-        commandArray += [ "-comment_directory",   "/userdata/saves/mame/comments/" ]
-        commandArray += [ "-homepath" ,           "/userdata/saves/mame/plugins/" ]
-        commandArray += [ "-ctrlrpath" ,          "/userdata/system/configs/mame/ctrlr/" ]
-        commandArray += [ "-inipath" ,            "/userdata/system/configs/mame/;/userdata/system/configs/mame/ini/" ]
+        commandArray += [ "-diff_directory" ,     cfgBase+"diff/" ]
+        commandArray += [ "-comment_directory",   cfgBase+"comments/" ]
+        commandArray += [ "-homepath" ,           cfgBase+"plugins/" ]
+        commandArray += [ "-ctrlrpath" ,          cfgBase+"ctrlr/" ]
+        commandArray += [ "-inipath" ,            cfgBase+"ini/" ]
         commandArray += [ "-crosshairpath" ,      "/userdata/bios/mame/artwork/crosshairs/" ]
         if softList != "":
             commandArray += [ "-swpath" ,        softDir ]
@@ -416,7 +411,7 @@ class MameGenerator(Generator):
             if system.isOptSet('addblankdisk') and system.getOptBoolean('addblankdisk'):
                 if system.name == 'fmtowns':
                     blankDisk = '/usr/share/mame/blank.fmtowns'
-                    targetFolder = '/userdata/saves/mame/{}'.format(system.name)
+                    targetFolder = '/userdata/saves/mame/groovy/{}'.format(system.name)
                     targetDisk = '{}/{}.fmtowns'.format(targetFolder, os.path.splitext(romBasename)[0])
                 # Add elif statements here for other systems if enabled
                 if not os.path.exists(targetFolder):

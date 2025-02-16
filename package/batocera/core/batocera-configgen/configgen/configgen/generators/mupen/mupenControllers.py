@@ -15,13 +15,13 @@ mupenHatToAxis        = {'1': 'Up',   '2': 'Right', '4': 'Down', '8': 'Left'}
 mupenHatToReverseAxis = {'1': 'Down', '2': 'Left',  '4': 'Up',   '8': 'Right'}
 mupenDoubleAxis = {0:'X Axis', 1:'Y Axis'}
 
-def getMupenMapping(use_n64_inputs):
+def getMupenMapping(inputs_profile):
     # load system values and override by user values in case some user values are missing
     map = dict()
     for file in [batoceraFiles.mupenMappingSystem, batoceraFiles.mupenMappingUser]:
         if os.path.exists(file):
             dom = minidom.parse(file)
-            list_name = 'n64InputList' if use_n64_inputs else 'defaultInputList'
+            list_name = inputs_profile+'InputList'
             for inputs in dom.getElementsByTagName(list_name):
                 for input in inputs.childNodes:
                     if input.attributes:
@@ -54,10 +54,10 @@ def getPeakandDeadzoneValues(start_value, config_value, system, default_multipli
     return f"{result},{result}"
          
 def defineControllerKeys(nplayer, controller, system):
-        if f"mupen64-controller{nplayer}" in system.config and system.config[f"mupen64-controller{nplayer}"] != "retropad":
-            mupenmapping = getMupenMapping(True)
+        if f"mupen64-controller{nplayer}" in system.config:
+            mupenmapping = getMupenMapping(system.config[f"mupen64-controller{nplayer}"])
         else:    
-            mupenmapping = getMupenMapping(False)
+            mupenmapping = getMupenMapping("default")
 
         # config holds the final pad configuration in the mupen style
         # ex: config['DPad U'] = "button(1)"
@@ -67,32 +67,6 @@ def defineControllerKeys(nplayer, controller, system):
         config['AnalogPeak'] = getPeakandDeadzoneValues(mupenmapping['AnalogPeak'], f"mupen64-sensitivity{nplayer}", system, 1)
         config['AnalogDeadzone'] = getPeakandDeadzoneValues(mupenmapping['AnalogPeak'], f"mupen64-deadzone{nplayer}", system, 0.05)
         
-        # z is important, in case l2 is not available for this pad, use l1
-        # assume that l2 is for "Z Trig" in the mapping
-        if 'l2' not in controller.inputs:
-            mupenmapping['pageup'] = mupenmapping['l2']
-
-        # if joystick1up is not available, use up/left while these keys are more used
-        if 'joystick1up' not in controller.inputs:
-            mupenmapping['up']    = mupenmapping['joystick1up']
-            mupenmapping['down']  = mupenmapping['joystick1down']
-            mupenmapping['left']  = mupenmapping['joystick1left']
-            mupenmapping['right'] = mupenmapping['joystick1right']
-
-        # the input.xml adds 2 directions per joystick, ES handles just 1
-        fakeSticks = { 'joystick2up' : 'joystick2down', 'joystick2left' : 'joystick2right'}
-        # Cheat on the controller
-        for realStick, fakeStick in fakeSticks.items():
-                if realStick in controller.inputs:
-                    if controller.inputs[realStick].type == "axis":
-                        print(fakeStick + "-> " + realStick)
-                        inputVar =  Input(fakeStick
-                                        , controller.inputs[realStick].type
-                                        , controller.inputs[realStick].id
-                                        , str(-int(controller.inputs[realStick].value))
-                                        , controller.inputs[realStick].code)
-                        controller.inputs[fakeStick] = inputVar
-
         for inputIdx in controller.inputs:
                 input = controller.inputs[inputIdx]
                 if input.name in mupenmapping and mupenmapping[input.name] != "":

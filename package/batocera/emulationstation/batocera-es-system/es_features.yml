@@ -402,8 +402,70 @@ libretro:
                 description: Hides borders on many games. Some games used the borders.
                 choices:
                     "Off":  disabled
-                    "On":   enabled
+                    "MSX1": enabled
                     "MSX2": MSX2
+                    "Bordering": bordering
+            bluemsx_generation:
+                prompt:      GENERATION
+                choices:
+                    "Default": Default
+                    "MSX1": MSX1
+                    "MSX2": MSX2
+                    "MSX2+": MSX2+
+                    "MSXturboR": MSXturboR
+            bluemsx_region:
+                prompt:      REGION
+                description: Auto select a localized machine.
+                choices:
+                    "Default": Default
+                    "C-BIOS": C-BIOS
+                    "European": European
+                    "Arabic": Arabic
+                    "Brazilian": Brazilian
+                    "Estonian": Estonian
+                    "French": French
+                    "German": German
+                    "Japanese": Japanese
+                    "Korean": Korean
+                    "Russian": Russian
+                    "Spanish": Spanish
+                    "Swedish": Swedish
+            bluemsx_cartmapper:
+                prompt:      CARTRIDGE MAPPER
+                description: Select a cartridge type for BlueMSX.
+                choices:
+                    "Default": Auto
+                    "Normal": Normal
+                    "Mirrored": mirrored
+                    "Start from 0x4000": 0x4000
+                    "Start from 0xC000": 0xC000
+                    "ASCII8": ascii8
+                    "ASCII8 with SRAM": ascii8sram
+                    "ASCII16": ascii16
+                    "ASCII16 with SRAM": ascii16sram
+                    "ASCII16 NF": ascii16nf
+                    "Konami4": konami4
+                    "Konami4 NF": konami4nf
+                    "Konami5": konami5
+                    "Konami Synthesizer": konamisynth
+                    "Korean 80 in 1": korean80
+                    "Korean 90 in 1": korean90
+                    "Korean 126 in 1": korean126
+                    "MegaFlashROM SCC": MegaFlashRomScc
+                    "MegaFlashROM SCC+": MegaFlashRomSccPlus
+                    "MSX-DOS2": msxdos2
+                    "Generic SCC": scc
+                    "SCC Expanded": sccexpanded
+                    "SCC Mirrored": sccmirrored
+                    "SCC Plus": sccplus
+                    "Snatcher": snatcher
+                    "SD Snatcher": sdsnatcher
+                    "SC-3000 Sega Basic": SegaBasic
+                    "SG-1000": SG1000
+                    "SG-1000 (The Castle)": SG1000Castle
+                    "SG-1000 RAM A": SG1000RamA
+                    "SG-1000 RAM B": SG1000RamB
+                    "SC-3000": SC3000
             bluemsx_nospritelimits:
                 prompt:      REDUCE SPRITE FLICKERING
                 description: Enhancement. Remove the four sprites per line limit.
@@ -567,6 +629,15 @@ libretro:
           choices:
             "Off": Off
             "On":  On
+        mesen_cropoverscan:
+            group: ADVANCED OPTIONS
+            prompt:      CROP OVERSCAN
+            description: Zooms in to hide black borders. Borders are different per game.
+            choices:
+                "None":                 none
+                "Horizontal":           h
+                "Vertical":             v
+                "Both":                 both
         mesen_palette:
           prompt:      COLOR PALETTE
           choices:
@@ -626,12 +697,173 @@ libretro:
             "After NMI":  After NMI
     citra:
       shared: [rewind, autosave]
+      cfeatures:
+        citra_is_new_3ds:
+            group: ADVANCED OPTIONS
+            prompt:      NEW 3DS MODE
+            description: The New 3DS has a faster processor, ZL/ZR buttons and a C-stick.
+            choices:
+                "Off": Old 3DS
+                "On": New 3DS
+        citra_region_value:
+            group: ADVANCED OPTIONS
+            prompt:      REGION
+            description: Select a country 
+            choices:
+                "Japan": Japan
+                "USA": USA
+                "Europe": Europe
+                "Australia": Australia
+                "China": China
+                "Korea": Korea
+                "Taiwan": Taiwan
+        citra_control_style:
+            group: ADVANCED OPTIONS
+            prompt:      CONTROL STYLE
+            description: Select a control method about both analog sticks
+            choices:
+                "SlidePad & SlowTouch": SlidePad
+                "FastTouch & SlowTouch": TwinTouchR
+                "SlowTouch & FastTouch": TwinTouchL
+                "SlidePad & CStick": CStick
+                "SlidePad & Motion": Motion
+        citra_fast_stick_speed:
+            group: ADVANCED OPTIONS
+            prompt:      FAST STICK SPEED
+            description: Customize fast stick speed for alternative control.
+            choices:
+                "0.03": 0.03
+                "0.05": 0.05
+                "0.07": 0.07
+                "0.1": 0.1
+                "0.2": 0.2
+                "0.3": 0.3
+                "0.4": 0.4
+                "0.5": 0.5
+                "0.6": 0.6
+                "0.7": 0.7
+                "0.8": 0.8
+                "0.9": 0.9
+                "1.0": 1.0
+                "1.2": 1.2
+                "1.5": 1.5
+                "2.0": 2.0
+        citra_slow_stick_speed:
+            group: ADVANCED OPTIONS
+            prompt:      SLOW STICK SPEED
+            description: Customize slow stick speed for alternative control.
+            choices:
+                "0.03": 0.03
+                "0.05": 0.05
+                "0.07": 0.07
+                "0.1": 0.1
+                "0.2": 0.2
+                "0.3": 0.3
+                "0.4": 0.4
+                "0.5": 0.5
+                "0.6": 0.6
+                "0.7": 0.7
+                "0.8": 0.8
+                "0.9": 0.9
+                "1.0": 1.0
+                "1.2": 1.2
+                "1.5": 1.5
+                "2.0": 2.0
+        citra_deadzone:
+            group: ADVANCED OPTIONS
+            prompt:      STICK DEADZONE
+            description: Customize stick deadzone.
+            choices:
+                "none": 0
+                "1%": 1
+                "2%": 2
+                "5%": 5
+                "10%": 10
+                "15%": 15
+                "20%": 20
+                "25%": 25
+                "30%": 30
+                "35%": 35
+                "40%": 40
+                "45%": 45
+                "50%": 50
+        citra_mouse_touchscreen:
+            group: ADVANCED OPTIONS
+            prompt: USE MOUSE FOR TOUCHSCREEN
+            description: Control touchscreen by mouse.
+            choices:
+                "Off": disabled
+                "On": enabled
     daphne:
       features: [padtokeyboard]
     desmume:
       features: [netplay, cheevos]
       shared: [rewind, autosave]
       cfeatures:
+            desmume_pointer_type:
+                prompt:      POINTER TYPE
+                description: Stylus control way.
+                choices:
+                    "Touch": touch
+                    "Mouse": mouse
+                    "Stick": stick
+            desmume_left_stick_speed:
+                prompt:      LEFT STICK SPEED
+                description: Customize left stick speed for alternative control.
+                choices:
+                    "0.03": 0.03
+                    "0.05": 0.05
+                    "0.07": 0.07
+                    "0.1": 0.1
+                    "0.2": 0.2
+                    "0.3": 0.3
+                    "0.4": 0.4
+                    "0.5": 0.5
+                    "0.6": 0.6
+                    "0.7": 0.7
+                    "0.8": 0.8
+                    "0.9": 0.9
+                    "1.0": 1.0
+                    "1.2": 1.2
+                    "1.5": 1.5
+                    "2.0": 2.0
+            desmume_right_stick_speed:
+                prompt:      RIGHT STICK SPEED
+                description: Customize right stick speed for alternative control.
+                choices:
+                    "0.03": 0.03
+                    "0.05": 0.05
+                    "0.07": 0.07
+                    "0.1": 0.1
+                    "0.2": 0.2
+                    "0.3": 0.3
+                    "0.4": 0.4
+                    "0.5": 0.5
+                    "0.6": 0.6
+                    "0.7": 0.7
+                    "0.8": 0.8
+                    "0.9": 0.9
+                    "1.0": 1.0
+                    "1.2": 1.2
+                    "1.5": 1.5
+                    "2.0": 2.0
+            desmume_stick_deadzone:
+                prompt:      STICK DEADZONE
+                description: Customize stick deadzone.
+                choices:
+                    "none": 0
+                    "1%": 1
+                    "2%": 2
+                    "5%": 5
+                    "10%": 10
+                    "15%": 15
+                    "20%": 20
+                    "25%": 25
+                    "30%": 30
+                    "35%": 35
+                    "40%": 40
+                    "45%": 45
+                    "50%": 50
             internal_resolution_desmume:
                 prompt:      RENDERING RESOLUTION
                 description: Enhancement. Increase the rendering resolution. Makes 3D objects clearer.
@@ -708,6 +940,70 @@ libretro:
                 choices:
                     "DS (Default)": DS
                     "DSi":          DSi
+            melonds_touch_mode:
+                prompt:      TOUCH MODE
+                description: Stylus control way.
+                choices:
+                    "Touch": Touch
+                    "Mouse": Mouse
+                    "Stick": Joystick
+            melonds_left_stick_speed:
+                prompt:      LEFT STICK SPEED
+                description: Customize left stick speed for stylus.
+                choices:
+                    "0.03": 0.03
+                    "0.05": 0.05
+                    "0.07": 0.07
+                    "0.1": 0.1
+                    "0.2": 0.2
+                    "0.3": 0.3
+                    "0.4": 0.4
+                    "0.5": 0.5
+                    "0.6": 0.6
+                    "0.7": 0.7
+                    "0.8": 0.8
+                    "0.9": 0.9
+                    "1.0": 1.0
+                    "1.2": 1.2
+                    "1.5": 1.5
+                    "2.0": 2.0
+            melonds_right_stick_speed:
+                prompt:      RIGHT STICK SPEED
+                description: Customize right stick speed for stylus.
+                choices:
+                    "0.03": 0.03
+                    "0.05": 0.05
+                    "0.07": 0.07
+                    "0.1": 0.1
+                    "0.2": 0.2
+                    "0.3": 0.3
+                    "0.4": 0.4
+                    "0.5": 0.5
+                    "0.6": 0.6
+                    "0.7": 0.7
+                    "0.8": 0.8
+                    "0.9": 0.9
+                    "1.0": 1.0
+                    "1.2": 1.2
+                    "1.5": 1.5
+                    "2.0": 2.0
+            melonds_stick_deadzone:
+                prompt:      STICK DEADZONE
+                description: Customize stick deadzone.
+                choices:
+                    "none": 0
+                    "1%": 1
+                    "2%": 2
+                    "5%": 5
+                    "10%": 10
+                    "15%": 15
+                    "20%": 20
+                    "25%": 25
+                    "30%": 30
+                    "35%": 35
+                    "40%": 40
+                    "45%": 45
+                    "50%": 50
             melonds_boot_directly:
                 prompt: SKIP DS SYSTEM MENU
                 description: Disable to access the system's settings, like time and language.
@@ -744,14 +1040,6 @@ libretro:
                     "hybrid top ratio 3":    Hybrid Top-Ratio3
                     "hybrid bottom ratio 2": Hybrid Bottom-Ratio2
                     "hybrid bottom ratio 3": Hybrid Bottom-Ratio3
-            melonds_touch_mode:
-                prompt: TOUCH SCREEN MODE
-                description: Select the input type to navigate the touch screen
-                choices:
-                    "None":         Disabled
-                    "Mouse":        Mouse
-                    "Touch Screen": Touch
-                    "Right Stick":  Joystick
     dolphin:
       shared: [autosave]
       cfeatures:
@@ -3824,6 +4112,11 @@ libretro:
       features: [netplay, padtokeyboard]
       shared: [rewind, autosave]
       cfeatures:
+            np2kai_keyboard:
+                prompt:      KEYBOARD TYPE
+                choices:
+                    "JA":    Ja
+                    "US":    Us
             np2kai_model:
                 prompt:      PC MODEL
                 choices:
@@ -3841,6 +4134,11 @@ libretro:
                     "Intel Pentium 3":     Intel Pentium III
                     "Intel Pentium 4":     Intel Pentium 4
                     "Neko Processor II":   Neko Processor II
+            np2kai_clk_base:
+                prompt:      CPU BASE CLOCK
+                choices:
+                    "2MHz":                1.9968 MHz
+                    "2.5MHz":              2.4576 MHz
             np2kai_clk_mult:
                 prompt:      OVERCLOCK MULTIPLIER
                 choices:
@@ -3867,7 +4165,7 @@ libretro:
                 prompt:      EMULATED RAM SIZE
                 choices:
                     "1MB":                1
-                    "3MB":                2
+                    "3MB":                3
                     "7MB":                7
                     "11MB":               11
                     "13MB (Recommended)": 13
@@ -3878,6 +4176,11 @@ libretro:
                     "230MB":              230
                     "512MB":              512
                     "1024MB":             1024
+            np2kai_FastMC:
+                prompt:      FAST MEMORY CHECK
+                choices:
+                    "Off":       OFF
+                    "On":        ON
             np2kai_gdc:
                 group: ADVANCED OPTIONS
                 prompt:      GDC
@@ -3885,6 +4188,11 @@ libretro:
                 choices:
                     "uPD7220":   uPD7220
                     "uPD72020":  uPD72020
+            np2kai_118ROM:
+                prompt:      118 ROM
+                choices:
+                    "Off":       OFF
+                    "On":        ON
             np2kai_skipline:
                 group: ADVANCED OPTIONS
                 prompt:      REMOVE SCANLINES
@@ -3940,18 +4248,43 @@ libretro:
                 choices:
                     "Off":                          OFF
                     "On":                           ON
-            np2kai_joymode:
-                prompt:      JOY2KEY PROFILE
-                description: Emulate a keyboard/mouse/joypad.
+            np2kai_CLGD_en:
+                prompt:      ENABLE WAB
                 choices:
                     "Off":                          OFF
-                    "Mouse":                        Mouse
-                    "Arrows":                       Arrows
-                    "Arrows 3button":               Arrows 3button
-                    "Keypad":                       Keypad
-                    "Keypad 3button":               Keypad 3button
-                    "Manual keyboard":              Manual Keyboard
-                    "Atari Joypad":                 Atari Joypad
+                    "On":                           ON
+            np2kai_CLGD_fc:
+                prompt:      WAB HARDWARE CURSOR
+                choices:
+                    "Off":                          OFF
+                    "On":                           ON
+            np2kai_CLGD_type:
+                prompt:      WAB TYPE
+                choices:
+                    "PC-9821Xe10,Xa7e,Xb10 built-in": PC-9821Xe10,Xa7e,Xb10 built-in
+                    "PC-9821Bp,Bs,Be,Bf built-in": PC-9821Bp,Bs,Be,Bf built-in
+                    "PC-9821Xe built-in": PC-9821Xe built-in 
+                    "PC-9821Cb built-in": PC-9821Cb built-in
+                    "PC-9821Cf built-in": PC-9821Cf built-in
+                    "PC-9821Cb2 built-in": PC-9821Cb2 built-in
+                    "PC-9821Cx2 built-in": PC-9821Cx2 built-in
+                    "PC-9821 PCI CL-GD5446 built-in": PC-9821 PCI CL-GD5446 built-in
+                    "MELCO WAB-S": MELCO WAB-S
+                    "MELCO WSN-A2F": MELCO WSN-A2F
+                    "MELCO WSN-A4F": MELCO WSN-A4F
+                    "I-O DATA GA-98NBI/C": I-O DATA GA-98NBI/C
+                    "I-O DATA GA-98NBII": I-O DATA GA-98NBII
+                    "I-O DATA GA-98NBIV": I-O DATA GA-98NBIV
+                    "PC-9801-96(PC-9801B3-E02)": PC-9801-96(PC-9801B3-E02)
+                    "Auto Select(Xe10, GA-98NBI/C), PCI": Auto Select(Xe10, GA-98NBI/C), PCI
+                    "Auto Select(Xe10, GA-98NBII), PCI": Auto Select(Xe10, GA-98NBII), PCI
+                    "Auto Select(Xe10, GA-98NBIV), PCI": Auto Select(Xe10, GA-98NBIV), PCI
+                    "Auto Select(Xe10, WAB-S), PCI": Auto Select(Xe10, WAB-S), PCI
+                    "Auto Select(Xe10, WSN-A2F), PCI": Auto Select(Xe10, WSN-A2F), PCI
+                    "Auto Select(Xe10, WSN-A4F), PCI": Auto Select(Xe10, WSN-A4F), PCI
+                    "Auto Select(Xe10, WAB-S)": Auto Select(Xe10, WAB-S)
+                    "Auto Select(Xe10, WSN-A2F)": Auto Select(Xe10, WSN-A2F)
+                    "Auto Select(Xe10, WSN-A4F)": Auto Select(Xe10, WSN-A4F)
     o2em:
       features: [cheevos]
       shared: [rewind, autosave]
@@ -4944,6 +5277,18 @@ libretro:
     px68k:
       features: [padtokeyboard]
       cfeatures:
+            px68k_disk_config:
+                prompt:      USE DISK CONFIG
+                description: Resume previous disk config.
+                choices:
+                    "Off":    disabled
+                    "On":     enabled
+            px68k_use_midi:
+                prompt:      USE MIDI
+                description: Enable MIDI sound interface.
+                choices:
+                    "Off":    disabled
+                    "On":     enabled
             px68k_cpuspeed:
                 prompt:      CPU CLOCK
                 description: Slow down or speed up games as appropriate.
@@ -4986,13 +5331,6 @@ libretro:
                     "1/32 Frame":         1/32 Frame
                     "1/60 Frame":         1/60 Frame
                     "Auto Frame Skip":    Auto Frame Skip
-            px68k_joytype:
-                prompt:      JOYPAD TYPE
-                description: Applies to both players.
-                choices:
-                    "Default (2 Buttons)":       Default (2 Buttons)
-                    "Megadrive (8 Buttons)":     CPSF-MD (8 Buttons)
-                    "Super Famicom (8 Buttons)": CPSF-SFC (8 Buttons)
     quasi88:
       features: [netplay, padtokeyboard, cheevos]
       shared: [rewind, autosave]
@@ -5004,6 +5342,12 @@ libretro:
                     "N88 BASIC V1H":        N88 V1H
                     "N88 BASIC V1S":        N88 V1S
                     "N BASIC":              N
+            q88_sub_cpu_mode:
+                prompt:      SUB CPU MODE
+                choices:
+                    "Sub-CPU during disk access": 0
+                    "Both CPUs during disk access": 1
+                    "Always Both CPUs": 2
             q88_cpu_clock:
                 prompt:      CPU CLOCK
                 description: Slow down or speed up games as appropriate.
@@ -6051,9 +6395,42 @@ libretro:
       features: [netplay, padtokeyboard, cheevos]
       shared: [rewind, autosave]
     x1:
+      features: [rewind, autosave, padtokeyboard]
+      cfeatures:
+            x1_resolute:
+                prompt: Resolution
+                choices:
+                    "Low":      LOW
+                    "High":     HIGH
+            x1_bootmedia:
+                prompt: Boot media
+                choices:
+                    "2D":       2D
+                    "2HD":      2HD
+            x1_romtype:
+                prompt: ROM type
+                choices:
+                    "X1":       X1
+                    "TURBO":    TURBO
+                    "TURBOZ":   TURBOZ
+            x1_fmboard:
+                prompt: FM Board
+                choices:
+                    "OFF":      OFF
+                    "ON":       ON
+            x1_cpu_clock:
+                prompt: Cpu clock
+                choices:
+                    "1 MHz":    1
+                    "2 MHz":    2
+                    "4 MHz":    4
+                    "8 MHz":    8
+                    "12 MHz":   12
+                    "16 MHz":   16
+                    "20 MHz":   20
+    #xash3d_fwgs:
       features: [padtokeyboard]
       shared: [rewind, autosave]
-    #xash3d_fwgs:
     xrick:
       cfeatures:
             xrick_crop_borders:
@@ -7647,30 +8024,33 @@ mupen64plus:
             prompt: CONTROLLER TYPE             
             description: Useful for N64 style controllers. Limited hotkeys for controllers without dedicated hotkey.
             choices:
-                "RetroPad (Default)": retropad
-                "N64": n64
-                "N64 (Limited Hotkeys)": n64limited
+                "Default": default
+                "Analog": analog
+                "Dual": dual
         mupen64-controller2:
             submenu: CONTROLLER 2
             prompt: CONTROLLER TYPE
             description: Useful for N64 style controllers.
             choices:
-                "RetroPad (Default)": retropad
-                "N64": n64
+                "Default": default
+                "Analog": analog
+                "Dual": dual
         mupen64-controller3:
             submenu: CONTROLLER 3
             prompt: CONTROLLER TYPE
             description: Useful for N64 style controllers.
             choices:
-                "RetroPad (Default)": retropad
-                "N64": n64
+                "Default": default
+                "Analog": analog
+                "Dual": dual
         mupen64-controller4:
             submenu: CONTROLLER 4
             prompt: CONTROLLER TYPE
             description: Useful for N64 style controllers.
             choices:
-                "RetroPad (Default)": retropad
-                "N64": n64
+                "Default": default
+                "Analog": analog
+                "Dual": dual
         mupen64-sensitivity1:
             submenu: CONTROLLER 1
             prompt: SENSITIVITY
@@ -10005,6 +10385,18 @@ wine:
             prompt:      BOOTUP
             description: Replace autorun.cmd from boot/*.cmd (or boot/default.cmd)
             preset: input
+        enable_rootdrive:
+            prompt:      ENABLE ROOT DRIVE
+            description: Use Z drive for root directory
+            choices:
+                "Off": 0
+                "On":  1
+        winepoint_each_core:
+            prompt:      WINEPOINT EACH CORE
+            description: Creating Winepoint each cores.
+            choices:
+                "Off": 0
+                "On":  1
         dxvk:
             group: ADVANCED OPTIONS
             prompt:      DXVK FEATURE

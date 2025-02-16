@@ -934,11 +934,10 @@ def generateCoreSettings(coreSettings, system, rom, guns):
                 msxtype2 = msxtype+' - '+system.config['bluemsx_region']
         coreSettings.save('bluemsx_msxtype', '"'+msxtype2+'"')
         # Cartridge mapper
-        if system.isOptSet('bluemsx_cartmapper'):
-            if system.config['bluemsx_cartmapper'] == "":
-                coreSettings.save('bluemsx_cartmapper', '"Auto"')
-            else:
-                coreSettings.save('bluemsx_cartmapper', '"'+system.config['bluemsx_cartmapper']+'"')
+        if system.isOptSet('bluemsx_cartmapper') and system.config['bluemsx_cartmapper'] != "":
+            coreSettings.save('bluemsx_cartmapper', '"'+system.config['bluemsx_cartmapper']+'"')
+        else:
+            coreSettings.save('bluemsx_cartmapper', '"Auto"')
         # Reduce Sprite Flickering
         if system.isOptSet('bluemsx_nospritelimits') and system.config['bluemsx_nospritelimits'] == "False":
             coreSettings.save('bluemsx_nospritelimits', '"OFF"')

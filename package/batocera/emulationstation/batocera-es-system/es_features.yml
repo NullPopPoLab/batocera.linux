@@ -404,7 +404,8 @@ libretro:
                     "Off":  disabled
                     "MSX1": enabled
                     "MSX2": MSX2
-                    "Bordering": bordering
+                    "Side Border": sideborder
+                    "Full Border": fullborder
             bluemsx_generation:
                 prompt:      GENERATION
                 choices:

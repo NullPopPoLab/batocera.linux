@@ -402,8 +402,9 @@ libretro:
                 description: Hides borders on many games. Some games used the borders.
                 choices:
                     "Off":  disabled
-                    "On":   enabled
+                    "MSX1": enabled
                     "MSX2": MSX2
+                    "Bordering": bordering
             bluemsx_generation:
                 prompt:      GENERATION
                 choices:

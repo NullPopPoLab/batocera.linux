@@ -944,15 +944,15 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('bluemsx_nospritelimits', '"OFF"')
         else:
             coreSettings.save('bluemsx_nospritelimits', '"ON"')
-        # Forces cropping of overscanned frames
-        if system.name == 'colecovision' or system.name == 'msx1':
+        # Zoom, Hide Video Border
+        if system.isOptSet('bluemsx_overscan'):
+            coreSettings.save('bluemsx_overscan', '"' + system.config['bluemsx_overscan'] + '"')
+        elif system.name == 'colecovision' or system.name == 'msx1':
+            # Forces cropping of overscanned frames (256x192)
             coreSettings.save('bluemsx_overscan', '"enabled"')
         else:
-            # Zoom, Hide Video Border
-            if system.isOptSet('bluemsx_overscan'):
-                coreSettings.save('bluemsx_overscan', '"' + system.config['bluemsx_overscan'] + '"')
-            else:
-                coreSettings.save('bluemsx_overscan', '"MSX2"')
+            # For MSX2 (256x212) + 8 dot border
+            coreSettings.save('bluemsx_overscan', '"bordering"')
 
     # Nec PC Engine / CD
     if system.config['core'] == 'pce' or system.config['core'] == 'pce_fast':

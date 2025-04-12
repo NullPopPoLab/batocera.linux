@@ -134,6 +134,10 @@ dl-dir:
 %-build: batocera-docker-image %-config ccache-dir dl-dir
 	@$(MAKE_BUILDROOT) $(CMD)
 
+%-build-redate:
+	@$(MAKE) $*-pkg-unstamp PKG=batocera-system
+	@$(MAKE) $*-build
+
 %-source: batocera-docker-image %-config ccache-dir dl-dir
 	@$(MAKE_BUILDROOT) source
 

@@ -11224,6 +11224,12 @@ wine:
             choices:
                 "Off": 0
                 "On":  1
+        enable_rootdrive:
+            prompt:      ENABLE ROOT DRIVE
+            description: Use Z drive for root directory
+            choices:
+                "Off": 0
+                "On":  1
 
 solarus:
   shared: [powermode, tdp, videomode, bezel, bezel_stretch, hud, hud_corner, bezel.tattoo, bezel.tattoo_corner, bezel.tattoo_file, bezel.resize_tattoo]

@@ -99,6 +99,8 @@ class WineGenerator(Generator):
 
         if 'lang' in system.config and system.config['lang'] != '':
             environment['LANG']=environment['LC_ALL']=system.config['lang']+'.UTF-8'
+        if 'enable_rootdrive' in system.config and system.config['enable_rootdrive'] != '':
+            environment['BATOCERA_WINE_USE_ROOTDRIVE']=system.config['enable_rootdrive']
 
         if system.name == "windows_installers":
             commandArray = ["batocera-wine", "windows", "install", rom]

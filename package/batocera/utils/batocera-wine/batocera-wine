@@ -106,17 +106,22 @@ GAMESPECIFICDRIVE=""
 ROOTDRIVE=""
 
 usage() {
-    echo "${1} windows play    	     <game>.iso"             >&2
-    echo "${1} windows play    	     <game>.exe"             >&2
-    echo "${1} windows play    	     <game>.pc"              >&2
-    echo "${1} windows play    	     <game>.wine"            >&2
-    echo "${1} windows play    	     <game>.wsquashfs"       >&2
-    echo "${1} windows play    	     <game>.wtgz"            >&2
-    echo "${1} windows install 	     <game>.iso"             >&2
-    echo "${1} windows install 	     <game>.exe"             >&2
-    echo "${1} windows tricks  	     <game>.wine directplay" >&2
-    echo "${1} windows wine2squashfs <game.wine>"            >&2
-    echo "${1} windows wine2winetgz  <game.wine>"            >&2
+    echo "${1} windows play    	     <game>.iso"               >&2
+    echo "${1} windows play    	     <game>.exe"               >&2
+    echo "${1} windows play    	     <game>.pc"                >&2
+    echo "${1} windows play    	     <game>.wine"              >&2
+    echo "${1} windows play    	     <game>.wsquashfs"         >&2
+    echo "${1} windows play    	     <game>.wtgz"              >&2
+    echo "${1} windows install 	     <game>.iso"               >&2
+    echo "${1} windows install 	     <game>.msi"               >&2
+    echo "${1} windows install 	     <game>.exe"               >&2
+    echo "${1} windows tricks  	     <game>.wine <trick>"      >&2
+    echo "${1} windows tricks  	     <game>.pc <trick>"        >&2
+    echo "${1} windows tricks  	     <game>.exe <trick>"       >&2
+    echo "${1} windows tricks  	     <game>.wtgz <trick>"      >&2
+    echo "${1} windows tricks  	     <game>.wsquashfs <trick>" >&2
+    echo "${1} windows wine2squashfs <game.wine>"              >&2
+    echo "${1} windows wine2winetgz  <game.wine>"              >&2
 }
 
 waitWineServer() {
@@ -590,7 +595,6 @@ play_pc() {
 }
 
 trick_wine() {
-    GAMENAME=$1
     if [[ -e "${WINETRICKS}" ]]; then
         echo "Winetricks is installed"
 	else
@@ -599,8 +603,11 @@ trick_wine() {
         chmod +x "${WINETRICKS}"
         echo "Winetricks is now installed"
 	fi
+
+    WINEPOINT=$1
     TRICK=$2
-    WINEPOINT="${GAMENAME}"
+	echo "** Do trick $2 to $1 **"
+
 	mount_root z "1"
     WINEPREFIX=${WINEPOINT} "${WINETRICKS}" "${TRICK}"
 }
@@ -938,10 +945,28 @@ case "${ACTION}" in
     "tricks")
 	GAMENAME=$1
 	TRICK=$2
-    	GAMEEXT=$(gameext "${GAMENAME}")
+	BASEGAMENAME=$(basename "${GAMENAME}")
+    GAMEEXT=$(gameext "${GAMENAME}")
 	case "${GAMEEXT}" in
 	    "wine")
-		trick_wine "${GAMENAME}" "${TRICK}" || cleanAndExit 1
+		WINEPOINT="${GAMENAME}"
+		trick_wine "${WINEPOINT}" "${TRICK}" || cleanAndExit 1
+		;;
+	    "pc")
+        WINEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.wine"
+		trick_wine "${WINEPOINT}" "${TRICK}" || cleanAndExit 1
+		;;
+	    "exe")
+        WINEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.wine"
+		trick_wine "${WINEPOINT}" "${TRICK}" || cleanAndExit 1
+		;;
+	    "wsquashfs")
+        WINEPOINT="/var/run/wine/${BASEGAMENAME}"
+		trick_wine "${WINEPOINT}" "${TRICK}" || cleanAndExit 1
+		;;
+	    "wtgz")
+        WINEPOINT="${WINE_BOTTLE_DIR}/${BASEGAMENAME}.wine"
+		trick_wine "${WINEPOINT}" "${TRICK}" || cleanAndExit 1
 		;;
 	esac
 	;;

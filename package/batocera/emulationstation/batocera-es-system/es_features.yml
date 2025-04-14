@@ -11097,7 +11097,7 @@ wine:
             preset: runners
         lang:
             prompt: LOCALE
-            description: Specify locale (language-COUNTRY.ENCODING)
+            description: Specify locale (language_COUNTRY)
             preset: input
         dxvk:
             prompt: DXVK FEATURE

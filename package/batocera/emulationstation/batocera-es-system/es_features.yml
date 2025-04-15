@@ -11099,6 +11099,10 @@ wine:
             prompt: LOCALE
             description: Specify locale (language_COUNTRY)
             preset: input
+        bootup:
+            prompt:      BOOTUP
+            description: Replace autorun.cmd from boot/*.cmd (or boot/default.cmd)
+            preset: input
         dxvk:
             prompt: DXVK FEATURE
             description: Converts DirectX 8/9/10/11/12 calls to Vulkan.

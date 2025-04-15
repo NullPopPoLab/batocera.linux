@@ -162,16 +162,68 @@ else
 		"wtgz")
 		WINEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.wine"
 		GAMEDIR=${WINEPOINT}
+		if [[ ! -e "${WINEPOINT}" ]]; then
+			mkdir -p "${WINEPOINT}" || return 1
+			(cd "${WINEPOINT}" && gunzip -c "${GAMENAME}" | tar xf -) || return 1
+		fi
 		;;
 		"wsquashfs")
 		WINEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.wine"
 #		WINEPOINT="/var/run/wine/${BASEGAMENAME}"
 		GAMEDIR=${WINEPOINT}
+		SQUASHFSPOINT="/var/run/wine/squashfs_${BASEGAMENAME}"
+		SAVEPOINT="${WINE_BOTTLE_DIR}/${BASEGAMENAME}"
+		WORKPOINT="${WINE_BOTTLE_DIR}/${BASEGAMENAME}.work"
+
+		# Attempt to unmount any existing mount points before starting
+		[[ -d "${WINEPOINT}" ]] && safe_umount "${WINEPOINT}"
+		[[ -d "${SQUASHFSPOINT}" ]] && safe_umount "${SQUASHFSPOINT}"
+
+		# Remove directories if they exist
+		[[ -d "${SQUASHFSPOINT}" ]] && rm -rf "${SQUASHFSPOINT}"
+		[[ -d "${WORKPOINT}" ]] && rm -rf "${WORKPOINT}"
+		[[ -d "${WINEPOINT}" ]] && rm -rf "${WINEPOINT}"
+
+		# Create necessary fresh directories
+		mkdir -p "${SAVEPOINT}" || return 1
+		mkdir -p "${WORKPOINT}" || return 1
+		mkdir -p "${WINEPOINT}" || return 1
+		mkdir -p "${SQUASHFSPOINT}" || return 1
+
+		# Mount squashfs
+		if ! mount "${GAMENAME}" "${SQUASHFSPOINT}"; then
+		    [[ -d "${SQUASHFSPOINT}" ]] && rm -rf "${SQUASHFSPOINT}"
+		    [[ -d "${WORKPOINT}" ]] && rm -rf "${WORKPOINT}"
+		    [[ -d "${WINEPOINT}" ]] && rm -rf "${WINEPOINT}"
+		    return 1
+		fi
+
+		# Mount overlay
+		if ! mount -t overlay -o rw,lowerdir="${SQUASHFSPOINT}",upperdir="${SAVEPOINT}",workdir="${WORKPOINT}",redirect_dir=on overlay "${WINEPOINT}"; then
+		    safe_umount "${SQUASHFSPOINT}"
+		    [[ -d "${SQUASHFSPOINT}" ]] && rm -rf "${SQUASHFSPOINT}"
+		    [[ -d "${WORKPOINT}" ]] && rm -rf "${WORKPOINT}"
+		    [[ -d "${WINEPOINT}" ]] && rm -rf "${WINEPOINT}"
+		    return 1
+		fi
 		;;
 		*)
 		echo "unsupported extension ${GAMEEXT}" >&2
 		cleanAndExit 1
 	esac
+fi
+
+# Bootup switch
+if test -z ${BATOCERA_WINE_BOOTUP}
+then
+	BOOTUPCMD="${GAMEDIR}/boot/default.cmd"
+else
+	BOOTUPCMD="${GAMEDIR}/boot/${BATOCERA_WINE_BOOTUP}.cmd"
+fi
+
+if [ -f "${BOOTUPCMD}" ]; then
+	echo "select to bootup: ${BOOTUPCMD}" >&2
+    cp "${BOOTUPCMD}" "${GAMEDIR}/autorun.cmd"
 fi
 
 # options
@@ -307,7 +359,6 @@ if ! ulimit -n "${ULIMIT_SIZE}" 2>/dev/null; then
 fi
 
 setxkbmap "${KEYBOARD}"
-
 
 usage() {
     echo "${1} windows play    	     <game>.iso"               >&2
@@ -714,11 +765,6 @@ play_exe() {
 play_winetgz() {
     echo "play_winetgz"
 
-    if [[ ! -e "${WINEPOINT}" ]]; then
-	    mkdir -p "${WINEPOINT}" || return 1
-	    (cd "${WINEPOINT}" && gunzip -c "${GAMENAME}" | tar xf -) || return 1
-    fi
-
     redist_install "${WINEPOINT}" || return 1
     msi_install "${WINEPOINT}" || return 1
     reg_install "${WINEPOINT}" || return 1
@@ -757,42 +803,6 @@ safe_umount() {
 
 play_squashfs() {
     echo "play_squashfs"
-
-    SQUASHFSPOINT="/var/run/wine/squashfs_${BASEGAMENAME}"
-    SAVEPOINT="${WINE_BOTTLE_DIR}/${BASEGAMENAME}"
-    WORKPOINT="${WINE_BOTTLE_DIR}/${BASEGAMENAME}.work"
-
-    # Attempt to unmount any existing mount points before starting
-    [[ -d "${WINEPOINT}" ]] && safe_umount "${WINEPOINT}"
-    [[ -d "${SQUASHFSPOINT}" ]] && safe_umount "${SQUASHFSPOINT}"
-
-    # Remove directories if they exist
-    [[ -d "${SQUASHFSPOINT}" ]] && rm -rf "${SQUASHFSPOINT}"
-    [[ -d "${WORKPOINT}" ]] && rm -rf "${WORKPOINT}"
-    [[ -d "${WINEPOINT}" ]] && rm -rf "${WINEPOINT}"
-
-    # Create necessary fresh directories
-    mkdir -p "${SAVEPOINT}" || return 1
-    mkdir -p "${WORKPOINT}" || return 1
-    mkdir -p "${WINEPOINT}" || return 1
-    mkdir -p "${SQUASHFSPOINT}" || return 1
-
-    # Mount squashfs
-    if ! mount "${GAMENAME}" "${SQUASHFSPOINT}"; then
-        [[ -d "${SQUASHFSPOINT}" ]] && rm -rf "${SQUASHFSPOINT}"
-        [[ -d "${WORKPOINT}" ]] && rm -rf "${WORKPOINT}"
-        [[ -d "${WINEPOINT}" ]] && rm -rf "${WINEPOINT}"
-        return 1
-    fi
-
-    # Mount overlay
-    if ! mount -t overlay -o rw,lowerdir="${SQUASHFSPOINT}",upperdir="${SAVEPOINT}",workdir="${WORKPOINT}",redirect_dir=on overlay "${WINEPOINT}"; then
-        safe_umount "${SQUASHFSPOINT}"
-        [[ -d "${SQUASHFSPOINT}" ]] && rm -rf "${SQUASHFSPOINT}"
-        [[ -d "${WORKPOINT}" ]] && rm -rf "${WORKPOINT}"
-        [[ -d "${WINEPOINT}" ]] && rm -rf "${WINEPOINT}"
-        return 1
-    fi
 
     reg_install "${WINEPOINT}" || return 1
     fonts_install "${WINEPOINT}" || return 1

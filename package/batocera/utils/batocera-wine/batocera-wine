@@ -217,6 +217,7 @@ else
 fi
 
 export WINEPREFIX=${WINEPOINT}
+QUICKINSTALLDIR="${WINEPOINT}/quick_install"
 
 # Bootup switch
 if test -z ${BATOCERA_WINE_BOOTUP}
@@ -503,68 +504,69 @@ mount_root() {
 
 redist_install() {
 
-    if [[ -e "${USER_DIR}/exe" ]]; then
+    if [[ -e "${QUICKINSTALLDIR}" ]]; then
 
-        for file in ${USER_DIR}/exe/*.exe; do            echo "Executing file $file"
+        for file in ${QUICKINSTALLDIR}/*.exe; do
+            echo "Executing file $file"
                 
             case "${file}" in
 
-            "${USER_DIR}/exe/DXSETUP.exe" | "${USER_DIR}/exe/dxsetup.exe")
+            "${QUICKINSTALLDIR}/DXSETUP.exe" | "${QUICKINSTALLDIR}/dxsetup.exe")
                 "${WINE}" "${file}" /silent &>/dev/null || return 1
                 "${WINESERVER}" -w
                 ;;
 
-            "${USER_DIR}/exe/vcredist_x64_2005.exe" | "${USER_DIR}/exe/vcredist_x86_2005.exe")
+            "${QUICKINSTALLDIR}/vcredist_x64_2005.exe" | "${QUICKINSTALLDIR}/vcredist_x86_2005.exe")
                 "${WINE}" "${file}" /q &>/dev/null || return 1
                 "${WINESERVER}" -w
                 ;;
 
-            "${USER_DIR}/exe/vcredist_x64_2008.exe" | "${USER_DIR}/exe/vcredist_x86_2008.exe")
+            "${QUICKINSTALLDIR}/vcredist_x64_2008.exe" | "${QUICKINSTALLDIR}/vcredist_x86_2008.exe")
                 "${WINE}" "${file}" /q &>/dev/null || return 1
                 "${WINESERVER}" -w
                 ;;
 
-            "${USER_DIR}/exe/vcredist_x64_2010.exe" | "${USER_DIR}/exe/vcredist_x86_2010.exe")
+            "${QUICKINSTALLDIR}/vcredist_x64_2010.exe" | "${QUICKINSTALLDIR}/vcredist_x86_2010.exe")
                 "${WINE}" "${file}" /quiet /qn /norestart &>/dev/null || return 1
                 "${WINESERVER}" -w
                 ;;
 
-            "${USER_DIR}/exe/vcredist_x64_2012.exe" | "${USER_DIR}/exe/vcredist_x86_2012.exe")
+            "${QUICKINSTALLDIR}/vcredist_x64_2012.exe" | "${QUICKINSTALLDIR}/vcredist_x86_2012.exe")
                 "${WINE}" "${file}" /quiet /qn /norestart &>/dev/null || return 1
                 "${WINESERVER}" -w
                 ;;
 
-            "$${USER_DIR}/exe/vcredist_x64_2013.exe" | "${USER_DIR}/exe/vcredist_x86_2013.exe")
+            "${QUICKINSTALLDIR}/vcredist_x64_2013.exe" | "${QUICKINSTALLDIR}/vcredist_x86_2013.exe")
                 "${WINE}" "${file}" /quiet /qn /norestart &>/dev/null || return 1
                 "${WINESERVER}" -w
                 ;;
 
-            "${USER_DIR}/exe/vcredist_x64_2015.exe" | "${USER_DIR}/exe/vcredist_x86_2015.exe")
+            "${QUICKINSTALLDIR}/vcredist_x64_2015.exe" | "${QUICKINSTALLDIR}/vcredist_x86_2015.exe")
                 "${WINE}" "${file}" /quiet /qn /norestart &>/dev/null || return 1
                 "${WINESERVER}" -w
                 ;;
 
-            "${USER_DIR}/exe/vcredist_x64_2017.exe" | "${USER_DIR}/exe/vcredist_x86_2017.exe")
+            "${QUICKINSTALLDIR}/vcredist_x64_2017.exe" | "${QUICKINSTALLDIR}/vcredist_x86_2017.exe")
                 "${WINE}" "${file}" /quiet /qn /norestart &>/dev/null || return 1
                 "${WINESERVER}" -w
                 ;;
 
-            "${USER_DIR}/exe/vcredist_x64_2019.exe" | "${USER_DIR}/exe/vcredist_x86_2019.exe")
+            "${QUICKINSTALLDIR}/vcredist_x64_2019.exe" | "${QUICKINSTALLDIR}/vcredist_x86_2019.exe")
                 "${WINE}" "${file}" /quiet /qn /norestart &>/dev/null || return 1
                 "${WINESERVER}" -w
                 ;;
 
-            "${USER_DIR}/exe/vcredist_x64_2015_2019.exe" | "${USER_DIR}/exe/vcredist_x86_2015_2019.exe")
+            "${QUICKINSTALLDIR}/vcredist_x64_2015_2019.exe" | "${QUICKINSTALLDIR}/vcredist_x86_2015_2019.exe")
                 "${WINE}" "${file}" /quiet /qn /norestart &>/dev/null || return 1
                 "${WINESERVER}" -w
                 ;;
 
-            "${USER_DIR}/exe/vcredist_x64_2015_2022.exe" | "${USER_DIR}/exe/vcredist_x86_2015_2022.exe")
+            "${QUICKINSTALLDIR}/vcredist_x64_2015_2022.exe" | "${QUICKINSTALLDIR}/vcredist_x86_2015_2022.exe")
                 "${WINE}" "${file}" /quiet /qn /norestart &>/dev/null || return 1
                 "${WINESERVER}" -w
                 ;;
 
-            "${USER_DIR}/exe/oalinst.exe")
+            "${QUICKINSTALLDIR}/oalinst.exe")
                 "${WINE}" "${file}" /s &>/dev/null
                 "${WINESERVER}" -w
                 ;;
@@ -584,14 +586,14 @@ redist_install() {
 
 msi_install() {
 
-    if [[ -e "${USER_DIR}/msi" ]]; then
+    if [[ -e "${QUICKINSTALLDIR}" ]]; then
 
-        for file in ${USER_DIR}/msi/*.msi; do
+        for file in "${QUICKINSTALLDIR}/*.msi"; do
             echo "Executing file $file" >&2
 
 			case "${file}" in
 
-			"${USER_DIR}/msi/*.msi")
+			"${QUICKINSTALLDIR}/*.msi")
 			    echo "is wildcard (skiped)" >&2
 				;;
 
@@ -616,14 +618,14 @@ reg_install() {
         rm /var/run/rawinput.reg
     fi
 
-    if test -e "${USER_DIR}/regs"; then
+    if test -e "${QUICKINSTALLDIR}"; then
 
-        for file in "${USER_DIR}/regs/*.reg"; do
+        for file in "${QUICKINSTALLDIR}/*.reg"; do
             echo "Importing registry $file" >&2
 
 			case "${file}" in
 
-			"${USER_DIR}/regs/*.reg")
+			"${QUICKINSTALLDIR}/*.reg")
 			    echo "is wildcard (skiped)" >&2
 				;;
 
@@ -642,14 +644,14 @@ reg_install() {
 
 fonts_install() {
 
-    if test -e "${USER_DIR}/fonts"; then
+    if test -e "${QUICKINSTALLDIR}"; then
 
-        for file in "${USER_DIR}/fonts/{*.ttf,*.ttc}"; do
+        for file in "${QUICKINSTALLDIR}/{*.ttf,*.ttc}"; do
             echo "Installing fonts $file" >&2
 
 			case "${file}" in
 
-			"${USER_DIR}/fonts/{*.ttf,*.ttc}")
+			"${QUICKINSTALLDIR}/{*.ttf,*.ttc}")
 			    echo "is wildcard (skiped)" >&2
 				;;
 
@@ -734,6 +736,29 @@ trick_wine() {
     "${WINETRICKS}" "${TRICK}"
 }
 
+tricks_install() {
+
+TRICKSFILE="${QUICKINSTALLDIR}/tricks.txt"
+TRICKSLOG="${QUICKINSTALLDIR}/tricks.txt.done"
+
+    if [ -f "${TRICKSFILE}" ]; then
+		install_winetricks
+        echo "tricks file: ${TRICKSFILE}" >&2
+        echo "tricks log: ${TRICKSLOG}" >&2
+		mount_root z "1"
+        export DISPLAY=:0.0
+        while read line; do
+            line=`echo "${line}" | xargs`
+            echo "bgn trick: $line" >&2
+			trick_wine "${TRICK}"
+            echo "end trick: $line" >&2
+            echo "$line" >> "${TRICKSLOG}"
+		unmount_root
+        done < "${TRICKSFILE}"
+        rm "${TRICKSFILE}"
+    fi
+}
+
 sandboxing_prefix() {
 
     if [[ -d "${WINEPOINT}/drive_c/users/steamuser" ]]; then
@@ -794,6 +819,7 @@ play_wine() {
     reg_install || return 1
     fonts_install || return 1
     dxvk_install || return 1
+    tricks_install || return 1
 
 	mount_iso d "${GAMEDIR}/disc01.iso"
 	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
@@ -817,6 +843,7 @@ play_pc() {
     fonts_install || return 1
     sandboxing_prefix || return 1
     dxvk_install || return 1
+    tricks_install || return 1
 
 	mount_iso d "${GAMEDIR}/disc01.iso"
 	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
@@ -847,6 +874,7 @@ play_exe() {
     fonts_install || return 1
     sandboxing_prefix || return 1
     dxvk_install || return 1
+    tricks_install || return 1
 
 	mount_iso d "${GAMEDIR}/disc01.iso"
 	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
@@ -866,6 +894,7 @@ play_winetgz() {
     reg_install || return 1
     fonts_install || return 1
     dxvk_install || return 1
+    tricks_install || return 1
 
 	mount_iso d "${GAMEDIR}/disc01.iso"
 	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
@@ -905,6 +934,7 @@ play_squashfs() {
     reg_install || return 1
     fonts_install || return 1
     dxvk_install || return 1
+    tricks_install || return 1
 
 	mount_iso d "${GAMEDIR}/disc01.iso"
 	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"

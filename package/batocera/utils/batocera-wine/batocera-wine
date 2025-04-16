@@ -104,6 +104,8 @@ export PIPEWIRE_MODULE_DIR="/usr/lib/pipewire-0.3:/lib32/pipewire-0.3"
 
 GAMESPECIFICDRIVE=""
 ROOTDRIVE=""
+GAMEISOMOUNT=""
+GAMEISODRIVE=""
 
 gameext() {
     echo "${1}" | sed -e s+"^.*\.\([^\.]*\)$"+"\1"+ | tr A-Z a-z
@@ -120,6 +122,7 @@ cleanAndExit() {
     fi
 	unmount_game
 	unmount_root
+ 	unmount_iso
 
     exit "${1}"
     # TODO : unmount always, trap, later
@@ -385,6 +388,59 @@ waitWineServer() {
 	echo "waiting wineserver" >&2
 	sleep 1
     done
+}
+
+unmount_iso() {
+
+	if test -n "${GAMEISODRIVE}"
+	then
+		echo "unlink ${GAMEISODRIVE}" >&2
+
+		rm -f "${GAMEISODRIVE}"
+		GAMEISODRIVE=""
+	fi
+
+	if test -n "${GAMEISOMOUNT}"
+	then
+		echo "unmount ${GAMEISOMOUNT}" >&2
+
+		umount "${GAMEISOMOUNT}"
+		rmdir "${GAMEISOMOUNT}"
+		GAMEISOMOUNT=""
+		echo "unmount_iso done" >&2
+	fi
+}
+
+mount_iso() {
+
+	unmount_iso
+
+	DRIVE="$1"
+	DISC="$2"
+	if [ ! -f "${DISC}" ]
+	then
+		return 0
+	fi
+
+	echo "game disc: ${DISC}" >&2
+
+	GAMEISOMOUNT="/var/run/wine/drive_${DRIVE}.cdrom"
+	echo "mount point: ${GAMEISOMOUNT}" >&2
+
+	mkdir -p "${GAMEISOMOUNT}" || return 1
+	if ! mount -t iso9660 "${DISC}" "${GAMEISOMOUNT}"
+	then
+		if ! mount -t udf "${DISC}" "${GAMEISOMOUNT}"
+		then
+			echo "cannot mount: ${DISC}" >&2
+			return 1
+		fi
+	fi
+
+	GAMEISODRIVE="${WINEPOINT}/dosdevices/${DRIVE}:"
+	echo "disc path: ${GAMEISODRIVE}" >&2
+	ln -sf "${GAMEISOMOUNT}" "${GAMEISODRIVE}"
+	echo "mount_iso done" >&2
 }
 
 unmount_game() {
@@ -688,6 +744,7 @@ play_wine() {
     fonts_install "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
+	mount_iso d "${GAMEDIR}/disc01.iso"
 	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
 
     if [[ -n "${WINE_LANG}" ]]; then
@@ -696,6 +753,7 @@ play_wine() {
         (cd "${WINEPOINT}/${WINE_DIR}" && WINEPREFIX=${WINEPOINT} eval "${WINE_ENV}" "${WINE} ${VDESKTOP} ${WINE_CMD}")
     fi
     waitWineServer
+	unmount_iso
 }
 
 play_pc() {
@@ -709,6 +767,7 @@ play_pc() {
     sandboxing_prefix "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
+	mount_iso d "${GAMEDIR}/disc01.iso"
 	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
 	mount_game y "${G_ROMS_DIR}/${BASEGAMENAME}"
 
@@ -720,6 +779,7 @@ play_pc() {
     fi
     waitWineServer
 	unmount_game
+	unmount_iso
 }
 
 trick_wine() {
@@ -754,12 +814,14 @@ play_exe() {
     sandboxing_prefix "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
+	mount_iso d "${GAMEDIR}/disc01.iso"
 	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
 	mount_game y "${GAMEDIR}/${BASEGAMENAME}"
 
     (cd "${GAMEDIR}" && WINEPREFIX=${WINEPOINT} wine "${GAMEEXE}")
     waitWineServer
 	unmount_game
+	unmount_iso
 }
 
 play_winetgz() {
@@ -771,6 +833,7 @@ play_winetgz() {
     fonts_install "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
+	mount_iso d "${GAMEDIR}/disc01.iso"
 	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
 
     if [[ -n "${WINE_LANG}" ]]; then
@@ -779,6 +842,7 @@ play_winetgz() {
         (cd "${WINEPOINT}/${WINE_DIR}" && WINEPREFIX=${WINEPOINT} eval "${WINE_ENV}" "${WINE} ${VDESKTOP} ${WINE_CMD}")
     fi
     waitWineServer
+	unmount_iso
 }
 
 # Function to safely unmount a mount point with multiple attempts
@@ -808,6 +872,7 @@ play_squashfs() {
     fonts_install "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
+	mount_iso d "${GAMEDIR}/disc01.iso"
 	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
 
     if [[ -n "${WINE_LANG}" ]]; then
@@ -817,6 +882,7 @@ play_squashfs() {
     fi
 
     waitWineServer
+	unmount_iso
 
     # Safely unmount and clean up
     safe_umount "${WINEPOINT}" || return 1
@@ -891,6 +957,7 @@ install_iso() {
 
     createWineDirectory "${WINEPOINT}"
     
+	mount_iso d "${INSTALLERISO}"
 	mount_root z "1"
 
     if mkdir -p "${WINEPOINT}/dosdevices" && rm -f "${WINEPOINT}/dosdevices/d:" && ln -sf "${GAMEISOMOUNT}" "${WINEPOINT}/dosdevices/d:"; then
@@ -903,7 +970,9 @@ install_iso() {
 
     # try to clean the cdrom
     safe_umount "${GAMEISOMOUNT}"
-    [[ -d "${GAMEISOMOUNT}" ]] && rm -rf "${GAMEISOMOUNT}"
+   [[ -d "${GAMEISOMOUNT}" ]] && rm -rf "${GAMEISOMOUNT}"
+
+ 	unmount_iso
 }
 
 wine2squashfs() {

@@ -237,6 +237,26 @@ WINE_DIR=$(getWine_var "DIR" "")
 WINE_LANG=$(getWine_var "LANG" "")
 WINE_ENV=$(getWine_var "ENV" "")
 
+ESYNC=$(getWine_var "ESYNC" "${ESYNC}")
+FSYNC=$(getWine_var "FSYNC" "${FSYNC}")
+PBA=$(getWine_var "PBA" "${PBA}")
+FSR=$(getWine_var "FSR" "${FSR}")
+FPS_LIMIT=$(getWine_var "FPS_LIMIT" "${FPS_LIMIT}")
+ALLOW_XIM=$(getWine_var "ALLOW_XIM" "${ALLOW_XIM}")
+NO_WRITE_WATCH=$(getWine_var "NO_WRITE_WATCH" "${NO_WRITE_WATCH}")
+FORCE_LARGE_ADRESS=$(getWine_var "FORCE_LARGE_ADRESS" "${FORCE_LARGE_ADRESS}")
+HEAP_DELAY_FREE=$(getWine_var "HEAP_DELAY_FREE" "${HEAP_DELAY_FREE}")
+HIDE_NVIDIA_GPU=$(getWine_var "HIDE_NVIDIA_GPU" "${HIDE_NVIDIA_GPU}")
+ENABLE_NVAPI=$(getWine_var "ENABLE_NVAPI" "${ENABLE_NVAPI}")
+DXVK_RESET_CACHE=$(getWine_var "DXVK_RESET_CACHE" "${DXVK_RESET_CACHE}")
+WINE_NTFS=$(getWine_var "WINE_NTFS" "${WINE_NTFS}")
+WINE_DEBUG=$(getWine_var "WINE_DEBUG" "${WINE_DEBUG}")
+VIRTUAL_DESKTOP=$(getWine_var "VIRTUAL_DESKTOP" "${VIRTUAL_DESKTOP}")
+VIRTUAL_DESKTOP_SIZE=$(getWine_var "VIRTUAL_DESKTOP_SIZE" "${VIRTUAL_DESKTOP_SIZE}")
+MF=$(getWine_var "MF" "${MF}")
+DXVK=$(getWine_var "DXVK" "${DXVK}")
+DXVK_HUD=$(getWine_var "DXVK_HUD" "${DXVK_HUD}")
+
 
 KEYBOARD="$(/usr/bin/batocera-settings-get system.kblayout)"
 

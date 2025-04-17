@@ -253,7 +253,7 @@ gba:
   name:       Game Boy Advance
   manufacturer: Nintendo
   release: 2001
-  hardware: portable
+  hardware: handheld
   extensions: [gba, zip, 7z]
   emulators:
     libretro:
@@ -271,7 +271,7 @@ gbc:
   name:       Game Boy Color
   manufacturer: Nintendo
   release: 1998
-  hardware: portable
+  hardware: handheld
   extensions: [gbc, zip, 7z]
   emulators:
     libretro:
@@ -290,7 +290,7 @@ gb:
   name:       Game Boy
   manufacturer: Nintendo
   release: 1989
-  hardware: portable
+  hardware: handheld
   extensions: [gb, zip, 7z]
   emulators:
     libretro:
@@ -321,7 +321,7 @@ gbc2players:
   name:       Game Boy Color (2 players)
   manufacturer: Nintendo
   release: 1998
-  hardware: portable
+  hardware: handheld
   extensions: [gbc, gb2, gbc2, zip, 7z]
   platform:   gbc
   emulators:
@@ -338,7 +338,7 @@ gb2players:
   name:       Game Boy (2 players)
   manufacturer: Nintendo
   release: 1989
-  hardware: portable
+  hardware: handheld
   extensions: [gb, gb2, gbc2, zip, 7z]
   platform:   gb
   emulators:
@@ -355,7 +355,7 @@ nds:
   name:       Nintendo DS
   manufacturer: Nintendo
   release: 2004
-  hardware: portable
+  hardware: handheld
   extensions: [nds, bin, zip, 7z]
   emulators:
     libretro:
@@ -394,7 +394,7 @@ lcdgames:
   name:       LCD Games
   manufacturer: Various
   release: 1979
-  hardware: portable
+  hardware: handheld
   extensions: [mgw, zip, 7z]
   group:      lcdgames
   emulators:
@@ -407,7 +407,7 @@ gameandwatch:
   name:       Game and Watch
   manufacturer: Nintendo
   release: 1980
-  hardware: portable
+  hardware: handheld
   extensions: [mgw, zip, 7z]
   group:      lcdgames
   emulators:
@@ -566,7 +566,7 @@ gamegear:
   name:       Game Gear
   manufacturer: Sega
   release: 1990
-  hardware: portable
+  hardware: handheld
   extensions: [bin, gg, zip, 7z]
   emulators:
     libretro:
@@ -604,7 +604,7 @@ psp:
   name: PlayStation Portable
   manufacturer: Sony
   release: 2004
-  hardware: portable
+  hardware: handheld
   extensions: [iso, cso, pbp, chd]
   emulators:
     ppsspp:
@@ -686,7 +686,7 @@ scummvm:
   name:       ScummVM
   manufacturer: LucasArts
   release: 1987
-  hardware: computer
+  hardware: platform
   extensions: [scummvm, squashfs]
   platform:   scummvm
   emulators:
@@ -1114,7 +1114,7 @@ lynx:
   name: Atari Lynx
   manufacturer: Atari
   release: 1989
-  hardware: portable
+  hardware: handheld
   extensions: [bll, lnx, lyx, o, zip, 7z]
   theme: atarilynx
   platform: atarilynx
@@ -1127,7 +1127,7 @@ ngp:
   name:       Neo-Geo Pocket
   manufacturer: SNK
   release: 1998
-  hardware: portable
+  hardware: handheld
   extensions: [ngp, zip, 7z]
   emulators:
     libretro:
@@ -1137,7 +1137,7 @@ ngpc:
   name:       Neo-Geo Pocket Color
   manufacturer: SNK
   release: 1999
-  hardware: portable
+  hardware: handheld
   extensions: [ngc, zip, 7z]
   emulators:
     libretro:
@@ -1147,7 +1147,7 @@ wswan:
   name:       WonderSwan
   manufacturer: Bandai
   release: 1999
-  hardware: portable
+  hardware: handheld
   extensions: [ws, zip, 7z]
   theme:      wonderswan
   platform:   wonderswan
@@ -1159,7 +1159,7 @@ wswanc:
   name:       WonderSwan Color
   manufacturer: Bandai
   release: 2000
-  hardware: portable
+  hardware: handheld
   extensions: [wsc, zip, 7z]
   theme:      wonderswancolor
   platform:   wonderswancolor
@@ -1240,7 +1240,7 @@ tic80:
   name:       TIC-80
   manufacturer: Fantasy
   release: 2016
-  hardware: console
+  hardware: platform
   extensions: [tic]
   emulators:
     libretro:
@@ -1256,7 +1256,7 @@ pico8:
   name:       Pico-8
   manufacturer: Fantasy
   release: 2015
-  hardware: console
+  hardware: platform
   extensions: [p8, png, m3u]
   emulators:
     libretro:
@@ -1381,9 +1381,8 @@ lutro:
   name:       Lutro
   manufacturer: Ports
   release:
-  hardware: port
+  hardware: platform
   extensions: [lutro, zip, 7z]
-  group: ports
   emulators:
     libretro:
       lutro: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_LUTRO] }
@@ -1486,6 +1485,7 @@ msx1:
   hardware: computer
   extensions: [dsk, mx1, rom, zip, 7z, cas, m3u, ogv, openmsx]
   platform: msx
+  group: msx
   emulators:
     libretro:
       bluemsx: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_BLUEMSX], incompatible_extensions: [ogv, openmsx] }
@@ -1585,6 +1585,7 @@ msx2:
   hardware: computer
   extensions: [dsk, mx2, rom, zip, 7z, cas, m3u, ogv, openmsx]
   platform: msx2
+  group: msx
   emulators:
     libretro:
       bluemsx: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_BLUEMSX], incompatible_extensions: [openmsx] }
@@ -1683,6 +1684,7 @@ msx2+:
   hardware: computer
   extensions: [dsk, mx2, rom, zip, 7z, cas, m3u, openmsx]
   platform: msx2+
+  group: msx
   emulators:
     libretro:
       bluemsx: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_BLUEMSX], incompatible_extensions: [openmsx] }
@@ -1781,6 +1783,7 @@ msxturbor:
   hardware: computer
   extensions: [dsk, mx2, rom, zip, 7z, openmsx, m3u]
   platform: msxturbor
+  group: msx
   emulators:
     libretro:
       bluemsx: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_BLUEMSX], incompatible_extensions: [openmsx] }
@@ -1891,7 +1894,7 @@ moonlight:
   name:       Moonlight Embedded
   manufacturer: Misc. System
   release:
-  hardware: system
+  hardware: platform
   extensions: [moonlight]
   emulators:
     moonlight:
@@ -2139,7 +2142,7 @@ x1:
   name:       3DS
   manufacturer: Nintendo
   release: 2011
-  hardware: portable
+  hardware: handheld
   extensions: [3ds, 3dsx, cxi, axf, elf, app, squashfs]
   emulators:
     citra:
@@ -2151,7 +2154,7 @@ openbor:
   name: OpenBOR
   manufacturer: Ports
   release:
-  hardware: port
+  hardware: platform
   extensions: [pak]
   emulators:
     openbor:
@@ -2196,7 +2199,7 @@ pokemini:
   name:       Pokemon Mini
   manufacturer: Nintendo
   release: 2001
-  hardware: portable
+  hardware: handheld
   extensions: [min, zip, 7z]
   emulators:
     libretro:
@@ -2307,7 +2310,7 @@ thextech:
   name:       TheXTech
   manufacturer: Wohlstand
   release: 2020
-  hardware: port
+  hardware: platform
   extensions: [smbx, squashfs]
   emulators:
     thextech:
@@ -2503,7 +2506,7 @@ solarus:
   name:       Solarus
   manufacturer: Solarus Team
   release: 2011
-  hardware: port
+  hardware: platform
   extensions: [zip, solarus]
   emulators:
     solarus:
@@ -2513,7 +2516,7 @@ easyrpg:
   name:       EasyRPG
   manufacturer: EasyRPG Team
   release: 2000
-  hardware: port
+  hardware: platform
   extensions: [easyrpg, squashfs, zip]
   emulators:
     easyrpg:
@@ -2529,7 +2532,7 @@ cgenius:
   name: Commander Genius
   manufacturer: The Commander Genius Team
   release: 1990
-  hardware: port
+  hardware: platform
   extensions: [cgenius]
   platform: pc
   emulators:
@@ -2558,7 +2561,7 @@ pygame:
   name:       Pygame
   manufacturer: Pygame Team
   release: 2000
-  hardware: library
+  hardware: platform
   extensions: [pygame]
   platform:   pygame
   theme:      pygame
@@ -2714,7 +2717,7 @@ mugen:
   name:       MUGEN
   manufacturer: Elecbyte
   release: 1999
-  hardware: port
+  hardware: platform
   extensions: [pc]
   emulators:
     mugen:
@@ -2724,7 +2727,7 @@ ikemen:
   name:       IKEMEN
   manufacturer: Elecbyte
   release: 2021
-  hardware: port
+  hardware: platform
   extensions: [ikemen, pc]
   emulators:
     ikemen:
@@ -2738,7 +2741,7 @@ fpinball:
   name:       Future Pinball
   manufacturer: Christopher Leathley
   release: 2005
-  hardware: port
+  hardware: pinball
   extensions: [fpt]
   emulators:
     fpinball:
@@ -2754,7 +2757,7 @@ flash:
   name:       Flash Player
   manufacturer: Adobe
   release: 1996
-  hardware: port
+  hardware: platform
   extensions: [swf]
   emulators:
     lightspark:
@@ -2782,7 +2785,7 @@ flatpak:
   name: Applications
   manufacturer:
   release:
-  hardware:
+  hardware: platform
   extensions: [flatpak]
   platform: pc
   group: ports
@@ -2816,7 +2819,7 @@ steam:
   name: Steam
   manufacturer: Valve
   release:
-  hardware:
+  hardware: platform
   extensions: [steam]
   platform: windows
   emulators:
@@ -2833,7 +2836,7 @@ supervision:
   name:       Supervision
   manufacturer: Watara
   release: 1992
-  hardware: portable
+  hardware: handheld
   extensions: [sv, zip, 7z]
   emulators:
     libretro:
@@ -3148,7 +3151,7 @@ megaduck:
   name:       Mega Duck / Cougar Boy
   manufacturer: Welback Holdings
   release: 1993
-  hardware: portable
+  hardware: handheld
   extensions:  [bin, zip, 7z]
   emulators:
     libretro:
@@ -3173,7 +3176,7 @@ gamate:
   name:       Gamate
   manufacturer: Bitcorp
   release: 1990
-  hardware: portable
+  hardware: handheld
   extensions: [bin, zip, 7z]
   emulators:
     libretro:
@@ -3274,7 +3277,7 @@ gamecom:
   name:       Game.com
   manufacturer: Tiger Electronics
   release: 1997
-  hardware: portable
+  hardware: handheld
   extensions: [bin, tgc, zip, 7z]
   emulators:
     libretro:
@@ -3290,7 +3293,7 @@ gamepock:
   name:       Game Pocket Computer
   manufacturer: Epoch
   release: 1984
-  hardware: portable
+  hardware: handheld
   extensions: [bin, zip, 7z]
   emulators:
     libretro:
@@ -3466,7 +3469,7 @@ gmaster:
   name:       Game Master
   manufacturer: Hartung
   release: 1990
-  hardware: portable
+  hardware: handheld
   extensions: [bin, zip, 7z]
   emulators:
     libretro:
@@ -3647,7 +3650,7 @@ j2me:
   name:       Java 2 MicroEdition
   manufacturer: Sun
   release: 2001
-  hardware: portable
+  hardware: handheld
   extensions: [jar]
   emulators:
     libretro:
@@ -4300,7 +4303,7 @@ ngage:
   name: N-Gage
   manufacturer: Nokia
   release: 2003
-  hardware: portable
+  hardware: handheld
   extensions: [n-gage, sisx, sis, zip]
   platform: ngage
   theme: ngage
@@ -4329,7 +4332,7 @@ gp32:
   name:       GP32
   manufacturer: GamePark
   release: 2001
-  hardware: portable
+  hardware: handheld
   extensions: [smc, zip, 7z]
   emulators:
     libretro:
@@ -4345,7 +4348,7 @@ arduboy:
   name:       Arduboy
   manufacturer: Kevin Bates
   release: 2015
-  hardware: portable
+  hardware: handheld
   extensions: [hex, zip, 7z]
   emulators:
     libretro:
@@ -4389,10 +4392,9 @@ corsixth:
   name: CorsixTH
   manufacturer: Ports
   release:
-  hardware: port
+  hardware: platform
   extensions: [game]
   platform: pc
-  group: ports
   emulators:
     corsixth:
       corsixth: { requireAnyOf: [BR2_PACKAGE_CORSIXTH] }
@@ -4728,7 +4730,7 @@ psvita:
   name: PlayStation Vita
   manufacturer: Sony
   release: 2012
-  hardware: portable
+  hardware: handheld
   extensions: [zip, psvita]
   emulators:
     vita3k:
@@ -4900,7 +4902,6 @@ openlara:
   hardware: port
   extensions: [croft]
   platform: pc
-  group: ports
   emulators:
     libretro:
       openlara: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_OPENLARA] }

@@ -4,7 +4,7 @@ default:
   options:
     hud_support:        true
     videomode:          default
-    ratio:              auto
+    ratio:              core
     video_threaded:     false
     smooth:             true
     shaderset:          sharp-bilinear-simple

@@ -14,8 +14,15 @@ class WineGenerator(Generator):
             commandArray = ["batocera-wine", "windows", "install", rom]
             cmd=Command.Command(array=commandArray)
         elif system.name == "windows":
-            commandArray = ["batocera-wine", "windows", "play", rom]
-            cmd=Command.Command(array=commandArray)
+            if 'archive' in system.config and system.config['archive'] == 'TGZ':
+                commandArray = ["batocera-wine", "windows", "wine2winetgz", rom]
+                cmd=Command.Command(array=commandArray)
+            elif 'archive' in system.config and system.config['archive'] == 'SQUASH':
+                commandArray = ["batocera-wine", "windows", "wine2squashfs", rom]
+                cmd=Command.Command(array=commandArray)
+            else:
+                commandArray = ["batocera-wine", "windows", "play", rom]
+                cmd=Command.Command(array=commandArray)
         else: raise Exception("invalid system " + system.name)
 
         cmd.env['SDL_GAMECONTROLLERCONFIG']=controllersConfig.generateSdlGameControllerConfig(playersControllers,'sdl_config' not in system.config or system.config['sdl_config']=='1')
@@ -71,6 +78,8 @@ class WineGenerator(Generator):
             cmd.env['BATOCERA_WINE_SAVES_EACH_CORE']=system.config['winepoint_each_core']
         if 'enable_rootdrive' in system.config and system.config['enable_rootdrive'] != '':
             cmd.env['BATOCERA_WINE_USE_ROOTDRIVE']=system.config['enable_rootdrive']
+        if 'reincarnation' in system.config and system.config['reincarnation'] != '':
+            cmd.env['BATOCERA_WINE_REINCARNATION']=system.config['reincarnation']
 
         return cmd
 

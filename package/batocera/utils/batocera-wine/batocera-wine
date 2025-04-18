@@ -176,6 +176,11 @@ export WINEPREFIX=${WINEPOINT}
 QUICKINSTALLDIR="${WINEPOINT}/quick_install"
 QUICKINSTALLSRC="${GAMEDIR}/quick_install"
 
+# Reincarnation
+if [ -d "${WINEPOINT}" ] && [ "${BATOCERA_WINE_REINCARNATION}" = 1 ]; then
+	rm -rf "${WINEPOINT}"
+fi
+
 # Bootup switch
 if test -z ${BATOCERA_WINE_BOOTUP}
 then
@@ -1023,14 +1028,14 @@ install_iso() {
 wine2squashfs() {
     SQUASHFSFILE=$(echo "${G_ROMS_DIR}/${BASEGAMENAME}.squashfs" | sed -e s+"\.wine\.squashfs$"+".wsquashfs"+)
     
-    mksquashfs "${GAMEDIR}" "${SQUASHFSFILE}" -comp zstd || return 1
+    mksquashfs "${WINEPOINT}" "${SQUASHFSFILE}" -comp zstd || return 1
     return 0
 }
 
 wine2winetgz() {
     WINETGZFILE="${G_ROMS_DIR}/${BASEGAMENAME}.wtgz"
 
-    (cd "${GAMEDIR}" && tar cf - * | gzip -c > "${WINETGZFILE}") || return 1
+    (cd "${WINEPOINT}" && tar cf - * | gzip -c > "${WINETGZFILE}") || return 1
     return 0
 }
 

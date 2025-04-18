@@ -10382,6 +10382,10 @@ wine:
             choices:
                 "Off":          0
                 "On (Default)": 1
+        lang:
+            prompt: LOCALE
+            description: Specify locale (language_COUNTRY)
+            preset: input
         bootup:
             prompt:      BOOTUP
             description: Replace autorun.cmd from boot/*.cmd (or boot/default.cmd)
@@ -10529,6 +10533,21 @@ wine:
             choices:
                 "Off": 0
                 "On":  1
+        reincarnation:
+            group: UTILITIES
+            prompt:      REINCARNATION
+            description: Remove winepoint and rebuild before runs.
+            choices:
+                "Off": 0
+                "On":  1
+        archive:
+            group: UTILITIES
+            prompt:      ARCHIVE
+            description: Pack to an archive file instead of running.
+            choices:
+                "None": ""
+                "TGZ": "TGZ"
+                "SQUASH": "SQUASH"
 
 solarus:
   shared: [videomode, bezel, bezel_stretch, hud, hud_corner, bezel.tattoo, bezel.tattoo_corner, bezel.tattoo_file, bezel.resize_tattoo]

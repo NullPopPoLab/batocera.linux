@@ -36,6 +36,8 @@ class WineGenerator(Generator):
                 }
             )
         # sdl controller option - default is on
+        if 'sdl_config' in system.config and system.config['sdl_config'] != '':
+            cmd.env['SDL_CONFIG']=system.config['sdl_config']
         if not system.isOptSet("sdl_config") or system.getOptBoolean("sdl_config"):
             environment.update(
                 {
@@ -43,6 +45,13 @@ class WineGenerator(Generator):
                     "SDL_JOYSTICK_HIDAPI": "0"
                 }
             )
+        else:
+            environment.update(
+                {
+                    "SDL_GAMECONTROLLERCONFIG": ','.join(generate_sdl_game_controller_config(playersControllers).split(',')[0:3]),
+                }
+            )
+
         # ensure nvidia driver used for vulkan
         if Path('/var/tmp/nvidia.prime').exists():
             variables_to_remove = ['__NV_PRIME_RENDER_OFFLOAD', '__VK_LAYER_NV_optimus', '__GLX_VENDOR_LIBRARY_NAME']
@@ -105,13 +114,22 @@ class WineGenerator(Generator):
             environment['BATOCERA_WINE_BOOTUP']=system.config['bootup']
         else:
             environment['BATOCERA_WINE_BOOTUP']=''
+        if 'reincarnation' in system.config and system.config['reincarnation'] != '':
+            environment['BATOCERA_WINE_REINCARNATION']=system.config['reincarnation']
 
         if system.name == "windows_installers":
             commandArray = ["batocera-wine", "windows", "install", rom]
             return Command.Command(array=commandArray, env=environment)
         elif system.name == "windows":
-            commandArray = ["batocera-wine", "windows", "play", rom]
-            return Command.Command(array=commandArray, env=environment)
+            if 'archive' in system.config and system.config['archive'] == 'TGZ':
+                commandArray = ["batocera-wine", "windows", "wine2winetgz", rom]
+                return Command.Command(array=commandArray)
+            elif 'archive' in system.config and system.config['archive'] == 'SQUASH':
+                commandArray = ["batocera-wine", "windows", "wine2squashfs", rom]
+                return Command.Command(array=commandArray)
+            else:
+                commandArray = ["batocera-wine", "windows", "play", rom]
+                return Command.Command(array=commandArray, env=environment)
 
         raise Exception("invalid system " + system.name)
 

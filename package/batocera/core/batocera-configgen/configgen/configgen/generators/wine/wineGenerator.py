@@ -36,6 +36,8 @@ class WineGenerator(Generator):
                 }
             )
         # sdl controller option - default is on
+        if 'sdl_config' in system.config and system.config['sdl_config'] != '':
+            cmd.env['SDL_CONFIG']=system.config['sdl_config']
         if not system.isOptSet("sdl_config") or system.getOptBoolean("sdl_config"):
             environment.update(
                 {
@@ -43,6 +45,13 @@ class WineGenerator(Generator):
                     "SDL_JOYSTICK_HIDAPI": "0"
                 }
             )
+        else:
+            environment.update(
+                {
+                    "SDL_GAMECONTROLLERCONFIG": ','.join(generate_sdl_game_controller_config(playersControllers).split(',')[0:3]),
+                }
+            )
+
         # ensure nvidia driver used for vulkan
         if Path('/var/tmp/nvidia.prime').exists():
             variables_to_remove = ['__NV_PRIME_RENDER_OFFLOAD', '__VK_LAYER_NV_optimus', '__GLX_VENDOR_LIBRARY_NAME']

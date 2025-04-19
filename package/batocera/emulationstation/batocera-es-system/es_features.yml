@@ -11238,6 +11238,13 @@ wine:
             choices:
                 "Off": 0
                 "On":  1
+        reincarnation:
+            group: UTILITIES
+            prompt:      REINCARNATION
+            description: Remove winepoint and rebuild before runs.
+            choices:
+                "Off": 0
+                "On":  1
 
 solarus:
   shared: [powermode, tdp, videomode, bezel, bezel_stretch, hud, hud_corner, bezel.tattoo, bezel.tattoo_corner, bezel.tattoo_file, bezel.resize_tattoo]

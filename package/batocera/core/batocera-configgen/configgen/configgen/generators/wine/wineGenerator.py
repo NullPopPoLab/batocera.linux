@@ -105,6 +105,8 @@ class WineGenerator(Generator):
             environment['BATOCERA_WINE_BOOTUP']=system.config['bootup']
         else:
             environment['BATOCERA_WINE_BOOTUP']=''
+        if 'reincarnation' in system.config and system.config['reincarnation'] != '':
+            environment['BATOCERA_WINE_REINCARNATION']=system.config['reincarnation']
 
         if system.name == "windows_installers":
             commandArray = ["batocera-wine", "windows", "install", rom]

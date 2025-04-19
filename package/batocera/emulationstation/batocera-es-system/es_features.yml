@@ -10546,8 +10546,8 @@ wine:
             description: Pack to an archive file instead of running.
             choices:
                 "None": ""
-                "TGZ": "TGZ"
                 "SQUASH": "SQUASH"
+                "TGZ": "TGZ"
 
 solarus:
   shared: [videomode, bezel, bezel_stretch, hud, hud_corner, bezel.tattoo, bezel.tattoo_corner, bezel.tattoo_file, bezel.resize_tattoo]

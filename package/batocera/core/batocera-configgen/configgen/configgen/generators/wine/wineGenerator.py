@@ -25,7 +25,9 @@ class WineGenerator(Generator):
                 cmd=Command.Command(array=commandArray)
         else: raise Exception("invalid system " + system.name)
 
-        cmd.env['SDL_GAMECONTROLLERCONFIG']=controllersConfig.generateSdlGameControllerConfig(playersControllers,'sdl_config' not in system.config or system.config['sdl_config']=='1')
+        if 'sdl_config' in system.config and system.config['sdl_config'] != '':
+            cmd.env['SDL_CONFIG']=system.config['sdl_config']
+        cmd.env['SDL_GAMECONTROLLERCONFIG']=controllersConfig.generateSdlGameControllerConfig(playersControllers,'SDL_CONFIG' not in cmd.env or cmd.env['SDL_CONFIG']=='1')
 
         if 'core' in system.config and system.config['core'] != '':
             cmd.env['WINE_VERSION']=system.config['core']

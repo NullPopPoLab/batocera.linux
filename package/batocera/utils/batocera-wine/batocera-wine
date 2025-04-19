@@ -219,6 +219,11 @@ fi
 export WINEPREFIX=${WINEPOINT}
 QUICKINSTALLDIR="${WINEPOINT}/quick_install"
 
+# Reincarnation
+if [ -d "${WINEPOINT}" ] && [ "${BATOCERA_WINE_REINCARNATION}" = 1 ]; then
+	rm -rf "${WINEPOINT}"
+fi
+
 # Bootup switch
 if test -z ${BATOCERA_WINE_BOOTUP}
 then

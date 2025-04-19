@@ -740,9 +740,9 @@ install_winetricks() {
 trick_wine() {
 
     TRICK=$1
-	echo "** Do trick ${TRICK} to "${WINETRICKS}" **"
+	echo "** Do trick ${TRICK} to "${WINEPREFIX}" **"
 
-    "${WINETRICKS}" "${TRICK}"
+    DISPLAY=:0.0 "${WINETRICKS}" "${TRICK}"
 }
 
 tricks_install() {
@@ -759,9 +759,9 @@ TRICKSLOG="${QUICKINSTALLDIR}/tricks.txt.done"
         while read line; do
             line=`echo "${line}" | xargs`
             echo "bgn trick: $line" >&2
-			trick_wine "${TRICK}"
+			trick_wine "${line}"
             echo "end trick: $line" >&2
-            echo "$line" >> "${TRICKSLOG}"
+            echo "${line}" >> "${TRICKSLOG}"
 		unmount_root
         done < "${TRICKSFILE}"
         rm "${TRICKSFILE}"

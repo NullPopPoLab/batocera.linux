@@ -1023,16 +1023,7 @@ install_msi() {
 
 install_iso() {
     BASEGAMENAME=$(basename_no_dup "${GAMENAME}")
-    GAMEISOMOUNT="/var/run/wine/${BASEGAMENAME}.cdrom"
     INSTALLERISO="${GAMENAME}"
-
-    mkdir -p "${GAMEISOMOUNT}" || return 1
-    if ! mount -t iso9660 "${INSTALLERISO}" "${GAMEISOMOUNT}"; then
-        if ! mount -t udf "${INSTALLERISO}" "${GAMEISOMOUNT}"; then
-            rmdir "${GAMEISOMOUNT}"
-            return 1
-        fi
-    fi
 
     createWineDirectory
  
@@ -1044,13 +1035,14 @@ install_iso() {
 	    rm -f "${WINEPOINT}/dosdevices/d:"
     fi
 
-    waitWineServer
-    init_cmd
+	if test -n "${GAMEISODRIVE}"
+	then
+		"${WINE}" explorer "d:"
+		waitWineServer
+		init_cmd
+	fi
 
-    # try to clean the cdrom
-    safe_umount "${GAMEISOMOUNT}"
-   [[ -d "${GAMEISOMOUNT}" ]] && rm -rf "${GAMEISOMOUNT}"
-
+	unmount_root
  	unmount_iso
 }
 

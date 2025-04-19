@@ -292,10 +292,6 @@ MF=$(getWine_var "MF" "${MF}")
 DXVK=$(getWine_var "DXVK" "${DXVK}")
 DXVK_HUD=$(getWine_var "DXVK_HUD" "${DXVK_HUD}")
 
-SDL_GAMECONTROLLERCONFIG=$(getWine_var "SDL_GAMECONTROLLERCONFIG" "${SDL_GAMECONTROLLERCONFIG}")
-SDL_JOYSTICK_HIDAPI=$(getWine_var "SDL_JOYSTICK_HIDAPI" "${SDL_JOYSTICK_HIDAPI}")
-
-
 KEYBOARD="$(/usr/bin/batocera-settings-get system.kblayout)"
 
 if test -z "${VIRTUAL_DESKTOP_SIZE}"
@@ -307,11 +303,10 @@ if [[ "${VIRTUAL_DESKTOP}" = 1 ]]; then
     VDESKTOP="explorer /desktop=Wine,${VIRTUAL_DESKTOP_SIZE}"
 fi
 
-export SDL_GAMECONTROLLERCONFIG=1
-[[ "${SDL_GAMECONTROLLERCONFIG}" = 0 ]] && SDL_GAMECONTROLLERCONFIG=0
-
-export SDL_JOYSTICK_HIDAPI=1
-[[ "${SDL_JOYSTICK_HIDAPI}" = 0 ]] && SDL_JOYSTICK_HIDAPI=0
+SDL_CONFIG=$(getWine_var "SDL_CONFIG" "${SDL_CONFIG}")
+if [[ "${SDL_CONFIG}" == "0" ]]; then
+	export SDL_GAMECONTROLLERCONFIG=$(echo "${SDL_GAMECONTROLLERCONFIG}" | sed -n 's/^\([^,]*,[^,]*,platform:[^,]*\).*$/\1/p')
+fi
 
 export WINEESYNC=1
 [[ "${ESYNC}" = 0 ]] && WINEESYNC=0

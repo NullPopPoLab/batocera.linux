@@ -112,6 +112,7 @@ gameext() {
 }
 
 cleanAndExit() {
+
     RESNEW=$(batocera-resolution currentMode)
     if [[ "${RESNEW}" != "${G_RESCUR}" ]]; then
         batocera-resolution setMode "${G_RESCUR}"
@@ -131,6 +132,7 @@ cleanAndExit() {
 # winepoint by type
 BASEGAMENAME=$(basename "${GAMENAME}")
 GAMEEXT=$(gameext "${GAMENAME}")
+MOUNTDIR=""
 
 if [[ ${ACTION} = "install" ]]; then
 	case "${GAMEEXT}" in
@@ -157,10 +159,12 @@ else
 		"pc")
 		WINEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.wine"
 		GAMEDIR=${GAMENAME}
+		MOUNTDIR="${GAMEDIR}"
 		;;
 		"exe")
 		WINEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.wine"
 		GAMEDIR=$(dirname "${GAMENAME}")
+		MOUNTDIR="${GAMEDIR}"
 		;;
 		"wtgz")
 		WINEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.wine"
@@ -174,9 +178,10 @@ else
 		WINEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.wine"
 #		WINEPOINT="/var/run/wine/${BASEGAMENAME}"
 		GAMEDIR=${WINEPOINT}
-		SQUASHFSPOINT="/var/run/wine/squashfs_${BASEGAMENAME}"
-		SAVEPOINT="${WINE_BOTTLE_DIR}/${BASEGAMENAME}"
-		WORKPOINT="${WINE_BOTTLE_DIR}/${BASEGAMENAME}.work"
+#		SQUASHFSPOINT="/var/run/wine/squashfs_${BASEGAMENAME}"
+		SQUASHFSPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.sfsp"
+		SAVEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}"
+		WORKPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.work"
 
 		# Attempt to unmount any existing mount points before starting
 		[[ -d "${WINEPOINT}" ]] && safe_umount "${WINEPOINT}"
@@ -403,8 +408,12 @@ usage() {
     echo "${1} windows tricks  	     <game>.exe <trick>"       >&2
     echo "${1} windows tricks  	     <game>.wtgz <trick>"      >&2
     echo "${1} windows tricks  	     <game>.wsquashfs <trick>" >&2
-    echo "${1} windows wine2squashfs <game.wine>"              >&2
-    echo "${1} windows wine2winetgz  <game.wine>"              >&2
+    echo "${1} windows wine2squashfs <game>.wine"              >&2
+    echo "${1} windows wine2squashfs <game>.exe"               >&2
+    echo "${1} windows wine2squashfs <game>.pc"                >&2
+    echo "${1} windows wine2winetgz  <game>.wine"              >&2
+    echo "${1} windows wine2winetgz  <game>.exe"               >&2
+    echo "${1} windows wine2winetgz  <game>.pc"                >&2
 }
 
 waitWineServer() {
@@ -855,6 +864,7 @@ play_wine() {
         (cd "${WINEPOINT}/${WINE_DIR}" && eval "${WINE_ENV}" "${WINE} ${VDESKTOP} ${WINE_CMD}")
     fi
     waitWineServer
+	unmount_root
 	unmount_iso
 }
 
@@ -872,7 +882,7 @@ play_pc() {
 
 	mount_iso d "${GAMEDIR}/disc01.iso"
 	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
-	mount_game y "${G_ROMS_DIR}/${BASEGAMENAME}"
+	mount_game y "${MOUNTDIR}"
 
     env
     if [[ -n "${WINE_LANG}" ]]; then
@@ -882,6 +892,7 @@ play_pc() {
     fi
     waitWineServer
 	unmount_game
+	unmount_root
 	unmount_iso
 }
 
@@ -903,11 +914,12 @@ play_exe() {
 
 	mount_iso d "${GAMEDIR}/disc01.iso"
 	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
-	mount_game y "${GAMEDIR}/${BASEGAMENAME}"
+	mount_game y "${MOUNTDIR}"
 
     (cd "${GAMEDIR}" && "${WINE}" "${GAMEEXE}")
     waitWineServer
 	unmount_game
+	unmount_root
 	unmount_iso
 }
 
@@ -923,6 +935,7 @@ play_winetgz() {
 
 	mount_iso d "${GAMEDIR}/disc01.iso"
 	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
+	mount_game y "${WINEPOINT}/drive_y"
 
     if [[ -n "${WINE_LANG}" ]]; then
         (cd "${WINEPOINT}/${WINE_DIR}" && LC_ALL=${WINE_LANG} eval "${WINE_ENV}" "${WINE} ${VDESKTOP} ${WINE_CMD}")
@@ -930,6 +943,8 @@ play_winetgz() {
         (cd "${WINEPOINT}/${WINE_DIR}" && eval "${WINE_ENV}" "${WINE} ${VDESKTOP} ${WINE_CMD}")
     fi
     waitWineServer
+	unmount_game
+	unmount_root
 	unmount_iso
 }
 
@@ -963,6 +978,7 @@ play_squashfs() {
 
 	mount_iso d "${GAMEDIR}/disc01.iso"
 	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
+	mount_game y "${GAMEDIR}/drive_y"
 
     if [[ -n "${WINE_LANG}" ]]; then
         (cd "${WINEPOINT}/${WINE_DIR}" && LC_ALL=${WINE_LANG} eval "${WINE_ENV}" "${WINE} ${VDESKTOP} ${WINE_CMD}")
@@ -971,6 +987,8 @@ play_squashfs() {
     fi
 
     waitWineServer
+	unmount_game
+	unmount_root
 	unmount_iso
 
     # Safely unmount and clean up
@@ -1065,7 +1083,16 @@ wine2squashfs() {
 		cp -r "${MOUNTDIR}" "${WINEPOINT}/drive_y"
 	fi
     
-    mksquashfs "${GAMEDIR}" "${SQUASHFSFILE}" -comp zstd || return 1
+    mksquashfs "${WINEPOINT}" "${SQUASHFSFILE}" -comp zstd || return 1
+
+	if [ -f "${MOUNTDIR}/padto.keys" ]; then
+		cp "${MOUNTDIR}/padto.keys" "${PAD2KEYFILE}"
+	fi
+
+	if [ "${MOUNTDIR}" != "" ]; then
+		rm -rf "${WINEPOINT}/drive_y"
+	fi
+
     return 0
 }
 
@@ -1078,8 +1105,16 @@ wine2winetgz() {
 		cp "${MOUNTDIR}/padto.keys" "${PAD2KEYFILE}"
 	fi
 
+	if [ "${MOUNTDIR}" != "" ]; then
+		cp -r "${MOUNTDIR}" "${WINEPOINT}/drive_y"
+	fi
 
-    (cd "${GAMEDIR}" && tar cf - * | gzip -c > "${WINETGZFILE}") || return 1
+    (cd "${WINEPOINT}" && tar cf - * | gzip -c > "${WINETGZFILE}") || return 1
+
+	if [ "${MOUNTDIR}" != "" ]; then
+		rm -rf "${WINEPOINT}/drive_y"
+	fi
+
     return 0
 }
 
@@ -1134,10 +1169,10 @@ case "${ACTION}" in
 	trick_wine "${TRICK}" || cleanAndExit 1
 	;;
     "wine2squashfs")
-	wine2squashfs || exit 1
+	wine2squashfs || cleanAndExit 1
 	;;
     "wine2winetgz")
-	wine2winetgz || exit 1
+	wine2winetgz || cleanAndExit 1
 	;;
     *)
 	set +x

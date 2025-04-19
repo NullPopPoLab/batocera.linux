@@ -112,8 +112,15 @@ class WineGenerator(Generator):
             commandArray = ["batocera-wine", "windows", "install", rom]
             return Command.Command(array=commandArray, env=environment)
         elif system.name == "windows":
-            commandArray = ["batocera-wine", "windows", "play", rom]
-            return Command.Command(array=commandArray, env=environment)
+            if 'archive' in system.config and system.config['archive'] == 'TGZ':
+                commandArray = ["batocera-wine", "windows", "wine2winetgz", rom]
+                return Command.Command(array=commandArray)
+            elif 'archive' in system.config and system.config['archive'] == 'SQUASH':
+                commandArray = ["batocera-wine", "windows", "wine2squashfs", rom]
+                return Command.Command(array=commandArray)
+            else:
+                commandArray = ["batocera-wine", "windows", "play", rom]
+                return Command.Command(array=commandArray, env=environment)
 
         raise Exception("invalid system " + system.name)
 

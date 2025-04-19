@@ -536,6 +536,10 @@ redist_install() {
                 
             case "${file}" in
 
+            "${QUICKINSTALLDIR}/*.exe")
+                echo "is wildcard (skiped)" >&2
+                ;;
+
             "${QUICKINSTALLDIR}/DXSETUP.exe" | "${QUICKINSTALLDIR}/dxsetup.exe")
                 "${WINE}" "${file}" /silent &>/dev/null || return 1
                 "${WINESERVER}" -w
@@ -676,7 +680,11 @@ fonts_install() {
 
 			case "${file}" in
 
-			"${QUICKINSTALLDIR}/{*.ttf,*.ttc}")
+			"${QUICKINSTALLDIR}/*.ttf")
+			    echo "is wildcard (skiped)" >&2
+				;;
+
+			"${QUICKINSTALLDIR}/*.ttc")
 			    echo "is wildcard (skiped)" >&2
 				;;
 
@@ -843,13 +851,6 @@ createWineDirectory() {
 play_wine() {
     echo "play_wine"
 
-    redist_install || return 1
-    msi_install || return 1
-    reg_install || return 1
-    fonts_install || return 1
-    dxvk_install || return 1
-    tricks_install || return 1
-
 	mount_iso d "${GAMEDIR}/disc01.iso"
 	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
 
@@ -866,14 +867,7 @@ play_wine() {
 play_pc() {
     echo "play_pc"
 
-    createWineDirectory || return 1
-    redist_install || return 1
-    msi_install || return 1
-    reg_install || return 1
-    fonts_install || return 1
     sandboxing_prefix || return 1
-    dxvk_install || return 1
-    tricks_install || return 1
 
 	mount_iso d "${GAMEDIR}/disc01.iso"
 	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
@@ -898,14 +892,7 @@ play_pc() {
 play_exe() {
     GAMEEXE=$(basename "${GAMENAME}")
 
-    createWineDirectory || return 1
-    redist_install || return 1
-    msi_install || return 1
-    reg_install || return 1
-    fonts_install || return 1
     sandboxing_prefix || return 1
-    dxvk_install || return 1
-    tricks_install || return 1
 
 	mount_iso d "${GAMEDIR}/disc01.iso"
 	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
@@ -920,13 +907,6 @@ play_exe() {
 
 play_winetgz() {
     echo "play_winetgz"
-
-    redist_install || return 1
-    msi_install || return 1
-    reg_install || return 1
-    fonts_install || return 1
-    dxvk_install || return 1
-    tricks_install || return 1
 
 	mount_iso d "${GAMEDIR}/disc01.iso"
 	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
@@ -966,11 +946,6 @@ safe_umount() {
 play_squashfs() {
     echo "play_squashfs"
 
-    reg_install || return 1
-    fonts_install || return 1
-    dxvk_install || return 1
-    tricks_install || return 1
-
 	mount_iso d "${GAMEDIR}/disc01.iso"
 	mount_root z "${BATOCERA_WINE_USE_ROOTDRIVE}"
 	mount_game y "${GAMEDIR}/drive_y"
@@ -1007,6 +982,7 @@ init_cmd() {
 }
 
 basename_no_dup() {
+
     CANDIDATE=$(echo "${G_ROMS_DIR}/${BASEGAMENAME}" | sed -e s+"\.exe$"++)".wine"
     i=0
     while [ -d "${CANDIDATE}" ]; do
@@ -1019,37 +995,38 @@ basename_no_dup() {
 }
 
 install_exe() {
+
     BASEGAMENAME=$(basename_no_dup "${GAMENAME}")
     INSTALLERFILE="${BASEGAMENAME}"
-
-    createWineDirectory
 
 	mount_root z "1"
 
     (cd "${GAMEDIR}" && "${WINE}" "${INSTALLERFILE}")
     waitWineServer
     init_cmd
+
+	unmount_root
 }
 
 install_msi() {
+
     BASEGAMENAME=$(basename_no_dup "${GAMENAME}")
     INSTALLERFILE="${BASEGAMENAME}"
-
-    createWineDirectory
 
 	mount_root z "1"
 
     (cd "${GAMEDIR}" && "${MSIEXEC}" /i "${INSTALLERFILE}")
     waitWineServer
     init_cmd
+
+	unmount_root
 }
 
 install_iso() {
+
     BASEGAMENAME=$(basename_no_dup "${GAMENAME}")
     INSTALLERISO="${GAMENAME}"
 
-    createWineDirectory
- 
 	mount_iso d "${INSTALLERISO}"
 	mount_root z "1"
 
@@ -1112,6 +1089,14 @@ wine2winetgz() {
 
     return 0
 }
+
+createWineDirectory || return 1
+redist_install || return 1
+msi_install || return 1
+reg_install || return 1
+fonts_install || return 1
+dxvk_install || return 1
+tricks_install || return 1
 
 G_RESCUR=$(batocera-resolution currentMode)
 

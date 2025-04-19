@@ -37,7 +37,7 @@ class WineGenerator(Generator):
             )
         # sdl controller option - default is on
         if 'sdl_config' in system.config and system.config['sdl_config'] != '':
-            cmd.env['SDL_CONFIG']=system.config['sdl_config']
+            environment['SDL_CONFIG']=system.config['sdl_config']
         if not system.isOptSet("sdl_config") or system.getOptBoolean("sdl_config"):
             environment.update(
                 {

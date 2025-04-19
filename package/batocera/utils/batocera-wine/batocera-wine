@@ -218,6 +218,7 @@ fi
 
 export WINEPREFIX=${WINEPOINT}
 QUICKINSTALLDIR="${WINEPOINT}/quick_install"
+QUICKINSTALLSRC="${GAMEDIR}/quick_install"
 
 # Reincarnation
 if [ -d "${WINEPOINT}" ] && [ "${BATOCERA_WINE_REINCARNATION}" = 1 ]; then
@@ -824,6 +825,10 @@ createWineDirectory() {
 	    kill -15 "${BSODPID}"
         echo "+++ Failed initialising ${WINEPOINT} +++"
 	    return 1
+    fi
+
+    if [[ "${QUICKINSTALLDIR}" != "${QUICKINSTALLSRC}" ]] && [[ -d "${QUICKINSTALLSRC}" ]]; then
+        cp -r "${QUICKINSTALLSRC}" "${QUICKINSTALLDIR}"
     fi
 
     kill -15 "${BSODPID}"

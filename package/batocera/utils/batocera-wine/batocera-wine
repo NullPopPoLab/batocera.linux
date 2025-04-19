@@ -1057,14 +1057,27 @@ install_iso() {
 }
 
 wine2squashfs() {
+
     SQUASHFSFILE=$(echo "${G_ROMS_DIR}/${BASEGAMENAME}.wsquashfs" | sed -e s+"\.wine\.squashfs$"+".wsquashfs"+)
+    PAD2KEYFILE=$(echo "${G_ROMS_DIR}/${BASEGAMENAME}.keys" | sed -e s+"\.wine\.keys$"+".keys"+)
+
+	if [ "${MOUNTDIR}" != "" ]; then
+		cp -r "${MOUNTDIR}" "${WINEPOINT}/drive_y"
+	fi
     
     mksquashfs "${GAMEDIR}" "${SQUASHFSFILE}" -comp zstd || return 1
     return 0
 }
 
 wine2winetgz() {
+
     WINETGZFILE="${G_ROMS_DIR}/${BASEGAMENAME}.wtgz"
+    PAD2KEYFILE="${G_ROMS_DIR}/${BASEGAMENAME}.keys"
+
+	if [ -f "${MOUNTDIR}/padto.keys" ]; then
+		cp "${MOUNTDIR}/padto.keys" "${PAD2KEYFILE}"
+	fi
+
 
     (cd "${GAMEDIR}" && tar cf - * | gzip -c > "${WINETGZFILE}") || return 1
     return 0

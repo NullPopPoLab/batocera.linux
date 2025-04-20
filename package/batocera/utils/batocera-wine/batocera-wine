@@ -559,13 +559,13 @@ redist_install() {
 
     if [[ -e "${QUICKINSTALLDIR}" ]]; then
 
-        for file in ${QUICKINSTALLDIR}/*.exe; do
-            echo "Executing file $file"
+        for file in "${QUICKINSTALLDIR}/*.exe"; do
+            echo "Executing file {$file}"
                 
             case "${file}" in
 
             "${QUICKINSTALLDIR}/*.exe")
-                echo "is wildcard (skiped)" >&2
+                echo "${file} is wildcard (skiped)" >&2
                 ;;
 
             "${QUICKINSTALLDIR}/DXSETUP.exe" | "${QUICKINSTALLDIR}/dxsetup.exe")
@@ -646,12 +646,12 @@ msi_install() {
     if [[ -e "${QUICKINSTALLDIR}" ]]; then
 
         for file in "${QUICKINSTALLDIR}/*.msi"; do
-            echo "Executing file $file" >&2
+            echo "Executing file ${file}" >&2
 
 			case "${file}" in
 
 			"${QUICKINSTALLDIR}/*.msi")
-			    echo "is wildcard (skiped)" >&2
+			    echo "${file} is wildcard (skiped)" >&2
 				;;
 
 			*)
@@ -683,7 +683,7 @@ reg_install() {
 			case "${file}" in
 
 			"${QUICKINSTALLDIR}/*.reg")
-			    echo "is wildcard (skiped)" >&2
+			    echo "${file} is wildcard (skiped)" >&2
 				;;
 
 			*)
@@ -708,16 +708,12 @@ fonts_install() {
 
 			case "${file}" in
 
-			"${QUICKINSTALLDIR}/*.ttf")
-			    echo "is wildcard (skiped)" >&2
-				;;
-
-			"${QUICKINSTALLDIR}/*.ttc")
-			    echo "is wildcard (skiped)" >&2
+			"${QUICKINSTALLDIR}/{*.ttf,*.ttc}")
+			    echo "${file} is wildcard (skiped)" >&2
 				;;
 
 			*)
-				cp -a "${file}" "${WINEPOINT}/drive_c/windows/Fonts" || return 1
+				cp -a "${file}" "${WINEPOINT}/drive_c/windows/Fonts" || echo "cannot install ${file}"
 				;;
 			esac
 
@@ -1007,20 +1003,78 @@ install_iso() {
  	unmount_iso
 }
 
+retarget4archive() {
+
+	FILE=$1
+	CMDTMP="${FILE}.tmp"
+	DIRTMP=$(mktemp)
+	echo -n > "${CMDTMP}"
+	cat "${FILE}" | dos2unix | while read line
+	do
+		if [[ ${line} == "DIR=" ]]; then
+			cat /dev/null
+		elif [[ ${line} =~ ^DIR=(.+)$ ]]; then
+			MATCHED=${BASH_REMATCH[1]}
+			echo -n "${MATCHED}" > "${DIRTMP}"
+			echo "DIR=drive_y/${MATCHED}" >> "${CMDTMP}"
+		else
+			echo "${line}" >> "${CMDTMP}"
+		fi
+	done
+	FINAL=$(cat "${DIRTMP}")
+	rm "${DIRTMP}"
+	if [ "${FINAL}" == "" ]; then
+		echo "DIR=drive_y" >> "${CMDTMP}"
+	fi
+	rm "${FILE}"
+	mv "${CMDTMP}" "${FILE}"
+}
+
+build4archive() {
+
+	cp -ar "${MOUNTDIR}" "${WINEPOINT}/drive_y"
+
+	if [ -d "${WINEPOINT}/drive_y/boot" ]; then
+		rm -rf "${WINEPOINT}/boot"
+		mv "${WINEPOINT}/drive_y/boot" "${WINEPOINT}/boot"
+
+		# for file in "${WINEPOINT}/boot/*.cmd" is not work, why? 
+		ls -1 "${WINEPOINT}/boot/" | while read file
+		do
+			if [[ "${file}" =~ \.cmd$ ]]; then
+				$(retarget4archive "${WINEPOINT}/boot/${file}")
+			fi
+        done
+	fi
+	if [ -f "${WINEPOINT}/drive_y/padto.keys" ]; then
+		mv "${WINEPOINT}/drive_y/padto.keys" "${WINEPOINT}/"
+	fi
+	if [ -f "${WINEPOINT}/drive_y/autorun.cmd" ]; then
+		mv "${WINEPOINT}/drive_y/autorun.cmd" "${WINEPOINT}/"
+		$(retarget4archive "${WINEPOINT}/autorun.cmd")
+	else
+		GAMEEXE=$(basename "${GAMENAME}")
+	    (
+			echo "DIR=drive_y"
+			echo "CMD=\"${GAMEEXE}\""
+    	) > "${WINEPOINT}/autorun.cmd"
+	fi
+}
+
 wine2squashfs() {
 
     SQUASHFSFILE=$(echo "${G_ROMS_DIR}/${BASEGAMENAME}.wsquashfs" | sed -e s+"\.wine\.squashfs$"+".wsquashfs"+)
     PAD2KEYFILE=$(echo "${G_ROMS_DIR}/${BASEGAMENAME}.keys" | sed -e s+"\.wine\.keys$"+".keys"+)
 
+	if [ -f "${MOUNTDIR}/padto.keys" ]; then
+		cp -a "${MOUNTDIR}/padto.keys" "${PAD2KEYFILE}"
+	fi
+
 	if [ "${MOUNTDIR}" != "" ]; then
-		cp -r "${MOUNTDIR}" "${WINEPOINT}/drive_y"
+		build4archive
 	fi
     
     mksquashfs "${WINEPOINT}" "${SQUASHFSFILE}" -comp zstd || return 1
-
-	if [ -f "${MOUNTDIR}/padto.keys" ]; then
-		cp "${MOUNTDIR}/padto.keys" "${PAD2KEYFILE}"
-	fi
 
 	if [ "${MOUNTDIR}" != "" ]; then
 		rm -rf "${WINEPOINT}/drive_y"
@@ -1035,11 +1089,11 @@ wine2winetgz() {
     PAD2KEYFILE="${G_ROMS_DIR}/${BASEGAMENAME}.keys"
 
 	if [ -f "${MOUNTDIR}/padto.keys" ]; then
-		cp "${MOUNTDIR}/padto.keys" "${PAD2KEYFILE}"
+		cp -a "${MOUNTDIR}/padto.keys" "${PAD2KEYFILE}"
 	fi
 
 	if [ "${MOUNTDIR}" != "" ]; then
-		cp -r "${MOUNTDIR}" "${WINEPOINT}/drive_y"
+		build4archive
 	fi
 
     (cd "${WINEPOINT}" && tar cf - * | gzip -c > "${WINETGZFILE}") || return 1
@@ -1051,13 +1105,13 @@ wine2winetgz() {
     return 0
 }
 
-redist_install || return 1
-msi_install || return 1
-mf_install || return 1
-reg_install || return 1
-fonts_install || return 1
-dxvk_install || return 1
-tricks_install || return 1
+redist_install || cleanAndExit 1
+msi_install || cleanAndExit 1
+mf_install || cleanAndExit 1
+reg_install || cleanAndExit 1
+fonts_install || cleanAndExit 1
+dxvk_install || cleanAndExit 1
+tricks_install || cleanAndExit 1
 
 G_RESCUR=$(batocera-resolution currentMode)
 

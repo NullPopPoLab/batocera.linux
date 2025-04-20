@@ -6,8 +6,8 @@ shift
 shift
 
 ## Wine detection
-GAMENAME=$1 
-ROMGAMENAME=$(basename "${GAMENAME}")
+GAMENAME=$1
+BASEGAMENAME=$(basename "${GAMENAME}")
 
 if test -z "${WINE_VERSION}"
 then
@@ -60,316 +60,13 @@ GAMESPECIFICDRIVE=""
 ROOTDRIVE=""
 GAMEISOMOUNT=""
 GAMEISODRIVE=""
+MOUNTDIR=""
 
 gameext() {
     echo "${1}" | sed -e s+"^.*\.\([^\.]*\)$"+"\1"+ | tr A-Z a-z
 }
 
-cleanAndExit() {
-
-    RESNEW=$(batocera-resolution currentMode)
-    if [[ "${RESNEW}" != "${G_RESCUR}" ]]; then
-        batocera-resolution setMode "${G_RESCUR}"
-    fi
-
-    if [[ -e "${GST_REGISTRY_1_0}" ]]; then
-        rm -f "${GST_REGISTRY_1_0}"
-    fi
-	unmount_game
-	unmount_root
- 	unmount_iso
-
-    exit "${1}"
-    # TODO : unmount always, trap, later
-}
-
-# winepoint by type
-BASEGAMENAME=$(basename "${GAMENAME}")
 GAMEEXT=$(gameext "${GAMENAME}")
-MOUNTDIR=""
-
-if [[ ${ACTION} = "install" ]]; then
-	case "${GAMEEXT}" in
-		"exe")
-		WINEPOINT=$(echo "${G_ROMS_DIR}/${BASEGAMENAME}" | sed -e s+"\.exe$"++)".wine"
-		;;
-		"msi")
-		WINEPOINT=$(echo "${G_ROMS_DIR}/${BASEGAMENAME}" | sed -e s+"\.msi$"++)".wine"
-		;;
-		"iso")
-		WINEPOINT=$(echo "${G_ROMS_DIR}/${BASEGAMENAME}" | sed -e s+"\.iso$"++)".wine"
-		;;
-		*)
-		echo "unsupported extension ${GAMEEXT}" >&2
-		cleanAndExit 1
-	esac
-	GAMEDIR=${GAMENAME}
-else
-	case "${GAMEEXT}" in
-		"wine")
-		WINEPOINT="${GAMENAME}"
-		GAMEDIR=${WINEPOINT}
-		;;
-		"pc")
-		WINEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.wine"
-		GAMEDIR=${GAMENAME}
-		MOUNTDIR="${GAMEDIR}"
-		;;
-		"exe")
-		WINEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.wine"
-		GAMEDIR=$(dirname "${GAMENAME}")
-		MOUNTDIR="${GAMEDIR}"
-		;;
-		"wtgz")
-		WINEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.wine"
-		GAMEDIR=${WINEPOINT}
-		if [[ ! -e "${WINEPOINT}" ]]; then
-			mkdir -p "${WINEPOINT}" || return 1
-			(cd "${WINEPOINT}" && gunzip -c "${GAMENAME}" | tar xf -) || return 1
-		fi
-		;;
-		"wsquashfs")
-		WINEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.wine"
-#		WINEPOINT="/var/run/wine/${BASEGAMENAME}"
-		GAMEDIR=${WINEPOINT}
-#		SQUASHFSPOINT="/var/run/wine/squashfs_${BASEGAMENAME}"
-		SQUASHFSPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.sfsp"
-		SAVEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}"
-		WORKPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.work"
-
-		# Attempt to unmount any existing mount points before starting
-		[[ -d "${WINEPOINT}" ]] && safe_umount "${WINEPOINT}"
-		[[ -d "${SQUASHFSPOINT}" ]] && safe_umount "${SQUASHFSPOINT}"
-
-		# Remove directories if they exist
-		[[ -d "${SQUASHFSPOINT}" ]] && rm -rf "${SQUASHFSPOINT}"
-		[[ -d "${WORKPOINT}" ]] && rm -rf "${WORKPOINT}"
-		[[ -d "${WINEPOINT}" ]] && rm -rf "${WINEPOINT}"
-
-		# Create necessary fresh directories
-		mkdir -p "${SAVEPOINT}" || return 1
-		mkdir -p "${WORKPOINT}" || return 1
-		mkdir -p "${WINEPOINT}" || return 1
-		mkdir -p "${SQUASHFSPOINT}" || return 1
-
-		# Mount squashfs
-		if ! mount "${GAMENAME}" "${SQUASHFSPOINT}"; then
-		    [[ -d "${SQUASHFSPOINT}" ]] && rm -rf "${SQUASHFSPOINT}"
-		    [[ -d "${WORKPOINT}" ]] && rm -rf "${WORKPOINT}"
-		    [[ -d "${WINEPOINT}" ]] && rm -rf "${WINEPOINT}"
-		    return 1
-		fi
-
-		# Mount overlay
-		if ! mount -t overlay -o rw,lowerdir="${SQUASHFSPOINT}",upperdir="${SAVEPOINT}",workdir="${WORKPOINT}",redirect_dir=on overlay "${WINEPOINT}"; then
-		    safe_umount "${SQUASHFSPOINT}"
-		    [[ -d "${SQUASHFSPOINT}" ]] && rm -rf "${SQUASHFSPOINT}"
-		    [[ -d "${WORKPOINT}" ]] && rm -rf "${WORKPOINT}"
-		    [[ -d "${WINEPOINT}" ]] && rm -rf "${WINEPOINT}"
-		    return 1
-		fi
-		;;
-		*)
-		echo "unsupported extension ${GAMEEXT}" >&2
-		cleanAndExit 1
-	esac
-fi
-
-export WINEPREFIX=${WINEPOINT}
-QUICKINSTALLDIR="${WINEPOINT}/quick_install"
-QUICKINSTALLSRC="${GAMEDIR}/quick_install"
-
-# Reincarnation
-if [ -d "${WINEPOINT}" ] && [ "${BATOCERA_WINE_REINCARNATION}" = 1 ]; then
-	rm -rf "${WINEPOINT}"
-fi
-
-# Bootup switch
-if test -z ${BATOCERA_WINE_BOOTUP}
-then
-	BOOTUPCMD="${GAMEDIR}/boot/default.cmd"
-	BOOTUPKEY="${GAMEDIR}/boot/default.keys"
-else
-	BOOTUPCMD="${GAMEDIR}/boot/${BATOCERA_WINE_BOOTUP}.cmd"
-	BOOTUPKEY="${GAMEDIR}/boot/${BATOCERA_WINE_BOOTUP}.keys"
-fi
-
-if [ -f "${BOOTUPCMD}" ]; then
-	echo "select to bootup: ${BOOTUPCMD}" >&2
-    cp "${BOOTUPCMD}" "${GAMEDIR}/autorun.cmd"
-fi
-if [ -f "${BOOTUPKEY}" ]; then
-	echo "select to bootup: ${BOOTUPKEY}" >&2
-    cp "${BOOTUPKEY}" "${GAMEDIR}/padto.keys"
-fi
-
-# options
-
-getWine_var() {
-    VARNAME=$1
-    DEFVAL=$2
-
-    if [[ -e "${GAMEDIR}/autorun.cmd" ]]; then
-        VAL=$(cat "${GAMEDIR}/autorun.cmd" | dos2unix | grep "^${VARNAME}=" | sed -e s+"^${VARNAME}="+""+ | head -1)
-        if [[ -n "${VAL}" ]]; then
-            echo "${VAL}"
-        else
-            echo "${DEFVAL}"
-        fi
-    else
-        echo "${DEFVAL}"
-    fi
-}
-
-WINE_CMD=$(getWine_var "CMD" "explorer")
-WINE_DIR=$(getWine_var "DIR" "")
-WINE_LANG=$(getWine_var "LANG" "")
-WINE_ENV=$(getWine_var "ENV" "")
-
-ESYNC=$(getWine_var "ESYNC" "${ESYNC}")
-FSYNC=$(getWine_var "FSYNC" "${FSYNC}")
-PBA=$(getWine_var "PBA" "${PBA}")
-FSR=$(getWine_var "FSR" "${FSR}")
-FPS_LIMIT=$(getWine_var "FPS_LIMIT" "${FPS_LIMIT}")
-ALLOW_XIM=$(getWine_var "ALLOW_XIM" "${ALLOW_XIM}")
-NO_WRITE_WATCH=$(getWine_var "NO_WRITE_WATCH" "${NO_WRITE_WATCH}")
-FORCE_LARGE_ADRESS=$(getWine_var "FORCE_LARGE_ADRESS" "${FORCE_LARGE_ADRESS}")
-HEAP_DELAY_FREE=$(getWine_var "HEAP_DELAY_FREE" "${HEAP_DELAY_FREE}")
-HIDE_NVIDIA_GPU=$(getWine_var "HIDE_NVIDIA_GPU" "${HIDE_NVIDIA_GPU}")
-ENABLE_NVAPI=$(getWine_var "ENABLE_NVAPI" "${ENABLE_NVAPI}")
-DXVK_RESET_CACHE=$(getWine_var "DXVK_RESET_CACHE" "${DXVK_RESET_CACHE}")
-WINE_NTFS=$(getWine_var "WINE_NTFS" "${WINE_NTFS}")
-WINE_DEBUG=$(getWine_var "WINE_DEBUG" "${WINE_DEBUG}")
-VIRTUAL_DESKTOP=$(getWine_var "VIRTUAL_DESKTOP" "${VIRTUAL_DESKTOP}")
-VIRTUAL_DESKTOP_SIZE=$(getWine_var "VIRTUAL_DESKTOP_SIZE" "${VIRTUAL_DESKTOP_SIZE}")
-MF=$(getWine_var "MF" "${MF}")
-DXVK=$(getWine_var "DXVK" "${DXVK}")
-DXVK_HUD=$(getWine_var "DXVK_HUD" "${DXVK_HUD}")
-
-KEYBOARD="$(/usr/bin/batocera-settings-get system.kblayout)"
-
-if test -z "${VIRTUAL_DESKTOP_SIZE}"
-then
-    VIRTUAL_DESKTOP_SIZE=`batocera-resolution currentResolution`
-fi
-
-if [[ "${VIRTUAL_DESKTOP}" = 1 ]]; then
-    VDESKTOP="explorer /desktop=Wine,${VIRTUAL_DESKTOP_SIZE}"
-fi
-
-SDL_CONFIG=$(getWine_var "SDL_CONFIG" "${SDL_CONFIG}")
-if [[ "${SDL_CONFIG}" == "0" ]]; then
-	export SDL_GAMECONTROLLERCONFIG=$(echo "${SDL_GAMECONTROLLERCONFIG}" | sed -n 's/^\([^,]*,[^,]*,platform:[^,]*\).*$/\1/p')
-fi
-
-export WINEESYNC=1
-[[ "${ESYNC}" = 0 ]] && WINEESYNC=0
-
-export WINEFSYNC=1
-[[ "${FSYNC}" = 0 ]] && WINEFSYNC=0
-
-export PBA_ENABLE=0
-[[ "${PBA}" = 1 ]] && PBA_ENABLE=1
-
-export DXVK_FRAME_RATE=0
-[[ "${FPS_LIMIT}" = 1 ]] && DXVK_FRAME_RATE=60
-
-export WINEDEBUG="-all"
-[[ "${WINE_DEBUG}" = 1 ]] && WINEDEBUG="err+all,fixme+all"
-
-export DXVK_LOG_LEVEL=none
-[[ "${WINE_DEBUG}" = 1 ]] && unset DXVK_LOG_LEVEL
-
-export VKD3D_DEBUG=none
-[[ "${WINE_DEBUG}" = 1 ]] && unset VKD3D_DEBUG
-
-export VKD3D_SHADER_DEBUG=none
-[[ "${WINE_DEBUG}" = 1 ]] && unset VKD3D_SHADER_DEBUG
-
-export WINE_FULLSCREEN_FSR=0
-[[ "${FSR}" = 1 ]] && unset WINE_FULLSCREEN_FSR
-
-# Wine-mono override for FNA games
-export WINE_MONO_OVERRIDES="Microsoft.Xna.Framework.*,Gac=n"
-
-# Disable XIM support until libx11 >= 1.7 is widespread
-export WINE_ALLOW_XIM=0
-[[ "${ALLOW_XIM}" = 1 ]] && WINE_ALLOW_XIM=1
-
-# Advanced options from proton
-export WINE_DISABLE_WRITE_WATCH=0
-[[ "${NO_WRITE_WATCH}" = 1 ]] && WINE_DISABLE_WRITE_WATCH=1
-
-export WINE_LARGE_ADDRESS_AWARE=0
-[[ "${FORCE_LARGE_ADRESS}" = 1 ]] && WINE_LARGE_ADDRESS_AWARE=1
-
-export WINE_HEAP_DELAY_FREE=0
-[[ "${HEAP_DELAY_FREE}" = 1 ]] && WINE_HEAP_DELAY_FREE=1
-
-export WINE_HIDE_NVIDIA_GPU=0
-[[ "${HIDE_NVIDIA_GPU}" = 1 ]] && WINE_HIDE_NVIDIA_GPU=1
-
-export NVAPI=0
-[[ "${ENABLE_NVAPI}" = 1 ]] && NVAPI=1
-
-export DXVK_STATE_CACHE=1
-[[ "${DXVK_RESET_CACHE}" = 1 ]] && DXVK_STATE_CACHE=reset
-
-export NTFS_MODE=0
-[[ "${WINE_NTFS}" = 1 ]] && NTFS_MODE=1
-
-export STAGING_SHARED_MEMORY=1
-export ULIMIT_SIZE=1048576
-export USE_BUILTIN_VKD3D=0
-
-# Nvidia variables
-if test -e "/userdata/system/.cache"; then
-    export XDG_CACHE_HOME="/userdata/system/.cache"
-else
-    mkdir -p "/userdata/system/.cache"
-    export XDG_CACHE_HOME="/userdata/system/.cache"
-fi
-export __GL_SHADER_DISK_CACHE_SIZE=2147483648
-export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
-export __GL_SHADER_DISK_CACHE_PATH="${XDG_CACHE_HOME}"/nvidia
-
-if ! ulimit -n "${ULIMIT_SIZE}" 2>/dev/null; then
-    export WINEESYNC=0
-fi
-
-setxkbmap "${KEYBOARD}"
-
-
-usage() {
-    echo "${1} windows play    	     <game>.iso"               >&2
-    echo "${1} windows play    	     <game>.exe"               >&2
-    echo "${1} windows play    	     <game>.pc"                >&2
-    echo "${1} windows play    	     <game>.wine"              >&2
-    echo "${1} windows play    	     <game>.wsquashfs"         >&2
-    echo "${1} windows play    	     <game>.wtgz"              >&2
-    echo "${1} windows install 	     <game>.iso"               >&2
-    echo "${1} windows install 	     <game>.msi"               >&2
-    echo "${1} windows install 	     <game>.exe"               >&2
-    echo "${1} windows tricks  	     <game>.wine <trick>"      >&2
-    echo "${1} windows tricks  	     <game>.pc <trick>"        >&2
-    echo "${1} windows tricks  	     <game>.exe <trick>"       >&2
-    echo "${1} windows tricks  	     <game>.wtgz <trick>"      >&2
-    echo "${1} windows tricks  	     <game>.wsquashfs <trick>" >&2
-    echo "${1} windows wine2squashfs <game>.wine"              >&2
-    echo "${1} windows wine2squashfs <game>.exe"               >&2
-    echo "${1} windows wine2squashfs <game>.pc"                >&2
-    echo "${1} windows wine2winetgz  <game>.wine"              >&2
-    echo "${1} windows wine2winetgz  <game>.exe"               >&2
-    echo "${1} windows wine2winetgz  <game>.pc"                >&2
-}
-
-waitWineServer() {
-    while pgrep "${WINESERVER}"
-    do
-	echo "waiting wineserver" >&2
-	sleep 1
-    done
-}
 
 unmount_iso() {
 
@@ -479,6 +176,367 @@ mount_root() {
 	fi
 }
 
+waitWineServer() {
+    while pgrep "${WINESERVER}"
+    do
+	echo "waiting wineserver" >&2
+	sleep 1
+    done
+}
+
+cleanAndExit() {
+
+    RESNEW=$(batocera-resolution currentMode)
+    if [[ "${RESNEW}" != "${G_RESCUR}" ]]; then
+        batocera-resolution setMode "${G_RESCUR}"
+    fi
+
+    if [[ -e "${GST_REGISTRY_1_0}" ]]; then
+        rm -f "${GST_REGISTRY_1_0}"
+    fi
+	unmount_game
+	unmount_root
+ 	unmount_iso
+
+	case "${GAMEEXT}" in
+		"wsquashfs")
+	    # wait 1 sec before unmounting
+	    sleep 1
+
+	    # try to clean the cdrom
+	    umount -f -R "${WINEPOINT}"
+	    umount -f -R "${SQUASHFSPOINT}"
+	    sleep 1
+	    rm -rf "${SQUASHFSPOINT}"
+	    rm -rf "${SQUASHWORKPOINT}"
+	    rm -rf "${WINEPOINT}"
+		;;
+	esac
+
+    exit "${1}"
+    # TODO : unmount always, trap, later
+}
+
+# winepoint by type
+if [[ ${ACTION} = "install" ]]; then
+	case "${GAMEEXT}" in
+		"exe")
+		WINEPOINT=$(echo "${G_ROMS_DIR}/${BASEGAMENAME}" | sed -e s+"\.exe$"++)".wine"
+		;;
+		"msi")
+		WINEPOINT=$(echo "${G_ROMS_DIR}/${BASEGAMENAME}" | sed -e s+"\.msi$"++)".wine"
+		;;
+		"iso")
+		WINEPOINT=$(echo "${G_ROMS_DIR}/${BASEGAMENAME}" | sed -e s+"\.iso$"++)".wine"
+		;;
+		*)
+		echo "unsupported extension ${GAMEEXT}" >&2
+		cleanAndExit 1
+	esac
+	GAMEDIR=${GAMENAME}
+else
+	case "${GAMEEXT}" in
+		"wine")
+		WINEPOINT="${GAMENAME}"
+		GAMEDIR=${WINEPOINT}
+		;;
+		"pc")
+		WINEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.wine"
+		GAMEDIR=${GAMENAME}
+		MOUNTDIR="${GAMEDIR}"
+		;;
+		"exe")
+		WINEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.wine"
+		GAMEDIR=$(dirname "${GAMENAME}")
+		MOUNTDIR="${GAMEDIR}"
+		;;
+		"iso")
+		WINEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.wine"
+		GAMEDIR=${WINEPOINT}
+		;;
+		"wtgz")
+		WINEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.wine"
+		GAMEDIR=${WINEPOINT}
+		;;
+		"wsquashfs")
+		WINEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.wine"
+		GAMEDIR=${WINEPOINT}
+		;;
+		*)
+		echo "unsupported extension ${GAMEEXT}" >&2
+		cleanAndExit 1
+	esac
+fi
+
+export WINEPREFIX=${WINEPOINT}
+QUICKINSTALLDIR="${WINEPOINT}/quick_install"
+QUICKINSTALLSRC="${GAMEDIR}/quick_install"
+
+# Reincarnation
+if [ -d "${WINEPOINT}" ] && [ "${BATOCERA_WINE_REINCARNATION}" = 1 ]; then
+	rm -rf "${WINEPOINT}"
+fi
+
+createWineDirectory() {
+
+    # already created
+    [[ -e "${WINEPOINT}" ]] && return 0
+
+    # please wait screen
+    bsod-wine&
+    BSODPID=$!
+
+    mkdir -p "${WINEPOINT}" || return 1
+
+    if ! "${WINE}" hostname; then
+	    rm -rf "${WINEPOINT}"
+	    kill -15 "${BSODPID}"
+        echo "+++ Failed initialising ${WINEPOINT} +++"
+	    return 1
+    fi
+
+    if [[ "${QUICKINSTALLDIR}" != "${QUICKINSTALLSRC}" ]] && [[ -d "${QUICKINSTALLSRC}" ]]; then
+        cp -r "${QUICKINSTALLSRC}" "${QUICKINSTALLDIR}"
+    fi
+
+    kill -15 "${BSODPID}"
+
+    return 0
+}
+
+# Setup WINEPOINT
+case "${GAMEEXT}" in
+	"wtgz")
+	if [[ ! -e "${WINEPOINT}" ]]; then
+		mkdir -p "${WINEPOINT}" || return 1
+		(cd "${WINEPOINT}" && gunzip -c "${GAMENAME}" | tar xf -) || return 1
+	fi
+	;;
+	"wsquashfs")
+	SQUASHFSPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.sfsp"
+	SQUASHSAVEPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}"
+	SQUASHWORKPOINT="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${BASEGAMENAME}.work"
+
+	# Attempt to unmount any existing mount points before starting
+	[[ -d "${WINEPOINT}" ]] && safe_umount "${WINEPOINT}"
+	[[ -d "${SQUASHFSPOINT}" ]] && safe_umount "${SQUASHFSPOINT}"
+
+	# Remove directories if they exist
+	[[ -d "${SQUASHFSPOINT}" ]] && rm -rf "${SQUASHFSPOINT}"
+	[[ -d "${SQUASHWORKPOINT}" ]] && rm -rf "${SQUASHWORKPOINT}"
+	[[ -d "${WINEPOINT}" ]] && rm -rf "${WINEPOINT}"
+
+	# Create necessary fresh directories
+	mkdir -p "${SQUASHSAVEPOINT}" || return 1
+	mkdir -p "${SQUASHWORKPOINT}" || return 1
+	mkdir -p "${WINEPOINT}" || return 1
+	mkdir -p "${SQUASHFSPOINT}" || return 1
+
+	# Mount squashfs
+	if ! mount "${GAMENAME}" "${SQUASHFSPOINT}"; then
+	    [[ -d "${SQUASHFSPOINT}" ]] && rm -rf "${SQUASHFSPOINT}"
+	    [[ -d "${SQUASHWORKPOINT}" ]] && rm -rf "${SQUASHWORKPOINT}"
+	    [[ -d "${WINEPOINT}" ]] && rm -rf "${WINEPOINT}"
+	    return 1
+	fi
+
+	# Mount overlay
+	if ! mount -t overlay -o rw,lowerdir="${SQUASHFSPOINT}",upperdir="${SQUASHSAVEPOINT}",workdir="${SQUASHWORKPOINT}",redirect_dir=on overlay "${WINEPOINT}"; then
+	    safe_umount "${SQUASHFSPOINT}"
+	    [[ -d "${SQUASHFSPOINT}" ]] && rm -rf "${SQUASHFSPOINT}"
+	    [[ -d "${SQUASHWORKPOINT}" ]] && rm -rf "${SQUASHWORKPOINT}"
+	    [[ -d "${WINEPOINT}" ]] && rm -rf "${WINEPOINT}"
+	    return 1
+	fi
+	;;
+	*)
+	if [ ! -d "${WINEPOINT}" ]; then
+		createWineDirectory || return 1
+	fi
+esac
+
+# Bootup switch
+if test -z ${BATOCERA_WINE_BOOTUP}
+then
+	BOOTUPCMD="${GAMEDIR}/boot/default.cmd"
+	BOOTUPKEY="${GAMEDIR}/boot/default.keys"
+else
+	BOOTUPCMD="${GAMEDIR}/boot/${BATOCERA_WINE_BOOTUP}.cmd"
+	BOOTUPKEY="${GAMEDIR}/boot/${BATOCERA_WINE_BOOTUP}.keys"
+fi
+
+if [ -f "${BOOTUPCMD}" ]; then
+	echo "select to bootup: ${BOOTUPCMD}" >&2
+    cp "${BOOTUPCMD}" "${GAMEDIR}/autorun.cmd"
+fi
+if [ -f "${BOOTUPKEY}" ]; then
+	echo "select to bootup: ${BOOTUPKEY}" >&2
+    cp "${BOOTUPKEY}" "${GAMEDIR}/padto.keys"
+fi
+
+# options
+
+getWine_var() {
+    VARNAME=$1
+    DEFVAL=$2
+
+    if [[ -e "${GAMEDIR}/autorun.cmd" ]]; then
+        VAL=$(cat "${GAMEDIR}/autorun.cmd" | dos2unix | grep "^${VARNAME}=" | sed -e s+"^${VARNAME}="+""+ | head -1)
+        if [[ -n "${VAL}" ]]; then
+            echo "${VAL}"
+        else
+            echo "${DEFVAL}"
+        fi
+    else
+        echo "${DEFVAL}"
+    fi
+}
+
+WINE_CMD=$(getWine_var "CMD" "explorer")
+WINE_DIR=$(getWine_var "DIR" "")
+WINE_LANG=$(getWine_var "LANG" "")
+WINE_ENV=$(getWine_var "ENV" "")
+
+ESYNC=$(getWine_var "ESYNC" "${ESYNC}")
+FSYNC=$(getWine_var "FSYNC" "${FSYNC}")
+PBA=$(getWine_var "PBA" "${PBA}")
+FSR=$(getWine_var "FSR" "${FSR}")
+FPS_LIMIT=$(getWine_var "FPS_LIMIT" "${FPS_LIMIT}")
+ALLOW_XIM=$(getWine_var "ALLOW_XIM" "${ALLOW_XIM}")
+NO_WRITE_WATCH=$(getWine_var "NO_WRITE_WATCH" "${NO_WRITE_WATCH}")
+FORCE_LARGE_ADRESS=$(getWine_var "FORCE_LARGE_ADRESS" "${FORCE_LARGE_ADRESS}")
+HEAP_DELAY_FREE=$(getWine_var "HEAP_DELAY_FREE" "${HEAP_DELAY_FREE}")
+HIDE_NVIDIA_GPU=$(getWine_var "HIDE_NVIDIA_GPU" "${HIDE_NVIDIA_GPU}")
+ENABLE_NVAPI=$(getWine_var "ENABLE_NVAPI" "${ENABLE_NVAPI}")
+DXVK_RESET_CACHE=$(getWine_var "DXVK_RESET_CACHE" "${DXVK_RESET_CACHE}")
+WINE_NTFS=$(getWine_var "WINE_NTFS" "${WINE_NTFS}")
+WINE_DEBUG=$(getWine_var "WINE_DEBUG" "${WINE_DEBUG}")
+VIRTUAL_DESKTOP=$(getWine_var "VIRTUAL_DESKTOP" "${VIRTUAL_DESKTOP}")
+VIRTUAL_DESKTOP_SIZE=$(getWine_var "VIRTUAL_DESKTOP_SIZE" "${VIRTUAL_DESKTOP_SIZE}")
+MF=$(getWine_var "MF" "${MF}")
+DXVK=$(getWine_var "DXVK" "${DXVK}")
+DXVK_HUD=$(getWine_var "DXVK_HUD" "${DXVK_HUD}")
+
+KEYBOARD="$(/usr/bin/batocera-settings-get system.kblayout)"
+
+if test -z "${VIRTUAL_DESKTOP_SIZE}"
+then
+    VIRTUAL_DESKTOP_SIZE=`batocera-resolution currentResolution`
+fi
+
+if [[ "${VIRTUAL_DESKTOP}" = 1 ]]; then
+    VDESKTOP="explorer /desktop=Wine,${VIRTUAL_DESKTOP_SIZE}"
+fi
+
+USE_GAMEPAD=$(getWine_var "USE_GAMEPAD" "${USE_GAMEPAD}")
+SDL_CONFIG=$(getWine_var "SDL_CONFIG" "${SDL_CONFIG}")
+if [[ "${USE_GAMEPAD}" == "0" ]]; then
+	export SDL_GAMECONTROLLERCONFIG=$(echo "${SDL_GAMECONTROLLERCONFIG}" | sed -n 's/^\([^,]*,[^,]*,platform:[^,]*\).*$/\1/p')
+elif [[ "${SDL_CONFIG}" == "0" ]]; then
+	export SDL_GAMECONTROLLERCONFIG=""
+fi
+
+export WINEESYNC=1
+[[ "${ESYNC}" = 0 ]] && WINEESYNC=0
+
+export WINEFSYNC=1
+[[ "${FSYNC}" = 0 ]] && WINEFSYNC=0
+
+export PBA_ENABLE=0
+[[ "${PBA}" = 1 ]] && PBA_ENABLE=1
+
+export DXVK_FRAME_RATE=0
+[[ "${FPS_LIMIT}" = 1 ]] && DXVK_FRAME_RATE=60
+
+export WINEDEBUG="-all"
+[[ "${WINE_DEBUG}" = 1 ]] && WINEDEBUG="err+all,fixme+all"
+
+export DXVK_LOG_LEVEL=none
+[[ "${WINE_DEBUG}" = 1 ]] && unset DXVK_LOG_LEVEL
+
+export VKD3D_DEBUG=none
+[[ "${WINE_DEBUG}" = 1 ]] && unset VKD3D_DEBUG
+
+export VKD3D_SHADER_DEBUG=none
+[[ "${WINE_DEBUG}" = 1 ]] && unset VKD3D_SHADER_DEBUG
+
+export WINE_FULLSCREEN_FSR=0
+[[ "${FSR}" = 1 ]] && unset WINE_FULLSCREEN_FSR
+
+# Wine-mono override for FNA games
+export WINE_MONO_OVERRIDES="Microsoft.Xna.Framework.*,Gac=n"
+
+# Disable XIM support until libx11 >= 1.7 is widespread
+export WINE_ALLOW_XIM=0
+[[ "${ALLOW_XIM}" = 1 ]] && WINE_ALLOW_XIM=1
+
+# Advanced options from proton
+export WINE_DISABLE_WRITE_WATCH=0
+[[ "${NO_WRITE_WATCH}" = 1 ]] && WINE_DISABLE_WRITE_WATCH=1
+
+export WINE_LARGE_ADDRESS_AWARE=0
+[[ "${FORCE_LARGE_ADRESS}" = 1 ]] && WINE_LARGE_ADDRESS_AWARE=1
+
+export WINE_HEAP_DELAY_FREE=0
+[[ "${HEAP_DELAY_FREE}" = 1 ]] && WINE_HEAP_DELAY_FREE=1
+
+export WINE_HIDE_NVIDIA_GPU=0
+[[ "${HIDE_NVIDIA_GPU}" = 1 ]] && WINE_HIDE_NVIDIA_GPU=1
+
+export NVAPI=0
+[[ "${ENABLE_NVAPI}" = 1 ]] && NVAPI=1
+
+export DXVK_STATE_CACHE=1
+[[ "${DXVK_RESET_CACHE}" = 1 ]] && DXVK_STATE_CACHE=reset
+
+export NTFS_MODE=0
+[[ "${WINE_NTFS}" = 1 ]] && NTFS_MODE=1
+
+export STAGING_SHARED_MEMORY=1
+export ULIMIT_SIZE=1048576
+export USE_BUILTIN_VKD3D=0
+
+# Nvidia variables
+if test -e "/userdata/system/.cache"; then
+    export XDG_CACHE_HOME="/userdata/system/.cache"
+else
+    mkdir -p "/userdata/system/.cache"
+    export XDG_CACHE_HOME="/userdata/system/.cache"
+fi
+export __GL_SHADER_DISK_CACHE_SIZE=2147483648
+export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
+export __GL_SHADER_DISK_CACHE_PATH="${XDG_CACHE_HOME}"/nvidia
+
+if ! ulimit -n "${ULIMIT_SIZE}" 2>/dev/null; then
+    export WINEESYNC=0
+fi
+
+setxkbmap "${KEYBOARD}"
+
+
+usage() {
+    echo "${1} windows play    	     <game>.iso"               >&2
+    echo "${1} windows play    	     <game>.exe"               >&2
+    echo "${1} windows play    	     <game>.pc"                >&2
+    echo "${1} windows play    	     <game>.wine"              >&2
+    echo "${1} windows play    	     <game>.wsquashfs"         >&2
+    echo "${1} windows play    	     <game>.wtgz"              >&2
+    echo "${1} windows install 	     <game>.iso"               >&2
+    echo "${1} windows install 	     <game>.msi"               >&2
+    echo "${1} windows install 	     <game>.exe"               >&2
+    echo "${1} windows tricks  	     <game>.wine <trick>"      >&2
+    echo "${1} windows tricks  	     <game>.pc <trick>"        >&2
+    echo "${1} windows tricks  	     <game>.exe <trick>"       >&2
+    echo "${1} windows tricks  	     <game>.wtgz <trick>"      >&2
+    echo "${1} windows tricks  	     <game>.wsquashfs <trick>" >&2
+    echo "${1} windows wine2squashfs <game>.wine"              >&2
+    echo "${1} windows wine2squashfs <game>.exe"               >&2
+    echo "${1} windows wine2squashfs <game>.pc"                >&2
+    echo "${1} windows wine2winetgz  <game>.wine"              >&2
+    echo "${1} windows wine2winetgz  <game>.exe"               >&2
+    echo "${1} windows wine2winetgz  <game>.pc"                >&2
+}
+
 mf_install() {
 
     if test "${MF}" = 1
@@ -487,10 +545,10 @@ mf_install() {
         then
             chmod +x "${MF_INSTALL}" || return 1
             "${MF_INSTALL}" || return 1
-            /usr/bin/batocera-settings-set "${SYSTEM}[\"${ROMGAMENAME}\"].mf" 0
+            /usr/bin/batocera-settings-set "${SYSTEM}[\"${BASEGAMENAME}\"].mf" 0
         else
             "${MF_INSTALL}" || return 1
-            /usr/bin/batocera-settings-set "${SYSTEM}[\"${ROMGAMENAME}\"].mf" 0
+            /usr/bin/batocera-settings-set "${SYSTEM}[\"${BASEGAMENAME}\"].mf" 0
         fi
     fi
 
@@ -786,33 +844,6 @@ sandboxing_prefix() {
     return 0
 }
 
-createWineDirectory() {
-
-    # already created
-    [[ -e "${WINEPOINT}" ]] && return 0
-
-    # please wait screen
-    bsod-wine&
-    BSODPID=$!
-
-    mkdir -p "${WINEPOINT}" || return 1
-
-    if ! "${WINE}" hostname; then
-	    rm -rf "${WINEPOINT}"
-	    kill -15 "${BSODPID}"
-        echo "+++ Failed initialising ${WINEPOINT} +++"
-	    return 1
-    fi
-
-    if [[ "${QUICKINSTALLDIR}" != "${QUICKINSTALLSRC}" ]] && [[ -d "${QUICKINSTALLSRC}" ]]; then
-        cp -r "${QUICKINSTALLSRC}" "${QUICKINSTALLDIR}"
-    fi
-
-    kill -15 "${BSODPID}"
-
-    return 0
-}
-
 play_wine() {
 
 
@@ -901,17 +932,6 @@ play_squashfs() {
 	unmount_game
 	unmount_root
 	unmount_iso
-
-    # wait 1 sec before unmounting
-    sleep 1
-
-    # try to clean the cdrom
-    umount -f -R "${WINEPOINT}"
-    umount -f -R "${SQUASHFSPOINT}"
-    sleep 1
-    rm -rf "${SQUASHFSPOINT}"
-    rm -rf "${WORKPOINT}"
-    rm -rf "${WINEPOINT}"
 }
 
 init_cmd() {
@@ -1031,7 +1051,6 @@ wine2winetgz() {
     return 0
 }
 
-createWineDirectory || return 1
 redist_install || return 1
 msi_install || return 1
 mf_install || return 1

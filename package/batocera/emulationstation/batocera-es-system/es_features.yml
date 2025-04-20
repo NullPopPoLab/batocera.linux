@@ -10376,27 +10376,47 @@ wine:
   features: [padtokeyboard]
   shared: [videomode]
   cfeatures:
+        bootup:
+            prompt:      BOOTUP
+            description: Replace autorun.cmd from boot/*.cmd (or boot/default.cmd)
+            preset: input
+        use_gamepad:
+            prompt: ENABLE GAMEPAD
+            description: Use a Game Controller via Windows. Disabling for control via PadToKey.
+            choices:
+                "Off":          0
+                "On (Default)": 1
         sdl_config:
             prompt: SDL CONFIG
             description: Choose whether to pass SDL Game Controller config to the Windows game. Disabling may help with some games.
             choices:
                 "Off":          0
                 "On (Default)": 1
+        force_mouse:
+            prompt:      ENABLE MOUSE
+            description: Force mouse in games.
+            choices:
+                "Off": 0
+                "On":  1
+        virtual_desktop:
+            prompt:      VIRTUAL DESKTOP
+            description: Define the resolution and a new dedicated window.
+            choices:
+                "Off": 0
+                "On":  1
         lang:
             prompt: LOCALE
             description: Specify locale (language_COUNTRY)
             preset: input
-        bootup:
-            prompt:      BOOTUP
-            description: Replace autorun.cmd from boot/*.cmd (or boot/default.cmd)
-            preset: input
         enable_rootdrive:
+            group: ADVANCED OPTIONS
             prompt:      ENABLE ROOT DRIVE
             description: Use Z drive for root directory
             choices:
                 "Off": 0
                 "On":  1
         winepoint_each_core:
+            group: ADVANCED OPTIONS
             prompt:      WINEPOINT EACH CORE
             description: Creating Winepoint each cores.
             choices:
@@ -10454,20 +10474,6 @@ wine:
         mf:
             group: ADVANCED OPTIONS
             prompt:      INSTALL MEDIA FOUNDATION
-            choices:
-                "Off": 0
-                "On":  1
-        virtual_desktop:
-            group: ADVANCED OPTIONS
-            prompt:      VIRTUAL DESKTOP
-            description: Define the resolution and a new dedicated window.
-            choices:
-                "Off": 0
-                "On":  1
-        force_mouse:
-            group: ADVANCED OPTIONS
-            prompt:      ENABLE MOUSE
-            description: Force mouse in games.
             choices:
                 "Off": 0
                 "On":  1

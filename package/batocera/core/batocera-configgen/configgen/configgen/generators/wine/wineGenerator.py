@@ -123,10 +123,10 @@ class WineGenerator(Generator):
         elif system.name == "windows":
             if 'archive' in system.config and system.config['archive'] == 'TGZ':
                 commandArray = ["batocera-wine", "windows", "wine2winetgz", rom]
-                return Command.Command(array=commandArray)
+                return Command.Command(array=commandArray, env=environment)
             elif 'archive' in system.config and system.config['archive'] == 'SQUASH':
                 commandArray = ["batocera-wine", "windows", "wine2squashfs", rom]
-                return Command.Command(array=commandArray)
+                return Command.Command(array=commandArray, env=environment)
             else:
                 commandArray = ["batocera-wine", "windows", "play", rom]
                 return Command.Command(array=commandArray, env=environment)

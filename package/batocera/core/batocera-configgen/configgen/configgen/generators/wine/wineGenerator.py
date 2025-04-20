@@ -15,10 +15,14 @@ class WineGenerator(Generator):
         if 'lang' in system.config and system.config['lang'] != '':
             environment['LANG']=environment['LC_ALL']=system.config['lang']+'.UTF-8'
 
+        # controller abailability - default is on
+        if 'use_gamepad' in system.config and system.config['use_gamepad'] != '':
+            environment['USE_GAMEPAD']=system.config['use_gamepad']
         # sdl controller option - default is on
         if 'sdl_config' in system.config and system.config['sdl_config'] != '':
             environment['SDL_CONFIG']=system.config['sdl_config']
-        environment['SDL_GAMECONTROLLERCONFIG']=controllersConfig.generateSdlGameControllerConfig(playersControllers,'SDL_CONFIG' not in environment or environment['SDL_CONFIG']=='1')
+        # sdl controller settings 
+        environment['SDL_GAMECONTROLLERCONFIG']=controllersConfig.generateSdlGameControllerConfig(playersControllers,True)
 
         if 'core' in system.config and system.config['core'] != '':
             environment['WINE_VERSION']=system.config['core']

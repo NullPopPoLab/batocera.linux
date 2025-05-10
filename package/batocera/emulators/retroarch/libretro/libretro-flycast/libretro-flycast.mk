@@ -4,8 +4,8 @@
 #
 ################################################################################
 # Version: Commits on Jul 5, 2023
-LIBRETRO_FLYCAST_VERSION = 17b82ab5d3968a6c4813a61003d669ca117b3f5e
-LIBRETRO_FLYCAST_SITE = https://github.com/flyinghead/flycast.git
+LIBRETRO_FLYCAST_VERSION = 18f6ad5cb0b1b411f157b4c3c6cf30d96a186c5a
+LIBRETRO_FLYCAST_SITE = https://github.com/NullPopPoLab/reicast-emulator.git
 LIBRETRO_FLYCAST_SITE_METHOD=git
 LIBRETRO_FLYCAST_GIT_SUBMODULES=YES
 LIBRETRO_FLYCAST_LICENSE = GPLv2

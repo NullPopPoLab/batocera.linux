@@ -2308,6 +2308,12 @@ libretro:
               choices:
                   "4.2":     "opengl"
                   "4.3":     "opengl_cs"
+          kronos_use_cs:
+              prompt: COMPUTE SHADERS
+              description: Change the renderer.
+              choices:
+                  "Off": "disabled"
+                  "On":  "enabled"
           kronos_polygon_mode:
               prompt: POLYGON MODE
               description: Select method for applying textures on polygon, gpu_tesselation requires OpenGL 4.2+, OpenGL CS renderer doesn't need this.

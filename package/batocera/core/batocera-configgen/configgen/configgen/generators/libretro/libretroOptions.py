@@ -2228,6 +2228,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('kronos_use_beetle_saves', '"disabled"')
         else:
             coreSettings.save('kronos_use_beetle_saves', '"enabled"')
+        # BIOS Language
+        if system.isOptSet('kronos_language_id') and system.config['kronos_language_id'] != 'English':
+            coreSettings.save('kronos_language_id', '"' + system.config['kronos_language_id'] + '"')
+        else:
+            coreSettings.save('kronos_language_id', '"English"')
         # Multitap
         if system.isOptSet('kronos_multitap_port1') and system.config['kronos_multitap_port1'] != 'disabled':
             coreSettings.save('kronos_multitap_port1', '"' + system.config['kronos_multitap_port1'] + '"')

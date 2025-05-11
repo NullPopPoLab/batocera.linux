@@ -2312,6 +2312,12 @@ libretro:
                   "Spanish":  "Spanish"
                   "Italian":  "Italian"
                   "Japanese":  "Japanese"
+          kronos_use_beetle_saves:
+              prompt: SAVES SHARED WITH BEETLE
+              description: Use the same path as beetle-saturn for savefiles.
+              choices:
+                  "Off": "disabled"
+                  "On (default)":  "enabled"
           kronos_addon_cartridge:
               prompt: ADDON CARTRIDGE
               description: Select the addon cartridge.

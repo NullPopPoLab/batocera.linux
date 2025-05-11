@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Last update: Commits on Sept 27, 2023
-BATOCERA_EMULATIONSTATION_VERSION = 36fc0e90d292252940d8c1fa9efc5725adfc0773
+BATOCERA_EMULATIONSTATION_VERSION = 59908fa4a7cbeedd48eedcf6cdc0cbcde29c2ef1
 BATOCERA_EMULATIONSTATION_SITE = https://github.com/NullPopPoLab/batocera-emulationstation.git
 BATOCERA_EMULATIONSTATION_SITE_METHOD = git
 BATOCERA_EMULATIONSTATION_LICENSE = MIT

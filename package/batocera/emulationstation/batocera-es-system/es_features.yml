@@ -2302,6 +2302,12 @@ libretro:
       features: [cheevos]
       shared: [autosave]
       cfeatures:
+          kronos_videocoretype:
+              prompt: OPENGL VERSION
+              description: Change the renderer.
+              choices:
+                  "4.2":     "opengl"
+                  "4.3":     "opengl_cs"
           kronos_polygon_mode:
               prompt: POLYGON MODE
               description: Select method for applying textures on polygon, gpu_tesselation requires OpenGL 4.2+, OpenGL CS renderer doesn't need this.

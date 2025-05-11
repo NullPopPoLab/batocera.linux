@@ -2243,6 +2243,16 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('kronos_polygon_mode', '"' + system.config['kronos_polygon_mode'] + '"')
         else:
             coreSettings.save('kronos_polygon_mode', '"perspective_correction"')
+        # Mesh mode
+        if system.isOptSet('kronos_meshmode') and system.config['kronos_meshmode'] != 'disabled':
+            coreSettings.save('kronos_meshmode', '"' + system.config['kronos_meshmode'] + '"')
+        else:
+            coreSettings.save('kronos_meshmode', '"disabled"')
+        # Banding mode
+        if system.isOptSet('kronos_bandingmode') and system.config['kronos_bandingmode'] != 'disabled':
+            coreSettings.save('kronos_bandingmode', '"' + system.config['kronos_bandingmode'] + '"')
+        else:
+            coreSettings.save('kronos_bandingmode', '"disabled"')
 
     # gun cross
     if (system.config['core'] == 'beetle-saturn'):

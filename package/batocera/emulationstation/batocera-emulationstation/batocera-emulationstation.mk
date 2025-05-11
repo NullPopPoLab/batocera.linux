@@ -4,8 +4,11 @@
 #
 ################################################################################
 # Last update: Commits on Sept 27, 2023
-BATOCERA_EMULATIONSTATION_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/batocera-emulationstation
-BATOCERA_EMULATIONSTATION_SITE_METHOD = local
+BATOCERA_EMULATIONSTATION_VERSION = 59908fa4a7cbeedd48eedcf6cdc0cbcde29c2ef1
+BATOCERA_EMULATIONSTATION_SITE = https://github.com/NullPopPoLab/batocera-emulationstation.git
+BATOCERA_EMULATIONSTATION_SITE_METHOD = git
+BATOCERA_EMULATIONSTATION_LICENSE = MIT
+BATOCERA_EMULATIONSTATION_GIT_SUBMODULES = YES
 BATOCERA_EMULATIONSTATION_LICENSE = MIT, Apache-2.0
 BATOCERA_EMULATIONSTATION_DEPENDENCIES = sdl2 sdl2_mixer libfreeimage freetype alsa-lib libcurl vlc rapidjson pulseaudio batocera-es-system host-gettext
 # install in staging for debugging (gdb)

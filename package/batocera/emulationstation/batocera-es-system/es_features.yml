@@ -2301,6 +2301,78 @@ libretro:
     kronos:
       features: [cheevos]
       shared: [autosave]
+      cfeatures:
+          kronos_language_id:
+              prompt: BIOS LANGUAGE
+              description: Choose your favorite language, will translate some games. Requires a restart.
+              choices:
+                  "English": "English"
+                  "German":  "German"
+                  "French":  "French"
+                  "Spanish":  "Spanish"
+                  "Italian":  "Italian"
+                  "Japanese":  "Japanese"
+          kronos_use_beetle_saves:
+              prompt: SAVES SHARED WITH BEETLE
+              description: Use the same path as beetle-saturn for savefiles.
+              choices:
+                  "Off": "disabled"
+                  "On (default)":  "enabled"
+          kronos_addon_cartridge:
+              prompt: ADDON CARTRIDGE
+              description: Select the addon cartridge.
+              choices:
+                  "None": "none"
+                  "1M Extended":  "1M_extended_ram"
+                  "4M Extended":  "4M_extended_ram"
+                  "16M Extended":  "16M_extended_ram"
+                  "512K Backup":  "512K_backup_ram"
+                  "1M Backup":  "1M_backup_ram"
+                  "2M Backup":  "2M_backup_ram"
+                  "4M Backup":  "4M_backup_ram"
+          kronos_multitap_port1:
+              prompt: MULTITAP ON PORT 1
+              description: 6Player Adaptor on Port 1.
+              choices:
+                  "Off": "disabled"
+                  "On":  "enabled"
+          kronos_multitap_port2:
+              prompt: MULTITAP ON PORT 2
+              description: 6Player Adaptor on Port 2.
+              choices:
+                  "Off": "disabled"
+                  "On":  "enabled"
+          kronos_videocoretype:
+              prompt: OPENGL VERSION
+              description: Change the renderer.
+              choices:
+                  "4.2":     "opengl"
+                  "4.3":     "opengl_cs"
+          kronos_use_cs:
+              prompt: COMPUTE SHADERS
+              description: Use compute shaders for upscaling RBG, requires OpenGL 4.3+.
+              choices:
+                  "Off": "disabled"
+                  "On":  "enabled"
+          kronos_polygon_mode:
+              prompt: POLYGON MODE
+              description: Select method for applying textures on polygon, gpu_tesselation requires OpenGL 4.2+, OpenGL CS renderer doesn't need this.
+              choices:
+                  "Pers. Correct": "perspective_correction"
+                  "GPU Tessel.":   "gpu_tesselation"
+                  "CPU Tessel.":   "cpu_tesselation"
+          kronos_meshmode:
+              prompt: MESH MODE
+              description: Replace meshed transparency by real transparency.
+              choices:
+                  "Off": "disabled"
+                  "On":  "enabled"
+          kronos_bandingmode:
+              prompt: BANDING MODE
+              description: Apply gouraud shading instead of flat shading, requires OpenGL CS renderer.
+              choices:
+                  "Off": "disabled"
+                  "On":  "enabled"
     lowresnx:
       features: [padtokeyboard]
     #lutro:

@@ -2228,6 +2228,50 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('kronos_use_beetle_saves', '"disabled"')
         else:
             coreSettings.save('kronos_use_beetle_saves', '"enabled"')
+        # BIOS Language
+        if system.isOptSet('kronos_language_id') and system.config['kronos_language_id'] != 'English':
+            coreSettings.save('kronos_language_id', '"' + system.config['kronos_language_id'] + '"')
+        else:
+            coreSettings.save('kronos_language_id', '"English"')
+        # Addon Cartridge
+        if system.isOptSet('kronos_addon_cartridge') and system.config['kronos_addon_cartridge'] != '4M_extended_ram':
+            coreSettings.save('kronos_addon_cartridge', '"' + system.config['kronos_addon_cartridge'] + '"')
+        else:
+            coreSettings.save('kronos_addon_cartridge', '"4M_extended_ram"')
+        # Multitap
+        if system.isOptSet('kronos_multitap_port1') and system.config['kronos_multitap_port1'] != 'disabled':
+            coreSettings.save('kronos_multitap_port1', '"' + system.config['kronos_multitap_port1'] + '"')
+        else:
+            coreSettings.save('kronos_multitap_port1', '"disabled"')
+        if system.isOptSet('kronos_multitap_port2') and system.config['kronos_multitap_port2'] != 'disabled':
+            coreSettings.save('kronos_multitap_port2', '"' + system.config['kronos_multitap_port2'] + '"')
+        else:
+            coreSettings.save('kronos_multitap_port2', '"disabled"')
+        # OpenGL version
+        if system.isOptSet('kronos_videocoretype') and system.config['kronos_videocoretype'] != 'opengl':
+            coreSettings.save('kronos_videocoretype', '"' + system.config['kronos_videocoretype'] + '"')
+        else:
+            coreSettings.save('kronos_videocoretype', '"opengl"')
+        # Compute Shaders
+        if system.isOptSet('kronos_use_cs') and system.config['kronos_use_cs'] != 'disabled':
+            coreSettings.save('kronos_use_cs', '"' + system.config['kronos_use_cs'] + '"')
+        else:
+            coreSettings.save('kronos_use_cs', '"disabled"')
+        # Polygon mode
+        if system.isOptSet('kronos_polygon_mode') and system.config['kronos_polygon_mode'] != 'perspective_correction':
+            coreSettings.save('kronos_polygon_mode', '"' + system.config['kronos_polygon_mode'] + '"')
+        else:
+            coreSettings.save('kronos_polygon_mode', '"perspective_correction"')
+        # Mesh mode
+        if system.isOptSet('kronos_meshmode') and system.config['kronos_meshmode'] != 'disabled':
+            coreSettings.save('kronos_meshmode', '"' + system.config['kronos_meshmode'] + '"')
+        else:
+            coreSettings.save('kronos_meshmode', '"disabled"')
+        # Banding mode
+        if system.isOptSet('kronos_bandingmode') and system.config['kronos_bandingmode'] != 'disabled':
+            coreSettings.save('kronos_bandingmode', '"' + system.config['kronos_bandingmode'] + '"')
+        else:
+            coreSettings.save('kronos_bandingmode', '"disabled"')
 
     # gun cross
     if (system.config['core'] == 'beetle-saturn'):

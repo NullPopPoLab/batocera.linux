@@ -2310,13 +2310,7 @@ libretro:
                   "4.3":     "opengl_cs"
           kronos_use_cs:
               prompt: COMPUTE SHADERS
-              description: Change the renderer.
-              choices:
-                  "Off": "disabled"
-                  "On":  "enabled"
-          kronos_use_cs:
-              prompt: COMPUTE SHADERS
-              description: Change the renderer.
+              description: Use compute shaders for upscaling RBG, requires OpenGL 4.3+.
               choices:
                   "Off": "disabled"
                   "On":  "enabled"

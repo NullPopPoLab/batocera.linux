@@ -2233,6 +2233,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('kronos_language_id', '"' + system.config['kronos_language_id'] + '"')
         else:
             coreSettings.save('kronos_language_id', '"English"')
+        # Addon Cartridge
+        if system.isOptSet('kronos_addon_cartridge') and system.config['kronos_addon_cartridge'] != '4M_extended_ram':
+            coreSettings.save('kronos_addon_cartridge', '"' + system.config['kronos_addon_cartridge'] + '"')
+        else:
+            coreSettings.save('kronos_addon_cartridge', '"4M_extended_ram"')
         # Multitap
         if system.isOptSet('kronos_multitap_port1') and system.config['kronos_multitap_port1'] != 'disabled':
             coreSettings.save('kronos_multitap_port1', '"' + system.config['kronos_multitap_port1'] + '"')

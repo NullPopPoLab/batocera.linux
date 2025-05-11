@@ -2302,6 +2302,18 @@ libretro:
       features: [cheevos]
       shared: [autosave]
       cfeatures:
+          kronos_multitap_port1:
+              prompt: MULTITAP ON PORT 1
+              description: 6Player Adaptor on Port 1.
+              choices:
+                  "Off": "disabled"
+                  "On":  "enabled"
+          kronos_multitap_port2:
+              prompt: MULTITAP ON PORT 2
+              description: 6Player Adaptor on Port 2.
+              choices:
+                  "Off": "disabled"
+                  "On":  "enabled"
           kronos_videocoretype:
               prompt: OPENGL VERSION
               description: Change the renderer.

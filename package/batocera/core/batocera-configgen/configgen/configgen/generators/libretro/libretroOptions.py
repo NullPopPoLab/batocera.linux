@@ -2228,6 +2228,15 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('kronos_use_beetle_saves', '"disabled"')
         else:
             coreSettings.save('kronos_use_beetle_saves', '"enabled"')
+        # Multitap
+        if system.isOptSet('kronos_multitap_port1') and system.config['kronos_multitap_port1'] != 'disabled':
+            coreSettings.save('kronos_multitap_port1', '"' + system.config['kronos_multitap_port1'] + '"')
+        else:
+            coreSettings.save('kronos_multitap_port1', '"disabled"')
+        if system.isOptSet('kronos_multitap_port2') and system.config['kronos_multitap_port2'] != 'disabled':
+            coreSettings.save('kronos_multitap_port2', '"' + system.config['kronos_multitap_port2'] + '"')
+        else:
+            coreSettings.save('kronos_multitap_port2', '"disabled"')
         # OpenGL version
         if system.isOptSet('kronos_videocoretype') and system.config['kronos_videocoretype'] != 'opengl':
             coreSettings.save('kronos_videocoretype', '"' + system.config['kronos_videocoretype'] + '"')

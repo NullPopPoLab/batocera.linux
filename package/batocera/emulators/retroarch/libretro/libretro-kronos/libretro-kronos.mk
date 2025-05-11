@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version: Commits on Mar 16, 2022
-LIBRETRO_KRONOS_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/libretro-kronos
-LIBRETRO_KRONOS_SITE_METHOD = local
+LIBRETRO_KRONOS_VERSION = 0faec1278001383f7b2e00c643747c0bc6ba9019
+LIBRETRO_KRONOS_SITE = https://github.com/NullPopPoLab/yabause.git
+LIBRETRO_KRONOS_SITE_METHOD = git
 LIBRETRO_KRONOS_LICENSE = BSD-3-Clause
 
 LIBRETRO_KRONOS_PLATFORM = $(LIBRETRO_PLATFORM)

@@ -2302,6 +2302,16 @@ libretro:
       features: [cheevos]
       shared: [autosave]
       cfeatures:
+          kronos_language_id:
+              prompt: BIOS LANGUAGE
+              description: Choose your favorite language, will translate some games. Requires a restart.
+              choices:
+                  "English": "English"
+                  "German":  "German"
+                  "French":  "French"
+                  "Spanish":  "Spanish"
+                  "Italian":  "Italian"
+                  "Japanese":  "Japanese"
           kronos_multitap_port1:
               prompt: MULTITAP ON PORT 1
               description: 6Player Adaptor on Port 1.

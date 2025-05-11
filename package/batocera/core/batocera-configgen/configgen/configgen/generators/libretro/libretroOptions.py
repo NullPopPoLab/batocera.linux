@@ -2228,6 +2228,16 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('kronos_use_beetle_saves', '"disabled"')
         else:
             coreSettings.save('kronos_use_beetle_saves', '"enabled"')
+        # OpenGL version
+        if system.isOptSet('kronos_videocoretype') and system.config['kronos_videocoretype'] != 'opengl':
+            coreSettings.save('kronos_videocoretype', '"' + system.config['kronos_videocoretype'] + '"')
+        else:
+            coreSettings.save('kronos_videocoretype', '"opengl"')
+        # Compute Shaders
+        if system.isOptSet('kronos_use_cs') and system.config['kronos_use_cs'] != 'disabled':
+            coreSettings.save('kronos_use_cs', '"' + system.config['kronos_use_cs'] + '"')
+        else:
+            coreSettings.save('kronos_use_cs', '"disabled"')
         # Polygon mode
         if system.isOptSet('kronos_polygon_mode') and system.config['kronos_polygon_mode'] != 'perspective_correction':
             coreSettings.save('kronos_polygon_mode', '"' + system.config['kronos_polygon_mode'] + '"')

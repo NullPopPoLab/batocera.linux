@@ -61,6 +61,9 @@ ROOTDRIVE=""
 GAMEISOMOUNT=""
 GAMEISODRIVE=""
 MOUNTDIR=""
+BSODPID=""
+
+G_RESCUR=$(batocera-resolution currentMode)
 
 gameext() {
     echo "${1}" | sed -e s+"^.*\.\([^\.]*\)$"+"\1"+ | tr A-Z a-z
@@ -176,6 +179,33 @@ mount_root() {
 	fi
 }
 
+endBSOD() {
+
+	if test -z "${BSODPID}"
+	then
+		return
+	fi
+
+	kill -15 "${BSODPID}"
+	BSODPID=""
+}
+
+bgnBSOD() {
+
+	MSG="$1"
+
+	endBSOD
+
+	if test -z "${MSG}"
+	then
+		bsod-wine &
+	else
+		bsod-wine "${MSG}" &
+	fi
+
+	BSODPID=$!
+}
+
 waitWineServer() {
     while pgrep "${WINESERVER}"
     do
@@ -185,6 +215,8 @@ waitWineServer() {
 }
 
 cleanAndExit() {
+
+    endBSOD
 
     RESNEW=$(batocera-resolution currentMode)
     if [[ "${RESNEW}" != "${G_RESCUR}" ]]; then
@@ -283,14 +315,13 @@ createWineDirectory() {
     [[ -e "${WINEPOINT}" ]] && return 0
 
     # please wait screen
-    bsod-wine&
-    BSODPID=$!
+    bgnBSOD
 
     mkdir -p "${WINEPOINT}" || return 1
 
     if ! "${WINE}" hostname; then
 	    rm -rf "${WINEPOINT}"
-	    kill -15 "${BSODPID}"
+	    endBSOD
         echo "+++ Failed initialising ${WINEPOINT} +++"
 	    return 1
     fi
@@ -299,7 +330,7 @@ createWineDirectory() {
         cp -r "${QUICKINSTALLSRC}" "${QUICKINSTALLDIR}"
     fi
 
-    kill -15 "${BSODPID}"
+    endBSOD
 
     return 0
 }
@@ -309,7 +340,13 @@ case "${GAMEEXT}" in
 	"wtgz")
 	if [[ ! -e "${WINEPOINT}" ]]; then
 		mkdir -p "${WINEPOINT}" || return 1
+
+		# please wait screen
+		bgnBSOD "now extracting: ${GAMENAME}"
+
 		(cd "${WINEPOINT}" && gunzip -c "${GAMENAME}" | tar xf -) || return 1
+
+		endBSOD
 	fi
 	;;
 	"wsquashfs")
@@ -559,6 +596,9 @@ redist_install() {
 
 	file=$1
 	echo "Executing file ${file}"
+
+	# please wait screen
+	bgnBSOD "now installing: ${file}"
 	    
 	case "${file}" in
 	
@@ -629,17 +669,24 @@ redist_install() {
 	esac
 
 	mv -f "${QUICKINSTALLDIR}/${file}" "${QUICKINSTALLDIR}/${file}.done"
+
+	endBSOD
 }
 
 msi_install() {
 
 	file=$1
 	echo "Executing file ${file}"
+
+	# please wait screen
+	bgnBSOD "now installing: ${file}"
 	    
 	"${MSIEXEC}" -i "${QUICKINSTALLDIR}/${file}" /quiet /qn /norestart &>/dev/null || echo "cannot install ${file}"
 	"${WINESERVER}" -w
 
 	mv -f "${QUICKINSTALLDIR}/${file}" "${QUICKINSTALLDIR}/${file}.done"
+
+	endBSOD
 }
 
 reg_install() {
@@ -728,7 +775,12 @@ trick_wine() {
     TRICK=$1
 	echo "** Do trick ${TRICK} to "${WINEPREFIX}" **"
 
+	# please wait screen
+	bgnBSOD "now doing trick: ${TRICK}"
+
     DISPLAY=:0.0 "${WINETRICKS}" "${TRICK}"
+
+	endBSOD
 }
 
 tricks_install() {
@@ -1077,8 +1129,6 @@ wine2winetgz() {
 }
 
 quick_install || cleanAndExit 1
-
-G_RESCUR=$(batocera-resolution currentMode)
 
 case "${ACTION}" in
     "play")

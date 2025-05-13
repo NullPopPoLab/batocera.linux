@@ -2283,6 +2283,15 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             else:
                 status = '"Off"'
             coreSettings.save('beetle_saturn_virtuagun_crosshair', status)
+        # Multitap
+        if system.isOptSet('beetle_saturn_multitap_port1') and system.config['beetle_saturn_multitap_port1'] != 'disabled':
+            coreSettings.save('beetle_saturn_multitap_port1', '"' + system.config['beetle_saturn_multitap_port1'] + '"')
+        else:
+            coreSettings.save('beetle_saturn_multitap_port1', '"disabled"')
+        if system.isOptSet('beetle_saturn_multitap_port2') and system.config['beetle_saturn_multitap_port2'] != 'disabled':
+            coreSettings.save('beetle_saturn_multitap_port2', '"' + system.config['beetle_saturn_multitap_port2'] + '"')
+        else:
+            coreSettings.save('beetle_saturn_multitap_port2', '"disabled"')
 
     # Sharp X1
     if (system.config['core'] == 'x1'):

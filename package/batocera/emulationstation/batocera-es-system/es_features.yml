@@ -390,6 +390,18 @@ libretro:
                     #"None":          0
                     "Saturn Pad":    1
                     "Saturn 3D Pad": 5
+          beetle_saturn_multitap_port1:
+              prompt: MULTITAP ON PORT 1
+              description: 6Player Adaptor on Port 1.
+              choices:
+                  "Off": "disabled"
+                  "On":  "enabled"
+          beetle_saturn_multitap_port2:
+              prompt: MULTITAP ON PORT 2
+              description: 6Player Adaptor on Port 2.
+              choices:
+                  "Off": "disabled"
+                  "On":  "enabled"
     fmsx:
        features: [netplay, cheevos]
        shared: [rewind, autosave]

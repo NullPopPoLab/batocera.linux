@@ -1761,6 +1761,18 @@ libretro:
                     "Europe":  "Europe"
                     "Japan":  "Japan"
                     "USA":  "USA"
+            reicast_language:
+                group: ADVANCED OPTIONS
+                prompt:      LANGUAGE
+                description: Changes the language used by the BIOS and by any games that contain multiple languages.
+                choices:
+                    "Default":  "Default"
+                    "English": "English"
+                    "German":  "German"
+                    "French":  "French"
+                    "Italian":  "Italian"
+                    "Japanese":  "Japanese"
+                    "Spanish":  "Spanish"
             reicast_synchronous_rendering:
                 group: ADVANCED OPTIONS
                 prompt:      SYNCHRONOUS RENDERING

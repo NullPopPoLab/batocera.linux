@@ -2140,6 +2140,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('reicast_device_port4_slot2', '"' + system.config['reicast_device_port4_slot2'] + '"')
         else:
             coreSettings.save('reicast_device_port4_slot2', '"Purupuru"')
+        # VMUs Exclusive 
+        if system.isOptSet('reicast_per_content_vmus') and system.config['reicast_per_content_vmus'] != 'VMU A1':
+            coreSettings.save('reicast_per_content_vmus', '"' + system.config['reicast_per_content_vmus'] + '"')
+        else:
+            coreSettings.save('reicast_per_content_vmus', '"VMU A1"')
 
         ## Atomiswave / Naomi
 

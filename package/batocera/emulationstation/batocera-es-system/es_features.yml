@@ -2012,6 +2012,14 @@ libretro:
                     "None": "None"
                     "VMU":  "VMU"
                     "Purupuru":  "Vibration Pack"
+            reicast_per_content_vmus:
+                group: CANTROLLER PORTS
+                prompt: VMU PER CONTENT
+                description: target VMU exclusive from other games.
+                choices:
+                    "All Shared": "disabled"
+                    "A1 Exclusived":  "VMU A1"
+                    "All Exclusived":  "All VMUs"
 
       systems:
             atomiswave:

@@ -2020,6 +2020,13 @@ libretro:
                     "All Shared": "disabled"
                     "A1 Exclusived":  "VMU A1"
                     "All Exclusived":  "All VMUs"
+            reicast_vmu_sound:
+                group: CANTROLLER PORTS
+                prompt: VMU SOUND
+                description: When enabled, VMU beeps are played.
+                choices:
+                    "Off": disabled
+                    "On":  enabled
 
       systems:
             atomiswave:

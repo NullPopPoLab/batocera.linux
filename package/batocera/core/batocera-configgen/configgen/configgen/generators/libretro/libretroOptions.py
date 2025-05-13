@@ -2145,6 +2145,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('reicast_per_content_vmus', '"' + system.config['reicast_per_content_vmus'] + '"')
         else:
             coreSettings.save('reicast_per_content_vmus', '"VMU A1"')
+        # VMUs Sound 
+        if system.isOptSet('reicast_vmu_sound') and system.config['reicast_vmu_sound'] != 'disabled':
+            coreSettings.save('reicast_vmu_sound', '"' + system.config['reicast_vmu_sound'] + '"')
+        else:
+            coreSettings.save('reicast_vmu_sound', '"disabled"')
 
         ## Atomiswave / Naomi
 

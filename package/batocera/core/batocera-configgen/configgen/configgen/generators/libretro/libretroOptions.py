@@ -2283,6 +2283,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             else:
                 status = '"Off"'
             coreSettings.save('beetle_saturn_virtuagun_crosshair', status)
+        # BIOS Language
+        if system.isOptSet('beetle_saturn_autortc_lang') and system.config['beetle_saturn_autortc_lang'] != 'english':
+            coreSettings.save('beetle_saturn_autortc_lang', '"' + system.config['beetle_saturn_autortc_lang'] + '"')
+        else:
+            coreSettings.save('beetle_saturn_autortc_lang', '"english"')
         # Addon Cartridge
         if system.isOptSet('beetle_saturn_cart') and system.config['beetle_saturn_cart'] != 'Auto Detect':
             coreSettings.save('beetle_saturn_cart', '"' + system.config['beetle_saturn_cart'] + '"')

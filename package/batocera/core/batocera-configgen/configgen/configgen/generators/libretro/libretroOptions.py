@@ -1995,6 +1995,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
 
     # Sega Dreamcast / Atomiswave / Naomi
     if (system.config['core'] == 'flycast'):
+        # Region
+        if system.isOptSet('reicast_region') and system.config['reicast_region'] != 'Default':
+            coreSettings.save('reicast_region', '"' + system.config['reicast_region'] + '"')
+        else:
+            coreSettings.save('reicast_region', '"Default"')
         # Synchronous rendering
         if system.isOptSet('reicast_synchronous_rendering'):
             coreSettings.save('reicast_synchronous_rendering', '"' + system.config['reicast_synchronous_rendering'] + '"')

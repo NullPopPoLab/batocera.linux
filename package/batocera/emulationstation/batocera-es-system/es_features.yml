@@ -1752,6 +1752,15 @@ libretro:
       features: [cheevos]
       shared: [autosave, use_guns]
       cfeatures:
+            reicast_region:
+                group: ADVANCED OPTIONS
+                prompt:      REGION
+                description: Game region.
+                choices:
+                    "Default": "Default"
+                    "Europe":  "Europe"
+                    "Japan":  "Japan"
+                    "USA":  "USA"
             reicast_synchronous_rendering:
                 group: ADVANCED OPTIONS
                 prompt:      SYNCHRONOUS RENDERING

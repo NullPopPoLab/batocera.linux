@@ -1781,6 +1781,13 @@ libretro:
                     "Composite": "TV (Composite)"
                     "RGB":  "TV (RGB)"
                     "VGA":  "VGA"
+            reicast_gdrom_fast_loading:
+                group: ADVANCED OPTIONS
+                prompt:      GD-ROM FAST LOADING
+                description: Speeds up GD-ROM loading.
+                choices:
+                    "Off": disabled
+                    "On":  enabled
             reicast_synchronous_rendering:
                 group: ADVANCED OPTIONS
                 prompt:      SYNCHRONOUS RENDERING

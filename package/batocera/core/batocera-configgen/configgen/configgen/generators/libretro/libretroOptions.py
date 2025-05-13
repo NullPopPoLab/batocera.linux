@@ -2010,6 +2010,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('reicast_cable_type', '"' + system.config['reicast_cable_type'] + '"')
         else:
             coreSettings.save('reicast_cable_type', '"TV (Composite)"')
+        # GD-ROM fast loading
+        if system.isOptSet('reicast_gdrom_fast_loading') and system.config['reicast_gdrom_fast_loading'] != 'disabled':
+            coreSettings.save('reicast_gdrom_fast_loading', '"' + system.config['reicast_gdrom_fast_loading'] + '"')
+        else:
+            coreSettings.save('reicast_gdrom_fast_loading', '"disabled"')
         # Synchronous rendering
         if system.isOptSet('reicast_synchronous_rendering'):
             coreSettings.save('reicast_synchronous_rendering', '"' + system.config['reicast_synchronous_rendering'] + '"')

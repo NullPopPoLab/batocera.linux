@@ -2107,6 +2107,39 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('reicast_upnp', '"' + system.config['reicast_upnp'] + '"')
         else:
             coreSettings.save('reicast_upnp', '"enabled"')
+        # Controller expansion slots
+        if system.isOptSet('reicast_device_port1_slot1') and system.config['reicast_device_port1_slot1'] != 'VMU':
+            coreSettings.save('reicast_device_port1_slot1', '"' + system.config['reicast_device_port1_slot1'] + '"')
+        else:
+            coreSettings.save('reicast_device_port1_slot1', '"VMU"')
+        if system.isOptSet('reicast_device_port1_slot2') and system.config['reicast_device_port1_slot2'] != 'Purupuru':
+            coreSettings.save('reicast_device_port1_slot2', '"' + system.config['reicast_device_port1_slot2'] + '"')
+        else:
+            coreSettings.save('reicast_device_port1_slot2', '"Purupuru"')
+        if system.isOptSet('reicast_device_port2_slot1') and system.config['reicast_device_port2_slot1'] != 'VMU':
+            coreSettings.save('reicast_device_port2_slot1', '"' + system.config['reicast_device_port2_slot1'] + '"')
+        else:
+            coreSettings.save('reicast_device_port2_slot1', '"VMU"')
+        if system.isOptSet('reicast_device_port2_slot2') and system.config['reicast_device_port2_slot2'] != 'Purupuru':
+            coreSettings.save('reicast_device_port2_slot2', '"' + system.config['reicast_device_port2_slot2'] + '"')
+        else:
+            coreSettings.save('reicast_device_port2_slot2', '"Purupuru"')
+        if system.isOptSet('reicast_device_port3_slot1') and system.config['reicast_device_port3_slot1'] != 'VMU':
+            coreSettings.save('reicast_device_port3_slot1', '"' + system.config['reicast_device_port3_slot1'] + '"')
+        else:
+            coreSettings.save('reicast_device_port3_slot1', '"VMU"')
+        if system.isOptSet('reicast_device_port3_slot2') and system.config['reicast_device_port3_slot2'] != 'Purupuru':
+            coreSettings.save('reicast_device_port3_slot2', '"' + system.config['reicast_device_port3_slot2'] + '"')
+        else:
+            coreSettings.save('reicast_device_port3_slot2', '"Purupuru"')
+        if system.isOptSet('reicast_device_port4_slot1') and system.config['reicast_device_port4_slot1'] != 'VMU':
+            coreSettings.save('reicast_device_port4_slot1', '"' + system.config['reicast_device_port4_slot1'] + '"')
+        else:
+            coreSettings.save('reicast_device_port4_slot1', '"VMU"')
+        if system.isOptSet('reicast_device_port4_slot2') and system.config['reicast_device_port4_slot2'] != 'Purupuru':
+            coreSettings.save('reicast_device_port4_slot2', '"' + system.config['reicast_device_port4_slot2'] + '"')
+        else:
+            coreSettings.save('reicast_device_port4_slot2', '"Purupuru"')
 
         ## Atomiswave / Naomi
 

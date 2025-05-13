@@ -1893,6 +1893,18 @@ libretro:
                 choices:
                     "Off": disabled
                     "On":  enabled
+            reicast_emulate_bba:
+                prompt:      USE BLOADBAND ADAPTER
+                description: Emulate the ethernet broadband adapter instead of the modem.
+                choices:
+                    "Off": disabled
+                    "On":  enabled
+            reicast_upnp:
+                prompt:      ENABLE UPNP
+                description: Use UPnP to automatically configure your Internet router for online games.
+                choices:
+                    "Off": disabled
+                    "On(default)":  enabled
             controller1_dc:
                 prompt:      CONTROLLER 1 TYPE
                 choices:

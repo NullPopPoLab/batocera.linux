@@ -390,6 +390,51 @@ libretro:
                     #"None":          0
                     "Saturn Pad":    1
                     "Saturn 3D Pad": 5
+          beetle_saturn_multitap_port1:
+              prompt: MULTITAP ON PORT 1
+              description: 6Player Adaptor on Port 1.
+              choices:
+                  "Off": "disabled"
+                  "On":  "enabled"
+          beetle_saturn_multitap_port2:
+              prompt: MULTITAP ON PORT 2
+              description: 6Player Adaptor on Port 2.
+              choices:
+                  "Off": "disabled"
+                  "On":  "enabled"
+          beetle_saturn_autortc_lang:
+              prompt: BIOS LANGUAGE
+              description: Choose your favorite language, will translate some games. Requires a restart.
+              choices:
+                  "English": "english"
+                  "German":  "german"
+                  "French":  "french"
+                  "Spanish":  "spanish"
+                  "Italian":  "italian"
+                  "Japanese":  "japanese"
+          beetle_saturn_cart:
+              prompt: ADDON CARTRIDGE
+              description: Select the addon cartridge.
+              choices:
+                  "Auto Detect": "Auto Detect"
+                  "None": "None"
+                  "Extended RAM (1MB)":  "Extended RAM (1MB)"
+                  "Extended RAM (4MB)":  "Extended RAM (4MB)"
+                  "Backup Memory":  "Backup Memory"
+                  "The King of Fighters '95":  "KOF95"
+                  "Ultraman: Hikari no Kyojin Densetsu":  "Ultraman"
+          beetle_saturn_shared_int:
+              prompt: INTERNAL SAVES SHARED OVER GAMES
+              description: Enables shared internal memory.
+              choices:
+                  "Off": "disabled"
+                  "On":  "enabled"
+          beetle_saturn_shared_ext:
+              prompt: EXTERNAL SAVES SHARED OVER GAMES
+              description: Enables shared cartridge memory.
+              choices:
+                  "Off": "disabled"
+                  "On":  "enabled"
     fmsx:
        features: [netplay, cheevos]
        shared: [rewind, autosave]
@@ -1707,6 +1752,42 @@ libretro:
       features: [cheevos]
       shared: [autosave, use_guns]
       cfeatures:
+            reicast_region:
+                group: ADVANCED OPTIONS
+                prompt:      REGION
+                description: Game region.
+                choices:
+                    "Default": "Default"
+                    "Europe":  "Europe"
+                    "Japan":  "Japan"
+                    "USA":  "USA"
+            reicast_language:
+                group: ADVANCED OPTIONS
+                prompt:      LANGUAGE
+                description: Changes the language used by the BIOS and by any games that contain multiple languages.
+                choices:
+                    "Default":  "Default"
+                    "English": "English"
+                    "German":  "German"
+                    "French":  "French"
+                    "Italian":  "Italian"
+                    "Japanese":  "Japanese"
+                    "Spanish":  "Spanish"
+            reicast_cable_type:
+                group: ADVANCED OPTIONS
+                prompt:      CABLE TYPE
+                description: The output signal type.
+                choices:
+                    "Composite": "TV (Composite)"
+                    "RGB":  "TV (RGB)"
+                    "VGA":  "VGA"
+            reicast_gdrom_fast_loading:
+                group: ADVANCED OPTIONS
+                prompt:      GD-ROM FAST LOADING
+                description: Speeds up GD-ROM loading.
+                choices:
+                    "Off": disabled
+                    "On":  enabled
             reicast_synchronous_rendering:
                 group: ADVANCED OPTIONS
                 prompt:      SYNCHRONOUS RENDERING
@@ -1827,6 +1908,18 @@ libretro:
                 choices:
                     "Off": disabled
                     "On":  enabled
+            reicast_emulate_bba:
+                prompt:      USE BLOADBAND ADAPTER
+                description: Emulate the ethernet broadband adapter instead of the modem.
+                choices:
+                    "Off": disabled
+                    "On":  enabled
+            reicast_upnp:
+                prompt:      ENABLE UPNP
+                description: Use UPnP to automatically configure your Internet router for online games.
+                choices:
+                    "Off": disabled
+                    "On(default)":  enabled
             controller1_dc:
                 prompt:      CONTROLLER 1 TYPE
                 choices:
@@ -1855,6 +1948,108 @@ libretro:
                     "Keyboard":  3
                     "Mouse":     2
                     "Light Gun": 4
+            reicast_device_port1_slot1:
+                group: CANTROLLER PORTS
+                prompt: EXPANSION SLOT A1
+                description: Select the device plugged.
+                choices:
+                    "None": "None"
+                    "VMU":  "VMU"
+                    "Purupuru":  "Vibration Pack"
+            reicast_device_port1_slot2:
+                group: CANTROLLER PORTS
+                prompt: EXPANSION SLOT A2
+                description: Select the device plugged.
+                choices:
+                    "None": "None"
+                    "VMU":  "VMU"
+                    "Purupuru":  "Vibration Pack"
+            reicast_device_port2_slot1:
+                group: CANTROLLER PORTS
+                prompt: EXPANSION SLOT B1
+                description: Select the device plugged.
+                choices:
+                    "None": "None"
+                    "VMU":  "VMU"
+                    "Purupuru":  "Vibration Pack"
+            reicast_device_port2_slot2:
+                group: CANTROLLER PORTS
+                prompt: EXPANSION SLOT B2
+                description: Select the device plugged.
+                choices:
+                    "None": "None"
+                    "VMU":  "VMU"
+                    "Purupuru":  "Vibration Pack"
+            reicast_device_port3_slot1:
+                group: CANTROLLER PORTS
+                prompt: EXPANSION SLOT C1
+                description: Select the device plugged.
+                choices:
+                    "None": "None"
+                    "VMU":  "VMU"
+                    "Purupuru":  "Vibration Pack"
+            reicast_device_port3_slot2:
+                group: CANTROLLER PORTS
+                prompt: EXPANSION SLOT C2
+                description: Select the device plugged.
+                choices:
+                    "None": "None"
+                    "VMU":  "VMU"
+                    "Purupuru":  "Vibration Pack"
+            reicast_device_port4_slot1:
+                group: CANTROLLER PORTS
+                prompt: EXPANSION SLOT D1
+                description: Select the device plugged.
+                choices:
+                    "None": "None"
+                    "VMU":  "VMU"
+                    "Purupuru":  "Vibration Pack"
+            reicast_device_port4_slot2:
+                group: CANTROLLER PORTS
+                prompt: EXPANSION SLOT D2
+                description: Select the device plugged.
+                choices:
+                    "None": "None"
+                    "VMU":  "VMU"
+                    "Purupuru":  "Vibration Pack"
+            reicast_per_content_vmus:
+                group: CANTROLLER PORTS
+                prompt: VMU PER CONTENT
+                description: target VMU exclusive from other games.
+                choices:
+                    "All Shared": "disabled"
+                    "A1 Exclusived":  "VMU A1"
+                    "All Exclusived":  "All VMUs"
+            reicast_vmu_sound:
+                group: CANTROLLER PORTS
+                prompt: VMU SOUND
+                description: When enabled, VMU beeps are played.
+                choices:
+                    "Off": disabled
+                    "On":  enabled
+            reicast_vmu_screen_display:
+                group: CANTROLLER PORTS
+                prompt: SHOW VMU DISPLAY
+                description: Show VMU displayes.
+                choices:
+                    "Off": disabled
+                    "On":  enabled
+            reicast_vmu_screen_opacity:
+                group: CANTROLLER PORTS
+                prompt: VMU DISPLAY OPACITY
+                description: VMU displayes opacity.
+                choices:
+                    "10%": "10%"
+                    "20%": "20%"
+                    "30%": "30%"
+                    "40%": "40%"
+                    "50%": "50%"
+                    "60%": "60%"
+                    "70%": "70%"
+                    "80%": "80%"
+                    "90%": "90%"
+                    "100%": "100%"
+
       systems:
             atomiswave:
                 cfeatures:
@@ -6575,6 +6770,13 @@ libretro:
                     "Deutsch":           deutsch
                     "Italian":           italian
                     "Japanese":          japanese
+            yabasanshiro_polygon_mode:
+                prompt: POLYGON MODE
+                description: Select method for applying textures on polygon, gpu_tesselation requires OpenGL 4.2+, OpenGL CS renderer doesn't need this.
+                choices:
+                    "Pers. Correct": "perspective_correction"
+                    "GPU Tessel.":   "gpu_tesselation"
+                    "CPU Tessel.":   "cpu_tesselation"
 
     gong:
       shared: [autosave]

@@ -1995,6 +1995,26 @@ def generateCoreSettings(coreSettings, system, rom, guns):
 
     # Sega Dreamcast / Atomiswave / Naomi
     if (system.config['core'] == 'flycast'):
+        # Region
+        if system.isOptSet('reicast_region') and system.config['reicast_region'] != 'Default':
+            coreSettings.save('reicast_region', '"' + system.config['reicast_region'] + '"')
+        else:
+            coreSettings.save('reicast_region', '"Default"')
+        # Language
+        if system.isOptSet('reicast_language') and system.config['reicast_language'] != 'Default':
+            coreSettings.save('reicast_language', '"' + system.config['reicast_language'] + '"')
+        else:
+            coreSettings.save('reicast_language', '"Default"')
+        # Cable Type
+        if system.isOptSet('reicast_cable_type') and system.config['reicast_cable_type'] != 'TV (Composite)':
+            coreSettings.save('reicast_cable_type', '"' + system.config['reicast_cable_type'] + '"')
+        else:
+            coreSettings.save('reicast_cable_type', '"TV (Composite)"')
+        # GD-ROM fast loading
+        if system.isOptSet('reicast_gdrom_fast_loading') and system.config['reicast_gdrom_fast_loading'] != 'disabled':
+            coreSettings.save('reicast_gdrom_fast_loading', '"' + system.config['reicast_gdrom_fast_loading'] + '"')
+        else:
+            coreSettings.save('reicast_gdrom_fast_loading', '"disabled"')
         # Synchronous rendering
         if system.isOptSet('reicast_synchronous_rendering'):
             coreSettings.save('reicast_synchronous_rendering', '"' + system.config['reicast_synchronous_rendering'] + '"')
@@ -2077,6 +2097,81 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('reicast_widescreen_hack',   '"enabled"')
         else:
             coreSettings.save('reicast_widescreen_hack',   '"disabled"')
+        # Broadband adapter
+        if system.isOptSet('reicast_emulate_bba') and system.config['reicast_emulate_bba'] != 'disabled':
+            coreSettings.save('reicast_emulate_bba', '"' + system.config['reicast_emulate_bba'] + '"')
+        else:
+            coreSettings.save('reicast_emulate_bba', '"disabled"')
+        # UPnP
+        if system.isOptSet('reicast_upnp') and system.config['reicast_upnp'] != 'enabled':
+            coreSettings.save('reicast_upnp', '"' + system.config['reicast_upnp'] + '"')
+        else:
+            coreSettings.save('reicast_upnp', '"enabled"')
+        # Controller expansion slots
+        if system.isOptSet('reicast_device_port1_slot1') and system.config['reicast_device_port1_slot1'] != 'VMU':
+            coreSettings.save('reicast_device_port1_slot1', '"' + system.config['reicast_device_port1_slot1'] + '"')
+        else:
+            coreSettings.save('reicast_device_port1_slot1', '"VMU"')
+        if system.isOptSet('reicast_device_port1_slot2') and system.config['reicast_device_port1_slot2'] != 'Purupuru':
+            coreSettings.save('reicast_device_port1_slot2', '"' + system.config['reicast_device_port1_slot2'] + '"')
+        else:
+            coreSettings.save('reicast_device_port1_slot2', '"Purupuru"')
+        if system.isOptSet('reicast_device_port2_slot1') and system.config['reicast_device_port2_slot1'] != 'VMU':
+            coreSettings.save('reicast_device_port2_slot1', '"' + system.config['reicast_device_port2_slot1'] + '"')
+        else:
+            coreSettings.save('reicast_device_port2_slot1', '"VMU"')
+        if system.isOptSet('reicast_device_port2_slot2') and system.config['reicast_device_port2_slot2'] != 'Purupuru':
+            coreSettings.save('reicast_device_port2_slot2', '"' + system.config['reicast_device_port2_slot2'] + '"')
+        else:
+            coreSettings.save('reicast_device_port2_slot2', '"Purupuru"')
+        if system.isOptSet('reicast_device_port3_slot1') and system.config['reicast_device_port3_slot1'] != 'VMU':
+            coreSettings.save('reicast_device_port3_slot1', '"' + system.config['reicast_device_port3_slot1'] + '"')
+        else:
+            coreSettings.save('reicast_device_port3_slot1', '"VMU"')
+        if system.isOptSet('reicast_device_port3_slot2') and system.config['reicast_device_port3_slot2'] != 'Purupuru':
+            coreSettings.save('reicast_device_port3_slot2', '"' + system.config['reicast_device_port3_slot2'] + '"')
+        else:
+            coreSettings.save('reicast_device_port3_slot2', '"Purupuru"')
+        if system.isOptSet('reicast_device_port4_slot1') and system.config['reicast_device_port4_slot1'] != 'VMU':
+            coreSettings.save('reicast_device_port4_slot1', '"' + system.config['reicast_device_port4_slot1'] + '"')
+        else:
+            coreSettings.save('reicast_device_port4_slot1', '"VMU"')
+        if system.isOptSet('reicast_device_port4_slot2') and system.config['reicast_device_port4_slot2'] != 'Purupuru':
+            coreSettings.save('reicast_device_port4_slot2', '"' + system.config['reicast_device_port4_slot2'] + '"')
+        else:
+            coreSettings.save('reicast_device_port4_slot2', '"Purupuru"')
+        # VMUs Exclusive 
+        if system.isOptSet('reicast_per_content_vmus') and system.config['reicast_per_content_vmus'] != 'VMU A1':
+            coreSettings.save('reicast_per_content_vmus', '"' + system.config['reicast_per_content_vmus'] + '"')
+        else:
+            coreSettings.save('reicast_per_content_vmus', '"VMU A1"')
+        # VMUs Sound 
+        if system.isOptSet('reicast_vmu_sound') and system.config['reicast_vmu_sound'] != 'disabled':
+            coreSettings.save('reicast_vmu_sound', '"' + system.config['reicast_vmu_sound'] + '"')
+        else:
+            coreSettings.save('reicast_vmu_sound', '"disabled"')
+        # VMU Display 
+        if system.isOptSet('reicast_vmu_screen_display') and system.config['reicast_vmu_screen_display'] != 'disabled':
+            coreSettings.save('reicast_vmu1_screen_display', '"' + system.config['reicast_vmu_screen_display'] + '"')
+            coreSettings.save('reicast_vmu2_screen_display', '"' + system.config['reicast_vmu_screen_display'] + '"')
+            coreSettings.save('reicast_vmu3_screen_display', '"' + system.config['reicast_vmu_screen_display'] + '"')
+            coreSettings.save('reicast_vmu4_screen_display', '"' + system.config['reicast_vmu_screen_display'] + '"')
+        else:
+            coreSettings.save('reicast_vmu1_screen_display', '"disabled"')
+            coreSettings.save('reicast_vmu2_screen_display', '"disabled"')
+            coreSettings.save('reicast_vmu3_screen_display', '"disabled"')
+            coreSettings.save('reicast_vmu4_screen_display', '"disabled"')
+        # VMUs Sound 
+        if system.isOptSet('reicast_vmu_screen_opacity') and system.config['reicast_vmu_screen_opacity'] != '50%':
+            coreSettings.save('reicast_vmu1_screen_opacity', '"' + system.config['reicast_vmu_screen_opacity'] + '"')
+            coreSettings.save('reicast_vmu2_screen_opacity', '"' + system.config['reicast_vmu_screen_opacity'] + '"')
+            coreSettings.save('reicast_vmu3_screen_opacity', '"' + system.config['reicast_vmu_screen_opacity'] + '"')
+            coreSettings.save('reicast_vmu4_screen_opacity', '"' + system.config['reicast_vmu_screen_opacity'] + '"')
+        else:
+            coreSettings.save('reicast_vmu1_screen_opacity', '"50%"')
+            coreSettings.save('reicast_vmu2_screen_opacity', '"50%"')
+            coreSettings.save('reicast_vmu3_screen_opacity', '"50%"')
+            coreSettings.save('reicast_vmu4_screen_opacity', '"50%"')
 
         ## Atomiswave / Naomi
 
@@ -2221,6 +2316,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('yabasanshiro_system_language', '"' + system.config['yabasanshiro_language'] + '"')
         else:
             coreSettings.save('yabasanshiro_system_language', '"english"')
+        # Polygon mode
+        if system.isOptSet('yabasanshiro_polygon_mode') and system.config['yabasanshiro_polygon_mode'] != 'perspective_correction':
+            coreSettings.save('yabasanshiro_polygon_mode', '"' + system.config['yabasanshiro_polygon_mode'] + '"')
+        else:
+            coreSettings.save('yabasanshiro_polygon_mode', '"perspective_correction"')
     
     if (system.config['core'] == 'kronos'):
         # Share saves with Beetle
@@ -2283,6 +2383,34 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             else:
                 status = '"Off"'
             coreSettings.save('beetle_saturn_virtuagun_crosshair', status)
+        # BIOS Language
+        if system.isOptSet('beetle_saturn_autortc_lang') and system.config['beetle_saturn_autortc_lang'] != 'english':
+            coreSettings.save('beetle_saturn_autortc_lang', '"' + system.config['beetle_saturn_autortc_lang'] + '"')
+        else:
+            coreSettings.save('beetle_saturn_autortc_lang', '"english"')
+        # Addon Cartridge
+        if system.isOptSet('beetle_saturn_cart') and system.config['beetle_saturn_cart'] != 'Auto Detect':
+            coreSettings.save('beetle_saturn_cart', '"' + system.config['beetle_saturn_cart'] + '"')
+        else:
+            coreSettings.save('beetle_saturn_cart', '"Auto Detect"')
+        # Share saves
+        if system.isOptSet('beetle_saturn_shared_int') and system.config['beetle_saturn_shared_int'] != 'disabled':
+            coreSettings.save('beetle_saturn_shared_int', '"' + system.config['beetle_saturn_shared_int'] + '"')
+        else:
+            coreSettings.save('beetle_saturn_shared_int', '"disabled"')
+        if system.isOptSet('beetle_saturn_shared_ext') and system.config['beetle_saturn_shared_ext'] != 'disabled':
+            coreSettings.save('beetle_saturn_shared_ext', '"' + system.config['beetle_saturn_shared_ext'] + '"')
+        else:
+            coreSettings.save('beetle_saturn_shared_ext', '"disabled"')
+        # Multitap
+        if system.isOptSet('beetle_saturn_multitap_port1') and system.config['beetle_saturn_multitap_port1'] != 'disabled':
+            coreSettings.save('beetle_saturn_multitap_port1', '"' + system.config['beetle_saturn_multitap_port1'] + '"')
+        else:
+            coreSettings.save('beetle_saturn_multitap_port1', '"disabled"')
+        if system.isOptSet('beetle_saturn_multitap_port2') and system.config['beetle_saturn_multitap_port2'] != 'disabled':
+            coreSettings.save('beetle_saturn_multitap_port2', '"' + system.config['beetle_saturn_multitap_port2'] + '"')
+        else:
+            coreSettings.save('beetle_saturn_multitap_port2', '"disabled"')
 
     # Sharp X1
     if (system.config['core'] == 'x1'):

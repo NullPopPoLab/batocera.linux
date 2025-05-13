@@ -423,6 +423,18 @@ libretro:
                   "Backup Memory":  "Backup Memory"
                   "The King of Fighters '95":  "KOF95"
                   "Ultraman: Hikari no Kyojin Densetsu":  "Ultraman"
+          beetle_saturn_shared_int:
+              prompt: INTERNAL SAVES SHARED OVER GAMES
+              description: Enables shared internal memory.
+              choices:
+                  "Off": "disabled"
+                  "On":  "enabled"
+          beetle_saturn_shared_ext:
+              prompt: EXTERNAL SAVES SHARED OVER GAMES
+              description: Enables shared cartridge memory.
+              choices:
+                  "Off": "disabled"
+                  "On":  "enabled"
     fmsx:
        features: [netplay, cheevos]
        shared: [rewind, autosave]

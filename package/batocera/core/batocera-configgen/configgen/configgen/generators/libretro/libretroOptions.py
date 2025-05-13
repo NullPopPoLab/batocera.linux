@@ -2293,6 +2293,15 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('beetle_saturn_cart', '"' + system.config['beetle_saturn_cart'] + '"')
         else:
             coreSettings.save('beetle_saturn_cart', '"Auto Detect"')
+        # Share saves
+        if system.isOptSet('beetle_saturn_shared_int') and system.config['beetle_saturn_shared_int'] != 'disabled':
+            coreSettings.save('beetle_saturn_shared_int', '"' + system.config['beetle_saturn_shared_int'] + '"')
+        else:
+            coreSettings.save('beetle_saturn_shared_int', '"disabled"')
+        if system.isOptSet('beetle_saturn_shared_ext') and system.config['beetle_saturn_shared_ext'] != 'disabled':
+            coreSettings.save('beetle_saturn_shared_ext', '"' + system.config['beetle_saturn_shared_ext'] + '"')
+        else:
+            coreSettings.save('beetle_saturn_shared_ext', '"disabled"')
         # Multitap
         if system.isOptSet('beetle_saturn_multitap_port1') and system.config['beetle_saturn_multitap_port1'] != 'disabled':
             coreSettings.save('beetle_saturn_multitap_port1', '"' + system.config['beetle_saturn_multitap_port1'] + '"')

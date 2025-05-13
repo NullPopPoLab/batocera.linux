@@ -6620,6 +6620,13 @@ libretro:
                     "Deutsch":           deutsch
                     "Italian":           italian
                     "Japanese":          japanese
+            yabasanshiro_polygon_mode:
+                prompt: POLYGON MODE
+                description: Select method for applying textures on polygon, gpu_tesselation requires OpenGL 4.2+, OpenGL CS renderer doesn't need this.
+                choices:
+                    "Pers. Correct": "perspective_correction"
+                    "GPU Tessel.":   "gpu_tesselation"
+                    "CPU Tessel.":   "cpu_tesselation"
 
     gong:
       shared: [autosave]

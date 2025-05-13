@@ -2221,6 +2221,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('yabasanshiro_system_language', '"' + system.config['yabasanshiro_language'] + '"')
         else:
             coreSettings.save('yabasanshiro_system_language', '"english"')
+        # Polygon mode
+        if system.isOptSet('yabasanshiro_polygon_mode') and system.config['yabasanshiro_polygon_mode'] != 'perspective_correction':
+            coreSettings.save('yabasanshiro_polygon_mode', '"' + system.config['yabasanshiro_polygon_mode'] + '"')
+        else:
+            coreSettings.save('yabasanshiro_polygon_mode', '"perspective_correction"')
     
     if (system.config['core'] == 'kronos'):
         # Share saves with Beetle

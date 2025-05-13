@@ -2000,6 +2000,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('reicast_region', '"' + system.config['reicast_region'] + '"')
         else:
             coreSettings.save('reicast_region', '"Default"')
+        # Language
+        if system.isOptSet('reicast_language') and system.config['reicast_language'] != 'Default':
+            coreSettings.save('reicast_language', '"' + system.config['reicast_language'] + '"')
+        else:
+            coreSettings.save('reicast_language', '"Default"')
         # Synchronous rendering
         if system.isOptSet('reicast_synchronous_rendering'):
             coreSettings.save('reicast_synchronous_rendering', '"' + system.config['reicast_synchronous_rendering'] + '"')

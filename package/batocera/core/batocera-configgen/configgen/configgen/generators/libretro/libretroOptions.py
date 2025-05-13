@@ -2005,6 +2005,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('reicast_language', '"' + system.config['reicast_language'] + '"')
         else:
             coreSettings.save('reicast_language', '"Default"')
+        # Cable Type
+        if system.isOptSet('reicast_cable_type') and system.config['reicast_cable_type'] != 'TV (Composite)':
+            coreSettings.save('reicast_cable_type', '"' + system.config['reicast_cable_type'] + '"')
+        else:
+            coreSettings.save('reicast_cable_type', '"TV (Composite)"')
         # Synchronous rendering
         if system.isOptSet('reicast_synchronous_rendering'):
             coreSettings.save('reicast_synchronous_rendering', '"' + system.config['reicast_synchronous_rendering'] + '"')

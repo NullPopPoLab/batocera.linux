@@ -2087,6 +2087,16 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('reicast_widescreen_hack',   '"enabled"')
         else:
             coreSettings.save('reicast_widescreen_hack',   '"disabled"')
+        # Broadband adapter
+        if system.isOptSet('reicast_emulate_bba') and system.config['reicast_emulate_bba'] != 'disabled':
+            coreSettings.save('reicast_emulate_bba', '"' + system.config['reicast_emulate_bba'] + '"')
+        else:
+            coreSettings.save('reicast_emulate_bba', '"disabled"')
+        # UPnP
+        if system.isOptSet('reicast_upnp') and system.config['reicast_upnp'] != 'enabled':
+            coreSettings.save('reicast_upnp', '"' + system.config['reicast_upnp'] + '"')
+        else:
+            coreSettings.save('reicast_upnp', '"enabled"')
 
         ## Atomiswave / Naomi
 

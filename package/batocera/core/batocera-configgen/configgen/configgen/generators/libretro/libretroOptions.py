@@ -2150,6 +2150,28 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('reicast_vmu_sound', '"' + system.config['reicast_vmu_sound'] + '"')
         else:
             coreSettings.save('reicast_vmu_sound', '"disabled"')
+        # VMU Display 
+        if system.isOptSet('reicast_vmu_screen_display') and system.config['reicast_vmu_screen_display'] != 'disabled':
+            coreSettings.save('reicast_vmu1_screen_display', '"' + system.config['reicast_vmu_screen_display'] + '"')
+            coreSettings.save('reicast_vmu2_screen_display', '"' + system.config['reicast_vmu_screen_display'] + '"')
+            coreSettings.save('reicast_vmu3_screen_display', '"' + system.config['reicast_vmu_screen_display'] + '"')
+            coreSettings.save('reicast_vmu4_screen_display', '"' + system.config['reicast_vmu_screen_display'] + '"')
+        else:
+            coreSettings.save('reicast_vmu1_screen_display', '"disabled"')
+            coreSettings.save('reicast_vmu2_screen_display', '"disabled"')
+            coreSettings.save('reicast_vmu3_screen_display', '"disabled"')
+            coreSettings.save('reicast_vmu4_screen_display', '"disabled"')
+        # VMUs Sound 
+        if system.isOptSet('reicast_vmu_screen_opacity') and system.config['reicast_vmu_screen_opacity'] != '50%':
+            coreSettings.save('reicast_vmu1_screen_opacity', '"' + system.config['reicast_vmu_screen_opacity'] + '"')
+            coreSettings.save('reicast_vmu2_screen_opacity', '"' + system.config['reicast_vmu_screen_opacity'] + '"')
+            coreSettings.save('reicast_vmu3_screen_opacity', '"' + system.config['reicast_vmu_screen_opacity'] + '"')
+            coreSettings.save('reicast_vmu4_screen_opacity', '"' + system.config['reicast_vmu_screen_opacity'] + '"')
+        else:
+            coreSettings.save('reicast_vmu1_screen_opacity', '"50%"')
+            coreSettings.save('reicast_vmu2_screen_opacity', '"50%"')
+            coreSettings.save('reicast_vmu3_screen_opacity', '"50%"')
+            coreSettings.save('reicast_vmu4_screen_opacity', '"50%"')
 
         ## Atomiswave / Naomi
 

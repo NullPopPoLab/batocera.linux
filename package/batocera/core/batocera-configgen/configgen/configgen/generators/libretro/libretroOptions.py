@@ -2221,6 +2221,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('yabasanshiro_system_language', '"' + system.config['yabasanshiro_language'] + '"')
         else:
             coreSettings.save('yabasanshiro_system_language', '"english"')
+        # Polygon mode
+        if system.isOptSet('yabasanshiro_polygon_mode') and system.config['yabasanshiro_polygon_mode'] != 'perspective_correction':
+            coreSettings.save('yabasanshiro_polygon_mode', '"' + system.config['yabasanshiro_polygon_mode'] + '"')
+        else:
+            coreSettings.save('yabasanshiro_polygon_mode', '"perspective_correction"')
     
     if (system.config['core'] == 'kronos'):
         # Share saves with Beetle
@@ -2293,6 +2298,15 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('beetle_saturn_cart', '"' + system.config['beetle_saturn_cart'] + '"')
         else:
             coreSettings.save('beetle_saturn_cart', '"Auto Detect"')
+        # Share saves
+        if system.isOptSet('beetle_saturn_shared_int') and system.config['beetle_saturn_shared_int'] != 'disabled':
+            coreSettings.save('beetle_saturn_shared_int', '"' + system.config['beetle_saturn_shared_int'] + '"')
+        else:
+            coreSettings.save('beetle_saturn_shared_int', '"disabled"')
+        if system.isOptSet('beetle_saturn_shared_ext') and system.config['beetle_saturn_shared_ext'] != 'disabled':
+            coreSettings.save('beetle_saturn_shared_ext', '"' + system.config['beetle_saturn_shared_ext'] + '"')
+        else:
+            coreSettings.save('beetle_saturn_shared_ext', '"disabled"')
         # Multitap
         if system.isOptSet('beetle_saturn_multitap_port1') and system.config['beetle_saturn_multitap_port1'] != 'disabled':
             coreSettings.save('beetle_saturn_multitap_port1', '"' + system.config['beetle_saturn_multitap_port1'] + '"')

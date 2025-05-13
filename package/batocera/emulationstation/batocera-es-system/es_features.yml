@@ -1781,6 +1781,13 @@ libretro:
                     "Composite": "TV (Composite)"
                     "RGB":  "TV (RGB)"
                     "VGA":  "VGA"
+            reicast_gdrom_fast_loading:
+                group: ADVANCED OPTIONS
+                prompt:      GD-ROM FAST LOADING
+                description: Speeds up GD-ROM loading.
+                choices:
+                    "Off": disabled
+                    "On":  enabled
             reicast_synchronous_rendering:
                 group: ADVANCED OPTIONS
                 prompt:      SYNCHRONOUS RENDERING
@@ -1941,6 +1948,71 @@ libretro:
                     "Keyboard":  3
                     "Mouse":     2
                     "Light Gun": 4
+            reicast_device_port1_slot1:
+                group: CANTROLLER PORTS
+                prompt: EXPANSION SLOT A1
+                description: Select the device plugged.
+                choices:
+                    "None": "None"
+                    "VMU":  "VMU"
+                    "Purupuru":  "Vibration Pack"
+            reicast_device_port1_slot2:
+                group: CANTROLLER PORTS
+                prompt: EXPANSION SLOT A2
+                description: Select the device plugged.
+                choices:
+                    "None": "None"
+                    "VMU":  "VMU"
+                    "Purupuru":  "Vibration Pack"
+            reicast_device_port2_slot1:
+                group: CANTROLLER PORTS
+                prompt: EXPANSION SLOT B1
+                description: Select the device plugged.
+                choices:
+                    "None": "None"
+                    "VMU":  "VMU"
+                    "Purupuru":  "Vibration Pack"
+            reicast_device_port2_slot2:
+                group: CANTROLLER PORTS
+                prompt: EXPANSION SLOT B2
+                description: Select the device plugged.
+                choices:
+                    "None": "None"
+                    "VMU":  "VMU"
+                    "Purupuru":  "Vibration Pack"
+            reicast_device_port3_slot1:
+                group: CANTROLLER PORTS
+                prompt: EXPANSION SLOT C1
+                description: Select the device plugged.
+                choices:
+                    "None": "None"
+                    "VMU":  "VMU"
+                    "Purupuru":  "Vibration Pack"
+            reicast_device_port3_slot2:
+                group: CANTROLLER PORTS
+                prompt: EXPANSION SLOT C2
+                description: Select the device plugged.
+                choices:
+                    "None": "None"
+                    "VMU":  "VMU"
+                    "Purupuru":  "Vibration Pack"
+            reicast_device_port4_slot1:
+                group: CANTROLLER PORTS
+                prompt: EXPANSION SLOT D1
+                description: Select the device plugged.
+                choices:
+                    "None": "None"
+                    "VMU":  "VMU"
+                    "Purupuru":  "Vibration Pack"
+            reicast_device_port4_slot2:
+                group: CANTROLLER PORTS
+                prompt: EXPANSION SLOT D2
+                description: Select the device plugged.
+                choices:
+                    "None": "None"
+                    "VMU":  "VMU"
+                    "Purupuru":  "Vibration Pack"
+
       systems:
             atomiswave:
                 cfeatures:

@@ -2465,6 +2465,16 @@ def generateCoreSettings(coreSettings, system, rom, guns):
                 coreSettings.save('px68k_frameskip', '"' + system.config['px68k_frameskip'] + '"')
         else:
             coreSettings.save('px68k_frameskip', '"Auto Frame Skip"')
+        # Analog2Mouse speed
+        if system.isOptSet('px68k_left_analog2mouse_speed'):
+            coreSettings.save('px68k_left_analog2mouse_speed', '"' + system.config['px68k_left_analog2mouse_speed'] + '"')
+        else:
+            coreSettings.save('px68k_left_analog2mouse_speed', '"12"')
+        # Analog2Mouse speed
+        if system.isOptSet('px68k_right_analog2mouse_speed'):
+            coreSettings.save('px68k_right_analog2mouse_speed', '"' + system.config['px68k_right_analog2mouse_speed'] + '"')
+        else:
+            coreSettings.save('px68k_right_analog2mouse_speed', '"3"')
 
     # Sinclair ZX81
     if (system.config['core'] == '81'):

@@ -5545,18 +5545,6 @@ libretro:
     px68k:
       features: [padtokeyboard]
       cfeatures:
-            px68k_disk_config:
-                prompt:      USE DISK CONFIG
-                description: Resume previous disk config.
-                choices:
-                    "Off":    disabled
-                    "On":     enabled
-            px68k_use_midi:
-                prompt:      USE MIDI
-                description: Enable MIDI sound interface.
-                choices:
-                    "Off":    disabled
-                    "On":     enabled
             px68k_cpuspeed:
                 prompt:      CPU CLOCK
                 description: Slow down or speed up games as appropriate.
@@ -5599,6 +5587,56 @@ libretro:
                     "1/32 Frame":         1/32 Frame
                     "1/60 Frame":         1/60 Frame
                     "Auto Frame Skip":    Auto Frame Skip
+            px68k_left_analog2mouse_speed:
+                prompt:      LEFT STICK TO MOUSE SPEED
+                description: For Analog2Mouse on RetroKeyboard.
+                choices:
+                    "x0": 0
+                    "x1": 1
+                    "x2": 2
+                    "x3": 3
+                    "x4": 4
+                    "x5": 5
+                    "x6": 6
+                    "x7": 7
+                    "x8": 8
+                    "x9": 9
+                    "x10": 10
+                    "x11": 11
+                    "x12 (default)": 12
+                    "x13": 13
+                    "x14": 14
+                    "x15": 15
+                    "x16": 16
+                    "x17": 17
+                    "x18": 18
+                    "x19": 19
+                    "x20": 20
+            px68k_right_analog2mouse_speed:
+                prompt:      RIGHT STICK TO MOUSE SPEED
+                description: For Analog2Mouse on RetroKeyboard.
+                choices:
+                    "x0": 0
+                    "x1": 1
+                    "x2": 2
+                    "x3 (default)": 3
+                    "x4": 4
+                    "x5": 5
+                    "x6": 6
+                    "x7": 7
+                    "x8": 8
+                    "x9": 9
+                    "x10": 10
+                    "x11": 11
+                    "x12": 12
+                    "x13": 13
+                    "x14": 14
+                    "x15": 15
+                    "x16": 16
+                    "x17": 17
+                    "x18": 18
+                    "x19": 19
+                    "x20": 20
     quasi88:
       features: [netplay, padtokeyboard, cheevos]
       shared: [rewind, autosave]

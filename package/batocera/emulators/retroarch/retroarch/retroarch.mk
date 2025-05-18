@@ -4,8 +4,9 @@
 #
 ################################################################################
 # Version.: Commits on Jul 13, 2023
-RETROARCH_SITE = $(BR2_EXTERNAL_BATOCERA_PATH)/local/retroarch
-RETROARCH_SITE_METHOD = local
+RETROARCH_VERSION = 167354360492722525126a205574c9c0d718bb3d
+RETROARCH_SITE = https://github.com/NullPopPoLab/RetroArch.git
+RETROARCH_SITE_METHOD = git
 RETROARCH_LICENSE = GPLv3+
 RETROARCH_DEPENDENCIES = host-pkgconf dejavu retroarch-assets flac noto-cjk-fonts
 # install in staging for debugging (gdb)

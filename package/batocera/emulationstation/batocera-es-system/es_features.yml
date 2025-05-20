@@ -6734,6 +6734,16 @@ libretro:
                     "12 MHz":   12
                     "16 MHz":   16
                     "20 MHz":   20
+            x1_seeksnd:
+                prompt: Seek Sound
+                choices:
+                    "OFF":      OFF
+                    "ON":       ON
+            x1_scanlines:
+                prompt: Scan Lines
+                choices:
+                    "OFF":      OFF
+                    "ON":       ON
     #xash3d_fwgs:
       features: [padtokeyboard]
       shared: [rewind, autosave]

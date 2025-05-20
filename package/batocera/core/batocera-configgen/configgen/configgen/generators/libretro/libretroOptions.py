@@ -2434,6 +2434,14 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('x1_fmboard', '"'+system.config['x1_fmboard']+'"')
         else:
             coreSettings.save('x1_fmboard', '"ON"')
+        if system.isOptSet('x1_seeksnd'):
+            coreSettings.save('x1_seeksnd', '"'+system.config['x1_seeksnd']+'"')
+        else:
+            coreSettings.save('x1_seeksnd', '"OFF"')
+        if system.isOptSet('x1_scanlines'):
+            coreSettings.save('x1_scanlines', '"'+system.config['x1_scanlines']+'"')
+        else:
+            coreSettings.save('x1_scanlines', '"OFF"')
 
     # Sharp X68000
     if (system.config['core'] == 'px68k'):

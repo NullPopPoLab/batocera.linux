@@ -462,6 +462,8 @@ KEYBOARD="$(/usr/bin/batocera-settings-get system.kblayout)"
 if test -z "${VIRTUAL_DESKTOP_SIZE}"
 then
     VIRTUAL_DESKTOP_SIZE=`batocera-resolution currentResolution`
+elif [[ "${VIRTUAL_DESKTOP_SIZE}" == "default" ]]; then
+    VIRTUAL_DESKTOP_SIZE=`batocera-resolution currentResolution`
 fi
 
 if [[ "${VIRTUAL_DESKTOP}" = 1 ]]; then

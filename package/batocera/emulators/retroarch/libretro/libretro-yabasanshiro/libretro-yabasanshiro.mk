@@ -5,7 +5,7 @@
 ################################################################################
 # Version: Commits on Jun 3, 2023
 # Need to use this branch : https://github.com/libretro/yabause/tree/yabasanshiro
-LIBRETRO_YABASANSHIRO_VERSION = 94f8cdcfb4ed3d573f9b8abfea9f8dd1952a95cf
+LIBRETRO_YABASANSHIRO_VERSION = 137610e0947f0140ed63c40cbd4f0a6f79b35dca
 LIBRETRO_YABASANSHIRO_SITE = https://github.com/NullPopPoLab/yabause.git
 LIBRETRO_YABASANSHIRO_SITE_METHOD = git
 LIBRETRO_YABASANSHIRO_LICENSE = GPLv2

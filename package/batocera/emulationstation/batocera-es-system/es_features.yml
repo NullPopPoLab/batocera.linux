@@ -4553,6 +4553,88 @@ libretro:
                     "Auto Select(Xe10, WAB-S)": Auto Select(Xe10, WAB-S)
                     "Auto Select(Xe10, WSN-A2F)": Auto Select(Xe10, WSN-A2F)
                     "Auto Select(Xe10, WSN-A4F)": Auto Select(Xe10, WSN-A4F)
+            np2kai_j2kdir:
+                prompt:      JOY2KEY DIRECTION
+                choices:
+                    "Cursor Key":  Cursor
+                    "4 Directional Ten Key": TenKey4
+                    "8 Directional Ten Key": TenKey8
+                    "Mouse Cursor":   Mouse
+            np2kai_j2kstick:
+                prompt:      JOY2KEY STICK
+                choices:
+                    "None":  None
+                    "Extra Key Controls": Keys
+                    "Analog to Mouse":   Mouse
+            np2kai_j2kpress:
+                prompt:      JOY2KEY STICK PRESSURE
+                choices:
+                    "None":  None
+                    "STOP and COPY": Keys
+                    "Mouse Buttons":   Mouse
+            np2kai_left_analog2mouse_speed:
+                prompt:      LEFT STICK TO MOUSE SPEED
+                description: For Analog2Mouse on RetroKeyboard.
+                choices:
+                    "x0": 0
+                    "x1": 1
+                    "x2": 2
+                    "x3": 3
+                    "x4": 4
+                    "x5": 5
+                    "x6": 6
+                    "x7": 7
+                    "x8": 8
+                    "x9": 9
+                    "x10": 10
+                    "x11": 11
+                    "x12 (default)": 12
+                    "x13": 13
+                    "x14": 14
+                    "x15": 15
+                    "x16": 16
+                    "x17": 17
+                    "x18": 18
+                    "x19": 19
+                    "x20": 20
+            np2kai_right_analog2mouse_speed:
+                prompt:      RIGHT STICK TO MOUSE SPEED
+                description: For Analog2Mouse on RetroKeyboard.
+                choices:
+                    "x0": 0
+                    "x1": 1
+                    "x2": 2
+                    "x3 (default)": 3
+                    "x4": 4
+                    "x5": 5
+                    "x6": 6
+                    "x7": 7
+                    "x8": 8
+                    "x9": 9
+                    "x10": 10
+                    "x11": 11
+                    "x12": 12
+                    "x13": 13
+                    "x14": 14
+                    "x15": 15
+                    "x16": 16
+                    "x17": 17
+                    "x18": 18
+                    "x19": 19
+                    "x20": 20
+            np2kai_analog2mouse_deadzone:
+                prompt:      STICK TO MOUSE DEADZONE
+                description: Stick to Mouse Friction.
+                choices:
+                    "0": 0
+                    "1": 1
+                    "2 (default)": 2
+                    "3": 3
+                    "4": 4
+                    "5": 5
+                    "6": 6
+                    "7": 7
+                    "8": 8
     o2em:
       features: [cheevos]
       shared: [rewind, autosave]

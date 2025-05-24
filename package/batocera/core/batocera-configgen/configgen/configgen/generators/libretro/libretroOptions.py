@@ -1072,6 +1072,36 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('np2kai_CLGD_type', '"' + system.config['np2kai_CLGD_type'] + '"')
         else:
             coreSettings.save('np2kai_CLGD_type', '"PC-9821Xe10,Xa7e,Xb10 built-in"')
+        # Joy2Key direction
+        if system.isOptSet('np2kai_j2kdir'):
+            coreSettings.save('np2kai_j2kdir', '"' + system.config['np2kai_j2kdir'] + '"')
+        else:
+            coreSettings.save('np2kai_j2kdir', '"TenKey4"')
+        # Joy2Key stick
+        if system.isOptSet('np2kai_j2kstick'):
+            coreSettings.save('np2kai_j2kstick', '"' + system.config['np2kai_j2kstick'] + '"')
+        else:
+            coreSettings.save('np2kai_j2kstick', '"Mouse"')
+        # Joy2Key stick pressure
+        if system.isOptSet('np2kai_j2kpress'):
+            coreSettings.save('np2kai_j2kpress', '"' + system.config['np2kai_j2kpress'] + '"')
+        else:
+            coreSettings.save('np2kai_j2kpress', '"Mouse"')
+        # Analog2Mouse speed
+        if system.isOptSet('np2kai_left_analog2mouse_speed'):
+            coreSettings.save('np2kai_left_analog2mouse_speed', '"' + system.config['np2kai_left_analog2mouse_speed'] + '"')
+        else:
+            coreSettings.save('np2kai_left_analog2mouse_speed', '"12"')
+        # Analog2Mouse speed
+        if system.isOptSet('np2kai_right_analog2mouse_speed'):
+            coreSettings.save('np2kai_right_analog2mouse_speed', '"' + system.config['np2kai_right_analog2mouse_speed'] + '"')
+        else:
+            coreSettings.save('np2kai_right_analog2mouse_speed', '"3"')
+        # Analog2Mouse deadzone
+        if system.isOptSet('np2kai_analog2mouse_deadzone'):
+            coreSettings.save('np2kai_analog2mouse_deadzone', '"' + system.config['np2kai_analog2mouse_deadzone'] + '"')
+        else:
+            coreSettings.save('np2kai_analog2mouse_deadzone', '"2"')
 
     # Nec PC Engine SuperGrafx
     if (system.config['core'] == 'mednafen_supergrafx'):

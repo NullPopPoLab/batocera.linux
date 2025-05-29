@@ -396,19 +396,13 @@ esac
 if test -z ${BATOCERA_WINE_BOOTUP}
 then
 	BOOTUPCMD="${GAMEDIR}/boot/default.cmd"
-	BOOTUPKEY="${GAMEDIR}/boot/default.keys"
 else
 	BOOTUPCMD="${GAMEDIR}/boot/${BATOCERA_WINE_BOOTUP}.cmd"
-	BOOTUPKEY="${GAMEDIR}/boot/${BATOCERA_WINE_BOOTUP}.keys"
 fi
 
 if [ -f "${BOOTUPCMD}" ]; then
 	echo "select to bootup: ${BOOTUPCMD}" >&2
     cp "${BOOTUPCMD}" "${GAMEDIR}/autorun.cmd"
-fi
-if [ -f "${BOOTUPKEY}" ]; then
-	echo "select to bootup: ${BOOTUPKEY}" >&2
-    cp "${BOOTUPKEY}" "${GAMEDIR}/padto.keys"
 fi
 
 # options

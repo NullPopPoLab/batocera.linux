@@ -396,19 +396,13 @@ esac
 if test -z ${BATOCERA_WINE_BOOTUP}
 then
 	BOOTUPCMD="${GAMEDIR}/boot/default.cmd"
-	BOOTUPKEY="${GAMEDIR}/boot/default.keys"
 else
 	BOOTUPCMD="${GAMEDIR}/boot/${BATOCERA_WINE_BOOTUP}.cmd"
-	BOOTUPKEY="${GAMEDIR}/boot/${BATOCERA_WINE_BOOTUP}.keys"
 fi
 
 if [ -f "${BOOTUPCMD}" ]; then
 	echo "select to bootup: ${BOOTUPCMD}" >&2
     cp "${BOOTUPCMD}" "${GAMEDIR}/autorun.cmd"
-fi
-if [ -f "${BOOTUPKEY}" ]; then
-	echo "select to bootup: ${BOOTUPKEY}" >&2
-    cp "${BOOTUPKEY}" "${GAMEDIR}/padto.keys"
 fi
 
 # options
@@ -1092,10 +1086,36 @@ build4archive() {
 wine2squashfs() {
 
     SQUASHFSFILE=$(echo "${G_ROMS_DIR}/${BASEGAMENAME}.wsquashfs" | sed -e s+"\.wine\.squashfs$"+".wsquashfs"+)
-    PAD2KEYFILE=$(echo "${G_ROMS_DIR}/${BASEGAMENAME}.keys" | sed -e s+"\.wine\.keys$"+".keys"+)
 
-	if [ -f "${MOUNTDIR}/padto.keys" ]; then
-		cp -a "${MOUNTDIR}/padto.keys" "${PAD2KEYFILE}"
+	# please wait screen
+	bgnBSOD "now packing: ${WINEPOINT} => ${SQUASHFSFILE}"
+
+	# export padto.keys 
+	if [ -d "${GAMENAME}" ]; then
+		# target game is directory 
+		if [ -f "${GAMENAME}/padto.keys" ]; then
+			cp -a "${GAMENAME}/padto.keys" "${SQUASHFSFILE}.keys"
+		fi
+
+		ls -1 "${MOUNTDIR}/boot/" | while read file
+		do
+			if [[ "${file}" =~ \.keys$ ]]; then
+				cp "${MOUNTDIR}/boot/${file}" "${SQUASHFSFILE}.${file}"
+			fi
+	    done
+	else
+		# target game is file 
+		if [ -f "${GAMENAME}.keys" ]; then
+			cp -a "${GAMENAME}.keys" "${SQUASHFSFILE}.keys"
+		fi
+
+		ls -1 "${MOUNTDIR}/" | while read file
+		do
+			if [[ "${file}" =~ ^${BASEGAMENAME}(.+)\.keys$ ]]; then
+				echo "P2K variant: ${BASH_REMATCH[1]}"
+				cp "${MOUNTDIR}/${file}" "${SQUASHFSFILE}${BASH_REMATCH[1]}.keys"
+			fi
+	    done
 	fi
 
 	if [ "${MOUNTDIR}" != "" ]; then
@@ -1114,10 +1134,36 @@ wine2squashfs() {
 wine2winetgz() {
 
     WINETGZFILE="${G_ROMS_DIR}/${BASEGAMENAME}.wtgz"
-    PAD2KEYFILE="${G_ROMS_DIR}/${BASEGAMENAME}.keys"
 
-	if [ -f "${MOUNTDIR}/padto.keys" ]; then
-		cp -a "${MOUNTDIR}/padto.keys" "${PAD2KEYFILE}"
+	# please wait screen
+	bgnBSOD "now packing: ${WINEPOINT} => ${WINETGZFILE}"
+
+	# export padto.keys 
+	if [ -d "${GAMENAME}" ]; then
+		# target game is directory 
+		if [ -f "${GAMENAME}/padto.keys" ]; then
+			cp -a "${GAMENAME}/padto.keys" "${WINETGZFILE}.keys"
+		fi
+
+		ls -1 "${MOUNTDIR}/boot/" | while read file
+		do
+			if [[ "${file}" =~ \.keys$ ]]; then
+				cp "${MOUNTDIR}/boot/${file}" "${WINETGZFILE}.${file}"
+			fi
+	    done
+	else
+		# target game is file 
+		if [ -f "${GAMENAME}.keys" ]; then
+			cp -a "${GAMENAME}.keys" "${WINETGZFILE}.keys"
+		fi
+
+		ls -1 "${MOUNTDIR}/" | while read file
+		do
+			if [[ "${file}" =~ ^${BASEGAMENAME}(.+)\.keys$ ]]; then
+				echo "P2K variant: ${BASH_REMATCH[1]}"
+				cp "${MOUNTDIR}/${file}" "${WINETGZFILE}${BASH_REMATCH[1]}.keys"
+			fi
+	    done
 	fi
 
 	if [ "${MOUNTDIR}" != "" ]; then

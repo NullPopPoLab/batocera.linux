@@ -253,13 +253,16 @@ def start_rom(args, maxnbplayers, rom, romConfiguration):
         # run the emulator
         try:
             from Evmapy import Evmapy
-            Evmapy.start(systemName, system.config['emulator'], effectiveCore, effectiveRomConfiguration, playersControllers, guns)
+
             # change directory if wanted
             executionDirectory = generator.executionDirectory(system.config, effectiveRom)
             if executionDirectory is not None:
                 os.chdir(executionDirectory)
 
             cmd = generator.generate(system, rom, playersControllers, guns, wheels, gameResolution)
+
+            # Evmapy.start() after generator.generate() to replace keys file by config 
+            Evmapy.start(systemName, system.config['emulator'], effectiveCore, effectiveRomConfiguration, playersControllers, guns)
 
             if system.isOptSet('hud_support') and system.getOptBoolean('hud_support') == True:
                 hud_bezel = getHudBezel(system, generator, rom, gameResolution, controllers.gunsBordersSizeName(guns, system.config))

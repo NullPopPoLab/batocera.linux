@@ -5,12 +5,36 @@ import Command
 import os
 from os import path
 import controllersConfig
+import shutil
 
 class WineGenerator(Generator):
 
     def generate(self, system, rom, playersControllers, guns, wheels, gameResolution):
 
         environment = {}
+
+        if system.name == "windows":
+            if 'bootup' in system.config and system.config['bootup'] != '':
+                environment['BATOCERA_WINE_BOOTUP']=system.config['bootup']
+            else:
+                environment['BATOCERA_WINE_BOOTUP']=''
+
+            # switch bootup environment 
+            bootname = environment['BATOCERA_WINE_BOOTUP']
+            if bootname == '':
+                bootname='default'
+            if os.path.isdir(rom):
+                dir = rom+'/boot/'
+                p2k_src = dir+bootname+'.keys'
+                p2k_dst = rom+'/padto.keys'
+            else:
+                base, ext = os.path.splitext(rom)
+                p2k_src = rom+'.'+bootname+'.keys'
+                p2k_dst = rom+'.keys'
+            if os.path.isfile(p2k_src):
+                print('P2K config: '+p2k_src+' => '+p2k_dst)
+                shutil.copy(p2k_src,p2k_dst)
+
         #system.language
         if 'lang' in system.config and system.config['lang'] != '':
             environment['LANG']=environment['LC_ALL']=system.config['lang']+'.UTF-8'
@@ -69,10 +93,6 @@ class WineGenerator(Generator):
             environment['LANG']=environment['LC_ALL']=system.config['lang']+'.UTF-8'
         if 'enable_rootdrive' in system.config and system.config['enable_rootdrive'] != '':
             environment['BATOCERA_WINE_USE_ROOTDRIVE']=system.config['enable_rootdrive']
-        if 'bootup' in system.config and system.config['bootup'] != '':
-            environment['BATOCERA_WINE_BOOTUP']=system.config['bootup']
-        else:
-            environment['BATOCERA_WINE_BOOTUP']=''
         if 'winepoint_each_core' in system.config and system.config['winepoint_each_core'] != '':
             environment['BATOCERA_WINE_SAVES_EACH_CORE']=system.config['winepoint_each_core']
         if 'reincarnation' in system.config and system.config['reincarnation'] != '':

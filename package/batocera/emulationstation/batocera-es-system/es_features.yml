@@ -10958,6 +10958,13 @@ wine:
                 "None": ""
                 "SQUASH": "SQUASH"
                 "TGZ": "TGZ"
+        maintenance:
+            group: UTILITIES
+            prompt:      MAINTENANCE
+            description: Always start explorer.
+            choices:
+                "Off": 0
+                "On": 1
 
 solarus:
   shared: [videomode, bezel, bezel_stretch, hud, hud_corner, bezel.tattoo, bezel.tattoo_corner, bezel.tattoo_file, bezel.resize_tattoo]

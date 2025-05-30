@@ -32,12 +32,8 @@ class WineGenerator(Generator):
                 p2k_src = rom+'.'+bootname+'.keys'
                 p2k_dst = rom+'.keys'
             if os.path.isfile(p2k_src):
-                if os.path.isfile(p2k_dst) and os.path.getmtime(p2k_dst) > os.path.getmtime(p2k_src):
-                    print('P2K config backup: '+p2k_dst+' => '+p2k_src)
-                    shutil.copy2(p2k_dst,p2k_src)
-                else:
-                    print('P2K config apply: '+p2k_src+' => '+p2k_dst)
-                    shutil.copy2(p2k_src,p2k_dst)
+                print('P2K config apply: '+p2k_src+' => '+p2k_dst)
+                shutil.copy2(p2k_src,p2k_dst)
             elif os.path.isfile(p2k_dst):
                 print('P2K config backup: '+p2k_dst+' => '+p2k_src)
                 shutil.copy2(p2k_dst,p2k_src)

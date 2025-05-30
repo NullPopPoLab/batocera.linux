@@ -18,6 +18,10 @@ class WineGenerator(Generator):
                 environment['BATOCERA_WINE_BOOTUP']=system.config['bootup']
             else:
                 environment['BATOCERA_WINE_BOOTUP']=''
+            if 'maintenance' in system.config and system.config['maintenance'] != '':
+                environment['BATOCERA_WINE_MAINTENANCE']=system.config['maintenance']
+            else:
+                environment['BATOCERA_WINE_MAINTENANCE']=''
 
             # switch bootup environment 
             bootname = environment['BATOCERA_WINE_BOOTUP']
@@ -38,6 +42,9 @@ class WineGenerator(Generator):
                 print('P2K config backup: '+p2k_dst+' => '+p2k_src)
                 shutil.copy2(p2k_dst,p2k_src)
 
+            if 'maintenance' in system.config and environment['BATOCERA_WINE_MAINTENANCE'] == '1':
+                print('* MAINTENANCE MODE * (P2K config removed)')
+                os.remove(p2k_dst)
 
         #system.language
         if 'lang' in system.config and system.config['lang'] != '':

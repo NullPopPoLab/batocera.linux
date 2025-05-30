@@ -400,7 +400,9 @@ else
 	BOOTUPCMD="${GAMEDIR}/boot/${BATOCERA_WINE_BOOTUP}.cmd"
 fi
 
-if [ -f "${BOOTUPCMD}" ]; then
+if [ "${BATOCERA_WINE_MAINTENANCE}" = 1 ]; then
+	echo "*** MAINTENANCE MODE ***" >&2
+elif [ -f "${BOOTUPCMD}" ]; then
 	echo "select to bootup: ${BOOTUPCMD}" >&2
     cp "${BOOTUPCMD}" "${GAMEDIR}/autorun.cmd"
 fi
@@ -414,6 +416,8 @@ getWine_var() {
 
     if [[ -n "${FORCEVAL}" ]]; then
         echo "${FORCEVAL}"
+    elif [ "${BATOCERA_WINE_MAINTENANCE}" = 1 ]; then
+        echo "${DEFVAL}"
     elif [[ -e "${GAMEDIR}/autorun.cmd" ]]; then
         VAL=$(cat "${GAMEDIR}/autorun.cmd" | dos2unix | grep "^${VARNAME}=" | sed -e s+"^${VARNAME}="+""+ | head -1)
         if [[ -n "${VAL}" ]]; then
@@ -902,7 +906,12 @@ play_pc() {
 #}
 
 play_exe() {
-    GAMEEXE=$(basename "${GAMENAME}")
+
+    if [ "${BATOCERA_WINE_MAINTENANCE}" = 1 ]; then
+        GAMEEXE=explorer
+    else
+        GAMEEXE=$(basename "${GAMENAME}")
+    fi
 
     sandboxing_prefix || return 1
 

@@ -46,7 +46,6 @@ def writeControllersConfig(retroconfig, system, controllers, lightgun):
         retroarchspecials["l3"] = "disk_eject_toggle"
         retroarchspecials["l2"] =     "disk_prev"
         retroarchspecials["r2"] =     "disk_next"
-        retroarchspecials["l3"] =     "screenshot"
 
     if (system.config['core'] in secondaryDiskDriveSupport) and (system.name not in systemToSwapDisable):
         retroarchspecials["r3"] = "disk2_eject_toggle"
@@ -176,12 +175,4 @@ def getConfigValue(input):
 
 # Return the retroarch analog_dpad_mode
 def getAnalogMode(controller, system):
-    # don't enable analog as hat mode for some systems
-    if system.name == 'n64' or system.name == 'dreamcast' or system.name == '3ds':
-        return '0'
-
-    for dirkey in retroarchdirs:
-        if dirkey in controller.inputs:
-            if (controller.inputs[dirkey].type == 'button') or (controller.inputs[dirkey].type == 'hat'):
-                return '1'
     return '0'

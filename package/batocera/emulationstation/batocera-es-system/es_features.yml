@@ -10788,14 +10788,14 @@ wine:
             prompt: ENABLE GAMEPAD
             description: Use a Game Controller via Windows. Disabling for control via PadToKey.
             choices:
-                "Off":          0
-                "On (Default)": 1
+                "Off": 0
+                "On": 1
         sdl_config:
             prompt: SDL CONFIG
             description: Choose whether to pass SDL Game Controller config to the Windows game. Disabling may help with some games.
             choices:
-                "Off":          0
-                "On (Default)": 1
+                "Off": 0
+                "On": 1
         force_mouse:
             prompt:      ENABLE MOUSE
             description: Force mouse in games.

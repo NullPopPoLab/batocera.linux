@@ -61,6 +61,9 @@ ROOTDRIVE=""
 GAMEISOMOUNT=""
 GAMEISODRIVE=""
 MOUNTDIR=""
+BSODPID=""
+
+G_RESCUR=$(batocera-resolution currentMode)
 
 gameext() {
     echo "${1}" | sed -e s+"^.*\.\([^\.]*\)$"+"\1"+ | tr A-Z a-z
@@ -176,6 +179,33 @@ mount_root() {
 	fi
 }
 
+endBSOD() {
+
+	if test -z "${BSODPID}"
+	then
+		return
+	fi
+
+	kill -15 "${BSODPID}"
+	BSODPID=""
+}
+
+bgnBSOD() {
+
+	MSG="$1"
+
+	endBSOD
+
+	if test -z "${MSG}"
+	then
+		bsod-wine &
+	else
+		bsod-wine "${MSG}" &
+	fi
+
+	BSODPID=$!
+}
+
 waitWineServer() {
     while pgrep "${WINESERVER}"
     do
@@ -185,6 +215,8 @@ waitWineServer() {
 }
 
 cleanAndExit() {
+
+    endBSOD
 
     RESNEW=$(batocera-resolution currentMode)
     if [[ "${RESNEW}" != "${G_RESCUR}" ]]; then
@@ -283,14 +315,13 @@ createWineDirectory() {
     [[ -e "${WINEPOINT}" ]] && return 0
 
     # please wait screen
-    bsod-wine&
-    BSODPID=$!
+    bgnBSOD
 
     mkdir -p "${WINEPOINT}" || return 1
 
     if ! "${WINE}" hostname; then
 	    rm -rf "${WINEPOINT}"
-	    kill -15 "${BSODPID}"
+	    endBSOD
         echo "+++ Failed initialising ${WINEPOINT} +++"
 	    return 1
     fi
@@ -299,7 +330,7 @@ createWineDirectory() {
         cp -r "${QUICKINSTALLSRC}" "${QUICKINSTALLDIR}"
     fi
 
-    kill -15 "${BSODPID}"
+    endBSOD
 
     return 0
 }
@@ -309,7 +340,13 @@ case "${GAMEEXT}" in
 	"wtgz")
 	if [[ ! -e "${WINEPOINT}" ]]; then
 		mkdir -p "${WINEPOINT}" || return 1
+
+		# please wait screen
+		bgnBSOD "now extracting: ${GAMENAME}"
+
 		(cd "${WINEPOINT}" && gunzip -c "${GAMENAME}" | tar xf -) || return 1
+
+		endBSOD
 	fi
 	;;
 	"wsquashfs")
@@ -379,8 +416,11 @@ fi
 getWine_var() {
     VARNAME=$1
     DEFVAL=$2
+    FORCEVAL=$3
 
-    if [[ -e "${GAMEDIR}/autorun.cmd" ]]; then
+    if [[ -n "${FORCEVAL}" ]]; then
+        echo "${FORCEVAL}"
+    elif [[ -e "${GAMEDIR}/autorun.cmd" ]]; then
         VAL=$(cat "${GAMEDIR}/autorun.cmd" | dos2unix | grep "^${VARNAME}=" | sed -e s+"^${VARNAME}="+""+ | head -1)
         if [[ -n "${VAL}" ]]; then
             echo "${VAL}"
@@ -392,35 +432,37 @@ getWine_var() {
     fi
 }
 
-WINE_CMD=$(getWine_var "CMD" "explorer")
-WINE_DIR=$(getWine_var "DIR" "")
-WINE_LANG=$(getWine_var "LANG" "")
-WINE_ENV=$(getWine_var "ENV" "")
+WINE_CMD=$(getWine_var "CMD" "explorer" "")
+WINE_DIR=$(getWine_var "DIR" "" "")
+WINE_LANG=$(getWine_var "LANG" "" "")
+WINE_ENV=$(getWine_var "ENV" "" "")
 
-ESYNC=$(getWine_var "ESYNC" "${ESYNC}")
-FSYNC=$(getWine_var "FSYNC" "${FSYNC}")
-PBA=$(getWine_var "PBA" "${PBA}")
-FSR=$(getWine_var "FSR" "${FSR}")
-FPS_LIMIT=$(getWine_var "FPS_LIMIT" "${FPS_LIMIT}")
-ALLOW_XIM=$(getWine_var "ALLOW_XIM" "${ALLOW_XIM}")
-NO_WRITE_WATCH=$(getWine_var "NO_WRITE_WATCH" "${NO_WRITE_WATCH}")
-FORCE_LARGE_ADRESS=$(getWine_var "FORCE_LARGE_ADRESS" "${FORCE_LARGE_ADRESS}")
-HEAP_DELAY_FREE=$(getWine_var "HEAP_DELAY_FREE" "${HEAP_DELAY_FREE}")
-HIDE_NVIDIA_GPU=$(getWine_var "HIDE_NVIDIA_GPU" "${HIDE_NVIDIA_GPU}")
-ENABLE_NVAPI=$(getWine_var "ENABLE_NVAPI" "${ENABLE_NVAPI}")
-DXVK_RESET_CACHE=$(getWine_var "DXVK_RESET_CACHE" "${DXVK_RESET_CACHE}")
-WINE_NTFS=$(getWine_var "WINE_NTFS" "${WINE_NTFS}")
-WINE_DEBUG=$(getWine_var "WINE_DEBUG" "${WINE_DEBUG}")
-VIRTUAL_DESKTOP=$(getWine_var "VIRTUAL_DESKTOP" "${VIRTUAL_DESKTOP}")
-VIRTUAL_DESKTOP_SIZE=$(getWine_var "VIRTUAL_DESKTOP_SIZE" "${VIRTUAL_DESKTOP_SIZE}")
-MF=$(getWine_var "MF" "${MF}")
-DXVK=$(getWine_var "DXVK" "${DXVK}")
-DXVK_HUD=$(getWine_var "DXVK_HUD" "${DXVK_HUD}")
+ESYNC=$(getWine_var "ESYNC" "" "${ESYNC}")
+FSYNC=$(getWine_var "FSYNC" "" "${FSYNC}")
+PBA=$(getWine_var "PBA" "" "${PBA}")
+FSR=$(getWine_var "FSR" "" "${FSR}")
+FPS_LIMIT=$(getWine_var "FPS_LIMIT" "" "${FPS_LIMIT}")
+ALLOW_XIM=$(getWine_var "ALLOW_XIM" "" "${ALLOW_XIM}")
+NO_WRITE_WATCH=$(getWine_var "NO_WRITE_WATCH" "" "${NO_WRITE_WATCH}")
+FORCE_LARGE_ADRESS=$(getWine_var "FORCE_LARGE_ADRESS" "" "${FORCE_LARGE_ADRESS}")
+HEAP_DELAY_FREE=$(getWine_var "HEAP_DELAY_FREE" "" "${HEAP_DELAY_FREE}")
+HIDE_NVIDIA_GPU=$(getWine_var "HIDE_NVIDIA_GPU" "" "${HIDE_NVIDIA_GPU}")
+ENABLE_NVAPI=$(getWine_var "ENABLE_NVAPI" "" "${ENABLE_NVAPI}")
+DXVK_RESET_CACHE=$(getWine_var "DXVK_RESET_CACHE" "" "${DXVK_RESET_CACHE}")
+WINE_NTFS=$(getWine_var "WINE_NTFS" "" "${WINE_NTFS}")
+WINE_DEBUG=$(getWine_var "WINE_DEBUG" "" "${WINE_DEBUG}")
+VIRTUAL_DESKTOP=$(getWine_var "VIRTUAL_DESKTOP" "" "${VIRTUAL_DESKTOP}")
+VIRTUAL_DESKTOP_SIZE=$(getWine_var "VIRTUAL_DESKTOP_SIZE" "" "${VIRTUAL_DESKTOP_SIZE}")
+MF=$(getWine_var "MF" "" "${MF}")
+DXVK=$(getWine_var "DXVK" "" "${DXVK}")
+DXVK_HUD=$(getWine_var "DXVK_HUD" "" "${DXVK_HUD}")
 
 KEYBOARD="$(/usr/bin/batocera-settings-get system.kblayout)"
 
 if test -z "${VIRTUAL_DESKTOP_SIZE}"
 then
+    VIRTUAL_DESKTOP_SIZE=`batocera-resolution currentResolution`
+elif [[ "${VIRTUAL_DESKTOP_SIZE}" == "default" ]]; then
     VIRTUAL_DESKTOP_SIZE=`batocera-resolution currentResolution`
 fi
 
@@ -428,8 +470,8 @@ if [[ "${VIRTUAL_DESKTOP}" = 1 ]]; then
     VDESKTOP="explorer /desktop=Wine,${VIRTUAL_DESKTOP_SIZE}"
 fi
 
-USE_GAMEPAD=$(getWine_var "USE_GAMEPAD" "${USE_GAMEPAD}")
-SDL_CONFIG=$(getWine_var "SDL_CONFIG" "${SDL_CONFIG}")
+USE_GAMEPAD=$(getWine_var "USE_GAMEPAD" "0" "${USE_GAMEPAD}")
+SDL_CONFIG=$(getWine_var "SDL_CONFIG" "0" "${SDL_CONFIG}")
 if [[ "${USE_GAMEPAD}" == "0" ]]; then
 	export SDL_GAMECONTROLLERCONFIG=$(echo "${SDL_GAMECONTROLLERCONFIG}" | sed -n 's/^\([^,]*,[^,]*,platform:[^,]*\).*$/\1/p')
 elif [[ "${SDL_CONFIG}" == "0" ]]; then
@@ -559,6 +601,9 @@ redist_install() {
 
 	file=$1
 	echo "Executing file ${file}"
+
+	# please wait screen
+	bgnBSOD "now installing: ${file}"
 	    
 	case "${file}" in
 	
@@ -629,17 +674,24 @@ redist_install() {
 	esac
 
 	mv -f "${QUICKINSTALLDIR}/${file}" "${QUICKINSTALLDIR}/${file}.done"
+
+	endBSOD
 }
 
 msi_install() {
 
 	file=$1
 	echo "Executing file ${file}"
+
+	# please wait screen
+	bgnBSOD "now installing: ${file}"
 	    
 	"${MSIEXEC}" -i "${QUICKINSTALLDIR}/${file}" /quiet /qn /norestart &>/dev/null || echo "cannot install ${file}"
 	"${WINESERVER}" -w
 
 	mv -f "${QUICKINSTALLDIR}/${file}" "${QUICKINSTALLDIR}/${file}.done"
+
+	endBSOD
 }
 
 reg_install() {
@@ -728,7 +780,12 @@ trick_wine() {
     TRICK=$1
 	echo "** Do trick ${TRICK} to "${WINEPREFIX}" **"
 
+	# please wait screen
+	bgnBSOD "now doing trick: ${TRICK}"
+
     DISPLAY=:0.0 "${WINETRICKS}" "${TRICK}"
+
+	endBSOD
 }
 
 tricks_install() {
@@ -1077,8 +1134,6 @@ wine2winetgz() {
 }
 
 quick_install || cleanAndExit 1
-
-G_RESCUR=$(batocera-resolution currentMode)
 
 case "${ACTION}" in
     "play")

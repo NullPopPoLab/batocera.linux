@@ -5723,6 +5723,11 @@ libretro:
       features: [netplay, padtokeyboard, cheevos]
       shared: [rewind, autosave]
       cfeatures:
+            q88_padtokey:
+                prompt:      PAD TO KEY
+                choices:
+                    "Off":                  0
+                    "On (default)":         1
             q88_basic_mode:
                 prompt:      PC MODEL
                 choices:

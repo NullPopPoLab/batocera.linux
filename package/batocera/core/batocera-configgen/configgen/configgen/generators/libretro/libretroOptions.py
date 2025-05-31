@@ -963,6 +963,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
 
     # Nec PC-8800
     if system.config['core'] == 'quasi88':
+        # Pad to Key
+        if system.isOptSet('q88_padtokey'):
+            coreSettings.save('q88_padtokey', '"' + system.config['q88_padtokey'] + '"')
+        else:
+            coreSettings.save('q88_padtokey', '"1"')
         # PC Model
         if system.isOptSet('q88_basic_mode'):
             coreSettings.save('q88_basic_mode', '"' + system.config['q88_basic_mode'] + '"')

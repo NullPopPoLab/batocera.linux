@@ -2508,6 +2508,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
                 coreSettings.save('px68k_frameskip', '"' + system.config['px68k_frameskip'] + '"')
         else:
             coreSettings.save('px68k_frameskip', '"Auto Frame Skip"')
+        # Analog Stick Usage
+        if system.isOptSet('px68k_analog_usage'):
+            coreSettings.save('px68k_analog_usage', '"' + system.config['px68k_analog_usage'] + '"')
+        else:
+            coreSettings.save('px68k_analog_usage', '"Mouse"')
         # Analog2Mouse speed
         if system.isOptSet('px68k_left_analog2mouse_speed'):
             coreSettings.save('px68k_left_analog2mouse_speed', '"' + system.config['px68k_left_analog2mouse_speed'] + '"')
@@ -2518,6 +2523,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('px68k_right_analog2mouse_speed', '"' + system.config['px68k_right_analog2mouse_speed'] + '"')
         else:
             coreSettings.save('px68k_right_analog2mouse_speed', '"3"')
+        # Analog2Mouse deadzone
+        if system.isOptSet('px68k_analog2mouse_deadzone'):
+            coreSettings.save('px68k_analog2mouse_deadzone', '"' + system.config['px68k_analog2mouse_deadzone'] + '"')
+        else:
+            coreSettings.save('px68k_analog2mouse_deadzone', '"2"')
 
     # Sinclair ZX81
     if (system.config['core'] == '81'):

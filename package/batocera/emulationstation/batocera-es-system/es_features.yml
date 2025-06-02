@@ -5669,6 +5669,13 @@ libretro:
                     "1/32 Frame":         1/32 Frame
                     "1/60 Frame":         1/60 Frame
                     "Auto Frame Skip":    Auto Frame Skip
+            px68k_analog_usage:
+                prompt:      ANALOG STICK USAGE
+                description: Select analog stick usage.
+                choices:
+                    "NONE": None
+                    "STICK": Stick
+                    "MOUSE": Mouse
             px68k_left_analog2mouse_speed:
                 prompt:      LEFT STICK TO MOUSE SPEED
                 description: For Analog2Mouse on RetroKeyboard.
@@ -5719,6 +5726,19 @@ libretro:
                     "x18": 18
                     "x19": 19
                     "x20": 20
+            px68k_analog2mouse_deadzone:
+                prompt:      STICK TO MOUSE DEADZONE
+                description: Stick to Mouse Friction.
+                choices:
+                    "0": 0
+                    "1": 1
+                    "2 (default)": 2
+                    "3": 3
+                    "4": 4
+                    "5": 5
+                    "6": 6
+                    "7": 7
+                    "8": 8
     quasi88:
       features: [netplay, padtokeyboard, cheevos]
       shared: [rewind, autosave]

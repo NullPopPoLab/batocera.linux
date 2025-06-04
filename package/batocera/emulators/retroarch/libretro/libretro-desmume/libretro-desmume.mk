@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version: Commits on Sep 26, 2022
-LIBRETRO_DESMUME_VERSION = 06d8041e153d3f6cc83e1a75d5abeca9ed0f8441
+LIBRETRO_DESMUME_VERSION = ee1cd69c97acbe10ece72c29e4e222ca6633dbad
 LIBRETRO_DESMUME_SITE = https://github.com/NullPopPoLab/desmume.git
 LIBRETRO_DESMUME_SITE_METHOD = git
 LIBRETRO_DESMUME_LICENSE = GPLv2

@@ -44,7 +44,7 @@ class WineGenerator(Generator):
 
             if 'maintenance' in system.config and environment['BATOCERA_WINE_MAINTENANCE'] == '1':
                 print('* MAINTENANCE MODE * (P2K config removed)')
-                os.remove(p2k_dst)
+                if os.path.isfile(p2k_dst): os.remove(p2k_dst)
 
         #system.language
         if 'lang' in system.config and system.config['lang'] != '':

@@ -354,15 +354,15 @@ nds:
   manufacturer: Nintendo
   release: 2004
   hardware: handheld
-  extensions: [nds, bin, zip, 7z]
+  extensions: [nds, bin, zip, 7z, m3u]
   emulators:
     libretro:
-      desmume: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_DESMUME] }
+      desmume: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_DESMUME], incompatible_extensions: [m3u] }
       melonds: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MELONDS] }
     melonds:
-      melonds: { requireAnyOf: [BR2_PACKAGE_MELONDS] }
+      melonds: { requireAnyOf: [BR2_PACKAGE_MELONDS], incompatible_extensions: [m3u] }
     drastic:
-      drastic: { requireAnyOf: [BR2_PACKAGE_DRASTIC], incompatible_extensions: [7z] }
+      drastic: { requireAnyOf: [BR2_PACKAGE_DRASTIC], incompatible_extensions: [7z,m3u] }
 
 fds:
   name:       Family Computer Disk System

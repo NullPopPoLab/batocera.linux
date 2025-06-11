@@ -5983,6 +5983,34 @@ libretro:
                 choices:
                     "On":   1
                     "Off":  0
+            tgbdual_turbo_speed_a:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON A TURBO SPEED
+                description: turbo speed for button A.
+                choices:
+                    "0":  0
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+            tgbdual_turbo_speed_b:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON B TURBO SPEED
+                description: turbo speed for button B.
+                choices:
+                    "0":  0
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
     theodore:
       features: [netplay, padtokeyboard]
       shared: [rewind, autosave]

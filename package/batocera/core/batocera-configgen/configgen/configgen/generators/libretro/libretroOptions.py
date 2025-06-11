@@ -1457,6 +1457,15 @@ def generateCoreSettings(coreSettings, system, rom, guns):
         coreSettings.save('tgbdual_audio_output',     '"Game Boy #1"')
         # Switches the player screens
         coreSettings.save('tgbdual_switch_screens',   '"normal"')
+        # Turbo Speed
+        if system.isOptSet('tgbdual_turbo_speed_a'):
+            coreSettings.save('tgbdual_turbo_speed_a', '"' + system.config['tgbdual_turbo_speed_a'] + '"')
+        else:
+            coreSettings.save('tgbdual_turbo_speed_a', '"3"')
+        if system.isOptSet('tgbdual_turbo_speed_b'):
+            coreSettings.save('tgbdual_turbo_speed_b', '"' + system.config['tgbdual_turbo_speed_b'] + '"')
+        else:
+            coreSettings.save('tgbdual_turbo_speed_b', '"3"')
 
     # Nintendo Gameboy / GB Color / GB Advance
     if (system.config['core'] == 'gambatte'):

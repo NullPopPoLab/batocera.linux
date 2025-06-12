@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Aug 06, 2022
-LIBRETRO_TGBDUAL_VERSION = d0a8d7cdc360f830cbc1709564136d986d0dfa12
+LIBRETRO_TGBDUAL_VERSION = a45d74aa16ecca87714db17c670120b397383af0
 LIBRETRO_TGBDUAL_SITE = https://github.com/NullPopPoLab/tgbdual-libretro.git
 LIBRETRO_TGBDUAL_SITE_METHOD = git
 LIBRETRO_TGBDUAL_LICENSE = GPLv2

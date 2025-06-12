@@ -102,9 +102,10 @@ def generateControllerConfig(controller, retroarchspecials, system, lightgun, mo
 # Map an emulationstation button name to the corresponding retroarch name
     retroarchbtns = {'a': 'a', 'b': 'b', 'c': 'c', 'x': 'x', 'y': 'y', 'z': 'z', \
                      'pageup': 'l', 'pagedown': 'r', 'l2': 'l2', 'r2': 'r2', \
-                     'l3': 'l3', 'r3': 'r3', 'l4': 'l4', 'r4': 'r4', 'l5': 'l5', 'r5': 'r5', \
+                     'l3': 'l3', 'r3': 'r3', 'l4': 'l4', 'r4': 'r4', \
+                     'l5': 'l5', 'r5': 'r5', 'l0': 'l0', 'r0': 'r0', \
                      'g1': 'g1', 'g2': 'g2', 'g3': 'g3', 'g4': 'g4', \
-                     'g5': 'g5', 'g6': 'g6', 'g7': 'g7', 'g8': 'g8', \
+                     'g5': 'g5', 'g6': 'g6', \
                      'start': 'start', 'select': 'select', 'menu': 'menu', 'hotkey': 'opt'}
     retroarchGunbtns = {'a': 'aux_a', 'b': 'aux_b', 'y': 'aux_c', \
                         'pageup': 'offscreen_shot', 'pagedown': 'trigger', \

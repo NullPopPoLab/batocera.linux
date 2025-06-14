@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version: Commits on Jul 25, 2022
-LIBRETRO_MESENS_VERSION = 42eb0e8ad346608dae86feb8a04833d16ad21541
+LIBRETRO_MESENS_VERSION = 971fa8c1baff430ba77b3b69f2833781fdd5f121
 LIBRETRO_MESENS_SITE = https://github.com/NullPopPoLab/Mesen-S.git
 LIBRETRO_MESENS_SITE_METHOD = git
 LIBRETRO_MESENS_LICENSE = GPL

@@ -1461,11 +1461,23 @@ def generateCoreSettings(coreSettings, system, rom, guns):
         if system.isOptSet('tgbdual_turbo_speed_a'):
             coreSettings.save('tgbdual_turbo_speed_a', '"' + system.config['tgbdual_turbo_speed_a'] + '"')
         else:
-            coreSettings.save('tgbdual_turbo_speed_a', '"3"')
+            coreSettings.save('tgbdual_turbo_speed_a', '"5"')
         if system.isOptSet('tgbdual_turbo_speed_b'):
             coreSettings.save('tgbdual_turbo_speed_b', '"' + system.config['tgbdual_turbo_speed_b'] + '"')
         else:
-            coreSettings.save('tgbdual_turbo_speed_b', '"3"')
+            coreSettings.save('tgbdual_turbo_speed_b', '"5"')
+        if system.isOptSet('tgbdual_turbo_speed_start'):
+            coreSettings.save('tgbdual_turbo_speed_start', '"' + system.config['tgbdual_turbo_speed_start'] + '"')
+        else:
+            coreSettings.save('tgbdual_turbo_speed_start', '"5"')
+        if system.isOptSet('tgbdual_turbo_speed_select'):
+            coreSettings.save('tgbdual_turbo_speed_select', '"' + system.config['tgbdual_turbo_speed_select'] + '"')
+        else:
+            coreSettings.save('tgbdual_turbo_speed_select', '"5"')
+        if system.isOptSet('tgbdual_turbo_ratio'):
+            coreSettings.save('tgbdual_turbo_ratio', '"' + system.config['tgbdual_turbo_ratio'] + '"')
+        else:
+            coreSettings.save('tgbdual_turbo_ratio', '"8"')
 
     # Nintendo Gameboy / GB Color / GB Advance
     if (system.config['core'] == 'gambatte'):
@@ -1479,6 +1491,28 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('gambatte_mix_frames', '"' + system.config['gb_mix_frames'] + '"')
         else:
             coreSettings.save('gambatte_mix_frames', '"disabled"')
+
+        # GB / GBC: Turbo
+        if system.isOptSet('gambatte_turbo_speed_a'):
+            coreSettings.save('gambatte_turbo_speed_a', '"' + system.config['gambatte_turbo_speed_a'] + '"')
+        else:
+            coreSettings.save('gambatte_turbo_speed_a', '"5"')
+        if system.isOptSet('gambatte_turbo_speed_b'):
+            coreSettings.save('gambatte_turbo_speed_b', '"' + system.config['gambatte_turbo_speed_b'] + '"')
+        else:
+            coreSettings.save('gambatte_turbo_speed_b', '"5"')
+        if system.isOptSet('gambatte_turbo_speed_start'):
+            coreSettings.save('gambatte_turbo_speed_start', '"' + system.config['gambatte_turbo_speed_start'] + '"')
+        else:
+            coreSettings.save('gambatte_turbo_speed_start', '"5"')
+        if system.isOptSet('gambatte_turbo_speed_select'):
+            coreSettings.save('gambatte_turbo_speed_select', '"' + system.config['gambatte_turbo_speed_select'] + '"')
+        else:
+            coreSettings.save('gambatte_turbo_speed_select', '"5"')
+        if system.isOptSet('gambatte_turbo_ratio'):
+            coreSettings.save('gambatte_turbo_ratio', '"' + system.config['gambatte_turbo_ratio'] + '"')
+        else:
+            coreSettings.save('gambatte_turbo_ratio', '"8"')
 
         if (system.name == 'gbc'):
             # GBC Color Correction
@@ -1511,12 +1545,64 @@ def generateCoreSettings(coreSettings, system, rom, guns):
                 coreSettings.save('gambatte_gb_colorization',         '"internal"')      #It's an empty file, set to Classic Green
                 coreSettings.save('gambatte_gb_internal_palette',     '"Special 1"')
 
+    if (system.config['core'] == 'gpsp'):
+        if system.isOptSet('gpsp_turbo_speed_a'):
+            coreSettings.save('gpsp_turbo_speed_a', '"' + system.config['gpsp_turbo_speed_a'] + '"')
+        else:
+            coreSettings.save('gpsp_turbo_speed_a', '"5"')
+        if system.isOptSet('gpsp_turbo_speed_b'):
+            coreSettings.save('gpsp_turbo_speed_b', '"' + system.config['gpsp_turbo_speed_b'] + '"')
+        else:
+            coreSettings.save('gpsp_turbo_speed_b', '"5"')
+        if system.isOptSet('gpsp_turbo_speed_l'):
+            coreSettings.save('gpsp_turbo_speed_l', '"' + system.config['gpsp_turbo_speed_l'] + '"')
+        else:
+            coreSettings.save('gpsp_turbo_speed_l', '"5"')
+        if system.isOptSet('gpsp_turbo_speed_r'):
+            coreSettings.save('gpsp_turbo_speed_r', '"' + system.config['gpsp_turbo_speed_r'] + '"')
+        else:
+            coreSettings.save('gpsp_turbo_speed_r', '"5"')
+        if system.isOptSet('gpsp_turbo_speed_start'):
+            coreSettings.save('gpsp_turbo_speed_start', '"' + system.config['gpsp_turbo_speed_start'] + '"')
+        else:
+            coreSettings.save('gpsp_turbo_speed_start', '"5"')
+        if system.isOptSet('gpsp_turbo_speed_select'):
+            coreSettings.save('gpsp_turbo_speed_select', '"' + system.config['gpsp_turbo_speed_select'] + '"')
+        else:
+            coreSettings.save('gpsp_turbo_speed_select', '"5"')
+        if system.isOptSet('gpsp_turbo_ratio'):
+            coreSettings.save('gpsp_turbo_ratio', '"' + system.config['gpsp_turbo_ratio'] + '"')
+        else:
+            coreSettings.save('gpsp_turbo_ratio', '"8"')
+
     if (system.config['core'] == 'mgba'):
         # Skip BIOS intro
         if system.isOptSet('skip_bios_mgba') and system.config['skip_bios_mgba'] == "True":
             coreSettings.save('mgba_skip_bios', '"ON"')
         else:
             coreSettings.save('mgba_skip_bios', '"OFF"')
+
+        # Turbo
+        if system.isOptSet('mgba_turbo_speed_a'):
+            coreSettings.save('mgba_turbo_speed_a', '"' + system.config['mgba_turbo_speed_a'] + '"')
+        else:
+            coreSettings.save('mgba_turbo_speed_a', '"5"')
+        if system.isOptSet('mgba_turbo_speed_b'):
+            coreSettings.save('mgba_turbo_speed_b', '"' + system.config['mgba_turbo_speed_b'] + '"')
+        else:
+            coreSettings.save('mgba_turbo_speed_b', '"5"')
+        if system.isOptSet('mgba_turbo_speed_start'):
+            coreSettings.save('mgba_turbo_speed_start', '"' + system.config['mgba_turbo_speed_start'] + '"')
+        else:
+            coreSettings.save('mgba_turbo_speed_start', '"5"')
+        if system.isOptSet('mgba_turbo_speed_select'):
+            coreSettings.save('mgba_turbo_speed_select', '"' + system.config['mgba_turbo_speed_select'] + '"')
+        else:
+            coreSettings.save('mgba_turbo_speed_select', '"5"')
+        if system.isOptSet('mgba_turbo_ratio'):
+            coreSettings.save('mgba_turbo_ratio', '"' + system.config['mgba_turbo_ratio'] + '"')
+        else:
+            coreSettings.save('mgba_turbo_ratio', '"8"')
 
         if (system.name != 'gba'):
             # GB / GBC: Use Super Game Boy borders
@@ -1541,6 +1627,17 @@ def generateCoreSettings(coreSettings, system, rom, guns):
                 coreSettings.save('mgba_frameskip', '"' + system.config['frameskip_mgba'] + '"')
             else:
                 coreSettings.save('mgba_frameskip', '"0"')
+
+            # Turbo
+            if system.isOptSet('mgba_turbo_speed_l'):
+                coreSettings.save('mgba_turbo_speed_l', '"' + system.config['mgba_turbo_speed_l'] + '"')
+            else:
+                coreSettings.save('mgba_turbo_speed_l', '"5"')
+            if system.isOptSet('mgba_turbo_speed_r'):
+                coreSettings.save('mgba_turbo_speed_r', '"' + system.config['mgba_turbo_speed_r'] + '"')
+            else:
+                coreSettings.save('mgba_turbo_speed_r', '"5"')
+    
         # Force Super Game Boy mode for SGB system, auto for all others
         # No current option to override - add if needed.
         if (system.name == 'sgb'):
@@ -1562,6 +1659,28 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('vbam_gbHardware', '"gbc"')
         else:
             coreSettings.save('vbam_gbHardware', '"gba"')
+
+        # Turbo
+        if system.isOptSet('vbam_turbo_speed_a'):
+            coreSettings.save('vbam_turbo_speed_a', '"' + system.config['vbam_turbo_speed_a'] + '"')
+        else:
+            coreSettings.save('vbam_turbo_speed_a', '"5"')
+        if system.isOptSet('vbam_turbo_speed_b'):
+            coreSettings.save('vbam_turbo_speed_b', '"' + system.config['vbam_turbo_speed_b'] + '"')
+        else:
+            coreSettings.save('vbam_turbo_speed_b', '"5"')
+        if system.isOptSet('vbam_turbo_speed_start'):
+            coreSettings.save('vbam_turbo_speed_start', '"' + system.config['vbam_turbo_speed_start'] + '"')
+        else:
+            coreSettings.save('vbam_turbo_speed_start', '"5"')
+        if system.isOptSet('vbam_turbo_speed_select'):
+            coreSettings.save('vbam_turbo_speed_select', '"' + system.config['vbam_turbo_speed_select'] + '"')
+        else:
+            coreSettings.save('vbam_turbo_speed_select', '"5"')
+        if system.isOptSet('vbam_turbo_ratio'):
+            coreSettings.save('vbam_turbo_ratio', '"' + system.config['vbam_turbo_ratio'] + '"')
+        else:
+            coreSettings.save('vbam_turbo_ratio', '"8"')
 
         if (system.name == 'gb'):
         # GB: Colorisation of GB games
@@ -1606,6 +1725,15 @@ def generateCoreSettings(coreSettings, system, rom, guns):
                 coreSettings.save('vbam_tilt_sensitivity', '"' + system.config['tilt_sensitivity'] + '"')
             else:
                 coreSettings.save('vbam_tilt_sensitivity', '"10"')
+
+            if system.isOptSet('vbam_turbo_speed_l'):
+                coreSettings.save('vbam_turbo_speed_l', '"' + system.config['vbam_turbo_speed_l'] + '"')
+            else:
+                coreSettings.save('vbam_turbo_speed_l', '"5"')
+            if system.isOptSet('vbam_turbo_speed_r'):
+                coreSettings.save('vbam_turbo_speed_r', '"' + system.config['vbam_turbo_speed_r'] + '"')
+            else:
+                coreSettings.save('vbam_turbo_speed_r', '"5"')
 
     # Nintendo NES / Famicom Disk System
     if (system.config['core'] == 'nestopia'):

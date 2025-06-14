@@ -2150,6 +2150,114 @@ libretro:
                     "Simple":                  mix
                     "LCD Ghosting (Accurate)": lcd_ghosting
                     "LCD Ghosting (Fast)":     lcd_ghosting_fast
+            gambatte_turbo_speed_a:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON A TURBO SPEED
+                description: turbo speed for button A.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            gambatte_turbo_speed_b:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON B TURBO SPEED
+                description: turbo speed for button B.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            gambatte_turbo_speed_start:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON START TURBO SPEED
+                description: turbo speed for button START.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            gambatte_turbo_speed_select:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON SELECT TURBO SPEED
+                description: turbo speed for button SELECT.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            gambatte_turbo_ratio:
+                group: ADVANCED OPTIONS
+                prompt:      TURBO PRESSING RATIO
+                description: button pressing ratio in turbo.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
       systems:
             gbc:
                 cfeatures:
@@ -2404,6 +2512,159 @@ libretro:
     gpsp:
       features: [cheevos]
       shared: [rewind, autosave]
+      cfeatures:
+            gpsp_turbo_speed_a:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON A TURBO SPEED
+                description: turbo speed for button A.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            gpsp_turbo_speed_b:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON B TURBO SPEED
+                description: turbo speed for button B.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            gpsp_turbo_speed_l:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON L TURBO SPEED
+                description: turbo speed for button L.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            gpsp_turbo_speed_r:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON R TURBO SPEED
+                description: turbo speed for button R.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            gpsp_turbo_speed_start:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON START TURBO SPEED
+                description: turbo speed for button START.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            gpsp_turbo_speed_select:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON SELECT TURBO SPEED
+                description: turbo speed for button SELECT.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            gpsp_turbo_ratio:
+                group: ADVANCED OPTIONS
+                prompt:      TURBO PRESSING RATIO
+                description: button pressing ratio in turbo.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
     handy:
       features: [netplay, cheevos]
       shared: [rewind, autosave]
@@ -4045,6 +4306,158 @@ libretro:
                 choices:
                     "Show":  OFF
                     "Skip":  ON
+            mgba_turbo_speed_a:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON A TURBO SPEED
+                description: turbo speed for button A.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            mgba_turbo_speed_b:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON B TURBO SPEED
+                description: turbo speed for button B.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            mgba_turbo_speed_l:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON L TURBO SPEED
+                description: turbo speed for button L.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            mgba_turbo_speed_r:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON R TURBO SPEED
+                description: turbo speed for button R.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            mgba_turbo_speed_start:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON START TURBO SPEED
+                description: turbo speed for button START.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            mgba_turbo_speed_select:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON SELECT TURBO SPEED
+                description: turbo speed for button SELECT.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            mgba_turbo_ratio:
+                group: ADVANCED OPTIONS
+                prompt:      TURBO PRESSING RATIO
+                description: button pressing ratio in turbo.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
       systems:
             gb:
                 cfeatures:
@@ -5988,7 +6401,6 @@ libretro:
                 prompt:      BUTTON A TURBO SPEED
                 description: turbo speed for button A.
                 choices:
-                    "0":  0
                     "1":  1
                     "2":  2
                     "3":  3
@@ -5997,12 +6409,20 @@ libretro:
                     "6":  6
                     "7":  7
                     "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
             tgbdual_turbo_speed_b:
                 group: ADVANCED OPTIONS
                 prompt:      BUTTON B TURBO SPEED
                 description: turbo speed for button B.
                 choices:
-                    "0":  0
                     "1":  1
                     "2":  2
                     "3":  3
@@ -6011,6 +6431,79 @@ libretro:
                     "6":  6
                     "7":  7
                     "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            tgbdual_turbo_speed_start:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON START TURBO SPEED
+                description: turbo speed for button START.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            tgbdual_turbo_speed_select:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON SELECT TURBO SPEED
+                description: turbo speed for button SELECT.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            tgbdual_turbo_ratio:
+                group: ADVANCED OPTIONS
+                prompt:      TURBO PRESSING RATIO
+                description: button pressing ratio in turbo.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
     theodore:
       features: [netplay, padtokeyboard]
       shared: [rewind, autosave]
@@ -6090,6 +6583,159 @@ libretro:
     vba-m:
       features: [cheevos]
       shared: [rewind, autosave]
+      cfeatures:
+            vbam_turbo_speed_a:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON A TURBO SPEED
+                description: turbo speed for button A.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            vbam_turbo_speed_b:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON B TURBO SPEED
+                description: turbo speed for button B.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            vbam_turbo_speed_l:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON L TURBO SPEED
+                description: turbo speed for button L.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            vbam_turbo_speed_r:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON R TURBO SPEED
+                description: turbo speed for button R.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            vbam_turbo_speed_start:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON START TURBO SPEED
+                description: turbo speed for button START.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            vbam_turbo_speed_select:
+                group: ADVANCED OPTIONS
+                prompt:      BUTTON SELECT TURBO SPEED
+                description: turbo speed for button SELECT.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
+                    "15":  15
+                    "16":  16
+            vbam_turbo_ratio:
+                group: ADVANCED OPTIONS
+                prompt:      TURBO PRESSING RATIO
+                description: button pressing ratio in turbo.
+                choices:
+                    "1":  1
+                    "2":  2
+                    "3":  3
+                    "4":  4
+                    "5":  5
+                    "6":  6
+                    "7":  7
+                    "8":  8
+                    "9":  9
+                    "10":  10
+                    "11":  11
+                    "12":  12
+                    "13":  13
+                    "14":  14
+                    "15":  15
       systems:
             gb:
                 cfeatures:

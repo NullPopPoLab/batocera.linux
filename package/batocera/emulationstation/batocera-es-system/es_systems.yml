@@ -271,12 +271,18 @@ gbc:
   release: 1998
   hardware: portable
   extensions: [gbc, zip, 7z]
+  extensions: [gbc, zip, 7z, m3u]
   emulators:
     libretro:
       gambatte: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_GAMBATTE] }
       mgba:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MGBA] }
       vba-m:    { requireAnyOf: [BR2_PACKAGE_LIBRETRO_VBA_M] }
       mesen-s:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MESENS] }
+      gambatte: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_GAMBATTE], incompatible_extensions: [m3u] }
+      mgba:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MGBA], incompatible_extensions: [m3u] }
+      vba-m:    { requireAnyOf: [BR2_PACKAGE_LIBRETRO_VBA_M], incompatible_extensions: [m3u] }
+      mesen-s:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MESENS], incompatible_extensions: [m3u] }
+      tgbdual:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_TGBDUAL] }
   comment_en: |
     For more info: https://wiki.batocera.org/systems:gbc
   comment_fr: |
@@ -290,12 +296,18 @@ gb:
   release: 1989
   hardware: portable
   extensions: [gb, zip, 7z]
+  extensions: [gb, zip, 7z, m3u]
   emulators:
     libretro:
       gambatte: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_GAMBATTE] }
       mgba:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MGBA] }
       vba-m:    { requireAnyOf: [BR2_PACKAGE_LIBRETRO_VBA_M] }
       mesen-s:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MESENS] }
+      gambatte: { requireAnyOf: [BR2_PACKAGE_LIBRETRO_GAMBATTE], incompatible_extensions: [m3u] }
+      mgba:     { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MGBA], incompatible_extensions: [m3u] }
+      vba-m:    { requireAnyOf: [BR2_PACKAGE_LIBRETRO_VBA_M], incompatible_extensions: [m3u] }
+      mesen-s:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MESENS], incompatible_extensions: [m3u] }
+      tgbdual:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_TGBDUAL] }
   comment_en: |
     For more info: https://wiki.batocera.org/systems:gb
   comment_fr: |
@@ -314,40 +326,6 @@ sgb:
     libretro:
       mgba:          { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MGBA] }
       mesen-s:       { requireAnyOf: [BR2_PACKAGE_LIBRETRO_MESENS] }
-
-gbc2players:
-  name:       Game Boy Color (2 players)
-  manufacturer: Nintendo
-  release: 1998
-  hardware: portable
-  extensions: [gbc, gb2, gbc2, zip, 7z, m3u]
-  platform:   gbc
-  emulators:
-    libretro:
-      tgbdual:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_TGBDUAL] }
-  comment_en: |
-    For more info: https://wiki.batocera.org/systems:gbc2players
-  comment_fr: |
-    Trouvez la documentation ici: https://wiki.batocera.org/systems:gbc2players
-  comment_br: |
-    Para mais informações: https://wiki.batocera.org/systems:gbc2players
-
-gb2players:
-  name:       Game Boy (2 players)
-  manufacturer: Nintendo
-  release: 1989
-  hardware: portable
-  extensions: [gb, gb2, gbc2, zip, 7z, m3u]
-  platform:   gb
-  emulators:
-    libretro:
-      tgbdual:  { requireAnyOf: [BR2_PACKAGE_LIBRETRO_TGBDUAL] }
-  comment_en: |
-    For more info: https://wiki.batocera.org/systems:gb2players
-  comment_fr: |
-    Trouvez la documentation ici: https://wiki.batocera.org/systems:gb2players
-  comment_br: |
-    Para mais informações: https://wiki.batocera.org/systems:gb2players
 
 nds:
   name:       Nintendo DS

@@ -5,7 +5,7 @@
 #
 ################################################################################
 # Version: Commits on Mar 03, 2023
-LIBRETRO_GPSP_VERSION = 9cfc8c21c35909b07bf60e1cf5360c8f56ee0289
+LIBRETRO_GPSP_VERSION = f67ab740b0615675bd50984d0b87cb9a0466c865
 LIBRETRO_GPSP_SITE = https://github.com/NullPopPoLab/gpsp.git
 LIBRETRO_GPSP_SITE_METHOD = git
 LIBRETRO_GPSP_LICENSE = GPLv2

@@ -1457,6 +1457,11 @@ def generateCoreSettings(coreSettings, system, rom, guns):
         coreSettings.save('tgbdual_audio_output',     '"Game Boy #1"')
         # Switches the player screens
         coreSettings.save('tgbdual_switch_screens',   '"normal"')
+        # 3ch sound
+        if system.isOptSet('tgbdual_audio_3ch'):
+            coreSettings.save('tgbdual_audio_3ch', '"' + system.config['tgbdual_audio_3ch'] + '"')
+        else:
+            coreSettings.save('tgbdual_audio_3ch', '"enabled"')
         # Turbo Speed
         if system.isOptSet('tgbdual_turbo_speed_a'):
             coreSettings.save('tgbdual_turbo_speed_a', '"' + system.config['tgbdual_turbo_speed_a'] + '"')

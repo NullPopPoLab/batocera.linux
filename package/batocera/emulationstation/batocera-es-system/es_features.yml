@@ -6396,6 +6396,13 @@ libretro:
                 choices:
                     "On":   1
                     "Off":  0
+            tgbdual_audio_3ch:
+                group: ADVANCED OPTIONS
+                prompt:      3CH AUDIO
+                description: keep stereo sound when dual GB playing.
+                choices:
+                    "On":   enabled
+                    "Off":  disabled
             tgbdual_turbo_speed_a:
                 group: ADVANCED OPTIONS
                 prompt:      BUTTON A TURBO SPEED

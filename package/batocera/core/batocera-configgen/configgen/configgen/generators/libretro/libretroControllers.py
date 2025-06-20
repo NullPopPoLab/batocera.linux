@@ -26,7 +26,7 @@ hatstoname = {'1': 'up', '2': 'right', '4': 'down', '8': 'left'}
 # Systems with internal mapping : PC88 / FDS | No multi-disc support : opera / yabasanshiro
 # (NullPopPoCustom) Additional Systems to swap Disc/CD : PC-Engine / X1 / PC88 / FDS (internal mapping is obsoleted) 
 # (NullPopPoCustom) Additional m3u support: PicoDrive / X1 / PPSSPP / opera / TGBDual / melonds
-coreWithSwapSupport = {'hatari', 'cap32', 'bluemsx', 'dosbox_pure', 'flycast', 'np2kai', 'puae', 'puae2021', 'px68k', 'vice_x64', 'vice_x64sc', 'vice_xscpu64', 'vice_xplus4', 'vice_x128', 'pcsx_rearmed', 'duckstation', 'mednafen_psx', 'beetle-saturn', 'kronos', 'genesisplusgx', 'pcsx2', 'pcfx', 'picodrive', 'pce', 'pce_fast', 'fceumm', 'nestopia', 'quasi88', 'x1', 'ppsspp', 'opera', 'tgbdual', 'melonds'}
+coreWithSwapSupport = {'hatari', 'cap32', 'bluemsx', 'dosbox_pure', 'flycast', 'np2kai', 'puae', 'puae2021', 'px68k', 'vice_x64', 'vice_x64sc', 'vice_xscpu64', 'vice_xplus4', 'vice_x128', 'pcsx_rearmed', 'duckstation', 'mednafen_psx', 'beetle-saturn', 'kronos', 'genesisplusgx', 'pcsx2', 'pcfx', 'picodrive', 'pce', 'pce_fast', 'fceumm', 'nestopia', 'mesen', 'quasi88', 'x1', 'ppsspp', 'opera', 'tgbdual', 'melonds'}
 systemToSwapDisable = {'amigacd32', 'amigacdtv', 'naomi', 'atomiswave', 'megadrive', 'mastersystem', 'gamegear'}
 # (NullPopPoCustom) 2 disk drives support : MSX / PC88 / PC98 / X1 / X68000 / GB(2 Players)
 secondaryDiskDriveSupport = {'bluemsx','quasi88','np2kai','px68k','x1','tgbdual','melonds'}

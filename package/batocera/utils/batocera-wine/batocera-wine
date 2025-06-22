@@ -450,21 +450,14 @@ DXVK_RESET_CACHE=$(getWine_var "DXVK_RESET_CACHE" "" "${DXVK_RESET_CACHE}")
 WINE_NTFS=$(getWine_var "WINE_NTFS" "" "${WINE_NTFS}")
 WINE_DEBUG=$(getWine_var "WINE_DEBUG" "" "${WINE_DEBUG}")
 VIRTUAL_DESKTOP=$(getWine_var "VIRTUAL_DESKTOP" "" "${VIRTUAL_DESKTOP}")
-VIRTUAL_DESKTOP_SIZE=$(getWine_var "VIRTUAL_DESKTOP_SIZE" "" "${VIRTUAL_DESKTOP_SIZE}")
 MF=$(getWine_var "MF" "" "${MF}")
 DXVK=$(getWine_var "DXVK" "" "${DXVK}")
 DXVK_HUD=$(getWine_var "DXVK_HUD" "" "${DXVK_HUD}")
 
 KEYBOARD="$(/usr/bin/batocera-settings-get system.kblayout)"
 
-if test -z "${VIRTUAL_DESKTOP_SIZE}"
-then
-    VIRTUAL_DESKTOP_SIZE=`batocera-resolution currentResolution`
-elif [[ "${VIRTUAL_DESKTOP_SIZE}" == "default" ]]; then
-    VIRTUAL_DESKTOP_SIZE=`batocera-resolution currentResolution`
-fi
-
 if [[ "${VIRTUAL_DESKTOP}" = 1 ]]; then
+    VIRTUAL_DESKTOP_SIZE=`batocera-resolution currentResolution`
     VDESKTOP="explorer /desktop=Wine,${VIRTUAL_DESKTOP_SIZE}"
 fi
 

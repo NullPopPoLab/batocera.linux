@@ -5317,6 +5317,12 @@ libretro:
                             "US Ver. 2": System Card 2 US
                             "US Ver. 3": System Card 3 US
                             "GAMES EXPRESS CD CARD": Games Express
+                    pce_arcadecard:
+                        prompt: ARCADE CARD
+                        description: enhance by ARCADE CARD.
+                        choices:
+                            "Off":         disabled
+                            "On":          enabled
     pce_fast:
       features: [netplay, cheevos]
       shared: [rewind, autosave]

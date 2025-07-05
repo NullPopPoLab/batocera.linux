@@ -954,12 +954,42 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('bluemsx_overscan', '"fullborder"')
 
     # Nec PC Engine / CD
-    if system.config['core'] == 'pce' or system.config['core'] == 'pce_fast':
+    if system.config['core'] == 'pce':
         # Remove 16-sprites-per-scanline hardware limit
         if system.isOptSet('pce_nospritelimit'):
             coreSettings.save('pce_nospritelimit', '"' + system.config['pce_nospritelimit'] + '"')
         else:
             coreSettings.save('pce_nospritelimit', '"enabled"')
+
+        if system.isOptSet('pce_cdbios') and system.config['pce_cdbios'] != "":
+            coreSettings.save('pce_cdbios', '"' + system.config['pce_cdbios'] + '"')
+        else:
+            coreSettings.save('pce_cdbios', '""')
+        if system.isOptSet('pce_arcadecard') and system.config['pce_arcadecard'] != "":
+            coreSettings.save('pce_arcadecard', '"' + system.config['pce_arcadecard'] + '"')
+        else:
+            coreSettings.save('pce_arcadecard', '"enabled"')
+        if system.isOptSet('pce_cdspeed') and system.config['pce_cdspeed'] != "":
+            coreSettings.save('pce_cdspeed', '"' + system.config['pce_cdspeed'] + '"')
+        else:
+            coreSettings.save('pce_cdspeed', '"1"')
+
+    # Nec PC Engine / CD
+    if system.config['core'] == 'pce_fast':
+        # Remove 16-sprites-per-scanline hardware limit
+        if system.isOptSet('pce_nospritelimit'):
+            coreSettings.save('pce_nospritelimit', '"' + system.config['pce_nospritelimit'] + '"')
+        else:
+            coreSettings.save('pce_nospritelimit', '"enabled"')
+
+        if system.isOptSet('pce_fast_cdbios') and system.config['pce_fast_cdbios'] != "":
+            coreSettings.save('pce_fast_cdbios', '"' + system.config['pce_fast_cdbios'] + '"')
+        else:
+            coreSettings.save('pce_fast_cdbios', '""')
+        if system.isOptSet('pce_fast_cdspeed') and system.config['pce_fast_cdspeed'] != "":
+            coreSettings.save('pce_fast_cdspeed', '"' + system.config['pce_fast_cdspeed'] + '"')
+        else:
+            coreSettings.save('pce_fast_cdspeed', '"1"')
 
     # Nec PC-8800
     if system.config['core'] == 'quasi88':

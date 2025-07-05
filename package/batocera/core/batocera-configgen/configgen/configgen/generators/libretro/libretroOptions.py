@@ -965,6 +965,10 @@ def generateCoreSettings(coreSettings, system, rom, guns):
             coreSettings.save('pce_cdbios', '"' + system.config['pce_cdbios'] + '"')
         else:
             coreSettings.save('pce_cdbios', '""')
+        if system.isOptSet('pce_arcadecard') and system.config['pce_arcadecard'] != "":
+            coreSettings.save('pce_arcadecard', '"' + system.config['pce_arcadecard'] + '"')
+        else:
+            coreSettings.save('pce_arcadecard', '"enabled"')
 
     # Nec PC Engine / CD
     if system.config['core'] == 'pce_fast':

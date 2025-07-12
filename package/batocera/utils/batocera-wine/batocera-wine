@@ -68,6 +68,9 @@ G_RESCUR=$(batocera-resolution currentMode)
 gameext() {
     echo "${1}" | sed -e s+"^.*\.\([^\.]*\)$"+"\1"+ | tr A-Z a-z
 }
+gameunext() {
+    echo "${1}" | sed -e s+"^\(.*\)\.[^\.]*$"+"\1"+
+}
 
 GAMEEXT=$(gameext "${GAMENAME}")
 
@@ -1087,7 +1090,8 @@ build4archive() {
 
 wine2squashfs() {
 
-    SQUASHFSFILE=$(echo "${G_ROMS_DIR}/${BASEGAMENAME}.wsquashfs" | sed -e s+"\.wine\.squashfs$"+".wsquashfs"+)
+	NEWGAMENAME=$(gameunext "${BASEGAMENAME}")
+    SQUASHFSFILE=$(echo "${G_ROMS_DIR}/${NEWGAMENAME}.wsquashfs" | sed -e s+"\.wine\.squashfs$"+".wsquashfs"+)
 
 	# please wait screen
 	bgnBSOD "now packing: ${WINEPOINT} => ${SQUASHFSFILE}"
@@ -1135,7 +1139,8 @@ wine2squashfs() {
 
 wine2winetgz() {
 
-    WINETGZFILE="${G_ROMS_DIR}/${BASEGAMENAME}.wtgz"
+	NEWGAMENAME=$(gameunext "${BASEGAMENAME}")
+    WINETGZFILE="${G_ROMS_DIR}/${NEWGAMENAME}.wtgz"
 
 	# please wait screen
 	bgnBSOD "now packing: ${WINEPOINT} => ${WINETGZFILE}"
@@ -1232,10 +1237,14 @@ case "${ACTION}" in
 	trick_wine "${TRICK}" || cleanAndExit 1
 	;;
     "wine2squashfs")
-	wine2squashfs || cleanAndExit 1
+	if [ "${GAMEEXT}" != "wsquashfs" ]; then
+		wine2squashfs || cleanAndExit 1
+	fi
 	;;
     "wine2winetgz")
-	wine2winetgz || cleanAndExit 1
+	if [ "${GAMEEXT}" != "wtgz" ]; then
+		wine2winetgz || cleanAndExit 1
+	fi
 	;;
     *)
 	set +x

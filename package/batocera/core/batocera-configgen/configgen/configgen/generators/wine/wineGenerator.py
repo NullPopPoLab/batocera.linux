@@ -9,6 +9,39 @@ import shutil
 
 class WineGenerator(Generator):
 
+    def gamesavedir(self, system, rom):
+
+        gsname = os.path.splitext(rom)[0]
+
+        bdir='/userdata/roms/'+system.name+'/'
+        bl=len(bdir)
+        rl=len(gsname)
+        if rl>bl:
+            if bdir==gsname[:bl]:
+                gsname=gsname[bl:]
+
+        return '/userdata/saves/'+system.name+'/'+gsname
+
+    def keys_src(self, system, rom, bootname):
+
+        gamesavedir=self.gamesavedir(system, rom)
+
+        kf=gamesavedir+'/'+bootname+'.keys'
+        if os.path.isfile(kf): return kf
+
+        if os.path.isdir(rom):
+            kf=rom+'/boot/'+bootname+'.keys'
+            if os.path.isfile(kf): return kf
+        else:
+            kf=rom+'.'+bootname+'.keys'
+            if os.path.isfile(kf): return kf
+        return rom+'.keys'
+
+    def keys_dst(self, system, rom):
+
+        return self.gamesavedir(system, rom)+'/padto.keys'
+
+
     def generate(self, system, rom, playersControllers, guns, wheels, gameResolution):
 
         environment = {}
@@ -27,20 +60,15 @@ class WineGenerator(Generator):
             bootname = environment['BATOCERA_WINE_BOOTUP']
             if bootname == '':
                 bootname='default'
-            if os.path.isdir(rom):
-                dir = rom+'/boot/'
-                p2k_src = dir+bootname+'.keys'
-                p2k_dst = rom+'/padto.keys'
-            else:
-                base, ext = os.path.splitext(rom)
-                p2k_src = rom+'.'+bootname+'.keys'
-                p2k_dst = rom+'.keys'
+
+            p2k_src=self.keys_src(system,rom,bootname)
+            p2k_dst=self.keys_dst(system,rom)
+            dir_dst=os.path.dirname(p2k_dst)
+
             if os.path.isfile(p2k_src):
                 print('P2K config apply: '+p2k_src+' => '+p2k_dst)
+                if not os.path.isdir(dir_dst): os.makedirs(dir_dst)
                 shutil.copy2(p2k_src,p2k_dst)
-            elif os.path.isfile(p2k_dst):
-                print('P2K config backup: '+p2k_dst+' => '+p2k_src)
-                shutil.copy2(p2k_dst,p2k_src)
 
             if 'maintenance' in system.config and environment['BATOCERA_WINE_MAINTENANCE'] == '1':
                 print('* MAINTENANCE MODE * (P2K config removed)')

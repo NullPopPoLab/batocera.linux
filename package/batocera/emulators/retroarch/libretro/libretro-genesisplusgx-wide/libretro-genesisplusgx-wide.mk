@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version: Commits on Feb 17, 2023
-LIBRETRO_GENESISPLUSGX_WIDE_VERSION = 4d90260fafe14039fc70951f8264664220e5f7c6
+LIBRETRO_GENESISPLUSGX_WIDE_VERSION = 8ddfc5d373c5801c7811346a4f2aa4b44fb1c743
 LIBRETRO_GENESISPLUSGX_WIDE_SITE = https://github.com/NullPopPoLab/Genesis-Plus-GX-Wide.git
 LIBRETRO_GENESISPLUSGX_WIDE_SITE_METHOD = git
 LIBRETRO_GENESISPLUSGX_WIDE_LICENSE = Non-commercial

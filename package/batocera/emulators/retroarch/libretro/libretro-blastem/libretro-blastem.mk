@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version: Commits on Jul 26, 2022
-LIBRETRO_BLASTEM_VERSION = 2ee4fb9bc65c3bcc345ce773e37fc4a409a03447
+LIBRETRO_BLASTEM_VERSION = ca0ef014cf8e42c1be9a2ac4907d4daf4422a611
 LIBRETRO_BLASTEM_SITE = https://github.com/NullPopPoLab/blastem.git
 LIBRETRO_BLASTEM_SITE_METHOD = git
 LIBRETRO_BLASTEM_LICENSE = GPLv3

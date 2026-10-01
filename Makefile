@@ -425,6 +425,19 @@ else
 	python3 -m http.server --directory $(TARGET_OUTPUT_DIR)/images/batocera/images/$(BOARD)/
 endif
 
+%-ezserver: %-supported | $(TARGET_OUTPUT_DIR_INITIALIZED)
+	$(if $(wildcard $(TARGET_OUTPUT_DIR)/images/batocera/*),,$(error $* not built!))
+	@mkdir -p $(TARGET_OUTPUT_DIR)/_ezserver/$*/butterfly
+	@ln -fs $(TARGET_OUTPUT_DIR)/images/batocera/images/$* $(TARGET_OUTPUT_DIR)/_ezserver/$*/butterfly/last
+	$(call REQUIRE,python3)
+ifeq ($(strip $(BOARD)),)
+	$(if $(wildcard $(TARGET_OUTPUT_DIR)/images/batocera/images/$*),,$(error Directory not found: $(TARGET_OUTPUT_DIR)/images/batocera/images/$*))
+	python3 -m http.server --directory $(TARGET_OUTPUT_DIR)/_ezserver/
+else
+	$(if $(wildcard $(TARGET_OUTPUT_DIR)/images/batocera/images/$(BOARD)),,$(error Directory not found: $(TARGET_OUTPUT_DIR)/images/batocera/images/$(BOARD)))
+	python3 -m http.server --directory $(TARGET_OUTPUT_DIR)/_ezserver/
+endif
+
 %-rsync: %-supported | $(TARGET_OUTPUT_DIR_INITIALIZED)
 	$(eval TMP := $(call UC, $*)_IP)
 	$(call REQUIRE,rsync)

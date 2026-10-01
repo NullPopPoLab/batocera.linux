@@ -322,6 +322,10 @@ $(TARGET_DEFCONFIG_PATTERN): $(TARGET_BOARD_FILE_PATTERN) \
 	@$(call MESSAGE,$(or $(BUILD_MESSAGE),Building $(or $(CMD),image)))
 	@$(MAKE_BUILDROOT) $(CMD)
 
+%-build-redate:
+	@$(MAKE) $*-pkg-unstamp PKG=batocera-system
+	@$(MAKE) $*-build
+
 %-source: %-config
 	@$(call MESSAGE,Fetching source code for all packages)
 	@$(MAKE_BUILDROOT) source
@@ -386,6 +390,29 @@ endif
 	$(if $(PKG),,$(error PKG not specified))
 
 	@$(MAKE) $*-build CMD=$(PKG) BUILD_MESSAGE="Building package $(PKG)"
+
+%-pkg-clean:
+	$(if $(PKG),,$(error "PKG not specified!"))
+	rm -rf $(OUTPUT_DIR)/$*/build/$(PKG)
+	find $(OUTPUT_DIR)/$*/build -maxdepth 1 -type d -name "$(PKG)-*" -exec rm -rf {} \;
+
+%-pkg-unstamp:
+	$(if $(PKG),,$(error "PKG not specified!"))
+	rm -f $(OUTPUT_DIR)/$*/build/$(PKG)/.stamp_rsynced
+	rm -f $(OUTPUT_DIR)/$*/build/$(PKG)/.stamp_built
+	rm -f $(OUTPUT_DIR)/$*/build/$(PKG)/.stamp_installed
+	find $(OUTPUT_DIR)/$*/build -maxdepth 1 -type d -name "$(PKG)-*" -exec rm -f {}/.stamp_built \;
+	find $(OUTPUT_DIR)/$*/build -maxdepth 1 -type d -name "$(PKG)-*" -exec rm -f {}/.stamp_installed \;
+
+%-pkg-again:
+	$(if $(PKG),,$(error "PKG not specified!"))
+	@$(MAKE) $*-pkg-unstamp PKG=$(PKG)
+	@$(MAKE) $*-build CMD=$(PKG)
+
+%-pkg-renew:
+	$(if $(PKG),,$(error "PKG not specified!"))
+	@$(MAKE) $*-pkg-clean PKG=$(PKG)
+	@$(MAKE) $*-build CMD=$(PKG)
 
 %-webserver: %-supported | $(TARGET_OUTPUT_DIR_INITIALIZED)
 	$(if $(wildcard $(TARGET_OUTPUT_DIR)/images/batocera/*),,$(error $* not built!))

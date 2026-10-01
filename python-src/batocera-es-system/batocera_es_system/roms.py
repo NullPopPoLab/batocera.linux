@@ -40,8 +40,6 @@ def build(systems_data: SystemsDataMapping, roms_dir: Path, output: Path, /) -> 
         if not system_target.is_dir():
             if system_source.is_dir():
                 shutil.copytree(system_source, system_target)
-            else:
-                system_target.mkdir(parents=True)
 
         extensions = ' '.join(f'.{value}'.lower() for value in system['extensions'] if value)
 

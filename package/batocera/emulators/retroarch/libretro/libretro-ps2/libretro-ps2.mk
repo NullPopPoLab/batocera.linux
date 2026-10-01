@@ -3,8 +3,8 @@
 # libretro-ps2
 #
 ################################################################################
-# Version: Commits on Feb 6, 2026
-LIBRETRO_PS2_VERSION = 416291ad7dc3caf5df4501c9249cbbe30cbef811
+# Version: Commits on Sep 17, 2026
+LIBRETRO_PS2_VERSION = e2a31f0048c9b35b45c757d367393b57aed91ff9
 LIBRETRO_PS2_SITE = https://github.com/libretro/ps2.git
 LIBRETRO_PS2_SITE_METHOD = git
 LIBRETRO_PS2_GIT_SUBMODULES = YES
@@ -18,6 +18,9 @@ LIBRETRO_PS2_CONF_OPTS += -DBUILD_SHARED_LIBS=OFF
 LIBRETRO_PS2_CONF_OPTS += -DLIBRETRO=ON
 LIBRETRO_PS2_CONF_OPTS += -DBUILD_REGRESS=OFF
 LIBRETRO_PS2_CONF_OPTS += -DBUILD_TOOLS=OFF
+LIBRETRO_PS2_CONF_OPTS += -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+LIBRETRO_PS2_CONF_OPTS += -DCMAKE_C_FLAGS="$(TARGET_CFLAGS) -Wno-error=implicit-function-declaration"
+LIBRETRO_PS2_CONF_OPTS += -DCMAKE_CXX_FLAGS="$(TARGET_CXXFLAGS) -Wno-error=implicit-function-declaration"
 
 ifeq ($(BR2_PACKAGE_HAS_LIBGL),y)
     LIBRETRO_PS2_CONF_OPTS += -DUSE_OPENGL=ON
@@ -30,6 +33,12 @@ ifeq ($(BR2_PACKAGE_BATOCERA_VULKAN),y)
 else
     LIBRETRO_PS2_CONF_OPTS += -DUSE_VULKAN=OFF
 endif
+
+# below may not be needed for newer versions
+define LIBRETRO_PS2_FIX_WHOLE_ARCHIVE
+	find $(@D) -name "CMakeLists.txt" -exec sed -i 's|.[<]LINK_LIBRARY:WHOLE_ARCHIVE,\([^>]*\)>|-Wl,--whole-archive \1 -Wl,--no-whole-archive|g' {} +
+endef
+LIBRETRO_PS2_PRE_CONFIGURE_HOOKS += LIBRETRO_PS2_FIX_WHOLE_ARCHIVE
 
 define LIBRETRO_PS2_INSTALL_TARGET_CMDS
 	$(INSTALL) -D $(@D)/buildroot-build/bin/pcsx2_libretro.so \

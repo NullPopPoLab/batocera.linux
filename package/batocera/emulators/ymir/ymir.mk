@@ -17,7 +17,7 @@
 #
 ################################################################################
 
-YMIR_VERSION = v0.2.1
+YMIR_VERSION = v0.2.0
 YMIR_SITE = https://github.com/StrikerX3/Ymir
 YMIR_SITE_METHOD = git
 YMIR_GIT_SUBMODULES = ES

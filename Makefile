@@ -322,6 +322,10 @@ $(TARGET_DEFCONFIG_PATTERN): $(TARGET_BOARD_FILE_PATTERN) \
 	@$(call MESSAGE,$(or $(BUILD_MESSAGE),Building $(or $(CMD),image)))
 	@$(MAKE_BUILDROOT) $(CMD)
 
+%-build-redate:
+	@$(MAKE) $*-pkg-unstamp PKG=batocera-system
+	@$(MAKE) $*-build
+
 %-source: %-config
 	@$(call MESSAGE,Fetching source code for all packages)
 	@$(MAKE_BUILDROOT) source

@@ -32,14 +32,14 @@ def generateRetroarchCustom() -> None:
     # Input
     retroarchSettings.save('input_autodetect_enable',           '"false"')
     retroarchSettings.save('input_joypad_driver',               '"sdl2"')
-    retroarchSettings.save('input_player1_analog_dpad_mode',    '"1"')
-    retroarchSettings.save('input_player2_analog_dpad_mode',    '"1"')
-    retroarchSettings.save('input_player3_analog_dpad_mode',    '"1"')
-    retroarchSettings.save('input_player4_analog_dpad_mode',    '"1"')
+    retroarchSettings.save('input_player1_analog_dpad_mode',    '"0"')
+    retroarchSettings.save('input_player2_analog_dpad_mode',    '"0"')
+    retroarchSettings.save('input_player3_analog_dpad_mode',    '"0"')
+    retroarchSettings.save('input_player4_analog_dpad_mode',    '"0"')
     retroarchSettings.save('input_enable_hotkey_btn',           '"nul"')
-    retroarchSettings.save('input_enable_hotkey',               '"shift"')
-    retroarchSettings.save('input_menu_toggle',                 '"f1"')
-    retroarchSettings.save('input_exit_emulator',               '"escape"')
+    retroarchSettings.save('input_enable_hotkey',               '"nul"')
+    retroarchSettings.save('input_menu_toggle',                 '"nul"')
+    retroarchSettings.save('input_exit_emulator',               '"nul"')
 
     # Video
     retroarchSettings.save('video_aspect_ratio_auto',           '"false"')

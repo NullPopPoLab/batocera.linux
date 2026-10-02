@@ -242,11 +242,6 @@ def createLibretroConfig(
     retroarchConfig['input_libretro_device_p1'] = '1'           # Default devices choices
     retroarchConfig['input_libretro_device_p2'] = '1'
 
-    # D-pad = Left analog stick forcing on PUAE and VICE (New D2A system on RA doesn't work with these cores.)
-    if system.config.core == 'puae' or system.config.core == 'puae2021' or system.config.core == 'vice_x64':
-        retroarchConfig['input_player1_analog_dpad_mode'] = '3'
-        retroarchConfig['input_player2_analog_dpad_mode'] = '3'
-
     # force notification messages, but not the "remap" one
     retroarchConfig['video_font_enable'] = '"true"'
     retroarchConfig['notification_show_remap_load'] = '"false"'
@@ -320,25 +315,25 @@ def createLibretroConfig(
     if system.config.core == 'mednafen_psx':               # Madnafen
         if psx_controller_1 := system.config.get('beetle_psx_hw_Controller1'):
             retroarchConfig['input_libretro_device_p1'] = psx_controller_1
-            retroarchConfig['input_player1_analog_dpad_mode'] = '0' if psx_controller_1 != '1' else '1'
+            retroarchConfig['input_player1_analog_dpad_mode'] = '0'
         if psx_controller_2 := system.config.get('beetle_psx_hw_Controller2'):
             retroarchConfig['input_libretro_device_p2'] = psx_controller_2
-            retroarchConfig['input_player2_analog_dpad_mode'] = '0' if psx_controller_2 != '1' else '1'
+            retroarchConfig['input_player2_analog_dpad_mode'] = '0'
 
     if system.config.core == 'pcsx_rearmed':               # PCSX Rearmed
         if psx_controller_1 := system.config.get('controller1_pcsx'):
             retroarchConfig['input_libretro_device_p1'] = psx_controller_1
-            retroarchConfig['input_player1_analog_dpad_mode'] = '0' if psx_controller_1 != '1' else '1'
+            retroarchConfig['input_player1_analog_dpad_mode'] = '0'
         if psx_controller_2 := system.config.get('controller2_pcsx'):
             retroarchConfig['input_libretro_device_p2'] = psx_controller_2
-            retroarchConfig['input_player2_analog_dpad_mode'] = '0' if psx_controller_2 != '1' else '1'
+            retroarchConfig['input_player2_analog_dpad_mode'] = '0'
 
         # wheel
         if system.config.use_wheels:
             deviceInfos = controllersConfig.getDevicesInformation()
             for pad in controllers:
                 if pad.device_path in deviceInfos and deviceInfos[pad.device_path]["isWheel"]:
-                    retroarchConfig[f'input_player{pad.player_number}_analog_dpad_mode'] = '1'
+                    retroarchConfig[f'input_player{pad.player_number}_analog_dpad_mode'] = '0'
                     if "wheel_type" in metadata and metadata["wheel_type"] == "negcon" :
                         retroarchConfig[f'input_libretro_device_p{pad.player_number}'] = 773 # Negcon
                     else:
@@ -351,7 +346,7 @@ def createLibretroConfig(
             dc_val = system.config.get(f'controller{i}_dc', '1')
             if dc_val == '5': # "Gamepad using left analog stick"
                 retroarchConfig[f'input_libretro_device_p{i}'] = '1'
-                retroarchConfig[f'input_player{i}_analog_dpad_mode'] = '3'
+                retroarchConfig[f'input_player{i}_analog_dpad_mode'] = '0'
             else:
                 retroarchConfig[f'input_libretro_device_p{i}'] = dc_val
                 retroarchConfig[f'input_player{i}_analog_dpad_mode'] = '0'
@@ -441,20 +436,20 @@ def createLibretroConfig(
     if system.config.core == 'dosbox_pure':               # Dosbox-Pure
         if controller1 := system.config.get('controller1_dosbox_pure'):
             retroarchConfig['input_libretro_device_p1'] = controller1
-            retroarchConfig['input_player1_analog_dpad_mode'] = controller1 if controller1 == '3' else '0'
+            retroarchConfig['input_player1_analog_dpad_mode'] = '0'
         if controller2 := system.config.get('controller2_dosbox_pure'):
             retroarchConfig['input_libretro_device_p2'] = controller2
-            retroarchConfig['input_player2_analog_dpad_mode'] = controller2 if controller2 == '3' else '0'
+            retroarchConfig['input_player2_analog_dpad_mode'] = '0'
 
     ## PS1 Swanstation
     if system.config.core == 'swanstation':
         controller1 = system.config.get('swanstation_Controller1', '1')
         retroarchConfig['input_libretro_device_p1'] = controller1
-        retroarchConfig['input_player1_analog_dpad_mode'] = '0' if controller1 not in ['261', '517'] else '1'
+        retroarchConfig['input_player1_analog_dpad_mode'] = '0'
 
         controller2 = system.config.get('swanstation_Controller2', '1')
         retroarchConfig['input_libretro_device_p2'] = controller2
-        retroarchConfig['input_player2_analog_dpad_mode'] = '0' if controller2 not in ['261', '517'] else '1'
+        retroarchConfig['input_player2_analog_dpad_mode'] = '0'
 
     ## Wonder Swan & Wonder Swan Color
     if system.config.core == "mednafen_wswan":             # Beetle Wonderswan
@@ -518,14 +513,14 @@ def createLibretroConfig(
         controller1 = system.config.get('tyrquake_controller1')
         retroarchConfig['input_libretro_device_p1'] = controller1 or '1'
         if controller1:
-            retroarchConfig['input_player1_analog_dpad_mode'] = '0' if controller1 in ['773', '3'] else '1'
+            retroarchConfig['input_player1_analog_dpad_mode'] = '0'
 
     ## DOOM
     if system.config.core == 'prboom':
         controller1 = system.config.get('prboom_controller1')
         retroarchConfig['input_libretro_device_p1'] = controller1 or '1'
         if controller1:
-            retroarchConfig['input_player1_analog_dpad_mode'] = '0' if controller1 != '1' else '1'
+            retroarchConfig['input_player1_analog_dpad_mode'] = '0'
 
     ## ZX Spectrum
     if system.config.core == 'fuse':

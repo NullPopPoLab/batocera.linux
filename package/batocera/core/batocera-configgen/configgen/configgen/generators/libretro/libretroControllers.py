@@ -109,10 +109,11 @@ def generateControllerConfig(
     /,
 ) -> dict[str, object]:
 # Map an emulationstation button name to the corresponding retroarch name
-    retroarchbtns = {'a': 'a', 'b': 'b', 'x': 'x', 'y': 'y', \
+    retroarchbtns = {'a': 'a', 'b': 'b', 'c': 'c', 'x': 'x', 'y': 'y', 'z': 'z', \
                      'pageup': 'l', 'pagedown': 'r', 'l2': 'l2', 'r2': 'r2', \
-                     'l3': 'l3', 'r3': 'r3', \
-                     'start': 'start', 'select': 'select'}
+                     'l3': 'l3', 'r3': 'r3', 'r4': 'r4', 'r5': 'r5', 'r0': 'r0', \
+                     'g1': 'g1', 'g2': 'g2', 'g3': 'g3', 'g4': 'g4', 'g5': 'g5', 'g6': 'g6', \
+                     'start': 'start', 'select': 'select', 'menu': 'menu', 'hotkey': 'opt'}
 
     # X Y L1 L2  ---> X Y R1 L1
     # A B R1 R2  ---> A B R2 L2
